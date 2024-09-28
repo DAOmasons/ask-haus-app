@@ -1,7 +1,14 @@
-import "@mantine/core/styles.css";
-import { MantineProvider } from "@mantine/core";
-import { theme } from "./theme";
+import '@mantine/core/styles.css';
+import { Button, MantineProvider, TextInput } from '@mantine/core';
+import { theme } from './theme';
 
 export default function App() {
-  return <MantineProvider theme={theme}>App</MantineProvider>;
+  return (
+    <MantineProvider theme={theme} defaultColorScheme="dark">
+      <div>
+        App <Button>Button</Button>
+        <TextInput label="test" />
+      </div>
+    </MantineProvider>
+  );
 }
