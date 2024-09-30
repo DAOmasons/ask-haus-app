@@ -1,0 +1,13 @@
+.root {
+  background: var(--mantine-color-dark-7);
+  color: var(--mantine-color-steel-0);
+  border: 2px solid var(--mantine-color-steel-2);
+  padding-inline: var(--button-padding-x-xl);
+  height: var(--button-height-md);
+  transition: 100ms ease-in-out;
+
+  &:hover {
+    background: var(--mantine-color-dark-6);
+    border: 2px solid var(--mantine-color-steel-1);
+  }
+}
