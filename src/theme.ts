@@ -1,5 +1,6 @@
-import { Button, createTheme } from '@mantine/core';
+import { Button, createTheme, TextInput } from '@mantine/core';
 import buttonClasses from './styles/button.module.css';
+import inputClasses from './styles/input.module.css';
 
 export const theme = createTheme({
   fontFamily: 'Sora',
@@ -35,6 +36,13 @@ export const theme = createTheme({
     Button: Button.extend({
       classNames: buttonClasses,
     }),
+    TextInput: TextInput.extend({
+      classNames: inputClasses,
+      defaultProps: {
+        inputWrapperOrder: ['label', 'input', 'description', 'error'],
+      },
+    }),
   },
+
   /* Put your mantine theme override here */
 });

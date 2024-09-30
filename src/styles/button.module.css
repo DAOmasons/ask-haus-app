@@ -4,10 +4,22 @@
   border: 2px solid var(--mantine-color-steel-2);
   padding-inline: var(--button-padding-x-xl);
   height: var(--button-height-md);
-  transition: 100ms ease-in-out;
+  transition: 150ms ease-in-out;
+
+  &[data-size='sm'] {
+    height: var(--button-height-sm);
+    padding-inline: var(--button-padding-x-md);
+  }
+  &[data-size='lg'] {
+    height: var(--button-height-lg);
+    padding-inline: rem(42px);
+  }
 
   &:hover {
     background: var(--mantine-color-dark-6);
     border: 2px solid var(--mantine-color-steel-1);
+  }
+  &:focus {
+    outline-color: var(--mantine-color-dark-4);
   }
 }

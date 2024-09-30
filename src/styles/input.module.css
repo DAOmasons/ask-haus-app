@@ -1,0 +1,25 @@
+.input {
+  background-color: var(--mantine-color-dark-7);
+  border: 2px solid var(--mantine-color-steel-2);
+  color: var(--mantine-color-steel-0);
+  padding-inline: rem(16px);
+  height: rem(40px);
+  font-size: rem(16px);
+  transition: 150ms ease-in-out;
+
+  &:focus {
+    border: 2px solid var(--mantine-color-steel-0);
+  }
+}
+
+.label {
+  color: var(--mantine-color-steel-0);
+  font-size: rem(16px);
+  margin-bottom: rem(12px);
+  font-weight: 700;
+}
+
+.description {
+  font-size: rem(12px);
+  margin-top: rem(4px);
+}

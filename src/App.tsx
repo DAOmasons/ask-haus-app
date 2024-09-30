@@ -24,10 +24,16 @@ const TestUI = () => {
   return (
     <Box w="500px" mx={64} h="600px" my={32}>
       <TestNav />
-      <div>
-        App <Button>Button</Button>
-        <TextInput label="test" mb="lg" />
-      </div>
+      <Box>
+        <Button mb="sm">Button</Button>
+        <TextInput
+          required
+          label="Input Label"
+          mb="lg"
+          placeholder="Input"
+          description="Description"
+        />
+      </Box>
       <TestColors />
     </Box>
   );
