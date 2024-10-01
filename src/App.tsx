@@ -1,5 +1,7 @@
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
+import '@rainbow-me/rainbowkit/styles.css';
+
 import {
   Box,
   Button,
@@ -19,21 +21,53 @@ import { DateTimePicker } from '@mantine/dates';
 import { theme as mantineTheme } from './theme';
 import { useState } from 'react';
 
+import {
+  ConnectButton,
+  darkTheme,
+  RainbowKitProvider,
+  useAccountModal,
+  useConnectModal,
+} from '@rainbow-me/rainbowkit';
+
+import { WagmiProvider } from 'wagmi';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { config } from './utils/connect';
+const queryClient = new QueryClient();
 export default function App() {
   return (
-    <MantineProvider theme={mantineTheme} defaultColorScheme="dark">
-      <TestUI />
-    </MantineProvider>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider
+          theme={darkTheme({
+            accentColor: '#9a9a9a',
+            accentColorForeground: '#f5f5f5',
+            borderRadius: 'small',
+          })}
+        >
+          <MantineProvider theme={mantineTheme} defaultColorScheme="dark">
+            <TestUI />
+          </MantineProvider>
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
 
 const TestUI = () => {
   const [choice, setChoice] = useState('');
+  const { openConnectModal } = useConnectModal();
+  const { openAccountModal } = useAccountModal();
+
   return (
     <Box w="500px" mx={64} h="600px" my={32}>
       <TestNav />
       <Stack align="start" mb="xl">
-        <Button>Button</Button>
+        {openConnectModal && (
+          <Button onClick={openConnectModal}>Connect</Button>
+        )}
+        {openAccountModal && (
+          <Button onClick={openAccountModal}>Account</Button>
+        )}
         <Paper>
           <TextInput
             required
