@@ -1,1 +1,4 @@
-
+.popoverDropdown {
+  background-color: var(--mantine-color-dark-7);
+  border: 1.5px solid var(--mantine-color-steel-2);
+}

@@ -1,11 +1,13 @@
 import '@mantine/core/styles.css';
-
+import '@mantine/dates/styles.css';
 import {
   Box,
   Button,
   Group,
+  InputLabel,
   MantineProvider,
   Paper,
+  Radio,
   Select,
   Stack,
   Text,
@@ -13,7 +15,9 @@ import {
   TextInput,
   useMantineTheme,
 } from '@mantine/core';
+import { DateTimePicker } from '@mantine/dates';
 import { theme as mantineTheme } from './theme';
+import { useState } from 'react';
 
 export default function App() {
   return (
@@ -24,6 +28,7 @@ export default function App() {
 }
 
 const TestUI = () => {
+  const [choice, setChoice] = useState('');
   return (
     <Box w="500px" mx={64} h="600px" my={32}>
       <TestNav />
@@ -50,6 +55,26 @@ const TestUI = () => {
             label="Select"
             description="Description"
           />
+        </Paper>
+        <Paper>
+          <InputLabel>Answer</InputLabel>
+          <Stack gap={'sm'}>
+            <Radio
+              label="Test 1"
+              value="test1"
+              onClick={() => setChoice('test1')}
+              checked={choice === 'test1'}
+            />
+            <Radio
+              label="Test 1"
+              value="test1"
+              checked={choice === 'test2'}
+              onClick={() => setChoice('test2')}
+            />
+          </Stack>
+        </Paper>
+        <Paper>
+          <DateTimePicker label="Date" />
         </Paper>
       </Stack>
       <TestColors />

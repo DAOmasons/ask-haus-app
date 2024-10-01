@@ -31,3 +31,27 @@
   font-size: rem(16px);
   height: rem(40px);
 }
+
+.timeInput {
+  input {
+    background-color: var(--mantine-color-dark-7);
+    border: 1.5px solid var(--mantine-color-steel-2);
+  }
+}
+
+.calendarDay {
+  button {
+    color: var(--mantine-color-steel-0);
+    &[data-selected] {
+      background-color: var(--mantine-color-steel-0);
+      color: var(--mantine-color-dark-7);
+    }
+    &[data-weekend] {
+      color: var(--mantine-color-steel-5);
+    }
+    &[data-outside] {
+      color: var(--mantine-color-steel-7);
+    }
+  }
+  /* data */
+}

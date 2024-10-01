@@ -1,7 +1,10 @@
 import {
   Button,
   createTheme,
+  InputLabel,
   Paper,
+  Popover,
+  Radio,
   Select,
   Textarea,
   TextInput,
@@ -9,6 +12,9 @@ import {
 import buttonClasses from './styles/button.module.css';
 import inputClasses from './styles/input.module.css';
 import paperClasses from './styles/paper.module.css';
+import radioClasses from './styles/radio.module.css';
+import globalClasses from './styles/global.module.css';
+import { DateTimePicker } from '@mantine/dates';
 
 export const theme = createTheme({
   fontFamily: 'Sora',
@@ -73,6 +79,37 @@ export const theme = createTheme({
       },
       defaultProps: {
         inputWrapperOrder: ['label', 'input', 'description', 'error'],
+      },
+    }),
+    InputLabel: InputLabel.extend({
+      defaultProps: {
+        className: inputClasses.label,
+      },
+    }),
+    Radio: Radio.extend({
+      classNames: {
+        root: radioClasses.radioRoot,
+        label: radioClasses.radioLabel,
+        radio: radioClasses.radio,
+        body: radioClasses.radioBody,
+        inner: radioClasses.radioInner,
+      },
+    }),
+    DateTimePicker: DateTimePicker.extend({
+      classNames: {
+        input: inputClasses.input,
+        label: inputClasses.label,
+        submitButton: globalClasses.popoverDropdown,
+        timeInput: inputClasses.timeInput,
+        monthCell: inputClasses.calendarDay,
+      },
+      defaultProps: {
+        clearable: true,
+      },
+    }),
+    Popover: Popover.extend({
+      classNames: {
+        dropdown: globalClasses.popoverDropdown,
       },
     }),
   },
