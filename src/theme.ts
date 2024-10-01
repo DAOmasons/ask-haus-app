@@ -1,6 +1,14 @@
-import { Button, createTheme, Textarea, TextInput } from '@mantine/core';
+import {
+  Button,
+  createTheme,
+  Paper,
+  Select,
+  Textarea,
+  TextInput,
+} from '@mantine/core';
 import buttonClasses from './styles/button.module.css';
 import inputClasses from './styles/input.module.css';
+import paperClasses from './styles/paper.module.css';
 
 export const theme = createTheme({
   fontFamily: 'Sora',
@@ -38,6 +46,7 @@ export const theme = createTheme({
     }),
     TextInput: TextInput.extend({
       classNames: inputClasses,
+
       defaultProps: {
         inputWrapperOrder: ['label', 'input', 'description', 'error'],
       },
@@ -49,6 +58,21 @@ export const theme = createTheme({
         autosize: true,
         minRows: 2,
         maxRows: 4,
+      },
+    }),
+    Paper: Paper.extend({
+      classNames: paperClasses,
+    }),
+    Select: Select.extend({
+      classNames: {
+        input: inputClasses.input,
+        label: inputClasses.label,
+        description: inputClasses.description,
+        error: inputClasses.error,
+        option: inputClasses.option,
+      },
+      defaultProps: {
+        inputWrapperOrder: ['label', 'input', 'description', 'error'],
       },
     }),
   },

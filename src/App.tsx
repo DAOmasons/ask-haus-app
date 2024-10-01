@@ -5,6 +5,8 @@ import {
   Button,
   Group,
   MantineProvider,
+  Paper,
+  Select,
   Stack,
   Text,
   Textarea,
@@ -27,13 +29,28 @@ const TestUI = () => {
       <TestNav />
       <Stack align="start" mb="xl">
         <Button>Button</Button>
-        <TextInput
-          required
-          label="Input Label"
-          placeholder="Input"
-          description="Description"
-        />
-        <Textarea label="Textarea" placeholder="Textarea" description="test" />
+        <Paper>
+          <TextInput
+            required
+            label="Input Label"
+            placeholder="Input"
+            description="Description"
+          />
+        </Paper>
+        <Paper>
+          <Textarea
+            label="Textarea"
+            placeholder="Textarea"
+            description="test"
+          />
+        </Paper>
+        <Paper>
+          <Select
+            data={['test', 'test2', 'test3']}
+            label="Select"
+            description="Description"
+          />
+        </Paper>
       </Stack>
       <TestColors />
     </Box>
