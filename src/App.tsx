@@ -22,28 +22,50 @@ import { theme as mantineTheme } from './theme';
 import { useState } from 'react';
 
 import {
-  ConnectButton,
   darkTheme,
   RainbowKitProvider,
   useAccountModal,
   useConnectModal,
+  Theme as RainbowKitTheme,
 } from '@rainbow-me/rainbowkit';
 
 import { WagmiProvider } from 'wagmi';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { config } from './utils/connect';
 const queryClient = new QueryClient();
+
+const customTheme = {
+  ...darkTheme({
+    accentColor: '#9a9a9a',
+    accentColorForeground: '#f5f5f5',
+  }),
+  colors: {
+    ...darkTheme().colors,
+    modalBackground: '#0D0D0D',
+    accentColor: '#8b8b8b',
+    closeButton: '#f5f5f5',
+    closeButtonBackground: 'transparent',
+    modalBorder: '#cdcdcd',
+    modalText: '#f5f5f5',
+    actionButtonSecondaryBackground: '#0D0D0D',
+    generalBorder: '#575757',
+  },
+  fonts: {
+    body: 'Sora',
+  },
+  radii: {
+    ...darkTheme().radii,
+    modal: '4px',
+    menuButton: '4px',
+    modalMobile: '4px',
+    actionButton: '4px',
+  },
+} as RainbowKitTheme;
 export default function App() {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider
-          theme={darkTheme({
-            accentColor: '#9a9a9a',
-            accentColorForeground: '#f5f5f5',
-            borderRadius: 'small',
-          })}
-        >
+        <RainbowKitProvider theme={customTheme}>
           <MantineProvider theme={mantineTheme} defaultColorScheme="dark">
             <TestUI />
           </MantineProvider>
@@ -96,14 +118,14 @@ const TestUI = () => {
             <Radio
               label="Test 1"
               value="test1"
-              onClick={() => setChoice('test1')}
+              onChange={() => setChoice('test1')}
               checked={choice === 'test1'}
             />
             <Radio
               label="Test 1"
               value="test1"
               checked={choice === 'test2'}
-              onClick={() => setChoice('test2')}
+              onChange={() => setChoice('test2')}
             />
           </Stack>
         </Paper>
