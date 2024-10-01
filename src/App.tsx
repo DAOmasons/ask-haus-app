@@ -7,6 +7,7 @@ import {
   MantineProvider,
   Stack,
   Text,
+  Textarea,
   TextInput,
   useMantineTheme,
 } from '@mantine/core';
@@ -24,16 +25,16 @@ const TestUI = () => {
   return (
     <Box w="500px" mx={64} h="600px" my={32}>
       <TestNav />
-      <Box>
-        <Button mb="sm">Button</Button>
+      <Stack align="start" mb="xl">
+        <Button>Button</Button>
         <TextInput
           required
           label="Input Label"
-          mb="lg"
           placeholder="Input"
           description="Description"
         />
-      </Box>
+        <Textarea label="Textarea" placeholder="Textarea" description="test" />
+      </Stack>
       <TestColors />
     </Box>
   );

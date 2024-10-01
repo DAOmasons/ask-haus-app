@@ -9,13 +9,14 @@
 
   &:focus {
     border: 2px solid var(--mantine-color-steel-0);
+    background-color: var(--mantine-color-dark-6);
   }
 }
 
 .label {
   color: var(--mantine-color-steel-0);
   font-size: rem(16px);
-  margin-bottom: rem(12px);
+  margin-bottom: rem(6px);
   font-weight: 700;
 }
 

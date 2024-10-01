@@ -1,4 +1,4 @@
-import { Button, createTheme, TextInput } from '@mantine/core';
+import { Button, createTheme, Textarea, TextInput } from '@mantine/core';
 import buttonClasses from './styles/button.module.css';
 import inputClasses from './styles/input.module.css';
 
@@ -40,6 +40,15 @@ export const theme = createTheme({
       classNames: inputClasses,
       defaultProps: {
         inputWrapperOrder: ['label', 'input', 'description', 'error'],
+      },
+    }),
+    Textarea: Textarea.extend({
+      classNames: inputClasses,
+      defaultProps: {
+        inputWrapperOrder: ['label', 'input', 'description', 'error'],
+        autosize: true,
+        minRows: 2,
+        maxRows: 4,
       },
     }),
   },
