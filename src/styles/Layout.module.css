@@ -2,9 +2,23 @@
   position: relative;
   width: 65%;
   min-height: 100vh;
-  margin: 32px 64px 0 32px;
+  margin: rem(32px) 0 0 rem(64px);
 }
 
 .desktopImg {
+  position: fixed;
+  right: 0;
+  height: 100vh;
   width: 35%;
+}
+
+.centerLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: rem(48px);
+
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
 }
