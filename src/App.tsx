@@ -5,6 +5,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 import {
   Box,
   Button,
+  Flex,
   Group,
   InputLabel,
   MantineProvider,
@@ -18,54 +19,26 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
-import { theme as mantineTheme } from './theme';
+import { theme as mantineTheme, STEEL } from './theme';
 import { useState } from 'react';
 
 import {
-  darkTheme,
   RainbowKitProvider,
   useAccountModal,
   useConnectModal,
-  Theme as RainbowKitTheme,
 } from '@rainbow-me/rainbowkit';
 
 import { WagmiProvider } from 'wagmi';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { config } from './utils/connect';
+import { config, customRBKTheme } from './utils/connect';
+import { Layout } from './layout/Layout';
 const queryClient = new QueryClient();
 
-const customTheme = {
-  ...darkTheme({
-    accentColor: '#9a9a9a',
-    accentColorForeground: '#f5f5f5',
-  }),
-  colors: {
-    ...darkTheme().colors,
-    modalBackground: '#0D0D0D',
-    accentColor: '#8b8b8b',
-    closeButton: '#f5f5f5',
-    closeButtonBackground: 'transparent',
-    modalBorder: '#cdcdcd',
-    modalText: '#f5f5f5',
-    actionButtonSecondaryBackground: '#0D0D0D',
-    generalBorder: '#575757',
-  },
-  fonts: {
-    body: 'Sora',
-  },
-  radii: {
-    ...darkTheme().radii,
-    modal: '4px',
-    menuButton: '4px',
-    modalMobile: '4px',
-    actionButton: '4px',
-  },
-} as RainbowKitTheme;
 export default function App() {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider theme={customTheme}>
+        <RainbowKitProvider theme={customRBKTheme}>
           <MantineProvider theme={mantineTheme} defaultColorScheme="dark">
             <TestUI />
           </MantineProvider>
@@ -81,8 +54,8 @@ const TestUI = () => {
   const { openAccountModal } = useAccountModal();
 
   return (
-    <Box w="500px" mx={64} h="600px" my={32}>
-      <TestNav />
+    <Layout>
+      <DesktopNav />
       <Stack align="start" mb="xl">
         {openConnectModal && (
           <Button onClick={openConnectModal}>Connect</Button>
@@ -134,11 +107,11 @@ const TestUI = () => {
         </Paper>
       </Stack>
       <TestColors />
-    </Box>
+    </Layout>
   );
 };
 
-const TestNav = () => {
+const DesktopNav = () => {
   const theme = useMantineTheme();
 
   return (

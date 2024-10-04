@@ -16,34 +16,60 @@ import radioClasses from './styles/radio.module.css';
 import globalClasses from './styles/global.module.css';
 import { DateTimePicker } from '@mantine/dates';
 
+export const STEEL = [
+  '#f5f5f5',
+  '#e7e7e7',
+  '#cdcdcd',
+  '#b2b2b2',
+  '#9a9a9a',
+  '#8b8b8b',
+  '#848484',
+  '#717171',
+  '#656565',
+  '#575757',
+];
+
+export const DARK = [
+  '#D9D9D9',
+  '#CCCCCC',
+  '#BFBFBF',
+  '#B3B3B3',
+  '#404040',
+  '#262626',
+  '#191919',
+  '#0D0D0D',
+  '#000002',
+  '#000000',
+];
+
 export const theme = createTheme({
   fontFamily: 'Sora',
   defaultRadius: 'sm',
 
   colors: {
     steel: [
-      '#f5f5f5',
-      '#e7e7e7',
-      '#cdcdcd',
-      '#b2b2b2',
-      '#9a9a9a',
-      '#8b8b8b',
-      '#848484',
-      '#717171',
-      '#656565',
-      '#575757',
+      STEEL[0],
+      STEEL[1],
+      STEEL[2],
+      STEEL[3],
+      STEEL[4],
+      STEEL[5],
+      STEEL[6],
+      STEEL[7],
+      STEEL[8],
+      STEEL[9],
     ],
     dark: [
-      '#D9D9D9',
-      '#CCCCCC',
-      '#BFBFBF',
-      '#B3B3B3',
-      '#404040',
-      '#262626',
-      '#191919',
-      '#0D0D0D',
-      '#000002',
-      '#000000',
+      DARK[0],
+      DARK[1],
+      DARK[2],
+      DARK[3],
+      DARK[4],
+      DARK[5],
+      DARK[6],
+      DARK[7],
+      DARK[8],
+      DARK[9],
     ],
   },
   components: {
