@@ -4,7 +4,7 @@ export const LinesBg = () => {
   return (
     <svg
       style={{
-        position: 'fixed',
+        position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
@@ -18,7 +18,7 @@ export const LinesBg = () => {
         d="M0 18 H18"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -27,7 +27,7 @@ export const LinesBg = () => {
         d="M18 18 V87"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -36,7 +36,7 @@ export const LinesBg = () => {
         d="M18 87 H85"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -45,7 +45,7 @@ export const LinesBg = () => {
         d="M85 87 V100"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -55,7 +55,7 @@ export const LinesBg = () => {
         d="M0 19 H17"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -64,7 +64,7 @@ export const LinesBg = () => {
         d="M17 19 V88"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -73,7 +73,7 @@ export const LinesBg = () => {
         d="M17 88 H84"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -82,7 +82,7 @@ export const LinesBg = () => {
         d="M84 88 V100"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -92,7 +92,7 @@ export const LinesBg = () => {
         d="M0 20 H16"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -101,7 +101,7 @@ export const LinesBg = () => {
         d="M16 20 V89"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -110,7 +110,7 @@ export const LinesBg = () => {
         d="M16 89 H83"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}
@@ -119,7 +119,7 @@ export const LinesBg = () => {
         d="M83 89 V100"
         fill="none"
         stroke={STEEL[9]}
-        stroke-width="1px"
+        strokeWidth=".5px"
         style={{
           vectorEffect: 'non-scaling-stroke',
         }}

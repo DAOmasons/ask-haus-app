@@ -3,9 +3,7 @@ import '@mantine/dates/styles.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
 import {
-  Box,
   Button,
-  Flex,
   Group,
   InputLabel,
   MantineProvider,
@@ -19,7 +17,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
-import { theme as mantineTheme, STEEL } from './theme';
+import { theme as mantineTheme } from './theme';
 import { useState } from 'react';
 
 import {
@@ -106,7 +104,7 @@ const TestUI = () => {
           <DateTimePicker label="Date" />
         </Paper>
       </Stack>
-      <TestColors />
+      {/* <TestColors /> */}
     </Layout>
   );
 };

@@ -1,0 +1,10 @@
+.desktopFrame {
+  position: relative;
+  width: 65%;
+  min-height: 100vh;
+  margin: 32px 64px 0 32px;
+}
+
+.desktopImg {
+  width: 35%;
+}
