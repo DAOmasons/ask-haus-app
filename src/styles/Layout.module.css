@@ -17,8 +17,5 @@
   flex-direction: column;
   align-items: center;
   margin-top: rem(48px);
-
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
+  margin-bottom: rem(32px);
 }

@@ -3,7 +3,6 @@ import '@mantine/dates/styles.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
 import {
-  Box,
   Button,
   Group,
   InputLabel,
@@ -32,19 +31,23 @@ import { WagmiProvider } from 'wagmi';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { config, customRBKTheme } from './utils/connect';
 import { CenterLayout, Layout } from './layout/Layout';
+import { BrowserRouter } from 'react-router-dom';
+import { ClientRoutes } from './Routes';
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider theme={customRBKTheme}>
-          <MantineProvider theme={mantineTheme} defaultColorScheme="dark">
-            <TestUI />
-          </MantineProvider>
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <BrowserRouter>
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitProvider theme={customRBKTheme}>
+            <MantineProvider theme={mantineTheme} defaultColorScheme="dark">
+              <ClientRoutes />
+            </MantineProvider>
+          </RainbowKitProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
+    </BrowserRouter>
   );
 }
 
