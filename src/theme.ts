@@ -2,6 +2,7 @@ import {
   Button,
   createTheme,
   InputLabel,
+  Modal,
   Paper,
   Popover,
   Radio,
@@ -136,6 +137,12 @@ export const theme = createTheme({
     Popover: Popover.extend({
       classNames: {
         dropdown: globalClasses.popoverDropdown,
+      },
+    }),
+
+    Modal: Modal.extend({
+      classNames: {
+        content: globalClasses.border,
       },
     }),
   },

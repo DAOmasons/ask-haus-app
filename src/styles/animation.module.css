@@ -1,0 +1,40 @@
+.spinAnim {
+  animation: spin 3s ease-in-out infinite;
+}
+
+.glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+.spinGlow {
+  animation:
+    spin 3s ease-in-out infinite,
+    glow 3s ease-in-out infinite;
+}
+
+.border {
+  border: 1.5px solid var(--mantine-color-steel-0);
+}
+
+@keyframes spin {
+  0%,
+  10% {
+    transform: rotate(-20deg) skew(25deg);
+  }
+
+  10% {
+    transform: rotate(745deg);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    color: var(--mantine-color-steel-4);
+    opacity: 0.6;
+  }
+  10% {
+    color: var(--mantine-color-steel-0);
+    opacity: 1;
+  }
+}

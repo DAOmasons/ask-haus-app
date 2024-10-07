@@ -33,6 +33,7 @@ import { config, customRBKTheme } from './utils/connect';
 import { CenterLayout, Layout } from './layout/Layout';
 import { BrowserRouter } from 'react-router-dom';
 import { ClientRoutes } from './Routes';
+import { TxProvider } from './contexts/TxContext';
 const queryClient = new QueryClient();
 
 export default function App() {
@@ -42,9 +43,11 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
           <RainbowKitProvider theme={customRBKTheme}>
             <MantineProvider theme={mantineTheme} defaultColorScheme="dark">
-              <Layout>
-                <ClientRoutes />
-              </Layout>
+              <TxProvider>
+                <Layout>
+                  <ClientRoutes />
+                </Layout>
+              </TxProvider>
             </MantineProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
