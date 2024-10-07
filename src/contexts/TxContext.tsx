@@ -16,6 +16,7 @@ import {
 } from '@tabler/icons-react';
 import { createContext, useMemo, useState } from 'react';
 import classes from '../styles/animation.module.css';
+import { charLimit } from '../utils/helpers';
 
 enum PollStatus {
   Idle,
@@ -52,7 +53,11 @@ export const TxProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (state === 'error')
       return (
-        <ErrorState title="Transaction Failed" description="Please try again" />
+        <ErrorState
+          title="Transaction Failed"
+          description="Please try again"
+          errMsg={pretendError}
+        />
       );
   }, []);
 
@@ -103,10 +108,13 @@ export const LoadingState = ({
 export const ErrorState = ({
   title,
   description,
+  errMsg,
 }: {
   title: string;
   description: string;
+  errMsg?: string;
 }) => {
+  const { colors } = useMantineTheme();
   return (
     <Flex align={'center'} mt="md" direction={'column'}>
       <IconSkull size={60} />
@@ -114,15 +122,26 @@ export const ErrorState = ({
         {title}
       </Text>
       <Text pb="xl">{description}</Text>
-      <Spoiler
-        showLabel={<Text fz={'xs'}>read more</Text>}
-        hideLabel={<Text fz="xs">hide</Text>}
-        fz="sm"
-        className="ws-pre-wrap"
-        maw={'80%'}
-      >
-        {pretendError}
-      </Spoiler>
+      {errMsg && (
+        <Spoiler
+          showLabel={
+            <Text fz={'xs'} c={colors.steel[2]}>
+              Read Error
+            </Text>
+          }
+          hideLabel={
+            <Text fz="xs" c={colors.steel[3]}>
+              Hide
+            </Text>
+          }
+          fz="sm"
+          className="ws-pre-wrap"
+          w={'80%'}
+          maxHeight={0}
+        >
+          {charLimit(errMsg, 1000)}
+        </Spoiler>
+      )}
     </Flex>
   );
 };
