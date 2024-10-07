@@ -42,7 +42,9 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
           <RainbowKitProvider theme={customRBKTheme}>
             <MantineProvider theme={mantineTheme} defaultColorScheme="dark">
-              <ClientRoutes />
+              <Layout>
+                <ClientRoutes />
+              </Layout>
             </MantineProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
