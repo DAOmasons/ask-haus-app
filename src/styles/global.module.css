@@ -9,8 +9,16 @@
 
 .bigTitle {
   color: var(--mantine-color-steel-0);
-  text-shadow: 0.8vw -0.8vw #323232;
   font-weight: 900;
   letter-spacing: -1vw;
   font-size: 12vw;
+  text-shadow: 0.75vw -0.75vw #323232;
+  line-height: 0.85;
+}
+
+.sectionText {
+  color: var(--mantine-color-steel-0);
+  font-weight: 700;
+  font-size: 1.125rem;
+  text-shadow: 2px -2px #3c3c3c;
 }

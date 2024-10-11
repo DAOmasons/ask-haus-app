@@ -1,16 +1,26 @@
-import { Box, Button, Title } from '@mantine/core';
-import { useTx } from '../hooks/useTx';
+import { Box, Group } from '@mantine/core';
 import { CenterLayout } from '../layout/Layout';
-import { BigTitle } from '../components/Typography';
+import { BigTitle, SectionText } from '../components/Typography';
+import { VoteType } from '../components/Cards';
+import {
+  IconBuildingBroadcastTower,
+  IconChartBar,
+  IconTrophy,
+} from '@tabler/icons-react';
 
 export const Home = () => {
-  const { openModal, closeModal } = useTx();
-
   return (
     <CenterLayout>
-      <Box style={{ containerType: 'inline-size' }}>
+      <Box style={{ containerType: 'inline-size' }} mb="xl">
         <BigTitle>ask.haus</BigTitle>
-        <Button onClick={openModal}>Test Modal</Button>
+        <SectionText mb="md" mt="md">
+          Vote Types
+        </SectionText>
+        <Group>
+          <VoteType title="Poll" Icon={IconChartBar} />
+          <VoteType title="Signal Session" Icon={IconBuildingBroadcastTower} />
+          <VoteType title="Contest" Icon={IconTrophy} />
+        </Group>
       </Box>
     </CenterLayout>
   );
