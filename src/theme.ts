@@ -9,6 +9,7 @@ import {
   Select,
   Textarea,
   TextInput,
+  Title,
 } from '@mantine/core';
 import buttonClasses from './styles/button.module.css';
 import inputClasses from './styles/input.module.css';

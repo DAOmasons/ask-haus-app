@@ -1,22 +1,12 @@
-import {
-  Box,
-  Flex,
-  Group,
-  Modal,
-  Spoiler,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
+import { Group, Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+
+import { createContext, useMemo } from 'react';
 import {
-  IconFidgetSpinner,
-  IconHourglass,
-  IconHourglassHigh,
-  IconSkull,
-} from '@tabler/icons-react';
-import { createContext, useMemo, useState } from 'react';
-import classes from '../styles/animation.module.css';
-import { charLimit } from '../utils/helpers';
+  ErrorState,
+  LoadingState,
+  SuccessState,
+} from '../components/ModalStates';
 
 enum PollStatus {
   Idle,
@@ -37,10 +27,9 @@ export const TxContext = createContext<TxContextType>({
 });
 
 export const TxProvider = ({ children }: { children: React.ReactNode }) => {
-  const { colors } = useMantineTheme();
   const [opened, { open, close }] = useDisclosure();
 
-  const state = 'error';
+  const state = 'loading';
 
   const txModalContent = useMemo(() => {
     if (state === 'loading')
@@ -56,7 +45,15 @@ export const TxProvider = ({ children }: { children: React.ReactNode }) => {
         <ErrorState
           title="Transaction Failed"
           description="Please try again"
-          errMsg={pretendError}
+          errMsg={''}
+        />
+      );
+
+    if (state === 'success')
+      return (
+        <SuccessState
+          title="Transaction Successful"
+          description="Thank you for voting!"
         />
       );
   }, []);
@@ -84,69 +81,3 @@ export const TxProvider = ({ children }: { children: React.ReactNode }) => {
     </TxContext.Provider>
   );
 };
-
-export const LoadingState = ({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) => {
-  return (
-    <Flex align={'center'} mt="md" direction={'column'}>
-      <IconFidgetSpinner size={60} className={classes.spinGlow} />
-      <Text fz="lg" my="md" className={classes.glow} fw={600}>
-        {title}
-      </Text>
-      <Text pb="xl" className={classes.glow}>
-        {description}
-      </Text>
-    </Flex>
-  );
-};
-
-export const ErrorState = ({
-  title,
-  description,
-  errMsg,
-}: {
-  title: string;
-  description: string;
-  errMsg?: string;
-}) => {
-  const { colors } = useMantineTheme();
-  return (
-    <Flex align={'center'} mt="md" direction={'column'}>
-      <IconSkull size={60} />
-      <Text fz="lg" my="md" fw={600}>
-        {title}
-      </Text>
-      <Text pb="xl">{description}</Text>
-      {errMsg && (
-        <Spoiler
-          showLabel={
-            <Text fz={'xs'} c={colors.steel[2]}>
-              Read Error
-            </Text>
-          }
-          hideLabel={
-            <Text fz="xs" c={colors.steel[3]}>
-              Hide
-            </Text>
-          }
-          fz="sm"
-          className="ws-pre-wrap"
-          w={'80%'}
-          maxHeight={0}
-        >
-          {charLimit(errMsg, 1000)}
-        </Spoiler>
-      )}
-    </Flex>
-  );
-};
-
-// generate a long sample error message
-
-const pretendError =
-  'Error: Something went wrong. Please try again later. If the error persists, please contact us at 0x0000000000000000000000000000000000000000 and we will help you solve the issue. Thank you for your patience. More details: 0x0000000000000000000000000000000000000000 even more text here. More and more ';

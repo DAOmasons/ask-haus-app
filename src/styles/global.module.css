@@ -6,3 +6,11 @@
 .border {
   border: 1.5px solid var(--mantine-color-steel-0);
 }
+
+.bigTitle {
+  color: var(--mantine-color-steel-0);
+  text-shadow: 0.8vw -0.8vw #323232;
+  font-weight: 900;
+  letter-spacing: -1vw;
+  font-size: 12vw;
+}
