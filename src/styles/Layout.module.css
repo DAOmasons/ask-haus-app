@@ -2,7 +2,7 @@
   position: relative;
   width: 65%;
   min-height: 100vh;
-  margin: rem(32px) 0 0 rem(64px);
+  padding: rem(32px) rem(64px) 0 rem(64px);
 }
 
 .desktopImg {

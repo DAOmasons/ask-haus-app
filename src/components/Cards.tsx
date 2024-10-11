@@ -1,4 +1,11 @@
-import { Flex, Paper, Text, useMantineTheme } from '@mantine/core';
+import {
+  Avatar,
+  Flex,
+  Group,
+  Paper,
+  Text,
+  useMantineTheme,
+} from '@mantine/core';
 import { Icon } from '@tabler/icons-react';
 import paperClasses from '../styles/paper.module.css';
 
@@ -20,6 +27,24 @@ export const VoteType = ({
           {title}
         </Text>
       </Flex>
+    </Paper>
+  );
+};
+
+export const VoteCard = ({ title }: { title: string }) => {
+  const { colors } = useMantineTheme();
+  return (
+    <Paper p="md" classNames={{ root: paperClasses.clickable }}>
+      <Text fw={500} c={colors.steel[0]} mb="sm">
+        {title}
+      </Text>
+      <Group gap={'xs'} mb="sm">
+        <Avatar src={''} size={28} bg={colors.steel[5]} />
+        <Text c={colors.steel[4]}>jord.eth</Text>
+      </Group>
+      <Text fz="sm" c={colors.steel[4]}>
+        Ends in 4d 8h 32s
+      </Text>
     </Paper>
   );
 };

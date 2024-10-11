@@ -16,7 +16,8 @@ export const DesktopNav = () => {
       </Text>
       <Group gap={32}>
         <Text c={theme.colors.steel[2]}>Create</Text>
-        <Text c={theme.colors.steel[2]}>Active</Text>
+        <Text c={theme.colors.steel[2]}>Live</Text>
+        <Text c={theme.colors.steel[2]}>Past</Text>
         <Text c={theme.colors.steel[2]}>My</Text>
         <Text c={theme.colors.steel[2]}>Wallet</Text>
       </Group>
