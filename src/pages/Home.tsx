@@ -9,7 +9,7 @@ import {
 
 export const Home = () => {
   return (
-    <Box style={{ containerType: 'inline-size' }} mb="xl" mt={48}>
+    <Box mb="xl" mt={48}>
       <BigTitle>ask.haus</BigTitle>
       <SectionText mb="md" mt={65}>
         Vote Types

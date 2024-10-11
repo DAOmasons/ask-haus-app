@@ -12,10 +12,6 @@
     glow 3s ease-in-out infinite;
 }
 
-.border {
-  border: 1.5px solid var(--mantine-color-steel-0);
-}
-
 @keyframes spin {
   0%,
   10% {

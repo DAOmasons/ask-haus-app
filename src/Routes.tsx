@@ -6,6 +6,7 @@ import { My } from './pages/My';
 import { CreatePoll } from './pages/CreatePoll';
 import { Poll } from './pages/Poll';
 import { Signal } from './pages/Signal';
+import { FourOhFour } from './pages/404';
 
 export const ClientRoutes = () => {
   return (
@@ -18,7 +19,7 @@ export const ClientRoutes = () => {
       <Route path="/factory" element={<Factory />} />
       <Route path="/active" element={<Active />} />
       <Route path="/" element={<Home />} />
-      <Route path="*" element={<div>404</div>} />
+      <Route path="*" element={<FourOhFour />} />
     </Routes>
   );
 };
