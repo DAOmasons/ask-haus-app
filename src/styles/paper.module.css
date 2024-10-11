@@ -1,12 +1,12 @@
 .root {
   background-color: var(--mantine-color-dark-7);
-  border: 2px solid var(--mantine-color-steel-9);
+  border: 1.5px solid var(--mantine-color-steel-9);
   padding: 20px 24px;
 }
 
 .clickable {
   background-color: var(--mantine-color-dark-7);
-  border: 2px solid var(--mantine-color-steel-9);
+  border: 1.5px solid var(--mantine-color-steel-9);
   padding: 20px 24px;
   cursor: pointer;
 

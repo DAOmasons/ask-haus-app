@@ -11,8 +11,8 @@
   color: var(--mantine-color-steel-0);
   font-weight: 900;
   letter-spacing: -1vw;
-  font-size: 12vw;
-  text-shadow: 0.75vw -0.75vw #323232;
+  font-size: 14vw;
+  text-shadow: 1vw -1vw var(--mantine-color-dark-5);
   line-height: 0.85;
 }
 
@@ -20,5 +20,5 @@
   color: var(--mantine-color-steel-0);
   font-weight: 700;
   font-size: 1.125rem;
-  text-shadow: 2px -2px #3c3c3c;
+  text-shadow: 2px -2px var(--mantine-color-dark-5);
 }

@@ -15,8 +15,10 @@ export const VoteType = ({
   return (
     <Paper onClick={onClick} classNames={{ root: paperClasses.clickable }}>
       <Flex align="center" direction="column" justify="center" h={100} w={200}>
-        <Icon size={60} color={colors.steel[0]} />
-        <Text c={colors.steel[0]}>{title}</Text>
+        <Icon size={48} color={colors.steel[0]} />
+        <Text c={colors.steel[0]} mt="xs" fz="sm">
+          {title}
+        </Text>
       </Flex>
     </Paper>
   );
