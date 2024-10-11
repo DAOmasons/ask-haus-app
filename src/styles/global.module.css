@@ -22,3 +22,12 @@
   font-size: 1.125rem;
   text-shadow: 2px -2px var(--mantine-color-dark-5);
 }
+
+.appLink {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  /* color: var(--mantine-color-steel-2); */
+}

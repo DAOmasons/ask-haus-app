@@ -1,4 +1,5 @@
 import { Group, Text, useMantineTheme } from '@mantine/core';
+import { AppLink } from '../components/Links';
 
 export const DesktopNav = () => {
   const theme = useMantineTheme();
@@ -15,11 +16,21 @@ export const DesktopNav = () => {
         ask.haus
       </Text>
       <Group gap={32}>
-        <Text c={theme.colors.steel[2]}>Create</Text>
-        <Text c={theme.colors.steel[2]}>Live</Text>
-        <Text c={theme.colors.steel[2]}>Past</Text>
-        <Text c={theme.colors.steel[2]}>My</Text>
-        <Text c={theme.colors.steel[2]}>Wallet</Text>
+        <AppLink c={theme.colors.steel[2]} url="/create">
+          Create
+        </AppLink>
+        <AppLink c={theme.colors.steel[2]} url="/live">
+          Live
+        </AppLink>
+        <AppLink c={theme.colors.steel[2]} url="/past">
+          Past
+        </AppLink>
+        <AppLink c={theme.colors.steel[2]} url="/my">
+          My
+        </AppLink>
+        <AppLink c={theme.colors.steel[2]} url="/wallet">
+          Wallet
+        </AppLink>
       </Group>
     </Group>
   );
