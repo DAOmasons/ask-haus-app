@@ -6,8 +6,12 @@ import {
   IconChartBar,
   IconTrophy,
 } from '@tabler/icons-react';
+import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 
 export const Home = () => {
+  const { openConnectModal } = useConnectModal();
+  const { openAccountModal } = useAccountModal();
+
   return (
     <Box mb="xl" mt={48}>
       <BigTitle>ask.haus</BigTitle>

@@ -6,7 +6,7 @@ export const FourOhFour = () => {
   return (
     <CenterLayout>
       <BigTitle mt="10vh">404</BigTitle>
-      <Text>Page Not Found</Text>
+      <Text fw={700}>Page ain't found, champ</Text>
     </CenterLayout>
   );
 };

@@ -23,3 +23,17 @@ export const SectionText = ({
 }: TextProps & { children?: ReactNode }) => (
   <Text {...props} classNames={{ root: globalClasses.sectionText }} />
 );
+
+export const TextButton = ({
+  onClick,
+  ...props
+}: TextProps & { children?: ReactNode; onClick?: () => void }) => (
+  <Text
+    {...props}
+    component="button"
+    onClick={onClick}
+    classNames={{
+      root: globalClasses.textButton,
+    }}
+  />
+);
