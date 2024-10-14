@@ -1,42 +1,17 @@
-import { encodeAbiParameters, parseAbiParameters, zeroAddress } from 'viem';
+import {
+  encodeAbiParameters,
+  pad,
+  parseAbiParameters,
+  stringToHex,
+  zeroAddress,
+} from 'viem';
 import { HolderType } from '../constants/enum';
 import { ADDR } from '../constants/address';
-import { BasicChoice } from '../types/contractTypes';
 import { CONTEST_V, ContestStatus, MODULES } from '../constants/chews';
 
 const ONE_DAY = 60 * 60 * 24;
 
-const fakeChoices: BasicChoice[] = [
-  {
-    metadata: {
-      protocol: 6969420n,
-      pointer: 'Choice 1',
-    },
-    data: '0x0000000000000000000000000000000000000000000000000000000000000000',
-    exists: true,
-    address: zeroAddress,
-  },
-  {
-    metadata: {
-      protocol: 6969420n,
-      pointer: 'Choice 2',
-    },
-    data: '0x0000000000000000000000000000000000000000000000000000000000000000',
-    exists: true,
-    address: zeroAddress,
-  },
-  {
-    metadata: {
-      protocol: 6969420n,
-      pointer: 'Choice 3',
-    },
-    data: '0x0000000000000000000000000000000000000000000000000000000000000000',
-    exists: true,
-    address: zeroAddress,
-  },
-];
-
-export const testCreatePoll = (blockNumber: bigint, holderType: HolderType) => {
+export const pollTestArgs = (blockTimestamp: bigint) => {
   const votesArgs = encodeAbiParameters(
     parseAbiParameters('uint256, bool, uint256'),
     [BigInt(ONE_DAY), true, BigInt(0)]
@@ -44,7 +19,7 @@ export const testCreatePoll = (blockNumber: bigint, holderType: HolderType) => {
 
   const pointsArgs = encodeAbiParameters(
     parseAbiParameters('address, uint256, uint8'),
-    [ADDR.DAO, blockNumber, holderType]
+    [ADDR.DAO, blockTimestamp, HolderType.Both]
   );
 
   const choicesArgs = encodeAbiParameters(
@@ -53,41 +28,30 @@ export const testCreatePoll = (blockNumber: bigint, holderType: HolderType) => {
     ),
     [
       [
-        [
-          [6969420n, 'Choice 1'],
-          '0x0000000000000000000000000000000000000000000000000000000000000000' as `0x${string}`,
-          true,
-          zeroAddress,
-        ],
-        [
-          [6969420n, 'Choice 2'],
-          '0x0000000000000000000000000000000000000000000000000000000000000000' as `0x${string}`,
-          true,
-          zeroAddress,
-        ],
-        [
-          [6969420n, 'Choice 3'],
-          '0x0000000000000000000000000000000000000000000000000000000000000000' as `0x${string}`,
-          true,
-          zeroAddress,
-        ],
+        [[6969420n, 'Choice 1'], '0x0', true, zeroAddress],
+        [[6969420n, 'Choice 2'], '0x0', true, zeroAddress],
+        [[6969420n, 'Choice 3'], '0x0', true, zeroAddress],
       ],
-      ['0x1', '0x2', '0x3'],
+      [
+        pad(stringToHex('choice1'), { size: 32 }),
+        pad(stringToHex('choice2'), { size: 32 }),
+        pad(stringToHex('choice3'), { size: 32 }),
+      ],
     ]
   );
 
-  const executeArgs = '0x';
+  const executeArgs = '0x0';
 
   const initData = encodeAbiParameters(
-    parseAbiParameters('bytes32[], string[]'),
+    parseAbiParameters('string[], bytes[]'),
     [
-      [votesArgs, pointsArgs, choicesArgs, executeArgs],
       [
         MODULES.TIMED_VOTES,
         MODULES.BAAL_POINTS,
         MODULES.PRE_POP,
         MODULES.EMPTY_EX,
       ],
+      [votesArgs, pointsArgs, choicesArgs, executeArgs],
     ]
   );
 
@@ -99,4 +63,6 @@ export const testCreatePoll = (blockNumber: bigint, holderType: HolderType) => {
     false,
     'Test1',
   ];
+
+  return args;
 };

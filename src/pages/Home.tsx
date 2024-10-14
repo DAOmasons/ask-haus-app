@@ -7,10 +7,13 @@ import {
   IconTrophy,
 } from '@tabler/icons-react';
 import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
   const { openConnectModal } = useConnectModal();
   const { openAccountModal } = useAccountModal();
+
+  const navigate = useNavigate();
 
   return (
     <Box mb="xl" mt={48}>
@@ -19,7 +22,11 @@ export const Home = () => {
         Vote Types
       </SectionText>
       <Group mb="xl">
-        <VoteType title="Poll" Icon={IconChartBar} />
+        <VoteType
+          title="Poll"
+          Icon={IconChartBar}
+          onClick={() => navigate('/create-poll')}
+        />
         <VoteType title="Signal Session" Icon={IconBuildingBroadcastTower} />
         <VoteType title="Contest" Icon={IconTrophy} />
       </Group>
