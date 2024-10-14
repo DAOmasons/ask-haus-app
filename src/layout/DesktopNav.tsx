@@ -18,9 +18,6 @@ export const DesktopNav = () => {
         c={theme.colors.steel[0]}
         fw={300}
         style={{ letterSpacing: '1px' }}
-
-        // h="fit-content"
-        // p={0}
       >
         ask.haus
       </AppLink>
@@ -63,7 +60,7 @@ const ConnectButton = () => {
   }
 
   return (
-    <Group gap={8} align="start">
+    <Group gap={5} align="start">
       <TextButton
         c={theme.colors.steel[2]}
         onClick={() => {
@@ -72,7 +69,11 @@ const ConnectButton = () => {
       >
         Wallet
       </TextButton>
-      <Notice />
+      <Notice
+        blink
+        content="Get your shit connected"
+        onClick={openConnectModal}
+      />
     </Group>
   );
 };

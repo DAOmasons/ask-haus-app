@@ -4,7 +4,7 @@
 }
 
 .border {
-  border: 1.5px solid var(--mantine-color-steel-0);
+  border: 1.5px solid var(--mantine-color-steel-2);
 }
 
 .bigTitle {
@@ -46,19 +46,22 @@
   height: rem(8px);
   width: rem(8px);
   border-radius: 100%;
-  background-color: var(--mantine-color-yellow-5);
-  animation: pulse 0.7s infinite;
+  background-color: var(--mantine-color-steel-2);
   margin-top: rem(4px);
 }
 
-@keyframes pulse {
+.noticeBlink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
   0% {
-    background-color: var(--mantine-color-yellow-4);
+    background-color: var(--mantine-color-steel-2);
   }
   50% {
-    background-color: var(--mantine-color-yellow-7);
+    background-color: var(--mantine-color-steel-9);
   }
   100% {
-    background-color: var(--mantine-color-yellow-4);
+    background-color: var(--mantine-color-steel-2);
   }
 }
