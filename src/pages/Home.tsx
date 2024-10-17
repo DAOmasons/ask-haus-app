@@ -6,13 +6,9 @@ import {
   IconChartBar,
   IconTrophy,
 } from '@tabler/icons-react';
-import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
-  const { openConnectModal } = useConnectModal();
-  const { openAccountModal } = useAccountModal();
-
   const navigate = useNavigate();
 
   return (

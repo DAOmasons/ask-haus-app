@@ -7,6 +7,7 @@ import {
   Select,
   Stack,
   Text,
+  Textarea,
   TextInput,
 } from '@mantine/core';
 import { useAccount, usePublicClient, useWalletClient } from 'wagmi';
@@ -45,9 +46,9 @@ export const CreatePoll = () => {
   const step1Form = useForm({
     initialValues: {
       title: '',
-      answerType: '',
+      answerType: 'Single Choice',
       tokenType: 'Both',
-      time: '',
+      time: 'One Day',
       customTimeStart: new Date(),
       customTimeEnd: new Date(new Date().setDate(new Date().getDate() + 7)),
     },
@@ -127,7 +128,6 @@ const Form1 = ({ form }: { form: Form1 }) => {
       </Paper>
       <Paper>
         <Select
-          placeholder="--"
           data={['Single Choice', 'Allocation (%)']}
           label="Answer Type"
           required
@@ -204,6 +204,37 @@ const Form1 = ({ form }: { form: Form1 }) => {
 
 const Form2 = ({ pollTitle }: { pollTitle: string }) => {
   const [choices, setChoices] = useState<FormChoice[]>([]);
+
+  const handleAddChoice = (choice: FormChoice) => {
+    setChoices((prevState) => [...prevState, choice]);
+  };
+
+  const handleDeleteChoice = (choice: FormChoice) => {
+    setChoices((prevState) => prevState.filter((c) => c.id !== choice.id));
+  };
+
+  const handleEditChoice = (choice: FormChoice) => {
+    setChoices((prevState) => {
+      return prevState.map((c) => {
+        if (c.id === choice.id) {
+          return choice;
+        }
+        return c;
+      });
+    });
+  };
+
+  const handleColorChange = (choice: FormChoice) => {
+    setChoices((prevState) => {
+      return prevState.map((c) => {
+        if (c.id === choice.id) {
+          return choice;
+        }
+        return c;
+      });
+    });
+  };
+
   return (
     <Stack w="100%" maw="500px" miw="350px" mb="xl" gap="lg">
       <Paper>
@@ -212,27 +243,19 @@ const Form2 = ({ pollTitle }: { pollTitle: string }) => {
       <Paper w="100%">
         <ChoiceRepeater
           choices={choices}
-          onAdd={(choice) => setChoices((prevState) => [...prevState, choice])}
-          onColorChange={(newChoice) => {
-            setChoices((prevState) => {
-              return prevState.map((c) => {
-                if (c.id === newChoice.id) {
-                  return newChoice;
-                }
-                return c;
-              });
-            });
-          }}
+          onAdd={handleAddChoice}
+          onColorChange={handleColorChange}
+          onDelete={handleDeleteChoice}
+          onEdit={handleEditChoice}
         />
-        {/* <Text fw={600} mb="sm">
-          Choices
-        </Text>
-        <Stack gap={'sm'} w="100%" align="center">
-          <TextInput placeholder="Other" w="100%" mb={'sm'} />
-          <ActionIcon radius={999}>
-            <IconPlus size={18} />
-          </ActionIcon>
-        </Stack> */}
+      </Paper>
+      <Paper>
+        <Textarea
+          label="Poll Description"
+          placeholder="Optional."
+          maxRows={10}
+          description="Optional. Provide additional context about the poll."
+        />
       </Paper>
     </Stack>
   );

@@ -1,7 +1,6 @@
-import { Box, Group, Skeleton, Text, useMantineTheme } from '@mantine/core';
+import { Group, useMantineTheme } from '@mantine/core';
 import { AppLink } from '../components/Links';
 import { TextButton } from '../components/Typography';
-import globalClasses from '../styles/global.module.css';
 import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
 import { Notice } from '../components/Notice';

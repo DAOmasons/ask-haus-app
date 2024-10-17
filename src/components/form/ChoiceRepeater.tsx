@@ -3,10 +3,10 @@ import {
   Button,
   ColorPicker,
   ColorSwatch,
+  Flex,
   Group,
   HoverCard,
   Modal,
-  Paper,
   Stack,
   Text,
   Textarea,
@@ -16,7 +16,8 @@ import {
 import { useDisclosure, useInputState } from '@mantine/hooks';
 import {
   IconDeviceFloppy,
-  IconList,
+  IconEdit,
+  IconMessage,
   IconPlus,
   IconTrash,
 } from '@tabler/icons-react';
@@ -37,11 +38,15 @@ type ChoiceRepeaterProps = {
   choices: FormChoice[];
   onAdd: (choice: FormChoice) => void;
   onColorChange: (newChoice: FormChoice) => void;
+  onDelete: (choice: FormChoice) => void;
+  onEdit: (newChoice: FormChoice) => void;
 };
 export const ChoiceRepeater = ({
   choices,
   onAdd,
   onColorChange,
+  onDelete,
+  onEdit,
 }: ChoiceRepeaterProps) => {
   const theme = useMantineTheme();
   const [targetChoice, setTargetChoice] = useInputState('');
@@ -61,25 +66,58 @@ export const ChoiceRepeater = ({
   };
   return (
     <Stack gap={'sm'} w="100%">
-      <Text fw={600} mb="sm">
-        Choices
-      </Text>
+      <Text fw={600}>Choices</Text>
       {choices.map((choice) => (
-        <Group key={`${choice.id}`} gap={12}>
+        <Flex key={`${choice.id}`} gap={12} align={'center'}>
           <HoverCard openDelay={200} closeDelay={300}>
             <HoverCard.Target>
-              <ColorSwatch color={choice.color} h={24} w={24} />
+              <ColorSwatch color={choice.color} size={18} />
             </HoverCard.Target>
             <HoverCard.Dropdown>
               <ColorPicker
+                value={choice.color}
                 onChange={(color) => onColorChange({ ...choice, color })}
               />
             </HoverCard.Dropdown>
           </HoverCard>
-          <TextButton onClick={() => handleOpen(choice)}>
+
+          <TextButton
+            onClick={() => handleOpen(choice)}
+            ta="left"
+            style={{ flex: 1 }}
+          >
             {choice.title}
           </TextButton>
-        </Group>
+
+          <Group gap={4}>
+            {choice.description && (
+              <HoverCard openDelay={200} closeDelay={300}>
+                <HoverCard.Target>
+                  <IconMessage size={18} color={theme.colors.steel[4]} />
+                </HoverCard.Target>
+                <HoverCard.Dropdown>
+                  <Text mb="sm">{choice.description}</Text>
+                </HoverCard.Dropdown>
+              </HoverCard>
+            )}
+
+            <ActionIcon
+              radius={999}
+              onClick={() => {
+                handleOpen(choice);
+              }}
+              variant="ghost-icon"
+            >
+              <IconEdit
+                size={14}
+                color={theme.colors.steel[4]}
+                onClick={() => {
+                  handleOpen(choice);
+                }}
+              />
+            </ActionIcon>
+          </Group>
+        </Flex>
       ))}
       <TextInput
         placeholder="Other"
@@ -103,28 +141,81 @@ export const ChoiceRepeater = ({
           <IconPlus size={18} />
         </ActionIcon>
       </Group>
-      <Modal opened={opened} onClose={handleClose} title="Edit Choice" centered>
-        <Stack gap="lg" mb={'lg'}>
-          <TextInput label="Choice Title" value={selectedChoice?.title} />
-          <Textarea
-            label={'Choice Description'}
-            value={selectedChoice?.description}
-            minRows={4}
-          />
-        </Stack>
-        <Group justify="space-between">
-          <Button
-            size="sm"
-            leftSection={<IconTrash size={18} />}
-            variant="danger"
-          >
-            Discard
-          </Button>
-          <Button size="sm" leftSection={<IconDeviceFloppy size={18} />}>
-            Save
-          </Button>
-        </Group>
-      </Modal>
+      <EditChoiceModal
+        key={selectedChoice?.id}
+        opened={opened}
+        handleClose={handleClose}
+        selectedChoice={selectedChoice}
+        onEdit={onEdit}
+        onDelete={onDelete}
+      />
     </Stack>
+  );
+};
+
+const EditChoiceModal = ({
+  opened,
+  handleClose,
+  selectedChoice,
+  onEdit,
+  onDelete,
+}: {
+  opened: boolean;
+  selectedChoice: FormChoice | null;
+  handleClose: () => void;
+  onEdit: (newChoice: FormChoice) => void;
+  onDelete: (choice: FormChoice) => void;
+}) => {
+  const [newTitle, setNewTitle] = useInputState(selectedChoice?.title || '');
+  const [newDescription, setNewDescription] = useInputState(
+    selectedChoice?.description ?? ''
+  );
+  if (!selectedChoice) {
+    return null;
+  }
+
+  return (
+    <Modal opened={opened} onClose={handleClose} title="Edit Choice" centered>
+      <Stack gap="lg" mb={'lg'}>
+        <TextInput
+          label="Choice Title"
+          value={newTitle}
+          onChange={setNewTitle}
+        />
+        <Textarea
+          label={'Choice Description'}
+          value={newDescription}
+          minRows={4}
+          onChange={setNewDescription}
+        />
+      </Stack>
+      <Group justify="space-between">
+        <Button
+          size="sm"
+          leftSection={<IconTrash size={18} />}
+          variant="danger"
+          onClick={() => {
+            onDelete(selectedChoice!);
+            handleClose();
+          }}
+        >
+          Discard
+        </Button>
+        <Button
+          size="sm"
+          leftSection={<IconDeviceFloppy size={18} />}
+          onClick={() => {
+            onEdit({
+              ...selectedChoice,
+              title: newTitle,
+              description: newDescription,
+            });
+            handleClose();
+          }}
+        >
+          Save
+        </Button>
+      </Group>
+    </Modal>
   );
 };

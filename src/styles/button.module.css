@@ -32,4 +32,8 @@
     color: var(--mantine-color-red-7);
     border: 1.5px solid var(--mantine-color-red-5);
   }
+
+  &[data-variant='ghost-icon'] {
+    border: none;
+  }
 }
