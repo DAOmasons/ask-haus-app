@@ -15,9 +15,8 @@
   }
 }
 
-.error {
-  margin-top: rem(4px);
-}
+/* .error {
+} */
 
 .label {
   color: var(--mantine-color-steel-0);

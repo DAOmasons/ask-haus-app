@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Button,
   createTheme,
   InputLabel,
@@ -78,17 +79,20 @@ export const theme = createTheme({
     Button: Button.extend({
       classNames: buttonClasses,
     }),
+    ActionIcon: ActionIcon.extend({
+      classNames: buttonClasses,
+    }),
     TextInput: TextInput.extend({
       classNames: inputClasses,
 
       defaultProps: {
-        inputWrapperOrder: ['label', 'input', 'description', 'error'],
+        inputWrapperOrder: ['label', 'error', 'input', 'description'],
       },
     }),
     Textarea: Textarea.extend({
       classNames: inputClasses,
       defaultProps: {
-        inputWrapperOrder: ['label', 'input', 'description', 'error'],
+        inputWrapperOrder: ['label', 'error', 'input', 'description'],
         autosize: true,
         minRows: 2,
         maxRows: 4,

@@ -1,20 +1,38 @@
-import { Button, Paper, Select, Stack, TextInput } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Paper,
+  Radio,
+  Select,
+  Stack,
+  Text,
+  TextInput,
+} from '@mantine/core';
 import { useAccount, usePublicClient, useWalletClient } from 'wagmi';
 import { ADDR } from '../constants/address';
 import Factory from '../abi/FastFactory.json';
 import { pollTestArgs } from '../utils/factory';
 import { CenterLayout, CenterPageTitle } from '../layout/Layout';
 import { useForm, UseFormReturnType, zodResolver } from '@mantine/form';
-import { createPollSchema1 } from '../schema/form/create';
+import { createPollSchema1, createPollSchema2 } from '../schema/form/create';
 import { DateTimePicker } from '@mantine/dates';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { z } from 'zod';
 import { Navigate, Route, Router, Routes, useNavigate } from 'react-router-dom';
+import { IconPlus } from '@tabler/icons-react';
+import { ChoiceRepeater, FormChoice } from '../components/form/ChoiceRepeater';
 
 type Form1Schema = z.infer<typeof createPollSchema1>;
 type Form1 = UseFormReturnType<
   Form1Schema,
   (values: Form1Schema) => Form1Schema
+>;
+
+type Form2Schema = z.infer<typeof createPollSchema2>;
+type Form2 = UseFormReturnType<
+  Form2Schema,
+  (values: Form2Schema) => Form2Schema
 >;
 
 export const CreatePoll = () => {
@@ -83,7 +101,10 @@ export const CreatePoll = () => {
           path="0"
           element={<Form1 form={step1Form as unknown as Form1} />}
         />
-        <Route path="1" element={<Form2 />} />
+        <Route
+          path="1"
+          element={<Form2 pollTitle={step1Form.values.title} />}
+        />
         <Route path="*" element={<Navigate to="0" replace />} />
       </Routes>
 
@@ -180,6 +201,39 @@ const Form1 = ({ form }: { form: Form1 }) => {
     </Stack>
   );
 };
-const Form2 = () => {
-  return <div>Form 2</div>;
+
+const Form2 = ({ pollTitle }: { pollTitle: string }) => {
+  const [choices, setChoices] = useState<FormChoice[]>([]);
+  return (
+    <Stack w="100%" maw="500px" miw="350px" mb="xl" gap="lg">
+      <Paper>
+        <Text fw={600}>{pollTitle}</Text>
+      </Paper>
+      <Paper w="100%">
+        <ChoiceRepeater
+          choices={choices}
+          onAdd={(choice) => setChoices((prevState) => [...prevState, choice])}
+          onColorChange={(newChoice) => {
+            setChoices((prevState) => {
+              return prevState.map((c) => {
+                if (c.id === newChoice.id) {
+                  return newChoice;
+                }
+                return c;
+              });
+            });
+          }}
+        />
+        {/* <Text fw={600} mb="sm">
+          Choices
+        </Text>
+        <Stack gap={'sm'} w="100%" align="center">
+          <TextInput placeholder="Other" w="100%" mb={'sm'} />
+          <ActionIcon radius={999}>
+            <IconPlus size={18} />
+          </ActionIcon>
+        </Stack> */}
+      </Paper>
+    </Stack>
+  );
 };

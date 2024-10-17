@@ -22,4 +22,9 @@
   &:focus {
     outline-color: var(--mantine-color-dark-4);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }

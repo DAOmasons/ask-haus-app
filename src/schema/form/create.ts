@@ -29,7 +29,13 @@ export const createPollSchema1 = z
   );
 
 export const createPollSchema2 = z.object({
-  tokenType: z.string().min(1, 'Token type is required'),
+  choices: z.array(
+    z.object({
+      title: z.string().min(1, 'Choice title is required'),
+      color: z.string().min(1, 'Choice color is required'),
+      description: z.string().optional(),
+    })
+  ),
 });
 
 export const createPollSchema = z.object({
