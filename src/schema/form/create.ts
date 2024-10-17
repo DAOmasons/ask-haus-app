@@ -1,3 +1,4 @@
+import { UseFormReturnType } from '@mantine/form';
 import { z } from 'zod';
 
 export const createPollSchema1 = z
@@ -28,6 +29,12 @@ export const createPollSchema1 = z
     }
   );
 
+export type CreatePoll1Schema = z.infer<typeof createPollSchema1>;
+export type CreatePoll1Values = UseFormReturnType<
+  CreatePoll1Schema,
+  (values: CreatePoll1Schema) => CreatePoll1Schema
+>;
+
 export const createPollSchema2 = z.object({
   pollDescription: z.string().optional(),
   pollLink: z.string().url().optional(),
@@ -42,10 +49,8 @@ export const createPollSchema2 = z.object({
   ),
 });
 
-export const createPollSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  details: z.string(),
-  answerType: z.string().min(1, 'Answer type is required'),
-  tokenType: z.string().min(1, 'Token type is required'),
-  choices: z.array(z.string()),
-});
+export type CreatePoll2Schema = z.infer<typeof createPollSchema2>;
+export type CreatePoll2Values = UseFormReturnType<
+  CreatePoll2Schema,
+  (values: CreatePoll2Schema) => CreatePoll2Schema
+>;

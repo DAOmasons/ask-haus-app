@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Box,
   Button,
   ColorPicker,
   ColorSwatch,
