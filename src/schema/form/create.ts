@@ -29,8 +29,10 @@ export const createPollSchema1 = z
   );
 
 export const createPollSchema2 = z.object({
+  pollDescription: z.string().optional(),
   choices: z.array(
     z.object({
+      id: z.string().min(1, 'Choice id is required'),
       title: z.string().min(1, 'Choice title is required'),
       color: z.string().min(1, 'Choice color is required'),
       description: z.string().optional(),

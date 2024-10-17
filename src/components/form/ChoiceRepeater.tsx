@@ -95,7 +95,7 @@ export const ChoiceRepeater = ({
                 <HoverCard.Target>
                   <IconMessage size={18} color={theme.colors.steel[4]} />
                 </HoverCard.Target>
-                <HoverCard.Dropdown>
+                <HoverCard.Dropdown maw={450}>
                   <Text mb="sm">{choice.description}</Text>
                 </HoverCard.Dropdown>
               </HoverCard>
