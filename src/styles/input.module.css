@@ -15,6 +15,10 @@
   }
 }
 
+.error {
+  margin-top: rem(4px);
+}
+
 .label {
   color: var(--mantine-color-steel-0);
   font-size: rem(16px);
