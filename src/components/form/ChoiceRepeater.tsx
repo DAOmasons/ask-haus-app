@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Box,
   Button,
   ColorPicker,
   ColorSwatch,
@@ -17,6 +18,7 @@ import { useDisclosure, useInputState } from '@mantine/hooks';
 import {
   IconDeviceFloppy,
   IconEdit,
+  IconLink,
   IconMessage,
   IconPlus,
   IconTrash,
@@ -24,6 +26,7 @@ import {
 import {
   generateRandomBytes32,
   generateRandomHexColor,
+  isValidOptionalUrl,
 } from '../../utils/helpers';
 import { TextButton } from '../Typography';
 
@@ -31,6 +34,7 @@ export type FormChoice = {
   id: string;
   title: string;
   description?: string;
+  link?: string;
   color: string;
 };
 
@@ -68,10 +72,10 @@ export const ChoiceRepeater = ({
     <Stack gap={'sm'} w="100%">
       <Text fw={600}>Choices</Text>
       {choices.map((choice) => (
-        <Flex key={`${choice.id}`} gap={12} align={'center'}>
+        <Flex key={`${choice.id}`} gap={12} align={'start'}>
           <HoverCard openDelay={200} closeDelay={300}>
             <HoverCard.Target>
-              <ColorSwatch color={choice.color} size={18} />
+              <ColorSwatch color={choice.color} size={18} mt={2} />
             </HoverCard.Target>
             <HoverCard.Dropdown>
               <ColorPicker
@@ -89,16 +93,37 @@ export const ChoiceRepeater = ({
             {choice.title}
           </TextButton>
 
-          <Group gap={4}>
+          <Group gap={2} style={{ transform: 'translateY(-4px)' }}>
             {choice.description && (
               <HoverCard openDelay={200} closeDelay={300}>
                 <HoverCard.Target>
-                  <IconMessage size={18} color={theme.colors.steel[4]} />
+                  <ActionIcon
+                    radius={999}
+                    onClick={() => {
+                      handleOpen(choice);
+                    }}
+                    variant="ghost-icon"
+                  >
+                    <IconMessage size={18} color={theme.colors.steel[4]} />
+                  </ActionIcon>
                 </HoverCard.Target>
                 <HoverCard.Dropdown maw={450}>
                   <Text mb="sm">{choice.description}</Text>
                 </HoverCard.Dropdown>
               </HoverCard>
+            )}
+
+            {choice.link && (
+              <ActionIcon
+                radius={999}
+                component="a"
+                href={choice.link}
+                target="_blank"
+                rel="noreferrer"
+                variant="ghost-icon"
+              >
+                <IconLink size={18} color={theme.colors.steel[4]} />
+              </ActionIcon>
             )}
 
             <ActionIcon
@@ -170,6 +195,8 @@ const EditChoiceModal = ({
   const [newDescription, setNewDescription] = useInputState(
     selectedChoice?.description ?? ''
   );
+  const [newLink, setNewLink] = useInputState(selectedChoice?.link ?? '');
+
   if (!selectedChoice) {
     return null;
   }
@@ -187,6 +214,15 @@ const EditChoiceModal = ({
           value={newDescription}
           minRows={4}
           onChange={setNewDescription}
+          description="Optional description"
+        />
+        <TextInput
+          label={'Choice Link'}
+          value={newLink}
+          onChange={setNewLink}
+          description="Optional link"
+          placeholder="https://example.com"
+          error={isValidOptionalUrl(newLink) ? undefined : 'Invalid URL'}
         />
       </Stack>
       <Group justify="space-between">
@@ -209,6 +245,7 @@ const EditChoiceModal = ({
               ...selectedChoice,
               title: newTitle,
               description: newDescription,
+              link: newLink,
             });
             handleClose();
           }}

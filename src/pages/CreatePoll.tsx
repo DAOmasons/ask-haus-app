@@ -7,12 +7,10 @@ import {
   Textarea,
   TextInput,
 } from '@mantine/core';
-import { useAccount, usePublicClient, useWalletClient } from 'wagmi';
 import { CenterLayout, CenterPageTitle } from '../layout/Layout';
 import { useForm, UseFormReturnType, zodResolver } from '@mantine/form';
 import { createPollSchema1, createPollSchema2 } from '../schema/form/create';
 import { DateTimePicker } from '@mantine/dates';
-import { useState } from 'react';
 import { z } from 'zod';
 import {
   Navigate,
@@ -225,14 +223,10 @@ const Form1 = ({
 
 const Form2 = ({ pollTitle, form }: { pollTitle: string; form: Form2 }) => {
   const handleAddChoice = (choice: FormChoice) => {
-    // setChoices((prevState) => [...prevState, choice]);
-
     form.setFieldValue('choices', [...form.values.choices, choice]);
   };
 
   const handleDeleteChoice = (choice: FormChoice) => {
-    // setChoices((prevState) => prevState.filter((c) => c.id !== choice.id));
-
     form.setFieldValue(
       'choices',
       form.values.choices.filter((c) => c.id !== choice.id)
@@ -240,15 +234,6 @@ const Form2 = ({ pollTitle, form }: { pollTitle: string; form: Form2 }) => {
   };
 
   const handleEditChoice = (choice: FormChoice) => {
-    // setChoices((prevState) => {
-    //   return prevState.map((c) => {
-    //     if (c.id === choice.id) {
-    //       return choice;
-    //     }
-    //     return c;
-    //   });
-    // });
-
     form.setFieldValue(
       'choices',
       form.values.choices.map((c) => {

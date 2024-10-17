@@ -23,3 +23,10 @@ export const generateRandomHexColor = (): string => {
 
   return color;
 };
+export function isValidOptionalUrl(str: string) {
+  if (str === '') return true; // Empty string is valid (optional)
+
+  const urlPattern =
+    /^(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/\S*)?$/;
+  return urlPattern.test(str);
+}
