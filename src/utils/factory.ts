@@ -43,7 +43,7 @@ export const pollTestArgs = (blockTimestamp: bigint) => {
   const executeArgs = '0x0';
 
   const initData = encodeAbiParameters(
-    parseAbiParameters('string[], bytes[]'),
+    parseAbiParameters('string[4], bytes[4]'),
     [
       [
         MODULES.TIMED_VOTES,
