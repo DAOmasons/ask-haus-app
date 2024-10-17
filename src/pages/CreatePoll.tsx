@@ -28,6 +28,7 @@ export const CreatePoll = () => {
     initialValues: {
       title: '',
       answerType: '',
+      tokenType: 'Both',
       time: '',
       customTimeStart: new Date(),
       customTimeEnd: new Date(new Date().setDate(new Date().getDate() + 7)),
@@ -35,6 +36,11 @@ export const CreatePoll = () => {
     validate: zodResolver(createPollSchema1),
     validateInputOnBlur: true,
   });
+
+  // const step2Form = useForm({
+  //   initialValues: {},
+  //   validate:
+  // });
 
   const handleCreatePoll = async () => {
     if (!publicClient) return;
@@ -100,9 +106,11 @@ const Form1 = ({ form }: { form: Form1 }) => {
       </Paper>
       <Paper>
         <Select
+          placeholder="--"
           data={['Single Choice', 'Allocation (%)']}
           label="Answer Type"
           required
+          allowDeselect={false}
           description={
             form.values.answerType === 'Single Choice'
               ? 'Voters allocate 100% of their token on one choice'
@@ -115,9 +123,26 @@ const Form1 = ({ form }: { form: Form1 }) => {
       </Paper>
       <Paper>
         <Select
+          data={['Shares', 'Loot', 'Both']}
+          label="Token Type"
+          required
+          allowDeselect={false}
+          {...form.getInputProps('tokenType')}
+          description={
+            form.values.tokenType === 'Shares'
+              ? 'Voters can vote with DAO shares (voting token)'
+              : form.values.tokenType === 'Loot'
+                ? 'Voters can vote with DAO loot (non-voting token)'
+                : 'Voters can vote with both DAO tokens'
+          }
+        />
+      </Paper>
+      <Paper>
+        <Select
           data={['Five Minutes', 'One Hour', 'One Day', 'One Week', 'Custom']}
           label="Voting Time"
           required
+          allowDeselect={false}
           {...form.getInputProps('time')}
         />
       </Paper>
@@ -152,14 +177,6 @@ const Form1 = ({ form }: { form: Form1 }) => {
           </Paper>
         </>
       )}
-      {/* <Paper>
-          <Select
-            data={['Five Minutes', 'One Hour', 'One Day', 'One Week', 'Custom']}
-            label="Select"
-            required
-            {...step1Form.getInputProps('time')}
-          />
-        </Paper> */}
     </Stack>
   );
 };
