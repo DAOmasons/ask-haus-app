@@ -51,6 +51,7 @@ const ConnectButton = () => {
       <TextButton
         c={theme.colors.steel[2]}
         onClick={() => {
+          console.log('openAccountModal');
           openAccountModal?.();
         }}
       >
@@ -71,7 +72,7 @@ const ConnectButton = () => {
       </TextButton>
       <Notice
         blink
-        content="Get your shit connected"
+        content="Get your wallet connected"
         onClick={openConnectModal}
       />
     </Group>

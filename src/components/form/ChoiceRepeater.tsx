@@ -1,19 +1,30 @@
 import {
   ActionIcon,
+  Button,
   ColorPicker,
   ColorSwatch,
   Group,
   HoverCard,
+  Modal,
+  Paper,
   Stack,
   Text,
+  Textarea,
   TextInput,
+  useMantineTheme,
 } from '@mantine/core';
-import { useInputState } from '@mantine/hooks';
-import { IconList, IconPlus } from '@tabler/icons-react';
+import { useDisclosure, useInputState } from '@mantine/hooks';
+import {
+  IconDeviceFloppy,
+  IconList,
+  IconPlus,
+  IconTrash,
+} from '@tabler/icons-react';
 import {
   generateRandomBytes32,
   generateRandomHexColor,
 } from '../../utils/helpers';
+import { TextButton } from '../Typography';
 
 export type FormChoice = {
   id: string;
@@ -32,12 +43,29 @@ export const ChoiceRepeater = ({
   onAdd,
   onColorChange,
 }: ChoiceRepeaterProps) => {
+  const theme = useMantineTheme();
   const [targetChoice, setTargetChoice] = useInputState('');
+  const [opened, { open, close }] = useDisclosure();
+  const [selectedChoice, setSelectedChoice] = useInputState<FormChoice | null>(
+    null
+  );
+
+  const handleOpen = (choice: FormChoice) => {
+    setSelectedChoice(choice);
+    open();
+  };
+
+  const handleClose = () => {
+    setSelectedChoice(null);
+    close();
+  };
   return (
     <Stack gap={'sm'} w="100%">
-      <Text fw={600}>Choices</Text>
+      <Text fw={600} mb="sm">
+        Choices
+      </Text>
       {choices.map((choice) => (
-        <Group key={`${choice.id}`} gap={8}>
+        <Group key={`${choice.id}`} gap={12}>
           <HoverCard openDelay={200} closeDelay={300}>
             <HoverCard.Target>
               <ColorSwatch color={choice.color} h={24} w={24} />
@@ -48,12 +76,14 @@ export const ChoiceRepeater = ({
               />
             </HoverCard.Dropdown>
           </HoverCard>
-          <Text>{choice.title}</Text>
+          <TextButton onClick={() => handleOpen(choice)}>
+            {choice.title}
+          </TextButton>
         </Group>
       ))}
       <TextInput
         placeholder="Other"
-        mb={'sm'}
+        my={'sm'}
         value={targetChoice}
         onChange={setTargetChoice}
       />
@@ -73,6 +103,28 @@ export const ChoiceRepeater = ({
           <IconPlus size={18} />
         </ActionIcon>
       </Group>
+      <Modal opened={opened} onClose={handleClose} title="Edit Choice" centered>
+        <Stack gap="lg" mb={'lg'}>
+          <TextInput label="Choice Title" value={selectedChoice?.title} />
+          <Textarea
+            label={'Choice Description'}
+            value={selectedChoice?.description}
+            minRows={4}
+          />
+        </Stack>
+        <Group justify="space-between">
+          <Button
+            size="sm"
+            leftSection={<IconTrash size={18} />}
+            variant="danger"
+          >
+            Discard
+          </Button>
+          <Button size="sm" leftSection={<IconDeviceFloppy size={18} />}>
+            Save
+          </Button>
+        </Group>
+      </Modal>
     </Stack>
   );
 };

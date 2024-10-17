@@ -110,7 +110,7 @@ export const theme = createTheme({
         option: inputClasses.option,
       },
       defaultProps: {
-        inputWrapperOrder: ['label', 'input', 'description', 'error'],
+        inputWrapperOrder: ['label', 'error', 'input', 'description'],
       },
     }),
     InputLabel: InputLabel.extend({

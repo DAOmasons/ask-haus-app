@@ -8,7 +8,7 @@
 
   &[data-size='sm'] {
     height: var(--button-height-sm);
-    padding-inline: var(--button-padding-x-md);
+    padding-inline: var(--button-padding-x-xs);
   }
   &[data-size='lg'] {
     height: var(--button-height-lg);
@@ -26,5 +26,10 @@
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+
+  &[data-variant='danger'] {
+    color: var(--mantine-color-red-7);
+    border: 1.5px solid var(--mantine-color-red-5);
   }
 }
