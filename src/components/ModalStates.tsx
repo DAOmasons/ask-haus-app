@@ -1,4 +1,4 @@
-import { Flex, Spoiler, Text, useMantineTheme } from '@mantine/core';
+import { Box, Flex, Spoiler, Text, useMantineTheme } from '@mantine/core';
 import {
   IconBolt,
   IconCake,
@@ -22,6 +22,28 @@ export const LoadingState = ({
   return (
     <Flex align={'center'} mt="md" direction={'column'}>
       <IconFidgetSpinner size={60} className={classes.spinGlow} />
+      <Text fz="lg" my="md" className={classes.glow} fw={600}>
+        {title}
+      </Text>
+      <Text pb="xl" className={classes.glow}>
+        {description}
+      </Text>
+    </Flex>
+  );
+};
+
+export const TimeoutState = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => {
+  return (
+    <Flex align={'center'} mt="md" direction={'column'}>
+      <Box style={{ transform: 'rotate(180deg)' }}>
+        <IconMoodSmile size={60} className={classes.spinGlow} />
+      </Box>
       <Text fz="lg" my="md" className={classes.glow} fw={600}>
         {title}
       </Text>

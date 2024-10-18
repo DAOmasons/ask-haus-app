@@ -1,12 +1,12 @@
 import { Button, Paper, Stack, Textarea, TextInput } from '@mantine/core';
 import { ChoiceRepeater, FormChoice } from './ChoiceRepeater';
-import { CreatePoll1Values, CreatePoll2Values } from '../../schema/form/create';
+import { CreatePoll2Values } from '../../schema/form/create';
 
 export const CreatePoll2 = ({
   form,
   handleSubmit,
 }: {
-  prevForm: CreatePoll1Values;
+  //   prevForm: CreatePoll1Values;
   form: CreatePoll2Values;
   handleSubmit: () => void;
 }) => {

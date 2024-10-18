@@ -6,6 +6,7 @@ import {
   ErrorState,
   LoadingState,
   SuccessState,
+  TimeoutState,
 } from '../components/ModalStates';
 import { Config, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import {
@@ -174,25 +175,43 @@ export const TxProvider = ({ children }: { children: React.ReactNode }) => {
     viewParams?.awaitEnvioPoll !== false && pollStatus === PollStatus.Polling;
 
   const txModalContent = useMemo(() => {
-    if (isConfirming || isAwaitingSignature || shouldWaitForPoll)
-      return (
-        <LoadingState
-          title="Transaction in progress"
-          description="Please wait..."
-        />
-      );
+    if (isConfirming || isAwaitingSignature || shouldWaitForPoll) {
+      const validateTitle =
+        viewParams?.loading?.title || 'Validating Transaction';
+      const validateDescription =
+        viewParams?.loading?.description || 'Please wait...';
+      const pollTitle = viewParams?.polling?.title || 'Polling Indexer';
+      const pollDescription =
+        viewParams?.polling?.description ||
+        'Transaction successful! Indexing data to the indexer...';
+
+      const title = shouldWaitForPoll ? pollTitle : validateTitle;
+      const description = shouldWaitForPoll
+        ? pollDescription
+        : validateDescription;
+      return <LoadingState title={title} description={description} />;
+    }
 
     if (isError || waitError)
       return (
         <ErrorState
-          title="Transaction Failed"
-          description="Please try again"
+          title={viewParams?.error?.title || 'Something went wrong.'}
+          description={
+            error?.message ||
+            viewParams?.error?.fallback ||
+            'Error message unknown.'
+          }
           errMsg={error?.message}
         />
       );
 
     if (pollStatus === PollStatus.Timeout) {
-      return null;
+      return (
+        <TimeoutState
+          title="Polling Timeout"
+          description="Transaction succeeded, but the indexer will need some time to catch up"
+        />
+      );
     }
 
     if (isConfirmed)
@@ -209,7 +228,7 @@ export const TxProvider = ({ children }: { children: React.ReactNode }) => {
     isAwaitingSignature,
     isError,
     // hash,
-    // viewParams,
+    viewParams,
     error,
     shouldWaitForPoll,
     pollStatus,
