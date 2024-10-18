@@ -48,7 +48,7 @@ export const VoteCard = ({
   description,
 }: {
   title: string;
-  time: string;
+  time: number;
   onClick?: () => void;
   choices: FormChoice[];
   link?: string;
@@ -61,9 +61,9 @@ export const VoteCard = ({
     if (!time) {
       return null;
     } else {
-      const futureTime = futureRelativeTimeInSeconds(Number(time));
+      const endTimeObj = futureRelativeTimeInSeconds(time);
 
-      return `Ends in ${futureTime.d > 0 ? `${futureTime.d}d` : ''} ${futureTime.h > 0 ? `${futureTime.h}h` : ''} ${futureTime.m > 0 ? `${futureTime.m}m` : ''} ${futureTime.s > 0 ? `${futureTime.s}s` : ''}`;
+      return `Ends in ${endTimeObj.d > 0 ? `${endTimeObj.d}d` : ''} ${endTimeObj.h > 0 ? `${endTimeObj.h}h` : ''} ${endTimeObj.m > 0 ? `${endTimeObj.m}m` : ''} ${endTimeObj.s > 0 ? `${endTimeObj.s}s` : ''}`;
     }
   }, [time]);
 

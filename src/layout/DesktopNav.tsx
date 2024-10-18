@@ -4,6 +4,7 @@ import { TextButton } from '../components/Typography';
 import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
 import { Notice } from '../components/Notice';
+import { AddressAvatar } from '../components/AddressAvatar';
 
 export const DesktopNav = () => {
   const theme = useMantineTheme();
@@ -45,16 +46,13 @@ const ConnectButton = () => {
   const { openConnectModal } = useConnectModal();
   const { openAccountModal } = useAccountModal();
 
-  if (isConnected) {
+  if (isConnected && address) {
     return (
-      <TextButton
-        c={theme.colors.steel[2]}
-        onClick={() => {
-          openAccountModal?.();
-        }}
-      >
-        {address}
-      </TextButton>
+      <AddressAvatar
+        address={address}
+        displayPfp={false}
+        onClick={openAccountModal}
+      />
     );
   }
 

@@ -12,7 +12,6 @@ export const createPollSchema1 = z
   })
   .refine(
     ({ customTimeStart, time }) => {
-      console.log({ customTimeStart, time });
       return time === 'Custom' && !customTimeStart ? false : true;
     },
     {

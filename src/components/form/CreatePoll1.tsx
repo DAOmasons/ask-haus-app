@@ -1,6 +1,7 @@
 import { Button, Paper, Select, Stack, TextInput } from '@mantine/core';
 import { CreatePoll1Values } from '../../schema/form/create';
 import { DateTimePicker } from '@mantine/dates';
+import { Times } from '../../utils/time';
 
 export const CreatePoll1 = ({
   form,
@@ -55,7 +56,7 @@ export const CreatePoll1 = ({
         </Paper>
         <Paper>
           <Select
-            data={['Five Minutes', 'One Hour', 'One Day', 'One Week', 'Custom']}
+            data={[...Object.keys(Times), 'Custom']}
             label="Voting Time"
             required
             allowDeselect={false}

@@ -1,6 +1,6 @@
 import { Box, Flex, Group, Stack } from '@mantine/core';
 import { BigTitle, SectionText } from '../components/Typography';
-import { VoteCard, VoteType } from '../components/Cards';
+import { VoteType } from '../components/Cards';
 import {
   IconBuildingBroadcastTower,
   IconChartBar,
@@ -30,19 +30,19 @@ export const Home = () => {
         <Box w="50%">
           <SectionText mb="md">Live Votes</SectionText>
           <Stack gap="md">
+            {/* <VoteCard title="Let's take a poll" />
             <VoteCard title="Let's take a poll" />
             <VoteCard title="Let's take a poll" />
-            <VoteCard title="Let's take a poll" />
-            <VoteCard title="Let's take a poll" />
+            <VoteCard title="Let's take a poll" /> */}
           </Stack>
         </Box>
         <Box w="50%">
           <SectionText mb="md">Past Votes</SectionText>
           <Stack gap="md">
+            {/* <VoteCard title="Let's take a poll" />
             <VoteCard title="Let's take a poll" />
             <VoteCard title="Let's take a poll" />
-            <VoteCard title="Let's take a poll" />
-            <VoteCard title="Let's take a poll" />
+            <VoteCard title="Let's take a poll" /> */}
           </Stack>
         </Box>
       </Flex>

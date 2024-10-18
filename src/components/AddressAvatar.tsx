@@ -11,7 +11,6 @@ import { ComponentProps } from 'react';
 import { Address, isAddress } from 'viem';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 import { mainnet } from 'viem/chains';
-// import { normalize } from 'path';
 import { useClipboard } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { ensConfig } from '../utils/connect';
@@ -19,8 +18,10 @@ import { ensConfig } from '../utils/connect';
 export const AddressAvatar = ({
   address,
   size = 24,
+  onClick,
   fz,
   displayText = true,
+  displayPfp = true,
   withTooltip = false,
   gap = 'sm',
   canCopy,
@@ -30,9 +31,11 @@ export const AddressAvatar = ({
   fz?: StyleProp<number | MantineSize>;
   withTooltip?: boolean;
   displayText?: boolean;
+  displayPfp?: boolean;
   hideText?: boolean;
   canCopy?: boolean;
   gap?: MantineSpacing;
+  onClick?: () => void;
 }) => {
   const { data: ensName } = useEnsName({
     address,
@@ -55,9 +58,14 @@ export const AddressAvatar = ({
     <Group
       gap={gap}
       style={{
-        cursor: canCopy ? 'pointer' : 'default',
+        cursor: canCopy || onClick ? 'pointer' : 'default',
       }}
       onClick={() => {
+        if (onClick) {
+          onClick();
+          return;
+        }
+
         if (canCopy) {
           copy(address);
           notifications.show({
@@ -67,7 +75,7 @@ export const AddressAvatar = ({
         }
       }}
     >
-      {withTooltip ? (
+      {!displayPfp ? null : withTooltip ? (
         <Tooltip
           label={ensName ? name : address}
           position="top"
@@ -85,7 +93,6 @@ export const AddressAvatar = ({
 };
 
 export const AddressAvatarGroup = ({
-  avatarProps,
   addresses,
 }: {
   avatarProps?: ComponentProps<typeof Avatar>;
