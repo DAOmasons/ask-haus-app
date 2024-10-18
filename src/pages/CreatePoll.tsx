@@ -69,6 +69,8 @@ export const CreatePoll = () => {
   //   }
   // };
 
+  const handleCreatePoll = () => {};
+
   const advanceForm = () => {
     if (formIndex === '0') {
       const result = step1Form.validate();
@@ -98,7 +100,7 @@ export const CreatePoll = () => {
           element={
             <CreatePoll2
               form={step2Form as unknown as CreatePoll2Values}
-              prevForm={step1Form}
+              handleSubmit={handleCreatePoll}
             />
           }
         />
