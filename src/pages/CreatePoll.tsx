@@ -99,6 +99,7 @@ export const CreatePoll = () => {
             <CreatePoll2
               pollTitle={step1Form.values.title}
               form={step2Form as unknown as CreatePoll2Values}
+              pollTime={step1Form.values.time}
             />
           }
         />

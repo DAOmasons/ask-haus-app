@@ -25,7 +25,13 @@
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    border: 1.5px solid var(--mantine-color-dark-4);
+    color: var(--mantine-color-dark-3);
+
+    &:hover {
+      background: var(--mantine-color-dark-7);
+      border: 1.5px solid var(--mantine-color-steel-2);
+    }
   }
 
   &[data-variant='danger'] {

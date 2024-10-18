@@ -4,8 +4,9 @@ import {
   Theme as RainbowKitTheme,
 } from '@rainbow-me/rainbowkit';
 import { http } from 'viem';
-import { arbitrum } from 'wagmi/chains';
+import { arbitrum, mainnet } from 'wagmi/chains';
 import { DARK, STEEL } from '../theme';
+import { createConfig } from 'wagmi';
 
 export const config = getDefaultConfig({
   appName: 'AskHaus',
@@ -44,3 +45,10 @@ export const customRBKTheme = {
     actionButton: '4px',
   },
 } as RainbowKitTheme;
+
+export const ensConfig = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.id]: http(import.meta.env.VITE_RPC_URL_ENS_MAINNET),
+  },
+});

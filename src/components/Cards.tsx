@@ -14,6 +14,8 @@ import paperClasses from '../styles/paper.module.css';
 import { futureRelativeTimeInSeconds } from '../utils/time';
 import { useMemo } from 'react';
 import { FormChoice } from './form/ChoiceRepeater';
+import { AddressAvatar } from './AddressAvatar';
+import { useAccount } from 'wagmi';
 
 export const VoteType = ({
   Icon,
@@ -52,6 +54,7 @@ export const VoteCard = ({
   link?: string;
   description?: string;
 }) => {
+  const { address } = useAccount();
   const { colors } = useMantineTheme();
 
   const timeDisplay = useMemo(() => {
@@ -105,10 +108,7 @@ export const VoteCard = ({
           )}
         </Group>
       </Flex>
-      <Group gap={'xs'} mb="sm">
-        <Avatar src={''} size={28} bg={colors.steel[5]} />
-        <Text c={colors.steel[4]}>jord.eth</Text>
-      </Group>
+      <Box mb="sm">{address && <AddressAvatar address={address} />}</Box>
       <Group justify="space-between">
         <Text fz="xs" c={colors.steel[4]}>
           {timeDisplay}

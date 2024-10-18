@@ -50,7 +50,6 @@ const ConnectButton = () => {
       <TextButton
         c={theme.colors.steel[2]}
         onClick={() => {
-          console.log('openAccountModal');
           openAccountModal?.();
         }}
       >

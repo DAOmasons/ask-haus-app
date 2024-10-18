@@ -5,10 +5,12 @@ import { VoteCard } from '../Cards';
 
 export const CreatePoll2 = ({
   pollTitle,
+  pollTime,
   form,
 }: {
   pollTitle: string;
   form: CreatePoll2Values;
+  pollTime: string;
 }) => {
   const handleAddChoice = (choice: FormChoice) => {
     form.setFieldValue('choices', [...form.values.choices, choice]);
@@ -78,8 +80,7 @@ export const CreatePoll2 = ({
           Preview
         </Text>
         <VoteCard
-          title={`Long text that goes on forever and makes me feel like a piece
-          of shit!`}
+          title={pollTitle}
           time={(60 * 60 * 24).toString()}
           choices={form.values.choices}
           link={form.values.pollLink}
