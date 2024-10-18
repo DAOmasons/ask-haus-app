@@ -28,3 +28,18 @@ export const Times = {
   'One Day': 60 * 60 * 24,
   'One Week': 60 * 60 * 24 * 7,
 };
+
+//   const endTime = useMemo(() => {
+//     if (!prevForm.values.time) {
+//       return 0;
+//     }
+
+//     if (prevForm.values.time !== 'Custom') {
+//       const length = Times[prevForm.values.time as keyof typeof Times];
+//       return Math.floor((Date.now() + length * 1000) / 1000);
+//     } else if (prevForm.values.customTimeEnd) {
+//       return dateToSeconds(prevForm.values.customTimeEnd);
+//     } else {
+//       return 0;
+//     }
+//   }, [prevForm]);
