@@ -71,6 +71,7 @@ type TxContextType = {
   writeContract: WriteContractMutate<Config, unknown>;
   isAwaitingSignature: boolean;
   isConfirming: boolean;
+  isLoading: boolean;
   isConfirmed: boolean;
   isError: boolean;
   txHash?: string;
@@ -174,8 +175,10 @@ export const TxProvider = ({ children }: { children: React.ReactNode }) => {
   const shouldWaitForPoll =
     viewParams?.awaitEnvioPoll !== false && pollStatus === PollStatus.Polling;
 
+  const isLoading = isConfirming || isAwaitingSignature || shouldWaitForPoll;
+
   const txModalContent = useMemo(() => {
-    if (isConfirming || isAwaitingSignature || shouldWaitForPoll) {
+    if (isLoading) {
       const validateTitle =
         viewParams?.loading?.title || 'Validating Transaction';
       const validateDescription =
@@ -224,9 +227,8 @@ export const TxProvider = ({ children }: { children: React.ReactNode }) => {
   }, [
     isConfirmed,
     waitError,
-    isConfirming,
-    isAwaitingSignature,
     isError,
+    isLoading,
     // hash,
     viewParams,
     error,
@@ -242,6 +244,7 @@ export const TxProvider = ({ children }: { children: React.ReactNode }) => {
         isConfirming,
         txHash: hash,
         writeContract,
+        isLoading,
         isError,
         isIdle,
         txError,

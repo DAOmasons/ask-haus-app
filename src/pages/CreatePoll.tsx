@@ -16,11 +16,10 @@ import {
 } from 'react-router-dom';
 import { CreatePoll1 } from '../components/form/CreatePoll1';
 import { CreatePoll2 } from '../components/form/CreatePoll2';
+import { useAccount } from 'wagmi';
 
 export const CreatePoll = () => {
-  // const { data: walletClient } = useWalletClient();
-  // const publicClient = usePublicClient();
-  // const { address } = useAccount();
+  const { address } = useAccount();
   const navigate = useNavigate();
   const location = useLocation();
   const formIndex = location.pathname.split('/').slice(-1)[0];

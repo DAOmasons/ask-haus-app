@@ -8,13 +8,16 @@ import { arbitrum, mainnet } from 'wagmi/chains';
 import { DARK, STEEL } from '../theme';
 import { createConfig } from 'wagmi';
 
+// derive from env later on
+export const appNetwork = arbitrum;
+
 export const config = getDefaultConfig({
   appName: 'AskHaus',
   projectId: import.meta.env.VITE_RBK_PROJECT_ID,
-  chains: [arbitrum],
+  chains: [appNetwork],
   ssr: false,
   transports: {
-    [arbitrum.id]: http(import.meta.env.VITE_RPC_URL),
+    [appNetwork.id]: http(import.meta.env.VITE_RPC_URL),
   },
 });
 export const customRBKTheme = {
