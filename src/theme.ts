@@ -145,6 +145,9 @@ export const theme = createTheme({
     }),
 
     Modal: Modal.extend({
+      defaultProps: {
+        lockScroll: false,
+      },
       classNames: {
         content: globalClasses.border,
       },

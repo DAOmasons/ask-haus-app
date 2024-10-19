@@ -17,9 +17,11 @@ import {
 import { CreatePoll1 } from '../components/form/CreatePoll1';
 import { CreatePoll2 } from '../components/form/CreatePoll2';
 import { useAccount } from 'wagmi';
+import { useTx } from '../hooks/useTx';
 
 export const CreatePoll = () => {
   const { address } = useAccount();
+  const { tx } = useTx();
   const navigate = useNavigate();
   const location = useLocation();
   const formIndex = location.pathname.split('/').slice(-1)[0];
@@ -46,29 +48,28 @@ export const CreatePoll = () => {
     validateInputOnBlur: true,
   });
 
-  // const handleCreatePoll = async () => {
-  //   if (!publicClient) return;
+  const handleCreatePoll = async () => {
+    const args = [];
+    // if (!publicClient) return;
 
-  //   const nowInSeconds = Math.floor(Date.now() / 1000);
+    // const nowInSeconds = Math.floor(Date.now() / 1000);
 
-  //   const pollArgs = pollTestArgs(BigInt(nowInSeconds) - 1n);
+    // const pollArgs = pollTestArgs(BigInt(nowInSeconds) - 1n);
 
-  //   const { request } = await publicClient.simulateContract({
-  //     account: address,
-  //     address: ADDR.FACTORY,
-  //     abi: Factory,
-  //     functionName: 'buildContest',
-  //     args: pollArgs,
-  //   });
+    // const { request } = await publicClient.simulateContract({
+    //   account: address,
+    //   address: ADDR.FACTORY,
+    //   abi: Factory,
+    //   functionName: 'buildContest',
+    //   args: pollArgs,
+    // });
 
-  //   const hash = await walletClient?.writeContract(request);
+    // const hash = await walletClient?.writeContract(request);
 
-  //   if (hash) {
-  //     console.log(hash);
-  //   }
-  // };
-
-  const handleCreatePoll = () => {};
+    // if (hash) {
+    //   console.log(hash);
+    // }
+  };
 
   const advanceForm = () => {
     if (formIndex === '0') {

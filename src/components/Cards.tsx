@@ -13,9 +13,9 @@ import { Icon, IconLink, IconMessage } from '@tabler/icons-react';
 import paperClasses from '../styles/paper.module.css';
 import { futureRelativeTimeInSeconds } from '../utils/time';
 import { useMemo } from 'react';
-import { FormChoice } from './form/ChoiceRepeater';
 import { AddressAvatar } from './AddressAvatar';
 import { useAccount } from 'wagmi';
+import { FormChoice } from '../types/ui';
 
 export const VoteType = ({
   Icon,

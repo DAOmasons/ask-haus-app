@@ -34,18 +34,24 @@ export type CreatePoll1Values = UseFormReturnType<
   (values: CreatePoll1Schema) => CreatePoll1Schema
 >;
 
+export const basicChoiceSchema = z.object({
+  id: z.string().min(1, 'Choice id is required'),
+  title: z.string().min(1, 'Choice title is required'),
+  color: z.string().min(1, 'Choice color is required'),
+  description: z.string().optional(),
+  link: z.string().url().optional(),
+});
+
+export const pollMetadataSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  link: z.string().url().optional(),
+  description: z.string().optional(),
+});
+
 export const createPollSchema2 = z.object({
   pollDescription: z.string().optional(),
   pollLink: z.string().url().optional(),
-  choices: z.array(
-    z.object({
-      id: z.string().min(1, 'Choice id is required'),
-      title: z.string().min(1, 'Choice title is required'),
-      color: z.string().min(1, 'Choice color is required'),
-      description: z.string().optional(),
-      link: z.string().url().optional(),
-    })
-  ),
+  choices: z.array(basicChoiceSchema),
 });
 
 export type CreatePoll2Schema = z.infer<typeof createPollSchema2>;

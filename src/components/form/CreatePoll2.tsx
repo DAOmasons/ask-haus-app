@@ -1,6 +1,8 @@
-import { Button, Paper, Stack, Textarea, TextInput } from '@mantine/core';
-import { ChoiceRepeater, FormChoice } from './ChoiceRepeater';
+import { Paper, Stack, Textarea, TextInput } from '@mantine/core';
+import { ChoiceRepeater } from './ChoiceRepeater';
 import { CreatePoll2Values } from '../../schema/form/create';
+import { TxButton } from '../TxButton';
+import { FormChoice } from '../../types/ui';
 
 export const CreatePoll2 = ({
   form,
@@ -75,7 +77,7 @@ export const CreatePoll2 = ({
           />
         </Paper>
       </Stack>
-      <Button onClick={handleSubmit}>Create Poll</Button>
+      <TxButton onClick={handleSubmit}>Create Poll</TxButton>
     </>
   );
 };

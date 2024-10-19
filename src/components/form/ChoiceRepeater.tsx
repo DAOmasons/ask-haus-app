@@ -28,14 +28,7 @@ import {
   isValidOptionalUrl,
 } from '../../utils/helpers';
 import { TextButton } from '../Typography';
-
-export type FormChoice = {
-  id: string;
-  title: string;
-  description?: string;
-  link?: string;
-  color: string;
-};
+import { FormChoice } from '../../types/ui';
 
 type ChoiceRepeaterProps = {
   choices: FormChoice[];

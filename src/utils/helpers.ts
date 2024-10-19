@@ -30,3 +30,21 @@ export function isValidOptionalUrl(str: string) {
     /^(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/\S*)?$/;
   return urlPattern.test(str);
 }
+
+export function isBytes32(value: string): boolean {
+  // Remove '0x' prefix if present
+  const stripped = value.startsWith('0x') ? value.slice(2) : value;
+
+  // Check if it's a valid hex string and exactly 64 characters long
+  return /^[0-9A-Fa-f]{64}$/.test(stripped);
+}
+
+export const randomCharacters = (length = 8) => {
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+};
