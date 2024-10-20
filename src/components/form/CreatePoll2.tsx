@@ -58,8 +58,6 @@ export const CreatePoll2 = ({
     );
   };
 
-  console.log('lessThanTwoChoices', lessThanTwoChoices);
-
   return (
     <>
       <Stack w="100%" maw="500px" miw="350px" mb="xl" gap="lg">

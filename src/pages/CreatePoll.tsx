@@ -8,6 +8,7 @@ import {
 } from '../schema/form/create';
 
 import {
+  Link,
   Navigate,
   Route,
   Routes,
@@ -16,16 +17,21 @@ import {
 } from 'react-router-dom';
 import { CreatePoll1 } from '../components/form/CreatePoll1';
 import { CreatePoll2 } from '../components/form/CreatePoll2';
-import { useAccount } from 'wagmi';
+
 import { useTx } from '../hooks/useTx';
 import { createPollArgs } from '../utils/factory';
-import { contentProtocol, HolderType } from '../constants/enum';
+import { HolderType } from '../constants/enum';
 import { ADDR } from '../constants/address';
 import { notifications } from '@mantine/notifications';
 import { charLimit } from '../utils/helpers';
 import factory from '../abi/FastFactory.json';
 import { Times } from '../utils/time';
 import { useEffect, useState } from 'react';
+import { Button, Paper, Stack, Text, useMantineTheme } from '@mantine/core';
+
+import globalClasses from '../styles/global.module.css';
+import { IconCopy } from '@tabler/icons-react';
+import { useClipboard } from '@mantine/hooks';
 
 export const CreatePoll = () => {
   const { tx } = useTx();
@@ -73,7 +79,6 @@ export const CreatePoll = () => {
   }, [lessThanTwoChoices, step2Form.values.choices.length]);
 
   const handleCreatePoll = async () => {
-    console.log('fired');
     const result = step2Form.validate();
 
     if (result.hasErrors) {
@@ -183,8 +188,56 @@ export const CreatePoll = () => {
             />
           }
         />
+        <Route path="2" element={<CreatePollComplete pollId={'test'} />} />
         <Route path="*" element={<Navigate to="0" replace />} />
       </Routes>
     </CenterLayout>
+  );
+};
+
+const CreatePollComplete = ({ pollId }: { pollId?: string }) => {
+  const theme = useMantineTheme();
+  const { copy } = useClipboard();
+  return (
+    <Stack gap="lg" w="100%" maw="500px" miw="350px" mb="xl">
+      <Paper>
+        <Text fw={600} mb="sm" c={theme.colors.steel[0]}>
+          Completed
+        </Text>
+        <Text c={theme.colors.steel[2]}> Your poll has been created</Text>
+      </Paper>
+      {pollId && (
+        <Paper>
+          <Text c={theme.colors.steel[0]} fw={600} mb="sm">
+            Your Poll Link
+          </Text>
+
+          <Text
+            component={Link}
+            to={`poll/${pollId}`}
+            rel={'noreferrer'}
+            target={'_blank'}
+            className={globalClasses.appLink}
+            c={theme.colors.steel[4]}
+            mb="md"
+          >
+            https://ask.haus/poll/{pollId}
+          </Text>
+          <Button
+            leftSection={<IconCopy size={16} />}
+            onClick={() => {
+              notifications.show({
+                title: 'Copied',
+                message: 'Poll link copied to clipboard',
+                color: 'teal',
+              });
+              copy(`https://ask.haus/poll/${pollId}`);
+            }}
+          >
+            Copy Link
+          </Button>
+        </Paper>
+      )}
+    </Stack>
   );
 };

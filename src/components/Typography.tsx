@@ -37,3 +37,7 @@ export const TextButton = ({
     }}
   />
 );
+
+export const TextLink = () => (
+  <Text component="a" classNames={{ root: globalClasses.textLink }} />
+);
