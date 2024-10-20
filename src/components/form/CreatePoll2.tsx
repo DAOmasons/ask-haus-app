@@ -1,4 +1,11 @@
-import { Paper, Stack, Textarea, TextInput } from '@mantine/core';
+import {
+  Paper,
+  Stack,
+  Text,
+  Textarea,
+  TextInput,
+  useMantineTheme,
+} from '@mantine/core';
 import { ChoiceRepeater } from './ChoiceRepeater';
 import { CreatePoll2Values } from '../../schema/form/create';
 import { TxButton } from '../TxButton';
@@ -7,11 +14,15 @@ import { FormChoice } from '../../types/ui';
 export const CreatePoll2 = ({
   form,
   handleSubmit,
+  lessThanTwoChoices,
 }: {
   //   prevForm: CreatePoll1Values;
   form: CreatePoll2Values;
+  lessThanTwoChoices: boolean | undefined;
   handleSubmit: () => void;
 }) => {
+  const theme = useMantineTheme();
+
   const handleAddChoice = (choice: FormChoice) => {
     form.setFieldValue('choices', [...form.values.choices, choice]);
   };
@@ -47,6 +58,8 @@ export const CreatePoll2 = ({
     );
   };
 
+  console.log('lessThanTwoChoices', lessThanTwoChoices);
+
   return (
     <>
       <Stack w="100%" maw="500px" miw="350px" mb="xl" gap="lg">
@@ -76,8 +89,15 @@ export const CreatePoll2 = ({
             {...form.getInputProps('pollLink')}
           />
         </Paper>
+        {lessThanTwoChoices === true && (
+          <Text c={theme.colors.red[6]} fz="sm">
+            Must have at least 2 choices
+          </Text>
+        )}
       </Stack>
-      <TxButton onClick={handleSubmit}>Create Poll</TxButton>
+      <TxButton onClick={handleSubmit} disabled={lessThanTwoChoices === true}>
+        Create Poll
+      </TxButton>
     </>
   );
 };

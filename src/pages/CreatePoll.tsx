@@ -25,7 +25,7 @@ import { notifications } from '@mantine/notifications';
 import { charLimit } from '../utils/helpers';
 import factory from '../abi/FastFactory.json';
 import { Times } from '../utils/time';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const CreatePoll = () => {
   const { tx } = useTx();
@@ -33,6 +33,9 @@ export const CreatePoll = () => {
   const location = useLocation();
   const formIndex = location.pathname.split('/').slice(-1)[0];
   const [pollTag, setPollTag] = useState<string | undefined>();
+  const [lessThanTwoChoices, setLessThanTwoChoices] = useState<
+    boolean | undefined
+  >();
 
   const step1Form = useForm({
     initialValues: {
@@ -57,15 +60,35 @@ export const CreatePoll = () => {
     validateInputOnBlur: true,
   });
 
+  useEffect(() => {
+    if (lessThanTwoChoices === undefined) {
+      return;
+    }
+
+    if (step2Form.values.choices.length < 2) {
+      setLessThanTwoChoices(true);
+    } else {
+      setLessThanTwoChoices(false);
+    }
+  }, [lessThanTwoChoices, step2Form.values.choices.length]);
+
   const handleCreatePoll = async () => {
+    console.log('fired');
     const result = step2Form.validate();
 
-    // if (result.hasErrors) {
-    notifications.show({
-      title: 'Error',
-      message: 'Validation error',
-      color: 'red',
-    });
+    if (result.hasErrors) {
+      notifications.show({
+        title: 'Error',
+        message: 'Validation error',
+        color: 'red',
+      });
+    }
+
+    if (step2Form.values.choices.length < 2) {
+      setLessThanTwoChoices(true);
+      return;
+    }
+
     // return;
     // }
 
@@ -156,6 +179,7 @@ export const CreatePoll = () => {
             <CreatePoll2
               form={step2Form as unknown as CreatePoll2Values}
               handleSubmit={handleCreatePoll}
+              lessThanTwoChoices={lessThanTwoChoices}
             />
           }
         />

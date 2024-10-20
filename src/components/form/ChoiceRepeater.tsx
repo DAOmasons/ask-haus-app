@@ -61,112 +61,119 @@ export const ChoiceRepeater = ({
     close();
   };
   return (
-    <Stack gap={'sm'} w="100%">
-      <Text fw={600}>Choices</Text>
-      {choices.map((choice) => (
-        <Flex key={`${choice.id}`} gap={12} align={'start'}>
-          <HoverCard openDelay={200} closeDelay={300}>
-            <HoverCard.Target>
-              <ColorSwatch color={choice.color} size={18} mt={2} />
-            </HoverCard.Target>
-            <HoverCard.Dropdown>
-              <ColorPicker
-                value={choice.color}
-                onChange={(color) => onColorChange({ ...choice, color })}
-              />
-            </HoverCard.Dropdown>
-          </HoverCard>
+    <>
+      <Text fw={600} mb={choices.length > 0 ? 'md' : 0}>
+        Choices
+      </Text>
+      <Stack gap={'sm'} w="100%">
+        {choices.map((choice) => (
+          <Flex key={`${choice.id}`} gap={12} align={'start'}>
+            <HoverCard openDelay={200} closeDelay={300}>
+              <HoverCard.Target>
+                <ColorSwatch color={choice.color} size={18} mt={2} />
+              </HoverCard.Target>
+              <HoverCard.Dropdown>
+                <ColorPicker
+                  value={choice.color}
+                  onChange={(color) => onColorChange({ ...choice, color })}
+                />
+              </HoverCard.Dropdown>
+            </HoverCard>
 
-          <TextButton
-            onClick={() => handleOpen(choice)}
-            ta="left"
-            style={{ flex: 1 }}
-          >
-            {choice.title}
-          </TextButton>
+            <TextButton
+              onClick={() => handleOpen(choice)}
+              ta="left"
+              style={{ flex: 1 }}
+            >
+              {choice.title}
+            </TextButton>
 
-          <Group gap={2} style={{ transform: 'translateY(-4px)' }}>
-            {choice.description && (
-              <HoverCard openDelay={200} closeDelay={300}>
-                <HoverCard.Target>
-                  <ActionIcon
-                    radius={999}
-                    onClick={() => {
-                      handleOpen(choice);
-                    }}
-                    variant="ghost-icon"
-                  >
-                    <IconMessage size={18} color={theme.colors.steel[4]} />
-                  </ActionIcon>
-                </HoverCard.Target>
-                <HoverCard.Dropdown maw={450}>
-                  <Text mb="sm">{choice.description}</Text>
-                </HoverCard.Dropdown>
-              </HoverCard>
-            )}
+            <Group gap={2} style={{ transform: 'translateY(-4px)' }}>
+              {choice.description && (
+                <HoverCard openDelay={200} closeDelay={300}>
+                  <HoverCard.Target>
+                    <ActionIcon
+                      radius={999}
+                      onClick={() => {
+                        handleOpen(choice);
+                      }}
+                      variant="ghost-icon"
+                    >
+                      <IconMessage size={18} color={theme.colors.steel[4]} />
+                    </ActionIcon>
+                  </HoverCard.Target>
+                  <HoverCard.Dropdown maw={450}>
+                    <Text mb="sm">{choice.description}</Text>
+                  </HoverCard.Dropdown>
+                </HoverCard>
+              )}
 
-            {choice.link && (
+              {choice.link && (
+                <ActionIcon
+                  radius={999}
+                  component="a"
+                  href={choice.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="ghost-icon"
+                >
+                  <IconLink size={18} color={theme.colors.steel[4]} />
+                </ActionIcon>
+              )}
+
               <ActionIcon
                 radius={999}
-                component="a"
-                href={choice.link}
-                target="_blank"
-                rel="noreferrer"
-                variant="ghost-icon"
-              >
-                <IconLink size={18} color={theme.colors.steel[4]} />
-              </ActionIcon>
-            )}
-
-            <ActionIcon
-              radius={999}
-              onClick={() => {
-                handleOpen(choice);
-              }}
-              variant="ghost-icon"
-            >
-              <IconEdit
-                size={14}
-                color={theme.colors.steel[4]}
                 onClick={() => {
                   handleOpen(choice);
                 }}
-              />
-            </ActionIcon>
-          </Group>
-        </Flex>
-      ))}
-      <TextInput
-        placeholder="Other"
-        my={'sm'}
-        value={targetChoice}
-        onChange={setTargetChoice}
-      />
-      <Group w={'100%'} justify="center">
-        <ActionIcon
-          radius={999}
-          onClick={() => {
-            setTargetChoice('');
-            onAdd({
-              id: generateRandomBytes32(),
-              title: targetChoice,
-              color: generateRandomHexColor(),
-            });
-          }}
-          disabled={targetChoice === ''}
-        >
-          <IconPlus size={18} />
-        </ActionIcon>
-      </Group>
-      <EditChoiceModal
-        key={selectedChoice?.id}
-        opened={opened}
-        handleClose={handleClose}
-        selectedChoice={selectedChoice}
-        onEdit={onEdit}
-        onDelete={onDelete}
-      />
-    </Stack>
+                variant="ghost-icon"
+              >
+                <IconEdit
+                  size={14}
+                  color={theme.colors.steel[4]}
+                  onClick={() => {
+                    handleOpen(choice);
+                  }}
+                />
+              </ActionIcon>
+            </Group>
+          </Flex>
+        ))}
+        <TextInput
+          placeholder="Name for your choice"
+          mt={'sm'}
+          description="There must be at least two choices"
+          value={targetChoice}
+          onChange={setTargetChoice}
+        />
+
+        <Group w={'100%'} justify="center">
+          <ActionIcon
+            radius={999}
+            onClick={() => {
+              setTargetChoice('');
+              onAdd({
+                id: generateRandomBytes32(),
+                title: targetChoice,
+                color: generateRandomHexColor(),
+              });
+            }}
+            disabled={targetChoice === ''}
+          >
+            <IconPlus size={18} />
+          </ActionIcon>
+        </Group>
+
+        <EditChoiceModal
+          key={selectedChoice?.id}
+          opened={opened}
+          handleClose={handleClose}
+          selectedChoice={selectedChoice}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      </Stack>
+    </>
   );
 };
 
