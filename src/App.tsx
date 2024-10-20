@@ -34,6 +34,7 @@ import { CenterLayout, Layout } from './layout/Layout';
 import { BrowserRouter } from 'react-router-dom';
 import { ClientRoutes } from './Routes';
 import { TxProvider } from './contexts/TxContext';
+import { Notifications } from '@mantine/notifications';
 const queryClient = new QueryClient();
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
           <RainbowKitProvider theme={customRBKTheme}>
             <MantineProvider theme={mantineTheme} defaultColorScheme="dark">
               <TxProvider>
+                <Notifications />
                 <Layout>
                   <ClientRoutes />
                 </Layout>

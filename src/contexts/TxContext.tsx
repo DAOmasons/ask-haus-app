@@ -198,13 +198,13 @@ export const TxProvider = ({ children }: { children: React.ReactNode }) => {
     if (isError || waitError)
       return (
         <ErrorState
-          title={viewParams?.error?.title || 'Something went wrong.'}
-          description={
+          title={viewParams?.error?.title || 'Whoops!'}
+          description={'Something went wrong.'}
+          errMsg={
             error?.message ||
             viewParams?.error?.fallback ||
             'Error message unknown.'
           }
-          errMsg={error?.message}
         />
       );
 

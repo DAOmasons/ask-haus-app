@@ -11,3 +11,7 @@ export const contentProtocol = {
 };
 
 export type ContentType = keyof typeof contentProtocol;
+
+export enum IndexerKey {
+  PollV0 = 'askhaus-poll-v0',
+}

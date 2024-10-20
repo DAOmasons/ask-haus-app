@@ -179,6 +179,8 @@ type PollArgs = {
     description?: string;
     link?: string;
     contentType: ContentType;
+    answerType: string;
+    requestComment: boolean;
   };
 } & TimedVoteArgs &
   PointsArgsType &

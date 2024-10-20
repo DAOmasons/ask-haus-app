@@ -1,5 +1,6 @@
 import { UseFormReturnType } from '@mantine/form';
 import { z } from 'zod';
+import { isValidOptionalUrl } from '../../utils/helpers';
 
 export const createPollSchema1 = z
   .object({
@@ -44,13 +45,15 @@ export const basicChoiceSchema = z.object({
 
 export const pollMetadataSchema = z.object({
   title: z.string().min(1, 'Title is required'),
-  link: z.string().url().optional(),
+  pollLink: z.string().url().optional(),
   description: z.string().optional(),
+  answerType: z.string().min(1, 'Answer type is required'),
+  requestComment: z.boolean(),
 });
 
 export const createPollSchema2 = z.object({
   pollDescription: z.string().optional(),
-  pollLink: z.string().url().optional(),
+  pollLink: z.string().refine(isValidOptionalUrl, { message: 'Invalid url' }),
   choices: z.array(basicChoiceSchema),
 });
 
