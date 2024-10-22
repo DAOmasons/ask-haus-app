@@ -15,7 +15,7 @@ export const ClientRoutes = () => {
       <Route path="/poll/:id" element={<Poll />} />
       <Route path="/create-signal" element={<CreatePoll />} />
       <Route path="/create-poll/*" element={<CreatePoll />} />
-      <Route path="/my/:address" element={<My />} />
+      <Route path="/my" element={<My />} />
       <Route path="/factory" element={<Factory />} />
       <Route path="/active" element={<Active />} />
       <Route path="/" element={<Home />} />

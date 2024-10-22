@@ -4,7 +4,6 @@ import {
   encodeAbiParameters,
   Hex,
   http,
-  isBytes,
   isHex,
   pad,
   parseAbiParameters,
@@ -217,12 +216,17 @@ export const createPollArgs = async (args: PollArgs) => {
   const content = JSON.stringify(validated.data);
   const protocol = contentProtocol[args.pollMetadata.contentType];
 
-  return [
-    [protocol, content],
-    initData,
-    CONTEST_V,
-    ContestStatus.Voting,
-    false,
-    `${IndexerKey}_${randomCharacters()}`,
-  ];
+  const filterTag = `${IndexerKey}_${randomCharacters()}`;
+
+  return {
+    args: [
+      [protocol, content],
+      initData,
+      CONTEST_V,
+      ContestStatus.Voting,
+      false,
+      filterTag,
+    ],
+    filterTag,
+  };
 };

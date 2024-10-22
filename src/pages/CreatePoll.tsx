@@ -94,9 +94,6 @@ export const CreatePoll = () => {
       return;
     }
 
-    // return;
-    // }
-
     try {
       const startTime =
         step1Form.values.time === 'Custom'
@@ -107,7 +104,7 @@ export const CreatePoll = () => {
           ? Math.floor(step1Form.values.customTimeEnd.getTime() / 1000)
           : Times[step1Form.values.time as unknown as keyof typeof Times];
 
-      const args = await createPollArgs({
+      const { filterTag, args } = await createPollArgs({
         pollMetadata: {
           title: step1Form.values.title,
           description: step2Form.values.description,
@@ -141,7 +138,10 @@ export const CreatePoll = () => {
           args,
         },
         writeContractOptions: {
-          onPollSuccess() {},
+          onPollSuccess() {
+            navigate(`/create-poll/2`);
+            setPollTag(filterTag);
+          },
         },
       });
     } catch (error: any) {
@@ -188,7 +188,7 @@ export const CreatePoll = () => {
             />
           }
         />
-        <Route path="2" element={<CreatePollComplete pollId={'test'} />} />
+        <Route path="2" element={<CreatePollComplete pollId={pollTag} />} />
         <Route path="*" element={<Navigate to="0" replace />} />
       </Routes>
     </CenterLayout>
