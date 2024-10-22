@@ -7,6 +7,7 @@ import {
   Paper,
   Popover,
   Radio,
+  SegmentedControl,
   Select,
   Slider,
   Textarea,
@@ -159,6 +160,12 @@ export const theme = createTheme({
     Slider: Slider.extend({
       classNames: sliderClasses,
       defaultProps: { size: 2 },
+    }),
+    SegmentedControl: SegmentedControl.extend({
+      classNames: {
+        root: radioClasses.segmentedControlRoot,
+        indicator: radioClasses.segmentedControlLabel,
+      },
     }),
   },
 

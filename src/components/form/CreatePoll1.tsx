@@ -16,9 +16,9 @@ export const CreatePoll1 = ({
         <Paper>
           <TextInput
             required
-            label="Poll Title"
+            label="Question"
             placeholder="What is your favorite color?"
-            description="Ask a key question that you would like to Public Haus"
+            description="What would you like to ask Public Haus?"
             {...form.getInputProps('title')}
           />
         </Paper>

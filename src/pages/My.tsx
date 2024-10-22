@@ -3,29 +3,20 @@ import {
   Box,
   Button,
   ColorSwatch,
-  Flex,
   Group,
   Paper,
+  SegmentedControl,
   Slider,
   Stack,
   Text,
+  Tooltip,
   useMantineTheme,
 } from '@mantine/core';
 import { CenterLayout } from '../layout/Layout';
 import { useState } from 'react';
-import {
-  BigTitle,
-  SectionText,
-  SubTitle,
-  TextButton,
-} from '../components/Typography';
-import {
-  IconExternalLink,
-  IconEye,
-  IconLink,
-  IconSearch,
-  IconZoomIn,
-} from '@tabler/icons-react';
+import { SubTitle } from '../components/Typography';
+import { IconExternalLink, IconEye, IconSearch } from '@tabler/icons-react';
+import { AddressAvatar } from '../components/AddressAvatar';
 
 export const My = () => {
   return (
@@ -34,87 +25,6 @@ export const My = () => {
         <ExampleTwo />
       </Box>
     </CenterLayout>
-  );
-};
-
-const ExampleOne = () => {
-  const [values, setValues] = useState([
-    { color: 'chocolate', value: 0, label: 'Chocolate' },
-    { color: 'pink', value: 0, label: 'Strawberry' },
-    { color: 'white', value: 0, label: 'Vanilla' },
-    { color: 'green', value: 0, label: 'Mint Chip' },
-  ]);
-
-  const handleChange = (newValue: number, index: number) => {
-    // Round to 1 decimal place to avoid floating point issues
-    newValue = Math.round(newValue * 10) / 10;
-
-    setValues((prevValues) => {
-      const updatedValues = [...prevValues];
-
-      // Calculate the current total excluding the changed slider
-      const currentTotal = prevValues.reduce(
-        (sum, item, i) => (i === index ? sum : sum + item.value),
-        0
-      );
-
-      // Calculate how much room we have left
-      const availableSpace = 100 - currentTotal;
-
-      // If new value would exceed 100% total
-      if (newValue > availableSpace) {
-        // Calculate how much we need to reduce other values
-        const excess = newValue - availableSpace;
-
-        // Get sum of other non-zero values
-        const otherValuesSum = currentTotal;
-
-        if (otherValuesSum > 0) {
-          // Reduce other values proportionally
-          updatedValues.forEach((item, i) => {
-            if (i !== index && item.value > 0) {
-              const proportion = item.value / otherValuesSum;
-              const reduction = excess * proportion;
-              // Round to 1 decimal place
-              item.value = Math.round((item.value - reduction) * 10) / 10;
-              // Ensure we don't go below 0 due to rounding
-              item.value = Math.max(0, item.value);
-            }
-          });
-        }
-        // Set the new value to whatever space was available
-        updatedValues[index].value = Math.min(100, newValue);
-      } else {
-        // If we're not exceeding 100%, just set the new value
-        updatedValues[index].value = newValue;
-      }
-
-      // Final check to ensure total doesn't exceed 100 due to rounding
-      const finalTotal = updatedValues.reduce(
-        (sum, item) => sum + item.value,
-        0
-      );
-      if (finalTotal > 100) {
-        const excess = finalTotal - 100;
-        updatedValues[index].value -= excess;
-      }
-
-      return updatedValues;
-    });
-  };
-
-  return (
-    <Stack gap={'xl'}>
-      {values.map((value, index) => (
-        <Slider
-          key={index}
-          label={value.label}
-          color={value.color}
-          value={value.value}
-          onChange={(newValue) => handleChange(newValue, index)}
-        />
-      ))}
-    </Stack>
   );
 };
 
@@ -153,10 +63,27 @@ const ExampleTwo = () => {
   return (
     <CenterLayout>
       <Box w="100%" mb="lg">
-        <SubTitle mb="sm">Poll</SubTitle>
-        <Text c={theme.colors.steel[4]} fz="sm">
-          Ends In 1d 1h 1m 1s
-        </Text>
+        <Group mb="sm" align="start" justify="space-between">
+          <SubTitle>Poll</SubTitle>
+          <SegmentedControl data={['Vote', 'Results']} size="xs" />
+
+          {/* <Tooltip label="View Poll Results">
+            <ActionIcon variant="ghost">
+              <IconEye size={18} />
+            </ActionIcon>
+          </Tooltip> */}
+        </Group>
+        <Group justify="space-between">
+          <Text c={theme.colors.steel[2]} fz="sm">
+            Ends In 1d 1h 1m 1s
+          </Text>
+          <AddressAvatar
+            size={20}
+            fz={'sm'}
+            gap={'xs'}
+            address={'0xde6bcde54cf040088607199fc541f013ba53c21e'}
+          />
+        </Group>
       </Box>
       <Stack w="100%" maw={500} gap={'xl'} mb="xl">
         <Paper>
@@ -165,7 +92,7 @@ const ExampleTwo = () => {
               Question
             </Text>
           </Group>
-          <Text c={theme.colors.steel[4]} mb={'sm'}>
+          <Text c={theme.colors.steel[4]} mb={'md'}>
             How do you think our organization can improve stakeholder engagement
             in its governance structure?
           </Text>
@@ -174,7 +101,7 @@ const ExampleTwo = () => {
             <Button
               size="xs"
               variant="secondary"
-              leftSection={<IconEye size={14} />}
+              leftSection={<IconSearch size={14} />}
             >
               Details
             </Button>
@@ -228,10 +155,10 @@ const ExampleTwo = () => {
         </Paper>
         <Paper>
           <Box>
-            <Text fw={400} c={theme.colors.steel[2]} mb="sm">
+            <Text fw={400} c={theme.colors.steel[2]} mb="xs" fz="sm">
               Total allocated: {totalAllocated}%
             </Text>
-            <Text c={theme.colors.steel[2]}>
+            <Text c={theme.colors.steel[2]} fz="sm">
               Remaining: {100 - totalAllocated}%
             </Text>
           </Box>

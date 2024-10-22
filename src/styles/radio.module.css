@@ -23,3 +23,13 @@
   width: rem(24px);
   height: rem(24px);
 }
+
+.segmentedControlRoot {
+}
+
+.segmentedControlLabel {
+  border-radius: 4px;
+  background-color: var(--mantine-color-dark-7);
+  border: 1.5px solid var(--mantine-color-steel-2);
+  /* min-width: rem(287px); */
+}
