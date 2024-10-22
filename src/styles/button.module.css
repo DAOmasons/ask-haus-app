@@ -6,6 +6,11 @@
   height: var(--button-height-md);
   transition: 150ms ease-in-out;
 
+  &[data-size='xs'] {
+    height: var(--button-height-xs);
+    padding-inline: var(--button-padding-x-xs);
+  }
+
   &[data-size='sm'] {
     height: var(--button-height-sm);
     padding-inline: var(--button-padding-x-xs);
@@ -41,5 +46,12 @@
 
   &[data-variant='ghost-icon'] {
     border: none;
+    padding-inline: 0;
+    width: fit-content;
+    padding: 0;
+  }
+  &[data-variant='secondary'] {
+    border: 1.5px dashed var(--mantine-color-steel-4);
+    color: var(--mantine-color-steel-2);
   }
 }

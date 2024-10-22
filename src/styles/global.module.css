@@ -12,7 +12,16 @@
   font-weight: 900;
   letter-spacing: -1.2vw;
   font-size: 14.5vw;
-  text-shadow: 1vw -1vw var(--mantine-color-dark-5);
+  text-shadow: 1vw -1vw #323232;
+  line-height: 0.85;
+}
+
+.subTitle {
+  color: var(--mantine-color-steel-0);
+  font-weight: 900;
+  letter-spacing: -0.3vw;
+  font-size: 4vw;
+  text-shadow: 0.35vw -0.35vw #323232;
   line-height: 0.85;
 }
 

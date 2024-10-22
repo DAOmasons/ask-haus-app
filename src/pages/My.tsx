@@ -1,14 +1,38 @@
-import { Box, Slider, Stack } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  ColorSwatch,
+  Flex,
+  Group,
+  Paper,
+  Slider,
+  Stack,
+  Text,
+  useMantineTheme,
+} from '@mantine/core';
 import { CenterLayout } from '../layout/Layout';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
+import {
+  BigTitle,
+  SectionText,
+  SubTitle,
+  TextButton,
+} from '../components/Typography';
+import {
+  IconExternalLink,
+  IconEye,
+  IconLink,
+  IconSearch,
+  IconZoomIn,
+} from '@tabler/icons-react';
 
 export const My = () => {
   return (
     <CenterLayout>
-      <Stack w="100%" maw={500} gap={100}>
-        <ExampleOne />
+      <Box w="100%" maw={500}>
         <ExampleTwo />
-      </Stack>
+      </Box>
     </CenterLayout>
   );
 };
@@ -27,7 +51,6 @@ const ExampleOne = () => {
 
     setValues((prevValues) => {
       const updatedValues = [...prevValues];
-      const oldValue = updatedValues[index].value;
 
       // Calculate the current total excluding the changed slider
       const currentTotal = prevValues.reduce(
@@ -96,6 +119,7 @@ const ExampleOne = () => {
 };
 
 const ExampleTwo = () => {
+  const theme = useMantineTheme();
   const [values, setValues] = useState([
     { color: 'chocolate', value: 0, label: 'Chocolate' },
     { color: 'pink', value: 0, label: 'Strawberry' },
@@ -128,26 +152,92 @@ const ExampleTwo = () => {
 
   return (
     <CenterLayout>
-      <Box w="100%" maw={500}>
-        <Stack gap={'xl'}>
-          {values.map((value, index) => (
-            <Slider
-              key={index}
-              label={`${value.label} (${value.value}%)`}
-              value={value.value}
-              onChange={(newValue) => handleSliderChange(index, newValue)}
-              max={100}
-              min={0}
-              color={value.color}
-            />
-          ))}
-          <Box>
-            Total allocated: {totalAllocated}%
-            <br />
-            Remaining: {100 - totalAllocated}%
-          </Box>
-        </Stack>
+      <Box w="100%" mb="lg">
+        <SubTitle mb="sm">Poll</SubTitle>
+        <Text c={theme.colors.steel[4]} fz="sm">
+          Ends In 1d 1h 1m 1s
+        </Text>
       </Box>
+      <Stack w="100%" maw={500} gap={'xl'} mb="xl">
+        <Paper>
+          <Group mb="sm" gap="0">
+            <Text fw={600} c={theme.colors.steel[0]} mr={'sm'}>
+              Question
+            </Text>
+          </Group>
+          <Text c={theme.colors.steel[4]} mb={'sm'}>
+            How do you think our organization can improve stakeholder engagement
+            in its governance structure?
+          </Text>
+
+          <Group gap="sm">
+            <Button
+              size="xs"
+              variant="secondary"
+              leftSection={<IconEye size={14} />}
+            >
+              Details
+            </Button>
+            <Button
+              size="xs"
+              variant="secondary"
+              leftSection={<IconExternalLink size={14} />}
+            >
+              Poll Link
+            </Button>
+          </Group>
+        </Paper>
+        <Paper>
+          <Text fw={600} c={theme.colors.steel[0]} mb="2px">
+            Answer
+          </Text>
+          <Text c={theme.colors.steel[4]} fz="xs" mb="md">
+            Adjust the sliders to distribute your vote
+          </Text>
+          <Stack gap={'xl'}>
+            {values.map((value, index) => (
+              <Box>
+                <Group mb="xs" align="start" gap={'xs'}>
+                  <ColorSwatch
+                    color={value.color}
+                    size={16}
+                    style={{ transform: 'translateY(2.5px)' }}
+                  />
+                  <Text fw={500}>{value.label}</Text>
+                </Group>
+                <Group gap={0}>
+                  <Text w={'10%'} fz="sm">
+                    {value.value}%
+                  </Text>
+                  <Box w="90%">
+                    <Slider
+                      label={`${value.label} (${value.value}%)`}
+                      value={value.value}
+                      onChange={(newValue) =>
+                        handleSliderChange(index, newValue)
+                      }
+                      max={100}
+                      min={0}
+                      color={value.color}
+                    />
+                  </Box>
+                </Group>
+              </Box>
+            ))}
+          </Stack>
+        </Paper>
+        <Paper>
+          <Box>
+            <Text fw={400} c={theme.colors.steel[2]} mb="sm">
+              Total allocated: {totalAllocated}%
+            </Text>
+            <Text c={theme.colors.steel[2]}>
+              Remaining: {100 - totalAllocated}%
+            </Text>
+          </Box>
+        </Paper>
+      </Stack>
+      <Button>Submit</Button>
     </CenterLayout>
   );
 };

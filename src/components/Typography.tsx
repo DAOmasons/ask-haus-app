@@ -18,6 +18,10 @@ export const BigTitle = (props: TitleProps) => (
   <Title order={1} {...props} classNames={{ root: globalClasses.bigTitle }} />
 );
 
+export const SubTitle = (props: TitleProps) => (
+  <Title order={2} {...props} classNames={{ root: globalClasses.subTitle }} />
+);
+
 export const SectionText = ({
   ...props
 }: TextProps & { children?: ReactNode }) => (
