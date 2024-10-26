@@ -13,15 +13,13 @@ import {
   Textarea,
   TextInput,
 } from '@mantine/core';
+import { DateTimePicker } from '@mantine/dates';
 import buttonClasses from './styles/button.module.css';
 import inputClasses from './styles/input.module.css';
 import paperClasses from './styles/paper.module.css';
 import radioClasses from './styles/radio.module.css';
 import globalClasses from './styles/global.module.css';
 import sliderClasses from './styles/slider.module.css';
-import { DateTimePicker } from '@mantine/dates';
-
-console.log('sliderClasses', sliderClasses);
 
 export const STEEL = [
   '#f5f5f5',
@@ -163,7 +161,6 @@ export const theme = createTheme({
     }),
     SegmentedControl: SegmentedControl.extend({
       classNames: {
-        root: radioClasses.segmentedControlRoot,
         indicator: radioClasses.segmentedControlLabel,
       },
     }),

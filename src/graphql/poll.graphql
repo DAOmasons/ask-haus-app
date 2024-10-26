@@ -1,0 +1,39 @@
+fragment PollCard on AskHausPoll {
+  id
+  title
+  answerType
+  description
+  pollLink
+  requestComment
+  votesParams {
+    id
+    endTime
+    startTime
+    duration
+  }
+  pointsParams {
+    checkpoint
+    holderType
+  }
+}
+
+query frontPagePolls($now: numeric!) {
+  upcomingPolls: AskHausPoll(
+    where: { votesParams: { startTime: { _gt: $now } } }
+    limit: 5
+  ) {
+    ...PollCard
+  }
+  pastPolls: AskHausPoll(
+    where: { votesParams: { endTime: { _lt: $now } } }
+    limit: 5
+  ) {
+    ...PollCard
+  }
+  activePolls: AskHausPoll(
+    where: { votesParams: { startTime: { _gt: $now }, endTime: { _lt: $now } } }
+    limit: 5
+  ) {
+    ...PollCard
+  }
+}

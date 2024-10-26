@@ -216,7 +216,7 @@ export const createPollArgs = async (args: PollArgs) => {
   const content = JSON.stringify(validated.data);
   const protocol = contentProtocol[args.pollMetadata.contentType];
 
-  const filterTag = `${IndexerKey}_${randomCharacters()}`;
+  const filterTag = `${IndexerKey.PollV0}_${randomCharacters()}`;
 
   return {
     args: [

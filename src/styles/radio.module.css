@@ -24,9 +24,6 @@
   height: rem(24px);
 }
 
-.segmentedControlRoot {
-}
-
 .segmentedControlLabel {
   border-radius: 4px;
   background-color: var(--mantine-color-dark-7);

@@ -24,6 +24,263 @@ export type Scalars = {
   timestamptz: { input: any; output: any; }
 };
 
+/** columns and relationships of "AskHausPoll" */
+export type AskHausPoll = {
+  __typename?: 'AskHausPoll';
+  answerType: Scalars['String']['output'];
+  /** An object relationship */
+  choicesParams?: Maybe<Params_PrePop_V0_2_0>;
+  choicesParams_id: Scalars['String']['output'];
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  /** An object relationship */
+  pointsParams?: Maybe<Params_BaalPoints_V0_2_0>;
+  pointsParams_id: Scalars['String']['output'];
+  pollLink?: Maybe<Scalars['String']['output']>;
+  requestComment?: Maybe<Scalars['Boolean']['output']>;
+  /** An object relationship */
+  round?: Maybe<Round>;
+  round_id: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  /** An object relationship */
+  votesParams?: Maybe<Params_TimedVotes_V0_2_0>;
+  votesParams_id: Scalars['String']['output'];
+};
+
+/** Boolean expression to filter rows from the table "AskHausPoll". All fields are combined with a logical 'AND'. */
+export type AskHausPoll_Bool_Exp = {
+  _and?: InputMaybe<Array<AskHausPoll_Bool_Exp>>;
+  _not?: InputMaybe<AskHausPoll_Bool_Exp>;
+  _or?: InputMaybe<Array<AskHausPoll_Bool_Exp>>;
+  answerType?: InputMaybe<String_Comparison_Exp>;
+  choicesParams?: InputMaybe<Params_PrePop_V0_2_0_Bool_Exp>;
+  choicesParams_id?: InputMaybe<String_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  pointsParams?: InputMaybe<Params_BaalPoints_V0_2_0_Bool_Exp>;
+  pointsParams_id?: InputMaybe<String_Comparison_Exp>;
+  pollLink?: InputMaybe<String_Comparison_Exp>;
+  requestComment?: InputMaybe<Boolean_Comparison_Exp>;
+  round?: InputMaybe<Round_Bool_Exp>;
+  round_id?: InputMaybe<String_Comparison_Exp>;
+  title?: InputMaybe<String_Comparison_Exp>;
+  votesParams?: InputMaybe<Params_TimedVotes_V0_2_0_Bool_Exp>;
+  votesParams_id?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "AskHausPoll". */
+export type AskHausPoll_Order_By = {
+  answerType?: InputMaybe<Order_By>;
+  choicesParams?: InputMaybe<Params_PrePop_V0_2_0_Order_By>;
+  choicesParams_id?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pointsParams?: InputMaybe<Params_BaalPoints_V0_2_0_Order_By>;
+  pointsParams_id?: InputMaybe<Order_By>;
+  pollLink?: InputMaybe<Order_By>;
+  requestComment?: InputMaybe<Order_By>;
+  round?: InputMaybe<Round_Order_By>;
+  round_id?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  votesParams?: InputMaybe<Params_TimedVotes_V0_2_0_Order_By>;
+  votesParams_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "AskHausPoll" */
+export enum AskHausPoll_Select_Column {
+  /** column name */
+  AnswerType = 'answerType',
+  /** column name */
+  ChoicesParamsId = 'choicesParams_id',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PointsParamsId = 'pointsParams_id',
+  /** column name */
+  PollLink = 'pollLink',
+  /** column name */
+  RequestComment = 'requestComment',
+  /** column name */
+  RoundId = 'round_id',
+  /** column name */
+  Title = 'title',
+  /** column name */
+  VotesParamsId = 'votesParams_id'
+}
+
+/** Streaming cursor of the table "AskHausPoll" */
+export type AskHausPoll_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: AskHausPoll_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type AskHausPoll_Stream_Cursor_Value_Input = {
+  answerType?: InputMaybe<Scalars['String']['input']>;
+  choicesParams_id?: InputMaybe<Scalars['String']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  pointsParams_id?: InputMaybe<Scalars['String']['input']>;
+  pollLink?: InputMaybe<Scalars['String']['input']>;
+  requestComment?: InputMaybe<Scalars['Boolean']['input']>;
+  round_id?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  votesParams_id?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "BasicChoice" */
+export type BasicChoice = {
+  __typename?: 'BasicChoice';
+  bytes: Scalars['String']['output'];
+  choiceId: Scalars['String']['output'];
+  color?: Maybe<Scalars['String']['output']>;
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  isActive: Scalars['Boolean']['output'];
+  isValid: Scalars['Boolean']['output'];
+  link?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  moduleParams?: Maybe<Params_PrePop_V0_2_0>;
+  moduleParams_id: Scalars['String']['output'];
+  registrar: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
+/** order by aggregate values of table "BasicChoice" */
+export type BasicChoice_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<BasicChoice_Max_Order_By>;
+  min?: InputMaybe<BasicChoice_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "BasicChoice". All fields are combined with a logical 'AND'. */
+export type BasicChoice_Bool_Exp = {
+  _and?: InputMaybe<Array<BasicChoice_Bool_Exp>>;
+  _not?: InputMaybe<BasicChoice_Bool_Exp>;
+  _or?: InputMaybe<Array<BasicChoice_Bool_Exp>>;
+  bytes?: InputMaybe<String_Comparison_Exp>;
+  choiceId?: InputMaybe<String_Comparison_Exp>;
+  color?: InputMaybe<String_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  isActive?: InputMaybe<Boolean_Comparison_Exp>;
+  isValid?: InputMaybe<Boolean_Comparison_Exp>;
+  link?: InputMaybe<String_Comparison_Exp>;
+  moduleParams?: InputMaybe<Params_PrePop_V0_2_0_Bool_Exp>;
+  moduleParams_id?: InputMaybe<String_Comparison_Exp>;
+  registrar?: InputMaybe<String_Comparison_Exp>;
+  title?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "BasicChoice" */
+export type BasicChoice_Max_Order_By = {
+  bytes?: InputMaybe<Order_By>;
+  choiceId?: InputMaybe<Order_By>;
+  color?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  link?: InputMaybe<Order_By>;
+  moduleParams_id?: InputMaybe<Order_By>;
+  registrar?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "BasicChoice" */
+export type BasicChoice_Min_Order_By = {
+  bytes?: InputMaybe<Order_By>;
+  choiceId?: InputMaybe<Order_By>;
+  color?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  link?: InputMaybe<Order_By>;
+  moduleParams_id?: InputMaybe<Order_By>;
+  registrar?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "BasicChoice". */
+export type BasicChoice_Order_By = {
+  bytes?: InputMaybe<Order_By>;
+  choiceId?: InputMaybe<Order_By>;
+  color?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  isActive?: InputMaybe<Order_By>;
+  isValid?: InputMaybe<Order_By>;
+  link?: InputMaybe<Order_By>;
+  moduleParams?: InputMaybe<Params_PrePop_V0_2_0_Order_By>;
+  moduleParams_id?: InputMaybe<Order_By>;
+  registrar?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "BasicChoice" */
+export enum BasicChoice_Select_Column {
+  /** column name */
+  Bytes = 'bytes',
+  /** column name */
+  ChoiceId = 'choiceId',
+  /** column name */
+  Color = 'color',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsActive = 'isActive',
+  /** column name */
+  IsValid = 'isValid',
+  /** column name */
+  Link = 'link',
+  /** column name */
+  ModuleParamsId = 'moduleParams_id',
+  /** column name */
+  Registrar = 'registrar',
+  /** column name */
+  Title = 'title'
+}
+
+/** Streaming cursor of the table "BasicChoice" */
+export type BasicChoice_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: BasicChoice_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type BasicChoice_Stream_Cursor_Value_Input = {
+  bytes?: InputMaybe<Scalars['String']['input']>;
+  choiceId?: InputMaybe<Scalars['String']['input']>;
+  color?: InputMaybe<Scalars['String']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  isValid?: InputMaybe<Scalars['Boolean']['input']>;
+  link?: InputMaybe<Scalars['String']['input']>;
+  moduleParams_id?: InputMaybe<Scalars['String']['input']>;
+  registrar?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
 export type Boolean_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['Boolean']['input']>;
@@ -35,80 +292,6 @@ export type Boolean_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['Boolean']['input']>;
   _neq?: InputMaybe<Scalars['Boolean']['input']>;
   _nin?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-};
-
-/** columns and relationships of "ContestTemplate" */
-export type ContestTemplate = {
-  __typename?: 'ContestTemplate';
-  active: Scalars['Boolean']['output'];
-  contestAddress: Scalars['String']['output'];
-  contestVersion: Scalars['String']['output'];
-  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
-  id: Scalars['String']['output'];
-  mdPointer: Scalars['String']['output'];
-  mdProtocol: Scalars['numeric']['output'];
-};
-
-/** Boolean expression to filter rows from the table "ContestTemplate". All fields are combined with a logical 'AND'. */
-export type ContestTemplate_Bool_Exp = {
-  _and?: InputMaybe<Array<ContestTemplate_Bool_Exp>>;
-  _not?: InputMaybe<ContestTemplate_Bool_Exp>;
-  _or?: InputMaybe<Array<ContestTemplate_Bool_Exp>>;
-  active?: InputMaybe<Boolean_Comparison_Exp>;
-  contestAddress?: InputMaybe<String_Comparison_Exp>;
-  contestVersion?: InputMaybe<String_Comparison_Exp>;
-  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
-  id?: InputMaybe<String_Comparison_Exp>;
-  mdPointer?: InputMaybe<String_Comparison_Exp>;
-  mdProtocol?: InputMaybe<Numeric_Comparison_Exp>;
-};
-
-/** Ordering options when selecting data from "ContestTemplate". */
-export type ContestTemplate_Order_By = {
-  active?: InputMaybe<Order_By>;
-  contestAddress?: InputMaybe<Order_By>;
-  contestVersion?: InputMaybe<Order_By>;
-  db_write_timestamp?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  mdPointer?: InputMaybe<Order_By>;
-  mdProtocol?: InputMaybe<Order_By>;
-};
-
-/** select columns of table "ContestTemplate" */
-export enum ContestTemplate_Select_Column {
-  /** column name */
-  Active = 'active',
-  /** column name */
-  ContestAddress = 'contestAddress',
-  /** column name */
-  ContestVersion = 'contestVersion',
-  /** column name */
-  DbWriteTimestamp = 'db_write_timestamp',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  MdPointer = 'mdPointer',
-  /** column name */
-  MdProtocol = 'mdProtocol'
-}
-
-/** Streaming cursor of the table "ContestTemplate" */
-export type ContestTemplate_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: ContestTemplate_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type ContestTemplate_Stream_Cursor_Value_Input = {
-  active?: InputMaybe<Scalars['Boolean']['input']>;
-  contestAddress?: InputMaybe<Scalars['String']['input']>;
-  contestVersion?: InputMaybe<Scalars['String']['input']>;
-  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  mdPointer?: InputMaybe<Scalars['String']['input']>;
-  mdProtocol?: InputMaybe<Scalars['numeric']['input']>;
 };
 
 /** columns and relationships of "Factory" */
@@ -178,6 +361,94 @@ export type Int_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['Int']['input']>;
   _neq?: InputMaybe<Scalars['Int']['input']>;
   _nin?: InputMaybe<Array<Scalars['Int']['input']>>;
+};
+
+/** columns and relationships of "ModuleClone" */
+export type ModuleClone = {
+  __typename?: 'ModuleClone';
+  /** An object relationship */
+  contest?: Maybe<Round>;
+  contest_id?: Maybe<Scalars['String']['output']>;
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  filterTag: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  moduleAddress: Scalars['String']['output'];
+  moduleName: Scalars['String']['output'];
+  /** An object relationship */
+  moduleTemplate?: Maybe<ModuleTemplate>;
+  moduleTemplate_id: Scalars['String']['output'];
+  roundAddress?: Maybe<Scalars['String']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "ModuleClone". All fields are combined with a logical 'AND'. */
+export type ModuleClone_Bool_Exp = {
+  _and?: InputMaybe<Array<ModuleClone_Bool_Exp>>;
+  _not?: InputMaybe<ModuleClone_Bool_Exp>;
+  _or?: InputMaybe<Array<ModuleClone_Bool_Exp>>;
+  contest?: InputMaybe<Round_Bool_Exp>;
+  contest_id?: InputMaybe<String_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  filterTag?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  moduleAddress?: InputMaybe<String_Comparison_Exp>;
+  moduleName?: InputMaybe<String_Comparison_Exp>;
+  moduleTemplate?: InputMaybe<ModuleTemplate_Bool_Exp>;
+  moduleTemplate_id?: InputMaybe<String_Comparison_Exp>;
+  roundAddress?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "ModuleClone". */
+export type ModuleClone_Order_By = {
+  contest?: InputMaybe<Round_Order_By>;
+  contest_id?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  filterTag?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  moduleAddress?: InputMaybe<Order_By>;
+  moduleName?: InputMaybe<Order_By>;
+  moduleTemplate?: InputMaybe<ModuleTemplate_Order_By>;
+  moduleTemplate_id?: InputMaybe<Order_By>;
+  roundAddress?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "ModuleClone" */
+export enum ModuleClone_Select_Column {
+  /** column name */
+  ContestId = 'contest_id',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  FilterTag = 'filterTag',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ModuleAddress = 'moduleAddress',
+  /** column name */
+  ModuleName = 'moduleName',
+  /** column name */
+  ModuleTemplateId = 'moduleTemplate_id',
+  /** column name */
+  RoundAddress = 'roundAddress'
+}
+
+/** Streaming cursor of the table "ModuleClone" */
+export type ModuleClone_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: ModuleClone_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type ModuleClone_Stream_Cursor_Value_Input = {
+  contest_id?: InputMaybe<Scalars['String']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  filterTag?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  moduleAddress?: InputMaybe<Scalars['String']['input']>;
+  moduleName?: InputMaybe<Scalars['String']['input']>;
+  moduleTemplate_id?: InputMaybe<Scalars['String']['input']>;
+  roundAddress?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** columns and relationships of "ModuleTemplate" */
@@ -252,6 +523,604 @@ export type ModuleTemplate_Stream_Cursor_Value_Input = {
   mdProtocol?: InputMaybe<Scalars['numeric']['input']>;
   moduleName?: InputMaybe<Scalars['String']['input']>;
   templateAddress?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "Params_BaalGate_v0_2_0" */
+export type Params_BaalGate_V0_2_0 = {
+  __typename?: 'Params_BaalGate_v0_2_0';
+  checkpoint: Scalars['numeric']['output'];
+  /** An object relationship */
+  clone?: Maybe<ModuleClone>;
+  clone_id: Scalars['String']['output'];
+  dao: Scalars['String']['output'];
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  endTime: Scalars['numeric']['output'];
+  holderThreshold: Scalars['numeric']['output'];
+  holderType: Scalars['numeric']['output'];
+  id: Scalars['String']['output'];
+  lootToken: Scalars['String']['output'];
+  sharesToken: Scalars['String']['output'];
+  startTime: Scalars['numeric']['output'];
+  timed: Scalars['Boolean']['output'];
+};
+
+/** Boolean expression to filter rows from the table "Params_BaalGate_v0_2_0". All fields are combined with a logical 'AND'. */
+export type Params_BaalGate_V0_2_0_Bool_Exp = {
+  _and?: InputMaybe<Array<Params_BaalGate_V0_2_0_Bool_Exp>>;
+  _not?: InputMaybe<Params_BaalGate_V0_2_0_Bool_Exp>;
+  _or?: InputMaybe<Array<Params_BaalGate_V0_2_0_Bool_Exp>>;
+  checkpoint?: InputMaybe<Numeric_Comparison_Exp>;
+  clone?: InputMaybe<ModuleClone_Bool_Exp>;
+  clone_id?: InputMaybe<String_Comparison_Exp>;
+  dao?: InputMaybe<String_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  endTime?: InputMaybe<Numeric_Comparison_Exp>;
+  holderThreshold?: InputMaybe<Numeric_Comparison_Exp>;
+  holderType?: InputMaybe<Numeric_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  lootToken?: InputMaybe<String_Comparison_Exp>;
+  sharesToken?: InputMaybe<String_Comparison_Exp>;
+  startTime?: InputMaybe<Numeric_Comparison_Exp>;
+  timed?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "Params_BaalGate_v0_2_0". */
+export type Params_BaalGate_V0_2_0_Order_By = {
+  checkpoint?: InputMaybe<Order_By>;
+  clone?: InputMaybe<ModuleClone_Order_By>;
+  clone_id?: InputMaybe<Order_By>;
+  dao?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  endTime?: InputMaybe<Order_By>;
+  holderThreshold?: InputMaybe<Order_By>;
+  holderType?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  lootToken?: InputMaybe<Order_By>;
+  sharesToken?: InputMaybe<Order_By>;
+  startTime?: InputMaybe<Order_By>;
+  timed?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "Params_BaalGate_v0_2_0" */
+export enum Params_BaalGate_V0_2_0_Select_Column {
+  /** column name */
+  Checkpoint = 'checkpoint',
+  /** column name */
+  CloneId = 'clone_id',
+  /** column name */
+  Dao = 'dao',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  EndTime = 'endTime',
+  /** column name */
+  HolderThreshold = 'holderThreshold',
+  /** column name */
+  HolderType = 'holderType',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LootToken = 'lootToken',
+  /** column name */
+  SharesToken = 'sharesToken',
+  /** column name */
+  StartTime = 'startTime',
+  /** column name */
+  Timed = 'timed'
+}
+
+/** Streaming cursor of the table "Params_BaalGate_v0_2_0" */
+export type Params_BaalGate_V0_2_0_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Params_BaalGate_V0_2_0_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Params_BaalGate_V0_2_0_Stream_Cursor_Value_Input = {
+  checkpoint?: InputMaybe<Scalars['numeric']['input']>;
+  clone_id?: InputMaybe<Scalars['String']['input']>;
+  dao?: InputMaybe<Scalars['String']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  endTime?: InputMaybe<Scalars['numeric']['input']>;
+  holderThreshold?: InputMaybe<Scalars['numeric']['input']>;
+  holderType?: InputMaybe<Scalars['numeric']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  lootToken?: InputMaybe<Scalars['String']['input']>;
+  sharesToken?: InputMaybe<Scalars['String']['input']>;
+  startTime?: InputMaybe<Scalars['numeric']['input']>;
+  timed?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** columns and relationships of "Params_BaalPoints_v0_2_0" */
+export type Params_BaalPoints_V0_2_0 = {
+  __typename?: 'Params_BaalPoints_v0_2_0';
+  checkpoint: Scalars['numeric']['output'];
+  /** An object relationship */
+  clone?: Maybe<ModuleClone>;
+  clone_id: Scalars['String']['output'];
+  dao: Scalars['String']['output'];
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  holderType: Scalars['numeric']['output'];
+  id: Scalars['String']['output'];
+  lootToken: Scalars['String']['output'];
+  sharesToken: Scalars['String']['output'];
+};
+
+/** Boolean expression to filter rows from the table "Params_BaalPoints_v0_2_0". All fields are combined with a logical 'AND'. */
+export type Params_BaalPoints_V0_2_0_Bool_Exp = {
+  _and?: InputMaybe<Array<Params_BaalPoints_V0_2_0_Bool_Exp>>;
+  _not?: InputMaybe<Params_BaalPoints_V0_2_0_Bool_Exp>;
+  _or?: InputMaybe<Array<Params_BaalPoints_V0_2_0_Bool_Exp>>;
+  checkpoint?: InputMaybe<Numeric_Comparison_Exp>;
+  clone?: InputMaybe<ModuleClone_Bool_Exp>;
+  clone_id?: InputMaybe<String_Comparison_Exp>;
+  dao?: InputMaybe<String_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  holderType?: InputMaybe<Numeric_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  lootToken?: InputMaybe<String_Comparison_Exp>;
+  sharesToken?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "Params_BaalPoints_v0_2_0". */
+export type Params_BaalPoints_V0_2_0_Order_By = {
+  checkpoint?: InputMaybe<Order_By>;
+  clone?: InputMaybe<ModuleClone_Order_By>;
+  clone_id?: InputMaybe<Order_By>;
+  dao?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  holderType?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  lootToken?: InputMaybe<Order_By>;
+  sharesToken?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "Params_BaalPoints_v0_2_0" */
+export enum Params_BaalPoints_V0_2_0_Select_Column {
+  /** column name */
+  Checkpoint = 'checkpoint',
+  /** column name */
+  CloneId = 'clone_id',
+  /** column name */
+  Dao = 'dao',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  HolderType = 'holderType',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LootToken = 'lootToken',
+  /** column name */
+  SharesToken = 'sharesToken'
+}
+
+/** Streaming cursor of the table "Params_BaalPoints_v0_2_0" */
+export type Params_BaalPoints_V0_2_0_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Params_BaalPoints_V0_2_0_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Params_BaalPoints_V0_2_0_Stream_Cursor_Value_Input = {
+  checkpoint?: InputMaybe<Scalars['numeric']['input']>;
+  clone_id?: InputMaybe<Scalars['String']['input']>;
+  dao?: InputMaybe<Scalars['String']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  holderType?: InputMaybe<Scalars['numeric']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  lootToken?: InputMaybe<Scalars['String']['input']>;
+  sharesToken?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "Params_PrePop_v0_2_0" */
+export type Params_PrePop_V0_2_0 = {
+  __typename?: 'Params_PrePop_v0_2_0';
+  /** An array relationship */
+  choices: Array<BasicChoice>;
+  /** An object relationship */
+  clone?: Maybe<ModuleClone>;
+  clone_id: Scalars['String']['output'];
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  id: Scalars['String']['output'];
+};
+
+
+/** columns and relationships of "Params_PrePop_v0_2_0" */
+export type Params_PrePop_V0_2_0ChoicesArgs = {
+  distinct_on?: InputMaybe<Array<BasicChoice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BasicChoice_Order_By>>;
+  where?: InputMaybe<BasicChoice_Bool_Exp>;
+};
+
+/** Boolean expression to filter rows from the table "Params_PrePop_v0_2_0". All fields are combined with a logical 'AND'. */
+export type Params_PrePop_V0_2_0_Bool_Exp = {
+  _and?: InputMaybe<Array<Params_PrePop_V0_2_0_Bool_Exp>>;
+  _not?: InputMaybe<Params_PrePop_V0_2_0_Bool_Exp>;
+  _or?: InputMaybe<Array<Params_PrePop_V0_2_0_Bool_Exp>>;
+  choices?: InputMaybe<BasicChoice_Bool_Exp>;
+  clone?: InputMaybe<ModuleClone_Bool_Exp>;
+  clone_id?: InputMaybe<String_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "Params_PrePop_v0_2_0". */
+export type Params_PrePop_V0_2_0_Order_By = {
+  choices_aggregate?: InputMaybe<BasicChoice_Aggregate_Order_By>;
+  clone?: InputMaybe<ModuleClone_Order_By>;
+  clone_id?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "Params_PrePop_v0_2_0" */
+export enum Params_PrePop_V0_2_0_Select_Column {
+  /** column name */
+  CloneId = 'clone_id',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  Id = 'id'
+}
+
+/** Streaming cursor of the table "Params_PrePop_v0_2_0" */
+export type Params_PrePop_V0_2_0_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Params_PrePop_V0_2_0_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Params_PrePop_V0_2_0_Stream_Cursor_Value_Input = {
+  clone_id?: InputMaybe<Scalars['String']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "Params_TimedVotes_v0_2_0" */
+export type Params_TimedVotes_V0_2_0 = {
+  __typename?: 'Params_TimedVotes_v0_2_0';
+  /** An object relationship */
+  clone?: Maybe<ModuleClone>;
+  clone_id: Scalars['String']['output'];
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  duration?: Maybe<Scalars['numeric']['output']>;
+  endTime?: Maybe<Scalars['numeric']['output']>;
+  id: Scalars['String']['output'];
+  startTime?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "Params_TimedVotes_v0_2_0". All fields are combined with a logical 'AND'. */
+export type Params_TimedVotes_V0_2_0_Bool_Exp = {
+  _and?: InputMaybe<Array<Params_TimedVotes_V0_2_0_Bool_Exp>>;
+  _not?: InputMaybe<Params_TimedVotes_V0_2_0_Bool_Exp>;
+  _or?: InputMaybe<Array<Params_TimedVotes_V0_2_0_Bool_Exp>>;
+  clone?: InputMaybe<ModuleClone_Bool_Exp>;
+  clone_id?: InputMaybe<String_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  duration?: InputMaybe<Numeric_Comparison_Exp>;
+  endTime?: InputMaybe<Numeric_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  startTime?: InputMaybe<Numeric_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "Params_TimedVotes_v0_2_0". */
+export type Params_TimedVotes_V0_2_0_Order_By = {
+  clone?: InputMaybe<ModuleClone_Order_By>;
+  clone_id?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  duration?: InputMaybe<Order_By>;
+  endTime?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  startTime?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "Params_TimedVotes_v0_2_0" */
+export enum Params_TimedVotes_V0_2_0_Select_Column {
+  /** column name */
+  CloneId = 'clone_id',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  Duration = 'duration',
+  /** column name */
+  EndTime = 'endTime',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StartTime = 'startTime'
+}
+
+/** Streaming cursor of the table "Params_TimedVotes_v0_2_0" */
+export type Params_TimedVotes_V0_2_0_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Params_TimedVotes_V0_2_0_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Params_TimedVotes_V0_2_0_Stream_Cursor_Value_Input = {
+  clone_id?: InputMaybe<Scalars['String']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  duration?: InputMaybe<Scalars['numeric']['input']>;
+  endTime?: InputMaybe<Scalars['numeric']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  startTime?: InputMaybe<Scalars['numeric']['input']>;
+};
+
+/** columns and relationships of "Round" */
+export type Round = {
+  __typename?: 'Round';
+  /** An object relationship */
+  choicesModule?: Maybe<ModuleClone>;
+  choicesModule_id: Scalars['String']['output'];
+  contestStatus: Scalars['numeric']['output'];
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  /** An object relationship */
+  executionModule?: Maybe<ModuleClone>;
+  executionModule_id: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  isContinuous: Scalars['Boolean']['output'];
+  isRetractable: Scalars['Boolean']['output'];
+  mdPointer: Scalars['String']['output'];
+  mdProtocol: Scalars['numeric']['output'];
+  /** An object relationship */
+  pointsModule?: Maybe<ModuleClone>;
+  pointsModule_id: Scalars['String']['output'];
+  roundAddress: Scalars['String']['output'];
+  /** An object relationship */
+  votesModule?: Maybe<ModuleClone>;
+  votesModule_id: Scalars['String']['output'];
+};
+
+/** columns and relationships of "RoundClone" */
+export type RoundClone = {
+  __typename?: 'RoundClone';
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  filterTag: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  roundAddress: Scalars['String']['output'];
+  roundVersion: Scalars['String']['output'];
+  /** An object relationship */
+  template?: Maybe<RoundTemplate>;
+  template_id: Scalars['String']['output'];
+};
+
+/** Boolean expression to filter rows from the table "RoundClone". All fields are combined with a logical 'AND'. */
+export type RoundClone_Bool_Exp = {
+  _and?: InputMaybe<Array<RoundClone_Bool_Exp>>;
+  _not?: InputMaybe<RoundClone_Bool_Exp>;
+  _or?: InputMaybe<Array<RoundClone_Bool_Exp>>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  filterTag?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  roundAddress?: InputMaybe<String_Comparison_Exp>;
+  roundVersion?: InputMaybe<String_Comparison_Exp>;
+  template?: InputMaybe<RoundTemplate_Bool_Exp>;
+  template_id?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "RoundClone". */
+export type RoundClone_Order_By = {
+  db_write_timestamp?: InputMaybe<Order_By>;
+  filterTag?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  roundAddress?: InputMaybe<Order_By>;
+  roundVersion?: InputMaybe<Order_By>;
+  template?: InputMaybe<RoundTemplate_Order_By>;
+  template_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "RoundClone" */
+export enum RoundClone_Select_Column {
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  FilterTag = 'filterTag',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  RoundAddress = 'roundAddress',
+  /** column name */
+  RoundVersion = 'roundVersion',
+  /** column name */
+  TemplateId = 'template_id'
+}
+
+/** Streaming cursor of the table "RoundClone" */
+export type RoundClone_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: RoundClone_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type RoundClone_Stream_Cursor_Value_Input = {
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  filterTag?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  roundAddress?: InputMaybe<Scalars['String']['input']>;
+  roundVersion?: InputMaybe<Scalars['String']['input']>;
+  template_id?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "RoundTemplate" */
+export type RoundTemplate = {
+  __typename?: 'RoundTemplate';
+  active: Scalars['Boolean']['output'];
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  id: Scalars['String']['output'];
+  mdPointer: Scalars['String']['output'];
+  mdProtocol: Scalars['numeric']['output'];
+  roundAddress: Scalars['String']['output'];
+  roundVersion: Scalars['String']['output'];
+};
+
+/** Boolean expression to filter rows from the table "RoundTemplate". All fields are combined with a logical 'AND'. */
+export type RoundTemplate_Bool_Exp = {
+  _and?: InputMaybe<Array<RoundTemplate_Bool_Exp>>;
+  _not?: InputMaybe<RoundTemplate_Bool_Exp>;
+  _or?: InputMaybe<Array<RoundTemplate_Bool_Exp>>;
+  active?: InputMaybe<Boolean_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  mdPointer?: InputMaybe<String_Comparison_Exp>;
+  mdProtocol?: InputMaybe<Numeric_Comparison_Exp>;
+  roundAddress?: InputMaybe<String_Comparison_Exp>;
+  roundVersion?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "RoundTemplate". */
+export type RoundTemplate_Order_By = {
+  active?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  mdPointer?: InputMaybe<Order_By>;
+  mdProtocol?: InputMaybe<Order_By>;
+  roundAddress?: InputMaybe<Order_By>;
+  roundVersion?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "RoundTemplate" */
+export enum RoundTemplate_Select_Column {
+  /** column name */
+  Active = 'active',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  MdPointer = 'mdPointer',
+  /** column name */
+  MdProtocol = 'mdProtocol',
+  /** column name */
+  RoundAddress = 'roundAddress',
+  /** column name */
+  RoundVersion = 'roundVersion'
+}
+
+/** Streaming cursor of the table "RoundTemplate" */
+export type RoundTemplate_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: RoundTemplate_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type RoundTemplate_Stream_Cursor_Value_Input = {
+  active?: InputMaybe<Scalars['Boolean']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  mdPointer?: InputMaybe<Scalars['String']['input']>;
+  mdProtocol?: InputMaybe<Scalars['numeric']['input']>;
+  roundAddress?: InputMaybe<Scalars['String']['input']>;
+  roundVersion?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "Round". All fields are combined with a logical 'AND'. */
+export type Round_Bool_Exp = {
+  _and?: InputMaybe<Array<Round_Bool_Exp>>;
+  _not?: InputMaybe<Round_Bool_Exp>;
+  _or?: InputMaybe<Array<Round_Bool_Exp>>;
+  choicesModule?: InputMaybe<ModuleClone_Bool_Exp>;
+  choicesModule_id?: InputMaybe<String_Comparison_Exp>;
+  contestStatus?: InputMaybe<Numeric_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  executionModule?: InputMaybe<ModuleClone_Bool_Exp>;
+  executionModule_id?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  isContinuous?: InputMaybe<Boolean_Comparison_Exp>;
+  isRetractable?: InputMaybe<Boolean_Comparison_Exp>;
+  mdPointer?: InputMaybe<String_Comparison_Exp>;
+  mdProtocol?: InputMaybe<Numeric_Comparison_Exp>;
+  pointsModule?: InputMaybe<ModuleClone_Bool_Exp>;
+  pointsModule_id?: InputMaybe<String_Comparison_Exp>;
+  roundAddress?: InputMaybe<String_Comparison_Exp>;
+  votesModule?: InputMaybe<ModuleClone_Bool_Exp>;
+  votesModule_id?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "Round". */
+export type Round_Order_By = {
+  choicesModule?: InputMaybe<ModuleClone_Order_By>;
+  choicesModule_id?: InputMaybe<Order_By>;
+  contestStatus?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  executionModule?: InputMaybe<ModuleClone_Order_By>;
+  executionModule_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  isContinuous?: InputMaybe<Order_By>;
+  isRetractable?: InputMaybe<Order_By>;
+  mdPointer?: InputMaybe<Order_By>;
+  mdProtocol?: InputMaybe<Order_By>;
+  pointsModule?: InputMaybe<ModuleClone_Order_By>;
+  pointsModule_id?: InputMaybe<Order_By>;
+  roundAddress?: InputMaybe<Order_By>;
+  votesModule?: InputMaybe<ModuleClone_Order_By>;
+  votesModule_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "Round" */
+export enum Round_Select_Column {
+  /** column name */
+  ChoicesModuleId = 'choicesModule_id',
+  /** column name */
+  ContestStatus = 'contestStatus',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  ExecutionModuleId = 'executionModule_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsContinuous = 'isContinuous',
+  /** column name */
+  IsRetractable = 'isRetractable',
+  /** column name */
+  MdPointer = 'mdPointer',
+  /** column name */
+  MdProtocol = 'mdProtocol',
+  /** column name */
+  PointsModuleId = 'pointsModule_id',
+  /** column name */
+  RoundAddress = 'roundAddress',
+  /** column name */
+  VotesModuleId = 'votesModule_id'
+}
+
+/** Streaming cursor of the table "Round" */
+export type Round_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Round_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Round_Stream_Cursor_Value_Input = {
+  choicesModule_id?: InputMaybe<Scalars['String']['input']>;
+  contestStatus?: InputMaybe<Scalars['numeric']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  executionModule_id?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  isContinuous?: InputMaybe<Scalars['Boolean']['input']>;
+  isRetractable?: InputMaybe<Scalars['Boolean']['input']>;
+  mdPointer?: InputMaybe<Scalars['String']['input']>;
+  mdProtocol?: InputMaybe<Scalars['numeric']['input']>;
+  pointsModule_id?: InputMaybe<Scalars['String']['input']>;
+  roundAddress?: InputMaybe<Scalars['String']['input']>;
+  votesModule_id?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -1167,18 +2036,54 @@ export type Persisted_State_Stream_Cursor_Value_Input = {
 
 export type Query_Root = {
   __typename?: 'query_root';
-  /** fetch data from the table: "ContestTemplate" */
-  ContestTemplate: Array<ContestTemplate>;
-  /** fetch data from the table: "ContestTemplate" using primary key columns */
-  ContestTemplate_by_pk?: Maybe<ContestTemplate>;
+  /** fetch data from the table: "AskHausPoll" */
+  AskHausPoll: Array<AskHausPoll>;
+  /** fetch data from the table: "AskHausPoll" using primary key columns */
+  AskHausPoll_by_pk?: Maybe<AskHausPoll>;
+  /** fetch data from the table: "BasicChoice" */
+  BasicChoice: Array<BasicChoice>;
+  /** fetch data from the table: "BasicChoice" using primary key columns */
+  BasicChoice_by_pk?: Maybe<BasicChoice>;
   /** fetch data from the table: "Factory" */
   Factory: Array<Factory>;
   /** fetch data from the table: "Factory" using primary key columns */
   Factory_by_pk?: Maybe<Factory>;
+  /** fetch data from the table: "ModuleClone" */
+  ModuleClone: Array<ModuleClone>;
+  /** fetch data from the table: "ModuleClone" using primary key columns */
+  ModuleClone_by_pk?: Maybe<ModuleClone>;
   /** fetch data from the table: "ModuleTemplate" */
   ModuleTemplate: Array<ModuleTemplate>;
   /** fetch data from the table: "ModuleTemplate" using primary key columns */
   ModuleTemplate_by_pk?: Maybe<ModuleTemplate>;
+  /** fetch data from the table: "Params_BaalGate_v0_2_0" */
+  Params_BaalGate_v0_2_0: Array<Params_BaalGate_V0_2_0>;
+  /** fetch data from the table: "Params_BaalGate_v0_2_0" using primary key columns */
+  Params_BaalGate_v0_2_0_by_pk?: Maybe<Params_BaalGate_V0_2_0>;
+  /** fetch data from the table: "Params_BaalPoints_v0_2_0" */
+  Params_BaalPoints_v0_2_0: Array<Params_BaalPoints_V0_2_0>;
+  /** fetch data from the table: "Params_BaalPoints_v0_2_0" using primary key columns */
+  Params_BaalPoints_v0_2_0_by_pk?: Maybe<Params_BaalPoints_V0_2_0>;
+  /** fetch data from the table: "Params_PrePop_v0_2_0" */
+  Params_PrePop_v0_2_0: Array<Params_PrePop_V0_2_0>;
+  /** fetch data from the table: "Params_PrePop_v0_2_0" using primary key columns */
+  Params_PrePop_v0_2_0_by_pk?: Maybe<Params_PrePop_V0_2_0>;
+  /** fetch data from the table: "Params_TimedVotes_v0_2_0" */
+  Params_TimedVotes_v0_2_0: Array<Params_TimedVotes_V0_2_0>;
+  /** fetch data from the table: "Params_TimedVotes_v0_2_0" using primary key columns */
+  Params_TimedVotes_v0_2_0_by_pk?: Maybe<Params_TimedVotes_V0_2_0>;
+  /** fetch data from the table: "Round" */
+  Round: Array<Round>;
+  /** fetch data from the table: "RoundClone" */
+  RoundClone: Array<RoundClone>;
+  /** fetch data from the table: "RoundClone" using primary key columns */
+  RoundClone_by_pk?: Maybe<RoundClone>;
+  /** fetch data from the table: "RoundTemplate" */
+  RoundTemplate: Array<RoundTemplate>;
+  /** fetch data from the table: "RoundTemplate" using primary key columns */
+  RoundTemplate_by_pk?: Maybe<RoundTemplate>;
+  /** fetch data from the table: "Round" using primary key columns */
+  Round_by_pk?: Maybe<Round>;
   /** fetch data from the table: "TX" */
   TX: Array<Tx>;
   /** fetch data from the table: "TX" using primary key columns */
@@ -1220,16 +2125,30 @@ export type Query_Root = {
 };
 
 
-export type Query_RootContestTemplateArgs = {
-  distinct_on?: InputMaybe<Array<ContestTemplate_Select_Column>>;
+export type Query_RootAskHausPollArgs = {
+  distinct_on?: InputMaybe<Array<AskHausPoll_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<ContestTemplate_Order_By>>;
-  where?: InputMaybe<ContestTemplate_Bool_Exp>;
+  order_by?: InputMaybe<Array<AskHausPoll_Order_By>>;
+  where?: InputMaybe<AskHausPoll_Bool_Exp>;
 };
 
 
-export type Query_RootContestTemplate_By_PkArgs = {
+export type Query_RootAskHausPoll_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootBasicChoiceArgs = {
+  distinct_on?: InputMaybe<Array<BasicChoice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BasicChoice_Order_By>>;
+  where?: InputMaybe<BasicChoice_Bool_Exp>;
+};
+
+
+export type Query_RootBasicChoice_By_PkArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -1248,6 +2167,20 @@ export type Query_RootFactory_By_PkArgs = {
 };
 
 
+export type Query_RootModuleCloneArgs = {
+  distinct_on?: InputMaybe<Array<ModuleClone_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<ModuleClone_Order_By>>;
+  where?: InputMaybe<ModuleClone_Bool_Exp>;
+};
+
+
+export type Query_RootModuleClone_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
 export type Query_RootModuleTemplateArgs = {
   distinct_on?: InputMaybe<Array<ModuleTemplate_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1258,6 +2191,104 @@ export type Query_RootModuleTemplateArgs = {
 
 
 export type Query_RootModuleTemplate_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootParams_BaalGate_V0_2_0Args = {
+  distinct_on?: InputMaybe<Array<Params_BaalGate_V0_2_0_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Params_BaalGate_V0_2_0_Order_By>>;
+  where?: InputMaybe<Params_BaalGate_V0_2_0_Bool_Exp>;
+};
+
+
+export type Query_RootParams_BaalGate_V0_2_0_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootParams_BaalPoints_V0_2_0Args = {
+  distinct_on?: InputMaybe<Array<Params_BaalPoints_V0_2_0_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Params_BaalPoints_V0_2_0_Order_By>>;
+  where?: InputMaybe<Params_BaalPoints_V0_2_0_Bool_Exp>;
+};
+
+
+export type Query_RootParams_BaalPoints_V0_2_0_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootParams_PrePop_V0_2_0Args = {
+  distinct_on?: InputMaybe<Array<Params_PrePop_V0_2_0_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Params_PrePop_V0_2_0_Order_By>>;
+  where?: InputMaybe<Params_PrePop_V0_2_0_Bool_Exp>;
+};
+
+
+export type Query_RootParams_PrePop_V0_2_0_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootParams_TimedVotes_V0_2_0Args = {
+  distinct_on?: InputMaybe<Array<Params_TimedVotes_V0_2_0_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Params_TimedVotes_V0_2_0_Order_By>>;
+  where?: InputMaybe<Params_TimedVotes_V0_2_0_Bool_Exp>;
+};
+
+
+export type Query_RootParams_TimedVotes_V0_2_0_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootRoundArgs = {
+  distinct_on?: InputMaybe<Array<Round_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Round_Order_By>>;
+  where?: InputMaybe<Round_Bool_Exp>;
+};
+
+
+export type Query_RootRoundCloneArgs = {
+  distinct_on?: InputMaybe<Array<RoundClone_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RoundClone_Order_By>>;
+  where?: InputMaybe<RoundClone_Bool_Exp>;
+};
+
+
+export type Query_RootRoundClone_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootRoundTemplateArgs = {
+  distinct_on?: InputMaybe<Array<RoundTemplate_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RoundTemplate_Order_By>>;
+  where?: InputMaybe<RoundTemplate_Bool_Exp>;
+};
+
+
+export type Query_RootRoundTemplate_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootRound_By_PkArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -1555,24 +2586,78 @@ export type Raw_Events_Stream_Cursor_Value_Input = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
-  /** fetch data from the table: "ContestTemplate" */
-  ContestTemplate: Array<ContestTemplate>;
-  /** fetch data from the table: "ContestTemplate" using primary key columns */
-  ContestTemplate_by_pk?: Maybe<ContestTemplate>;
-  /** fetch data from the table in a streaming manner: "ContestTemplate" */
-  ContestTemplate_stream: Array<ContestTemplate>;
+  /** fetch data from the table: "AskHausPoll" */
+  AskHausPoll: Array<AskHausPoll>;
+  /** fetch data from the table: "AskHausPoll" using primary key columns */
+  AskHausPoll_by_pk?: Maybe<AskHausPoll>;
+  /** fetch data from the table in a streaming manner: "AskHausPoll" */
+  AskHausPoll_stream: Array<AskHausPoll>;
+  /** fetch data from the table: "BasicChoice" */
+  BasicChoice: Array<BasicChoice>;
+  /** fetch data from the table: "BasicChoice" using primary key columns */
+  BasicChoice_by_pk?: Maybe<BasicChoice>;
+  /** fetch data from the table in a streaming manner: "BasicChoice" */
+  BasicChoice_stream: Array<BasicChoice>;
   /** fetch data from the table: "Factory" */
   Factory: Array<Factory>;
   /** fetch data from the table: "Factory" using primary key columns */
   Factory_by_pk?: Maybe<Factory>;
   /** fetch data from the table in a streaming manner: "Factory" */
   Factory_stream: Array<Factory>;
+  /** fetch data from the table: "ModuleClone" */
+  ModuleClone: Array<ModuleClone>;
+  /** fetch data from the table: "ModuleClone" using primary key columns */
+  ModuleClone_by_pk?: Maybe<ModuleClone>;
+  /** fetch data from the table in a streaming manner: "ModuleClone" */
+  ModuleClone_stream: Array<ModuleClone>;
   /** fetch data from the table: "ModuleTemplate" */
   ModuleTemplate: Array<ModuleTemplate>;
   /** fetch data from the table: "ModuleTemplate" using primary key columns */
   ModuleTemplate_by_pk?: Maybe<ModuleTemplate>;
   /** fetch data from the table in a streaming manner: "ModuleTemplate" */
   ModuleTemplate_stream: Array<ModuleTemplate>;
+  /** fetch data from the table: "Params_BaalGate_v0_2_0" */
+  Params_BaalGate_v0_2_0: Array<Params_BaalGate_V0_2_0>;
+  /** fetch data from the table: "Params_BaalGate_v0_2_0" using primary key columns */
+  Params_BaalGate_v0_2_0_by_pk?: Maybe<Params_BaalGate_V0_2_0>;
+  /** fetch data from the table in a streaming manner: "Params_BaalGate_v0_2_0" */
+  Params_BaalGate_v0_2_0_stream: Array<Params_BaalGate_V0_2_0>;
+  /** fetch data from the table: "Params_BaalPoints_v0_2_0" */
+  Params_BaalPoints_v0_2_0: Array<Params_BaalPoints_V0_2_0>;
+  /** fetch data from the table: "Params_BaalPoints_v0_2_0" using primary key columns */
+  Params_BaalPoints_v0_2_0_by_pk?: Maybe<Params_BaalPoints_V0_2_0>;
+  /** fetch data from the table in a streaming manner: "Params_BaalPoints_v0_2_0" */
+  Params_BaalPoints_v0_2_0_stream: Array<Params_BaalPoints_V0_2_0>;
+  /** fetch data from the table: "Params_PrePop_v0_2_0" */
+  Params_PrePop_v0_2_0: Array<Params_PrePop_V0_2_0>;
+  /** fetch data from the table: "Params_PrePop_v0_2_0" using primary key columns */
+  Params_PrePop_v0_2_0_by_pk?: Maybe<Params_PrePop_V0_2_0>;
+  /** fetch data from the table in a streaming manner: "Params_PrePop_v0_2_0" */
+  Params_PrePop_v0_2_0_stream: Array<Params_PrePop_V0_2_0>;
+  /** fetch data from the table: "Params_TimedVotes_v0_2_0" */
+  Params_TimedVotes_v0_2_0: Array<Params_TimedVotes_V0_2_0>;
+  /** fetch data from the table: "Params_TimedVotes_v0_2_0" using primary key columns */
+  Params_TimedVotes_v0_2_0_by_pk?: Maybe<Params_TimedVotes_V0_2_0>;
+  /** fetch data from the table in a streaming manner: "Params_TimedVotes_v0_2_0" */
+  Params_TimedVotes_v0_2_0_stream: Array<Params_TimedVotes_V0_2_0>;
+  /** fetch data from the table: "Round" */
+  Round: Array<Round>;
+  /** fetch data from the table: "RoundClone" */
+  RoundClone: Array<RoundClone>;
+  /** fetch data from the table: "RoundClone" using primary key columns */
+  RoundClone_by_pk?: Maybe<RoundClone>;
+  /** fetch data from the table in a streaming manner: "RoundClone" */
+  RoundClone_stream: Array<RoundClone>;
+  /** fetch data from the table: "RoundTemplate" */
+  RoundTemplate: Array<RoundTemplate>;
+  /** fetch data from the table: "RoundTemplate" using primary key columns */
+  RoundTemplate_by_pk?: Maybe<RoundTemplate>;
+  /** fetch data from the table in a streaming manner: "RoundTemplate" */
+  RoundTemplate_stream: Array<RoundTemplate>;
+  /** fetch data from the table: "Round" using primary key columns */
+  Round_by_pk?: Maybe<Round>;
+  /** fetch data from the table in a streaming manner: "Round" */
+  Round_stream: Array<Round>;
   /** fetch data from the table: "TX" */
   TX: Array<Tx>;
   /** fetch data from the table: "TX" using primary key columns */
@@ -1632,24 +2717,45 @@ export type Subscription_Root = {
 };
 
 
-export type Subscription_RootContestTemplateArgs = {
-  distinct_on?: InputMaybe<Array<ContestTemplate_Select_Column>>;
+export type Subscription_RootAskHausPollArgs = {
+  distinct_on?: InputMaybe<Array<AskHausPoll_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<ContestTemplate_Order_By>>;
-  where?: InputMaybe<ContestTemplate_Bool_Exp>;
+  order_by?: InputMaybe<Array<AskHausPoll_Order_By>>;
+  where?: InputMaybe<AskHausPoll_Bool_Exp>;
 };
 
 
-export type Subscription_RootContestTemplate_By_PkArgs = {
+export type Subscription_RootAskHausPoll_By_PkArgs = {
   id: Scalars['String']['input'];
 };
 
 
-export type Subscription_RootContestTemplate_StreamArgs = {
+export type Subscription_RootAskHausPoll_StreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<ContestTemplate_Stream_Cursor_Input>>;
-  where?: InputMaybe<ContestTemplate_Bool_Exp>;
+  cursor: Array<InputMaybe<AskHausPoll_Stream_Cursor_Input>>;
+  where?: InputMaybe<AskHausPoll_Bool_Exp>;
+};
+
+
+export type Subscription_RootBasicChoiceArgs = {
+  distinct_on?: InputMaybe<Array<BasicChoice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BasicChoice_Order_By>>;
+  where?: InputMaybe<BasicChoice_Bool_Exp>;
+};
+
+
+export type Subscription_RootBasicChoice_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootBasicChoice_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<BasicChoice_Stream_Cursor_Input>>;
+  where?: InputMaybe<BasicChoice_Bool_Exp>;
 };
 
 
@@ -1674,6 +2780,27 @@ export type Subscription_RootFactory_StreamArgs = {
 };
 
 
+export type Subscription_RootModuleCloneArgs = {
+  distinct_on?: InputMaybe<Array<ModuleClone_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<ModuleClone_Order_By>>;
+  where?: InputMaybe<ModuleClone_Bool_Exp>;
+};
+
+
+export type Subscription_RootModuleClone_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootModuleClone_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<ModuleClone_Stream_Cursor_Input>>;
+  where?: InputMaybe<ModuleClone_Bool_Exp>;
+};
+
+
 export type Subscription_RootModuleTemplateArgs = {
   distinct_on?: InputMaybe<Array<ModuleTemplate_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1692,6 +2819,153 @@ export type Subscription_RootModuleTemplate_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<ModuleTemplate_Stream_Cursor_Input>>;
   where?: InputMaybe<ModuleTemplate_Bool_Exp>;
+};
+
+
+export type Subscription_RootParams_BaalGate_V0_2_0Args = {
+  distinct_on?: InputMaybe<Array<Params_BaalGate_V0_2_0_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Params_BaalGate_V0_2_0_Order_By>>;
+  where?: InputMaybe<Params_BaalGate_V0_2_0_Bool_Exp>;
+};
+
+
+export type Subscription_RootParams_BaalGate_V0_2_0_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootParams_BaalGate_V0_2_0_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Params_BaalGate_V0_2_0_Stream_Cursor_Input>>;
+  where?: InputMaybe<Params_BaalGate_V0_2_0_Bool_Exp>;
+};
+
+
+export type Subscription_RootParams_BaalPoints_V0_2_0Args = {
+  distinct_on?: InputMaybe<Array<Params_BaalPoints_V0_2_0_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Params_BaalPoints_V0_2_0_Order_By>>;
+  where?: InputMaybe<Params_BaalPoints_V0_2_0_Bool_Exp>;
+};
+
+
+export type Subscription_RootParams_BaalPoints_V0_2_0_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootParams_BaalPoints_V0_2_0_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Params_BaalPoints_V0_2_0_Stream_Cursor_Input>>;
+  where?: InputMaybe<Params_BaalPoints_V0_2_0_Bool_Exp>;
+};
+
+
+export type Subscription_RootParams_PrePop_V0_2_0Args = {
+  distinct_on?: InputMaybe<Array<Params_PrePop_V0_2_0_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Params_PrePop_V0_2_0_Order_By>>;
+  where?: InputMaybe<Params_PrePop_V0_2_0_Bool_Exp>;
+};
+
+
+export type Subscription_RootParams_PrePop_V0_2_0_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootParams_PrePop_V0_2_0_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Params_PrePop_V0_2_0_Stream_Cursor_Input>>;
+  where?: InputMaybe<Params_PrePop_V0_2_0_Bool_Exp>;
+};
+
+
+export type Subscription_RootParams_TimedVotes_V0_2_0Args = {
+  distinct_on?: InputMaybe<Array<Params_TimedVotes_V0_2_0_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Params_TimedVotes_V0_2_0_Order_By>>;
+  where?: InputMaybe<Params_TimedVotes_V0_2_0_Bool_Exp>;
+};
+
+
+export type Subscription_RootParams_TimedVotes_V0_2_0_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootParams_TimedVotes_V0_2_0_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Params_TimedVotes_V0_2_0_Stream_Cursor_Input>>;
+  where?: InputMaybe<Params_TimedVotes_V0_2_0_Bool_Exp>;
+};
+
+
+export type Subscription_RootRoundArgs = {
+  distinct_on?: InputMaybe<Array<Round_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Round_Order_By>>;
+  where?: InputMaybe<Round_Bool_Exp>;
+};
+
+
+export type Subscription_RootRoundCloneArgs = {
+  distinct_on?: InputMaybe<Array<RoundClone_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RoundClone_Order_By>>;
+  where?: InputMaybe<RoundClone_Bool_Exp>;
+};
+
+
+export type Subscription_RootRoundClone_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootRoundClone_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<RoundClone_Stream_Cursor_Input>>;
+  where?: InputMaybe<RoundClone_Bool_Exp>;
+};
+
+
+export type Subscription_RootRoundTemplateArgs = {
+  distinct_on?: InputMaybe<Array<RoundTemplate_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<RoundTemplate_Order_By>>;
+  where?: InputMaybe<RoundTemplate_Bool_Exp>;
+};
+
+
+export type Subscription_RootRoundTemplate_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootRoundTemplate_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<RoundTemplate_Stream_Cursor_Input>>;
+  where?: InputMaybe<RoundTemplate_Bool_Exp>;
+};
+
+
+export type Subscription_RootRound_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootRound_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Round_Stream_Cursor_Input>>;
+  where?: InputMaybe<Round_Bool_Exp>;
 };
 
 
@@ -1933,6 +3207,15 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
 };
 
+export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+
+export type FrontPagePollsQueryVariables = Exact<{
+  now: Scalars['numeric']['input'];
+}>;
+
+
+export type FrontPagePollsQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+
 export type GetRecentTransactionQueryVariables = Exact<{
   txHash: Scalars['String']['input'];
 }>;
@@ -1940,7 +3223,44 @@ export type GetRecentTransactionQueryVariables = Exact<{
 
 export type GetRecentTransactionQuery = { __typename?: 'query_root', TX_by_pk?: { __typename?: 'TX', id: string } | null };
 
-
+export const PollCardFragmentDoc = gql`
+    fragment PollCard on AskHausPoll {
+  id
+  title
+  answerType
+  description
+  pollLink
+  requestComment
+  votesParams {
+    id
+    endTime
+    startTime
+    duration
+  }
+  pointsParams {
+    checkpoint
+    holderType
+  }
+}
+    `;
+export const FrontPagePollsDocument = gql`
+    query frontPagePolls($now: numeric!) {
+  upcomingPolls: AskHausPoll(
+    where: {votesParams: {startTime: {_gt: $now}}}
+    limit: 5
+  ) {
+    ...PollCard
+  }
+  pastPolls: AskHausPoll(where: {votesParams: {endTime: {_lt: $now}}}, limit: 2) {
+    ...PollCard
+  }
+  activePolls: AskHausPoll(
+    where: {votesParams: {startTime: {_gt: $now}, endTime: {_lt: $now}}}
+  ) {
+    ...PollCard
+  }
+}
+    ${PollCardFragmentDoc}`;
 export const GetRecentTransactionDocument = gql`
     query getRecentTransaction($txHash: String!) {
   TX_by_pk(id: $txHash) {
@@ -1956,6 +3276,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    frontPagePolls(variables: FrontPagePollsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FrontPagePollsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FrontPagePollsQuery>(FrontPagePollsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'frontPagePolls', 'query', variables);
+    },
     getRecentTransaction(variables: GetRecentTransactionQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetRecentTransactionQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetRecentTransactionQuery>(GetRecentTransactionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getRecentTransaction', 'query', variables);
     }

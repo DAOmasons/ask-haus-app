@@ -7,9 +7,17 @@ import {
   IconTrophy,
 } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'wagmi/query';
+import { frontPagePolls } from '../queries/frontPage';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const { data } = useQuery({
+    queryKey: [`home`],
+    queryFn: frontPagePolls,
+  });
+
+  console.log('data', data);
 
   return (
     <Box mb="xl" mt={48}>
