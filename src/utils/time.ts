@@ -18,8 +18,25 @@ export const futureRelativeTimeInSeconds = (seconds: number) => {
   return { d: days, h: hours, m: minutes, s: secondsLeft };
 };
 
+export const pastRelativeTimeInSeconds = (seconds: number) => {
+  const now = dayjs();
+  const end = dayjs.unix(seconds - 1); // Convert UTC timestamp to dayjs object
+  const diff = dayjs.duration(now.diff(end)); // Swap end and now
+
+  const days = Math.floor(diff.asDays());
+  const hours = diff.hours();
+  const minutes = diff.minutes();
+  const secondsLeft = diff.seconds();
+
+  return { d: days, h: hours, m: minutes, s: secondsLeft };
+};
+
 export const dateToSeconds = (date: Date) => {
   return dayjs(date).unix();
+};
+
+export const nowInSeconds = () => {
+  return dayjs().unix();
 };
 
 export const Times = {

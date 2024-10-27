@@ -38,6 +38,7 @@ export type AskHausPoll = {
   pointsParams?: Maybe<Params_BaalPoints_V0_2_0>;
   pointsParams_id: Scalars['String']['output'];
   pollLink?: Maybe<Scalars['String']['output']>;
+  postedBy: Scalars['String']['output'];
   requestComment?: Maybe<Scalars['Boolean']['output']>;
   /** An object relationship */
   round?: Maybe<Round>;
@@ -62,6 +63,7 @@ export type AskHausPoll_Bool_Exp = {
   pointsParams?: InputMaybe<Params_BaalPoints_V0_2_0_Bool_Exp>;
   pointsParams_id?: InputMaybe<String_Comparison_Exp>;
   pollLink?: InputMaybe<String_Comparison_Exp>;
+  postedBy?: InputMaybe<String_Comparison_Exp>;
   requestComment?: InputMaybe<Boolean_Comparison_Exp>;
   round?: InputMaybe<Round_Bool_Exp>;
   round_id?: InputMaybe<String_Comparison_Exp>;
@@ -81,6 +83,7 @@ export type AskHausPoll_Order_By = {
   pointsParams?: InputMaybe<Params_BaalPoints_V0_2_0_Order_By>;
   pointsParams_id?: InputMaybe<Order_By>;
   pollLink?: InputMaybe<Order_By>;
+  postedBy?: InputMaybe<Order_By>;
   requestComment?: InputMaybe<Order_By>;
   round?: InputMaybe<Round_Order_By>;
   round_id?: InputMaybe<Order_By>;
@@ -105,6 +108,8 @@ export enum AskHausPoll_Select_Column {
   PointsParamsId = 'pointsParams_id',
   /** column name */
   PollLink = 'pollLink',
+  /** column name */
+  PostedBy = 'postedBy',
   /** column name */
   RequestComment = 'requestComment',
   /** column name */
@@ -132,6 +137,7 @@ export type AskHausPoll_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['String']['input']>;
   pointsParams_id?: InputMaybe<Scalars['String']['input']>;
   pollLink?: InputMaybe<Scalars['String']['input']>;
+  postedBy?: InputMaybe<Scalars['String']['input']>;
   requestComment?: InputMaybe<Scalars['Boolean']['input']>;
   round_id?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -3207,14 +3213,14 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
 };
 
-export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
 export type FrontPagePollsQueryVariables = Exact<{
   now: Scalars['numeric']['input'];
 }>;
 
 
-export type FrontPagePollsQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+export type FrontPagePollsQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
 
 export type GetRecentTransactionQueryVariables = Exact<{
   txHash: Scalars['String']['input'];
@@ -3231,6 +3237,7 @@ export const PollCardFragmentDoc = gql`
   description
   pollLink
   requestComment
+  postedBy
   votesParams {
     id
     endTime
@@ -3248,14 +3255,21 @@ export const FrontPagePollsDocument = gql`
   upcomingPolls: AskHausPoll(
     where: {votesParams: {startTime: {_gt: $now}}}
     limit: 5
+    order_by: {votesParams: {startTime: desc}}
   ) {
     ...PollCard
   }
-  pastPolls: AskHausPoll(where: {votesParams: {endTime: {_lt: $now}}}, limit: 2) {
+  pastPolls: AskHausPoll(
+    where: {votesParams: {endTime: {_lt: $now}}}
+    limit: 5
+    order_by: {votesParams: {startTime: desc}}
+  ) {
     ...PollCard
   }
   activePolls: AskHausPoll(
     where: {votesParams: {startTime: {_gt: $now}, endTime: {_lt: $now}}}
+    limit: 5
+    order_by: {votesParams: {startTime: desc}}
   ) {
     ...PollCard
   }

@@ -5,6 +5,7 @@ fragment PollCard on AskHausPoll {
   description
   pollLink
   requestComment
+  postedBy
   votesParams {
     id
     endTime
@@ -21,18 +22,21 @@ query frontPagePolls($now: numeric!) {
   upcomingPolls: AskHausPoll(
     where: { votesParams: { startTime: { _gt: $now } } }
     limit: 5
+    order_by: { votesParams: { startTime: desc } }
   ) {
     ...PollCard
   }
   pastPolls: AskHausPoll(
     where: { votesParams: { endTime: { _lt: $now } } }
     limit: 5
+    order_by: { votesParams: { startTime: desc } }
   ) {
     ...PollCard
   }
   activePolls: AskHausPoll(
     where: { votesParams: { startTime: { _gt: $now }, endTime: { _lt: $now } } }
     limit: 5
+    order_by: { votesParams: { startTime: desc } }
   ) {
     ...PollCard
   }

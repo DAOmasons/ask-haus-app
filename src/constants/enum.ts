@@ -5,6 +5,12 @@ export enum HolderType {
   Both,
 }
 
+export enum VoteType {
+  Poll,
+  Contest,
+  SignalSession,
+}
+
 export const contentProtocol = {
   onchain: 6969420n,
   ipfs: 1n,
