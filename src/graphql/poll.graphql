@@ -18,6 +18,25 @@ fragment PollCard on AskHausPoll {
   }
 }
 
+fragment FullPoll on AskHausPoll {
+  ...PollCard
+  choicesParams {
+    choices {
+      id
+      title
+      description
+      color
+      link
+    }
+  }
+}
+
+query getPoll($pollId: String!) {
+  AskHausPoll_by_pk(id: $pollId) {
+    ...FullPoll
+  }
+}
+
 query frontPagePolls($now: numeric!) {
   upcomingPolls: AskHausPoll(
     where: { votesParams: { startTime: { _gt: $now } } }

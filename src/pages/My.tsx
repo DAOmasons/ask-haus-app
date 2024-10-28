@@ -66,12 +66,6 @@ const ExampleTwo = () => {
         <Group mb="sm" align="start" justify="space-between">
           <SubTitle>Poll</SubTitle>
           <SegmentedControl data={['Vote', 'Results']} size="xs" />
-
-          {/* <Tooltip label="View Poll Results">
-            <ActionIcon variant="ghost">
-              <IconEye size={18} />
-            </ActionIcon>
-          </Tooltip> */}
         </Group>
         <Group justify="space-between">
           <Text c={theme.colors.steel[2]} fz="sm">
