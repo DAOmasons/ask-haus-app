@@ -50,14 +50,11 @@ export const VoteCard = ({
     if (!startTime || !endTime || !duration) {
       return null;
     } else if (isUpcoming) {
-      const time = futureRelativeTimeInSeconds(startTime);
-      return `Starts in ${time.d}d ${time.h}h ${time.m}m ${time.s}s`;
+      return `Starts in ${futureRelativeTimeInSeconds(startTime)}`;
     } else if (isActive) {
-      const time = futureRelativeTimeInSeconds(endTime);
-      return `Ends in ${time.d}d ${time.h}h ${time.m}m ${time.s}s`;
+      return `Ends in ${futureRelativeTimeInSeconds(endTime)}`;
     } else {
-      const time = pastRelativeTimeInSeconds(endTime);
-      return `Ended ${time.d}d ${time.h}h ${time.m}m ${time.s}s ago`;
+      return `Ended ${pastRelativeTimeInSeconds(endTime)} ago`;
     }
   }, [startTime, endTime, duration]);
 

@@ -3267,7 +3267,7 @@ export const FrontPagePollsDocument = gql`
     ...PollCard
   }
   activePolls: AskHausPoll(
-    where: {votesParams: {startTime: {_gt: $now}, endTime: {_lt: $now}}}
+    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}}
     limit: 5
     order_by: {votesParams: {startTime: desc}}
   ) {

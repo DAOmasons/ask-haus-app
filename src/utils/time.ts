@@ -5,30 +5,67 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
 
-export const futureRelativeTimeInSeconds = (seconds: number) => {
+const SECONDS_IN_DAY = 86400;
+const SECONDS_IN_HOUR = 3600;
+const SECONDS_IN_MINUTE = 60;
+
+export const futureRelativeTimeInSeconds = (
+  unixTimestamp: number,
+  format = true
+) => {
   const now = dayjs();
-  const end = dayjs.unix(seconds + 1); // Convert UTC timestamp to dayjs object
-  const diff = dayjs.duration(end.diff(now)); // Swap end and now
+  const end = dayjs.unix(unixTimestamp);
 
-  const days = Math.floor(diff.asDays());
-  const hours = diff.hours();
-  const minutes = diff.minutes();
-  const secondsLeft = diff.seconds();
+  const diff = end.diff(now, 'second');
 
-  return { d: days, h: hours, m: minutes, s: secondsLeft };
+  const days = Math.floor(diff / SECONDS_IN_DAY);
+  const remainingSeconds = diff % SECONDS_IN_DAY;
+
+  const hours = Math.floor(remainingSeconds / SECONDS_IN_HOUR);
+  const remainingAfterHours = remainingSeconds % SECONDS_IN_HOUR;
+
+  const minutes = Math.floor(remainingAfterHours / SECONDS_IN_MINUTE);
+  const seconds = remainingAfterHours % SECONDS_IN_MINUTE;
+
+  if (format) {
+    return `${days > 0 ? `${days}d ` : ''}${hours > 0 ? `${hours}h ` : ''} ${minutes > 0 ? `${minutes}m ` : ''} ${seconds > 0 ? `${seconds}s` : ''}`;
+  }
+
+  return {
+    d: days,
+    h: hours,
+    m: minutes,
+    s: seconds,
+  };
 };
 
-export const pastRelativeTimeInSeconds = (seconds: number) => {
+export const pastRelativeTimeInSeconds = (
+  unixTimestamp: number,
+  format = true
+) => {
   const now = dayjs();
-  const end = dayjs.unix(seconds - 1); // Convert UTC timestamp to dayjs object
-  const diff = dayjs.duration(now.diff(end)); // Swap end and now
+  const past = dayjs.unix(unixTimestamp);
 
-  const days = Math.floor(diff.asDays());
-  const hours = diff.hours();
-  const minutes = diff.minutes();
-  const secondsLeft = diff.seconds();
+  const diff = now.diff(past, 'second'); // Swapped order of diff to get positive values
 
-  return { d: days, h: hours, m: minutes, s: secondsLeft };
+  const days = Math.floor(diff / SECONDS_IN_DAY);
+  const remainingSeconds = diff % SECONDS_IN_DAY;
+
+  const hours = Math.floor(remainingSeconds / SECONDS_IN_HOUR);
+  const remainingAfterHours = remainingSeconds % SECONDS_IN_HOUR;
+
+  const minutes = Math.floor(remainingAfterHours / SECONDS_IN_MINUTE);
+  const seconds = remainingAfterHours % SECONDS_IN_MINUTE;
+
+  if (format) {
+    return `${days > 0 ? `${days}d ` : ''}${hours > 0 ? `${hours}h ` : ''} ${minutes > 0 ? `${minutes}m ` : ''} ${seconds > 0 ? `${seconds}s` : ''}`;
+  }
+  return {
+    d: days,
+    h: hours,
+    m: minutes,
+    s: seconds,
+  };
 };
 
 export const dateToSeconds = (date: Date) => {

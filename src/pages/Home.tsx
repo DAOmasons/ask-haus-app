@@ -14,20 +14,18 @@ import { VoteCard } from '../components/cards/VoteCard';
 
 export const Home = () => {
   const navigate = useNavigate();
-  const {
-    data: pollData,
-    isLoading: isLoadingPolls,
-    error: errorPolls,
-  } = useQuery({
+  const { data: pollData } = useQuery({
     queryKey: [`home`],
     queryFn: frontPagePolls,
     enabled: true,
   });
 
   const notablePolls = [
-    ...(pollData?.upcomingPolls || []),
     ...(pollData?.activePolls || []),
-  ];
+    ...(pollData?.upcomingPolls || []),
+  ].slice(0, 5);
+
+  console.log('pollData', pollData);
 
   return (
     <Box mb="xl" mt={48}>
@@ -51,7 +49,22 @@ export const Home = () => {
         {notablePolls.length > 0 && (
           <Box w="50%">
             <SectionText mb="md">Live Votes</SectionText>
-            <Stack gap="md"></Stack>
+            <Stack gap="md">
+              {notablePolls.map((poll) => (
+                <VoteCard
+                  key={poll.id}
+                  to={`/poll/${poll.id}`}
+                  title={poll.title}
+                  postedBy={poll.postedBy}
+                  startTime={poll.votesParams?.startTime}
+                  endTime={poll.votesParams?.endTime}
+                  duration={poll.votesParams?.duration}
+                  description={poll.description as string | undefined}
+                  pollLink={poll.pollLink as string | undefined}
+                  voteType={VoteType.Poll}
+                />
+              ))}
+            </Stack>
           </Box>
         )}
         <Box w="50%">
@@ -77,5 +90,3 @@ export const Home = () => {
     </Box>
   );
 };
-
-const VoteColumn = () => {};

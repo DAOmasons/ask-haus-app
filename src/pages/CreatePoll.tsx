@@ -27,10 +27,17 @@ import { charLimit } from '../utils/helpers';
 import factory from '../abi/FastFactory.json';
 import { Times } from '../utils/time';
 import { useEffect, useState } from 'react';
-import { Button, Paper, Stack, Text, useMantineTheme } from '@mantine/core';
+import {
+  Button,
+  Group,
+  Paper,
+  Stack,
+  Text,
+  useMantineTheme,
+} from '@mantine/core';
 
 import globalClasses from '../styles/global.module.css';
-import { IconCopy } from '@tabler/icons-react';
+import { IconArrowRight, IconCopy } from '@tabler/icons-react';
 import { useClipboard } from '@mantine/hooks';
 
 export const CreatePoll = () => {
@@ -212,17 +219,17 @@ const CreatePollComplete = ({ pollId }: { pollId?: string }) => {
             Your Poll Link
           </Text>
 
-          <Text
-            component={Link}
-            to={`poll/${pollId}`}
-            rel={'noreferrer'}
-            target={'_blank'}
-            className={globalClasses.appLink}
-            c={theme.colors.steel[4]}
-            mb="md"
-          >
-            https://ask.haus/poll/{pollId}
-          </Text>
+          <Group mb="md" gap="xs">
+            <Text
+              component={Link}
+              to={`/poll/${pollId}`}
+              className={globalClasses.appLink}
+              c={theme.colors.steel[4]}
+            >
+              See your Poll
+            </Text>
+            <IconArrowRight size={16} color={theme.colors.steel[4]} />
+          </Group>
           <Button
             leftSection={<IconCopy size={16} />}
             onClick={() => {
