@@ -176,7 +176,7 @@ type PollArgs = {
   pollMetadata: {
     title: string;
     description?: string;
-    link?: string;
+    pollLink?: string;
     contentType: ContentType;
     answerType: string;
     requestComment: boolean;

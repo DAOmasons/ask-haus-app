@@ -8,7 +8,7 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   futureRelativeTimeInSeconds,
   nowInSeconds,
@@ -31,6 +31,7 @@ export const VoteCard = ({
   to,
   voteType,
   description,
+  tick = true,
 }: {
   title: string;
   startTime: number;
@@ -41,7 +42,18 @@ export const VoteCard = ({
   pollLink?: string;
   description?: string;
   voteType: VoteType;
+  tick?: boolean;
 }) => {
+  const [tickTime, setTickTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTickTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [tick]);
+
   const { colors } = useMantineTheme();
 
   const timeDisplay = useMemo(() => {
@@ -56,7 +68,7 @@ export const VoteCard = ({
     } else {
       return `Ended ${pastRelativeTimeInSeconds(endTime)} ago`;
     }
-  }, [startTime, endTime, duration]);
+  }, [startTime, endTime, duration, tickTime]);
 
   const voteTypeDisplay = useMemo(() => {
     if (voteType === VoteType.Poll) {
@@ -78,7 +90,7 @@ export const VoteCard = ({
           <Text fw={500} c={colors.steel[0]} mb="sm" style={{ flex: 1 }}>
             {title}
           </Text>
-          <Group gap={0}>
+          <Group gap={4}>
             {pollLink && (
               <ActionIcon
                 radius={999}

@@ -100,6 +100,8 @@ export const CreatePoll = () => {
       setLessThanTwoChoices(true);
       return;
     }
+    console.log('step1Form.values', step1Form.values);
+    console.log('step2Form.values', step2Form.values);
 
     try {
       const startTime =
@@ -115,7 +117,7 @@ export const CreatePoll = () => {
         pollMetadata: {
           title: step1Form.values.title,
           description: step2Form.values.description,
-          link: step2Form.values.pollLink,
+          pollLink: step2Form.values.pollLink,
           contentType: 'onchain',
           answerType: step1Form.values.answerType,
           requestComment: false,

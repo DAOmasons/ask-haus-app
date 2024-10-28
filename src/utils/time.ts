@@ -28,7 +28,11 @@ export const futureRelativeTimeInSeconds = (
   const seconds = remainingAfterHours % SECONDS_IN_MINUTE;
 
   if (format) {
-    return `${days > 0 ? `${days}d ` : ''}${hours > 0 ? `${hours}h ` : ''} ${minutes > 0 ? `${minutes}m ` : ''} ${seconds > 0 ? `${seconds}s` : ''}`;
+    if (days > 0) return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    if (hours > 0) return `${hours}h ${minutes}m ${seconds}s`;
+    if (minutes > 0) return `${minutes}m ${seconds}s`;
+    if (seconds > 0) return `${seconds}s`;
+    return '0s';
   }
 
   return {
@@ -58,7 +62,11 @@ export const pastRelativeTimeInSeconds = (
   const seconds = remainingAfterHours % SECONDS_IN_MINUTE;
 
   if (format) {
-    return `${days > 0 ? `${days}d ` : ''}${hours > 0 ? `${hours}h ` : ''} ${minutes > 0 ? `${minutes}m ` : ''} ${seconds > 0 ? `${seconds}s` : ''}`;
+    if (days > 0) return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    if (hours > 0) return `${hours}h ${minutes}m ${seconds}s`;
+    if (minutes > 0) return `${minutes}m ${seconds}s`;
+    if (seconds > 0) return `${seconds}s`;
+    return '0s';
   }
   return {
     d: days,

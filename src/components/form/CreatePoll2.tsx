@@ -76,7 +76,7 @@ export const CreatePoll2 = ({
             placeholder="Optional."
             maxRows={10}
             description="Optional. Provide additional context about the poll."
-            {...form.getInputProps('pollDescription')}
+            {...form.getInputProps('description')}
           />
         </Paper>
         <Paper>

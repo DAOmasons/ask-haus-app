@@ -25,8 +25,6 @@ export const Home = () => {
     ...(pollData?.upcomingPolls || []),
   ].slice(0, 5);
 
-  console.log('pollData', pollData);
-
   return (
     <Box mb="xl" mt={48}>
       <BigTitle>ask.haus</BigTitle>
