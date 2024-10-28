@@ -24,6 +24,11 @@ export const Home = () => {
     enabled: true,
   });
 
+  const notablePolls = [
+    ...(pollData?.upcomingPolls || []),
+    ...(pollData?.activePolls || []),
+  ];
+
   return (
     <Box mb="xl" mt={48}>
       <BigTitle>ask.haus</BigTitle>
@@ -43,26 +48,26 @@ export const Home = () => {
         <VoteTypeCard title="Contest" Icon={IconTrophy} />
       </Group>
       <Flex align="start" justify="space-between" gap="md">
-        <Box w="50%">
-          <SectionText mb="md">Live Votes</SectionText>
-          <Stack gap="md">
-            {/* <VoteCard title="Let's take a poll" />
-            <VoteCard title="Let's take a poll" />
-            <VoteCard title="Let's take a poll" />
-            <VoteCard title="Let's take a poll" /> */}
-          </Stack>
-        </Box>
+        {notablePolls.length > 0 && (
+          <Box w="50%">
+            <SectionText mb="md">Live Votes</SectionText>
+            <Stack gap="md"></Stack>
+          </Box>
+        )}
         <Box w="50%">
           <SectionText mb="md">Past Votes</SectionText>
           <Stack gap="md">
             {pollData?.pastPolls?.map((poll) => (
               <VoteCard
                 key={poll.id}
+                to={`/poll/${poll.id}`}
                 title={poll.title}
                 postedBy={poll.postedBy}
                 startTime={poll.votesParams?.endTime}
                 endTime={poll.votesParams?.endTime}
                 duration={poll.votesParams?.duration}
+                description={poll.description as string | undefined}
+                pollLink={poll.pollLink as string | undefined}
                 voteType={VoteType.Poll}
               />
             ))}
@@ -72,3 +77,5 @@ export const Home = () => {
     </Box>
   );
 };
+
+const VoteColumn = () => {};
