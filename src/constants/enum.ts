@@ -11,6 +11,11 @@ export enum VoteType {
   SignalSession,
 }
 
+export enum ChoiceInputType {
+  Single = 'Single Choice',
+  Allocate = 'Allocation (%)',
+}
+
 export const contentProtocol = {
   onchain: 6969420n,
   ipfs: 1n,

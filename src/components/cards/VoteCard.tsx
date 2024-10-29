@@ -19,7 +19,7 @@ import { AddressAvatar } from '../AddressAvatar';
 import { Address } from 'viem';
 import { VoteType } from '../../constants/enum';
 import paperClasses from '../../styles/paper.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const VoteCard = ({
   title,
@@ -45,6 +45,7 @@ export const VoteCard = ({
   tick?: boolean;
 }) => {
   const [tickTime, setTickTime] = useState(new Date());
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -83,76 +84,61 @@ export const VoteCard = ({
     }
   }, [voteType, colors.steel]);
 
-  const guts = useMemo(() => {
-    return (
-      <>
-        <Flex align="start">
-          <Text fw={500} c={colors.steel[0]} mb="sm" style={{ flex: 1 }}>
-            {title}
-          </Text>
-          <Group gap={4}>
-            {pollLink && (
-              <ActionIcon
-                radius={999}
-                component="a"
-                href={pollLink}
-                target="_blank"
-                rel="noreferrer"
-                variant="ghost-icon"
-              >
-                <IconLink size={16} color={colors.steel[4]} />
-              </ActionIcon>
-            )}
-            {description && (
-              <HoverCard openDelay={200} closeDelay={300}>
-                <HoverCard.Target>
-                  <ActionIcon
-                    radius={999}
-                    onClick={() => {}}
-                    variant="ghost-icon"
-                    style={{ cursor: 'default' }}
-                  >
-                    <IconMessage size={16} color={colors.steel[4]} />
-                  </ActionIcon>
-                </HoverCard.Target>
-                <HoverCard.Dropdown>
-                  <Text fz="sm">{description}</Text>
-                </HoverCard.Dropdown>
-              </HoverCard>
-            )}
-          </Group>
-        </Flex>
-        <Box mb="sm">{<AddressAvatar address={postedBy as Address} />}</Box>
-        <Group justify="space-between">
-          <Text fz="xs" c={colors.steel[4]}>
-            {timeDisplay}
-          </Text>
-          {voteTypeDisplay}
-        </Group>
-      </>
-    );
-  }, [
-    title,
-    pollLink,
-    description,
-    postedBy,
-    timeDisplay,
-    voteTypeDisplay,
-    colors.steel,
-  ]);
-
-  if (!to) {
-    return <Paper p="md">{guts}</Paper>;
-  }
+  const handleCardNavigate = () => {
+    if (to) {
+      navigate(to);
+    }
+  };
 
   return (
     <Paper
       p="md"
-      component={Link}
-      classNames={{ root: paperClasses.clickable }}
-      to={to}
+      onClick={to ? handleCardNavigate : undefined}
+      classNames={{ root: to ? paperClasses.clickable : undefined }}
     >
-      {guts}
+      <Flex align="start">
+        <Text fw={500} c={colors.steel[0]} mb="sm" style={{ flex: 1 }}>
+          {title}
+        </Text>
+        <Group gap={4}>
+          {pollLink && (
+            <ActionIcon
+              radius={999}
+              component="a"
+              href={pollLink}
+              target="_blank"
+              rel="noreferrer"
+              variant="ghost-icon"
+            >
+              <IconLink size={16} color={colors.steel[4]} />
+            </ActionIcon>
+          )}
+          {description && (
+            <HoverCard openDelay={200} closeDelay={300}>
+              <HoverCard.Target>
+                <ActionIcon
+                  radius={999}
+                  onClick={() => {}}
+                  variant="ghost-icon"
+                  style={{ cursor: 'default' }}
+                >
+                  <IconMessage size={16} color={colors.steel[4]} />
+                </ActionIcon>
+              </HoverCard.Target>
+              <HoverCard.Dropdown>
+                <Text fz="sm">{description}</Text>
+              </HoverCard.Dropdown>
+            </HoverCard>
+          )}
+        </Group>
+      </Flex>
+      <Box mb="sm">{<AddressAvatar address={postedBy as Address} />}</Box>
+      <Group justify="space-between">
+        <Text fz="xs" c={colors.steel[4]}>
+          {timeDisplay}
+        </Text>
+        {voteTypeDisplay}
+      </Group>
     </Paper>
   );
 };

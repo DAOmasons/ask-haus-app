@@ -8,6 +8,7 @@ import {
   ColorSwatch,
   Group,
   Paper,
+  Radio,
   SegmentedControl,
   Slider,
   Stack,
@@ -24,12 +25,31 @@ import {
 import { AddressAvatar } from '../components/AddressAvatar';
 import { Address } from 'viem';
 import { IconExternalLink, IconSearch } from '@tabler/icons-react';
+import { ChoiceInputType } from '../constants/enum';
+import { TxButton } from '../components/TxButton';
+import { useAccount } from 'wagmi';
+
+const calculateTotalVotes = (
+  entries: Record<string, number>,
+  voteType?: string,
+  selectedChoice?: string
+) => {
+  if (voteType === ChoiceInputType.Single) {
+    return selectedChoice ? 100 : 0;
+  } else if (voteType === ChoiceInputType.Allocate) {
+    return Object.values(entries).reduce((acc, cur) => acc + cur, 0);
+  } else {
+    return 0;
+  }
+};
 
 export const Poll = () => {
   const { id } = useParams();
+  const { address } = useAccount();
   const theme = useMantineTheme();
   const [tick, setTick] = useState(new Date());
   const [entries, setEntries] = useState<Record<string, number>>({});
+  const [selectedChoice, setSelectedChoice] = useState<string | undefined>();
 
   const { data, isLoading, error } = useQuery({
     queryKey: [`poll`, id],
@@ -68,10 +88,17 @@ export const Poll = () => {
     }
   }, [data, tick]);
 
-  const totalAllocated = Object.values(entries).reduce(
-    (sum, item) => sum + item,
-    0
+  const totalAllocated = calculateTotalVotes(
+    entries,
+    data?.answerType,
+    selectedChoice
   );
+
+  // const tokenDisplay = useMemo(() => {
+  //   if (1) {
+  //     return '';
+  //   }
+  // }, [userVoteData]);
 
   const handleSliderChange = (id: string, newValue: number) => {
     const otherValuesTotal = Object.entries(entries).reduce(
@@ -95,7 +122,7 @@ export const Poll = () => {
       <Box w="100%" maw={500} mb="lg">
         <Group mb="sm" align="start" justify="space-between">
           <SubTitle>Poll</SubTitle>
-          <SegmentedControl data={['Vote', 'Results']} size="xs" />
+          <SegmentedControl data={['Vote', 'Results']} size="xs" disabled />
         </Group>
         <Group justify="space-between">
           <Text c={theme.colors.steel[2]} fz="sm">
@@ -140,41 +167,67 @@ export const Poll = () => {
           <Text fw={600} c={theme.colors.steel[0]} mb="2px">
             Answer
           </Text>
-          <Text c={theme.colors.steel[4]} fz="xs" mb="md">
-            Adjust the sliders to distribute your vote
-          </Text>
-          <Stack gap={'xl'}>
-            {data?.choicesParams?.choices.map((c) => {
-              const currentValue = entries[c.id] || 0;
-              return (
-                <Box>
-                  <Group mb="xs" align="start" gap={'xs'}>
-                    <ColorSwatch
-                      color={c.color as string}
-                      size={16}
-                      style={{ transform: 'translateY(2.5px)' }}
-                    />
-                    <Text fw={500}>{c.title}</Text>
-                  </Group>
-                  <Group gap={0}>
-                    <Text w={'10%'} fz="sm">
-                      {currentValue || 0}%
-                    </Text>
-                    <Box w="90%">
-                      <Slider
-                        label={`${c.title} (${currentValue}%)`}
-                        max={100}
-                        min={0}
+          {data?.answerType === ChoiceInputType.Allocate && (
+            <Text c={theme.colors.steel[4]} fz="xs" mb="md">
+              Adjust the sliders to distribute your vote
+            </Text>
+          )}
+          {data?.answerType === ChoiceInputType.Single && (
+            <Text c={theme.colors.steel[4]} fz="xs" mb="md">
+              100% of your voting power will be allocated to that choice
+            </Text>
+          )}
+          {data?.answerType === ChoiceInputType.Allocate && (
+            <Stack gap={'xl'}>
+              {data?.choicesParams?.choices.map((c) => {
+                const currentValue = entries[c.id] || 0;
+                return (
+                  <Box>
+                    <Group mb="xs" align="start" gap={'xs'}>
+                      <ColorSwatch
                         color={c.color as string}
-                        value={currentValue}
-                        onChange={(value) => handleSliderChange(c.id, value)}
+                        size={16}
+                        style={{ transform: 'translateY(2.5px)' }}
                       />
-                    </Box>
-                  </Group>
-                </Box>
-              );
-            })}
-          </Stack>
+                      <Text fw={500}>{c.title}</Text>
+                    </Group>
+                    <Group gap={0}>
+                      <Text w={'10%'} fz="sm">
+                        {currentValue || 0}%
+                      </Text>
+                      <Box w="90%">
+                        <Slider
+                          label={`${c.title} (${currentValue}%)`}
+                          max={100}
+                          min={0}
+                          color={c.color as string}
+                          value={currentValue}
+                          onChange={(value) => handleSliderChange(c.id, value)}
+                        />
+                      </Box>
+                    </Group>
+                  </Box>
+                );
+              })}
+            </Stack>
+          )}
+          {data?.answerType === ChoiceInputType.Single && (
+            <Stack gap={'lg'}>
+              {data?.choicesParams?.choices.map((c) => (
+                <Radio
+                  key={c.id}
+                  label={c.title}
+                  color={c.color as string}
+                  checked={selectedChoice === c.id}
+                  onChange={() => setSelectedChoice(c.id)}
+                />
+              ))}
+
+              <Text c={theme.colors.steel[2]} fz="xs" mt="sm">
+                Your voting power: 1000 HNS
+              </Text>
+            </Stack>
+          )}
         </Paper>
         <Paper>
           <Box>
@@ -187,7 +240,7 @@ export const Poll = () => {
           </Box>
         </Paper>
       </Stack>
-      <Button>Submit</Button>
+      <TxButton disabled={isLoading || totalAllocated !== 100} />
     </CenterLayout>
   );
 };

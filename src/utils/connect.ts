@@ -3,7 +3,7 @@ import {
   getDefaultConfig,
   Theme as RainbowKitTheme,
 } from '@rainbow-me/rainbowkit';
-import { http } from 'viem';
+import { createPublicClient, http } from 'viem';
 import { arbitrum, mainnet } from 'wagmi/chains';
 import { DARK, STEEL } from '../theme';
 import { createConfig } from 'wagmi';
@@ -20,6 +20,12 @@ export const config = getDefaultConfig({
     [appNetwork.id]: http(import.meta.env.VITE_RPC_URL),
   },
 });
+
+export const publicClient = createPublicClient({
+  chain: appNetwork,
+  transport: http(import.meta.env.VITE_RPC_URL),
+});
+
 export const customRBKTheme = {
   ...darkTheme({
     accentColor: STEEL[4],

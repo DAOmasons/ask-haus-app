@@ -2,6 +2,7 @@ import { Button, Paper, Select, Stack, TextInput } from '@mantine/core';
 import { CreatePoll1Values } from '../../schema/form/create';
 import { DateTimePicker } from '@mantine/dates';
 import { Times } from '../../utils/time';
+import { ChoiceInputType } from '../../constants/enum';
 
 export const CreatePoll1 = ({
   form,
@@ -24,7 +25,7 @@ export const CreatePoll1 = ({
         </Paper>
         <Paper>
           <Select
-            data={['Single Choice', 'Allocation (%)']}
+            data={Object.values(ChoiceInputType)}
             label="Answer Type"
             required
             allowDeselect={false}

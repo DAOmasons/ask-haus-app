@@ -29,6 +29,7 @@ export const TxButton = createPolymorphicComponent<'button', CustomButtonProps>(
           'TxButton should not be used with type="submit", include the switch network and connect wallet logic in the onSubmit function instead.'
         );
       }
+      const isCorrectChain = chainId === appNetwork.id;
 
       const handleClick = async (
         event: React.MouseEvent<HTMLButtonElement>
@@ -46,8 +47,6 @@ export const TxButton = createPolymorphicComponent<'button', CustomButtonProps>(
           }
         }
 
-        const isCorrectChain = chainId === appNetwork.id;
-
         if (!isCorrectChain) {
           await switchChainAsync({ chainId: appNetwork.id });
         }
@@ -61,7 +60,13 @@ export const TxButton = createPolymorphicComponent<'button', CustomButtonProps>(
           ref={ref}
           onClick={handleClick}
           loading={isLoading || props.loading}
-        />
+        >
+          {!isConnected
+            ? 'Connect Wallet'
+            : !isCorrectChain
+              ? 'Switch Network'
+              : props.children || 'Submit'}
+        </Button>
       );
     }
   )
