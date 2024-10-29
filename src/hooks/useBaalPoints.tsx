@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { isAddress } from 'viem';
+import { Address, formatEther, isAddress } from 'viem';
+import { getUserPoints } from '../queries/baalPoints';
 
 export const useBaalPoints = ({
   userAddress,
@@ -8,12 +9,16 @@ export const useBaalPoints = ({
   userAddress?: string;
   pointsAddress?: string;
 }) => {
-  const {} = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['baalPoints', userAddress, pointsAddress],
-    queryFn: async () => {},
+    queryFn: async () =>
+      getUserPoints({
+        userAddress: userAddress as Address,
+        pointsAddress: pointsAddress as Address,
+      }),
     enabled: !!userAddress && !!pointsAddress,
   });
-  if (userAddress && isAddress(userAddress)) {
+  if (userAddress && !isAddress(userAddress)) {
     console.warn('userAddress is not an address');
 
     return {
@@ -23,7 +28,7 @@ export const useBaalPoints = ({
     };
   }
 
-  if (pointsAddress && isAddress(pointsAddress)) {
+  if (pointsAddress && !isAddress(pointsAddress)) {
     console.warn('pointsAddress is not an address');
 
     return {
@@ -33,5 +38,10 @@ export const useBaalPoints = ({
     };
   }
 
-  return { points };
+  return {
+    points: data,
+    pointsDisplay: typeof data === 'bigint' ? formatEther(data) : undefined,
+    isLoading,
+    error,
+  };
 };

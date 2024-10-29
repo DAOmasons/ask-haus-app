@@ -20,6 +20,7 @@ fragment PollCard on AskHausPoll {
 
 fragment FullPoll on AskHausPoll {
   ...PollCard
+  pointsAddress: pointsParams_id
   choicesParams {
     choices {
       id

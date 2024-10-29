@@ -3215,14 +3215,14 @@ export type Timestamptz_Comparison_Exp = {
 
 export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
-export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, title: string, description?: string | null, color?: string | null, link?: string | null }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, title: string, description?: string | null, color?: string | null, link?: string | null }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
 export type GetPollQueryVariables = Exact<{
   pollId: Scalars['String']['input'];
 }>;
 
 
-export type GetPollQuery = { __typename?: 'query_root', AskHausPoll_by_pk?: { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, title: string, description?: string | null, color?: string | null, link?: string | null }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null } | null };
+export type GetPollQuery = { __typename?: 'query_root', AskHausPoll_by_pk?: { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, title: string, description?: string | null, color?: string | null, link?: string | null }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null } | null };
 
 export type FrontPagePollsQueryVariables = Exact<{
   now: Scalars['numeric']['input'];
@@ -3262,6 +3262,7 @@ export const PollCardFragmentDoc = gql`
 export const FullPollFragmentDoc = gql`
     fragment FullPoll on AskHausPoll {
   ...PollCard
+  pointsAddress: pointsParams_id
   choicesParams {
     choices {
       id

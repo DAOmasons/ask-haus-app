@@ -28,6 +28,7 @@ import { IconExternalLink, IconSearch } from '@tabler/icons-react';
 import { ChoiceInputType } from '../constants/enum';
 import { TxButton } from '../components/TxButton';
 import { useAccount } from 'wagmi';
+import { useBaalPoints } from '../hooks/useBaalPoints';
 
 const calculateTotalVotes = (
   entries: Record<string, number>,
@@ -55,6 +56,11 @@ export const Poll = () => {
     queryKey: [`poll`, id],
     queryFn: () => getPoll({ pollId: id as string }),
     enabled: !!id,
+  });
+
+  const { pointsDisplay } = useBaalPoints({
+    userAddress: address,
+    pointsAddress: data?.pointsAddress,
   });
 
   useEffect(() => {
@@ -94,11 +100,24 @@ export const Poll = () => {
     selectedChoice
   );
 
-  // const tokenDisplay = useMemo(() => {
-  //   if (1) {
-  //     return '';
-  //   }
-  // }, [userVoteData]);
+  const tokenDisplay = useMemo(() => {
+    if (!data || (data && !pointsDisplay)) {
+      return <Text c={theme.colors.steel[2]} fz="xs" mt="sm"></Text>;
+    }
+    if (pointsDisplay === '0') {
+      return (
+        <Text c={theme.colors.steel[2]} fz="xs" mt="sm">
+          Your account does not have points to vote with
+        </Text>
+      );
+    }
+
+    return (
+      <Text c={theme.colors.steel[2]} fz="xs" mt="sm">
+        Your account has {pointsDisplay} points to vote with
+      </Text>
+    );
+  }, [pointsDisplay, data]);
 
   const handleSliderChange = (id: string, newValue: number) => {
     const otherValuesTotal = Object.entries(entries).reduce(
@@ -209,6 +228,7 @@ export const Poll = () => {
                   </Box>
                 );
               })}
+              {tokenDisplay}
             </Stack>
           )}
           {data?.answerType === ChoiceInputType.Single && (
@@ -222,10 +242,7 @@ export const Poll = () => {
                   onChange={() => setSelectedChoice(c.id)}
                 />
               ))}
-
-              <Text c={theme.colors.steel[2]} fz="xs" mt="sm">
-                Your voting power: 1000 HNS
-              </Text>
+              {tokenDisplay}
             </Stack>
           )}
         </Paper>
