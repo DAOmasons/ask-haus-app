@@ -19,7 +19,7 @@ import { AddressAvatar } from '../AddressAvatar';
 import { Address } from 'viem';
 import { VoteType } from '../../constants/enum';
 import paperClasses from '../../styles/paper.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const VoteCard = ({
   title,

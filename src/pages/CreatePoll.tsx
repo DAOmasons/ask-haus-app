@@ -94,14 +94,13 @@ export const CreatePoll = () => {
         message: 'Validation error',
         color: 'red',
       });
+      return;
     }
 
     if (step2Form.values.choices.length < 2) {
       setLessThanTwoChoices(true);
       return;
     }
-    console.log('step1Form.values', step1Form.values);
-    console.log('step2Form.values', step2Form.values);
 
     try {
       const startTime =

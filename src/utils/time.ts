@@ -9,6 +9,22 @@ const SECONDS_IN_DAY = 86400;
 const SECONDS_IN_HOUR = 3600;
 const SECONDS_IN_MINUTE = 60;
 
+export const Times = {
+  'Five Minutes': 60 * 5,
+  'One Hour': 60 * 60,
+  'One Day': 60 * 60 * 24,
+  'One Week': 60 * 60 * 24 * 7,
+};
+
+export const DATE_FORMATS = {
+  SHORT_DATE: 'MM/DD/YY',
+  LONG_DATE: 'MMMM D, YYYY',
+  ISO: 'YYYY-MM-DD',
+  TIME: 'HH:mm:ss',
+  DATETIME: 'YYYY-MM-DD HH:mm:ss',
+  FRIENDLY: 'ddd, MMM D YYYY',
+} as const;
+
 export const futureRelativeTimeInSeconds = (
   unixTimestamp: number,
   format = true
@@ -84,11 +100,12 @@ export const nowInSeconds = () => {
   return dayjs().unix();
 };
 
-export const Times = {
-  'Five Minutes': 60 * 5,
-  'One Hour': 60 * 60,
-  'One Day': 60 * 60 * 24,
-  'One Week': 60 * 60 * 24 * 7,
+export const secondsToDate = (
+  seconds: number,
+  format: keyof typeof DATE_FORMATS = 'DATETIME'
+) => {
+  const formatValue = DATE_FORMATS[format];
+  return dayjs.unix(seconds).format(formatValue);
 };
 
 //   const endTime = useMemo(() => {
