@@ -17,7 +17,7 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core';
-import { SubTitle, TextLink } from '../components/Typography';
+import { SubTitle } from '../components/Typography';
 import { useEffect, useMemo, useState } from 'react';
 import {
   futureRelativeTimeInSeconds,
@@ -26,7 +26,7 @@ import {
   secondsToDate,
 } from '../utils/time';
 import { AddressAvatar } from '../components/AddressAvatar';
-import { Address } from 'viem';
+import { Address, encodeAbiParameters, parseAbiParameters } from 'viem';
 import { IconExternalLink, IconSearch } from '@tabler/icons-react';
 import { ChoiceInputType } from '../constants/enum';
 import { TxButton } from '../components/TxButton';
@@ -34,7 +34,12 @@ import { useAccount } from 'wagmi';
 import { useBaalPoints } from '../hooks/useBaalPoints';
 import { Display } from '../components/Display';
 import { useDisclosure } from '@mantine/hooks';
-import { FormChoice } from '../types/ui';
+
+import { useTx } from '../hooks/useTx';
+import { notifications } from '@mantine/notifications';
+import { BasicChoiceFragment } from '../generated/graphql';
+import ContestAbi from '../abi/Contest.json';
+import { getSolPercentages } from '../utils/units';
 
 const calculateTotalVotes = (
   entries: Record<string, number>,
@@ -58,6 +63,7 @@ export const Poll = () => {
   const [entries, setEntries] = useState<Record<string, number>>({});
   const [selectedChoice, setSelectedChoice] = useState<string | undefined>();
   const [modalOpened, { open, close }] = useDisclosure();
+  const { tx } = useTx();
 
   const { data, isLoading, error } = useQuery({
     queryKey: [`poll`, id],
@@ -69,7 +75,7 @@ export const Poll = () => {
   const isUpcoming = startTime > nowInSeconds();
   const isActive = !isUpcoming && endTime > nowInSeconds();
 
-  const { pointsDisplay } = useBaalPoints({
+  const { points, pointsDisplay } = useBaalPoints({
     userAddress: address,
     pointsAddress: data?.pointsAddress,
   });
@@ -98,6 +104,7 @@ export const Poll = () => {
     } else {
       return `Ended ${pastRelativeTimeInSeconds(endTime)} ago`;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, startTime, endTime, isUpcoming, isUpcoming, isActive, tick]);
 
   const totalAllocated = calculateTotalVotes(
@@ -123,7 +130,7 @@ export const Poll = () => {
         Your account has {pointsDisplay} points to vote with
       </Text>
     );
-  }, [pointsDisplay, data]);
+  }, [pointsDisplay, data, theme.colors]);
 
   const handleSliderChange = (id: string, newValue: number) => {
     const otherValuesTotal = Object.entries(entries).reduce(
@@ -145,6 +152,92 @@ export const Poll = () => {
   if (error) {
     return <Display title={'Error'} description={error.message} />;
   }
+
+  const handleVote = async () => {
+    const choicesWithValues = Object.entries(entries).filter(
+      ([, value]) => value > 0
+    );
+
+    const choiceIds = choicesWithValues.map(([id]) => id);
+    const percents = choicesWithValues.map(([, value]) => value);
+
+    console.log('choiceIds', choiceIds);
+    console.log('amounts', percents);
+
+    const emptyMetadata = [0n, ''] as const;
+
+    const totalPercents = percents.reduce((acc, cur) => acc + cur, 0);
+    if (totalPercents !== 100) {
+      console.error('totalPercents', totalPercents);
+      notifications.show({
+        title: 'Error',
+        message: 'Total percentage must be 100',
+        color: 'red',
+      });
+      return;
+    }
+
+    if (points === 0n) {
+      notifications.show({
+        title: 'Error',
+        message: 'You need points to vote',
+        color: 'red',
+      });
+      return;
+    }
+
+    const amounts = getSolPercentages(percents, points as bigint);
+
+    const encodedEmptyMetadata = amounts.map((_notUsed) =>
+      encodeAbiParameters(parseAbiParameters('(uint256, string)'), [
+        emptyMetadata,
+      ])
+    );
+
+    const sum = amounts.reduce((acc, curr) => acc + curr, 0n);
+    if (sum !== points) {
+      console.error('sum', sum);
+      notifications.show({
+        title: 'Error',
+        message: 'Total amount must be equal to points',
+        color: 'red',
+      });
+      return;
+    }
+
+    try {
+      tx({
+        writeContractParams: {
+          abi: ContestAbi,
+          functionName: 'batchVote',
+          args: [
+            choiceIds,
+            amounts,
+            encodedEmptyMetadata,
+            sum,
+            [999999999n, ''],
+          ],
+          address: data?.round_id as Address,
+        },
+        writeContractOptions: {
+          onPollSuccess() {
+            notifications.show({
+              title: 'Success',
+              message: 'Your vote has been submitted',
+              color: 'green',
+            });
+          },
+        },
+      });
+    } catch (error: any) {
+      console.error(error);
+      notifications.show({
+        title: 'Error',
+        message: error?.message || 'Something went wrong',
+        color: 'red',
+      });
+    }
+  };
 
   return (
     <CenterLayout>
@@ -184,13 +277,19 @@ export const Poll = () => {
             >
               Details
             </Button>
-            <Button
-              size="xs"
-              variant="secondary"
-              leftSection={<IconExternalLink size={14} />}
-            >
-              Poll Link
-            </Button>
+            {data?.pollLink && (
+              <Button
+                size="xs"
+                variant="secondary"
+                leftSection={<IconExternalLink size={14} />}
+                component="a"
+                href={data?.pollLink}
+                rel="noreferrer"
+                target="_blank"
+              >
+                Poll Link
+              </Button>
+            )}
           </Group>
         </Paper>
         <Paper>
@@ -210,9 +309,9 @@ export const Poll = () => {
           {data?.answerType === ChoiceInputType.Allocate && (
             <Stack gap={'xl'}>
               {data?.choicesParams?.choices.map((c) => {
-                const currentValue = entries[c.id] || 0;
+                const currentValue = entries[c.choiceId] || 0;
                 return (
-                  <Box>
+                  <Box key={c.choiceId}>
                     <Group mb="xs" align="start" gap={'xs'}>
                       <ColorSwatch
                         color={c.color as string}
@@ -232,7 +331,9 @@ export const Poll = () => {
                           min={0}
                           color={c.color as string}
                           value={currentValue}
-                          onChange={(value) => handleSliderChange(c.id, value)}
+                          onChange={(value) =>
+                            handleSliderChange(c.choiceId, value)
+                          }
                         />
                       </Box>
                     </Group>
@@ -246,12 +347,12 @@ export const Poll = () => {
             <Stack gap={'md'}>
               {data?.choicesParams?.choices.map((c) => (
                 <Radio
-                  key={c.id}
+                  key={c.choiceId}
                   label={c.title}
                   disabled={!isActive}
                   color={c.color as string}
-                  checked={selectedChoice === c.id}
-                  onChange={() => setSelectedChoice(c.id)}
+                  checked={selectedChoice === c.choiceId}
+                  onChange={() => setSelectedChoice(c.choiceId)}
                 />
               ))}
               {tokenDisplay}
@@ -288,11 +389,16 @@ export const Poll = () => {
         description={data?.description || undefined}
         pollLink={data?.pollLink || undefined}
         snapshot={data?.pointsParams?.checkpoint}
-        choices={data?.choicesParams?.choices as FormChoice[] | undefined}
+        choices={data?.choicesParams?.choices}
         startTime={data?.votesParams?.startTime}
         endTime={data?.votesParams?.endTime}
       />
-      {isActive && <TxButton disabled={isLoading || totalAllocated !== 100} />}
+      {isActive && (
+        <TxButton
+          disabled={isLoading || totalAllocated !== 100}
+          onClick={handleVote}
+        />
+      )}
     </CenterLayout>
   );
 };
@@ -300,7 +406,6 @@ export const Poll = () => {
 const DetailsModal = ({
   opened,
   close,
-  question,
   endTime,
   startTime,
   description = 'No description provided',
@@ -316,7 +421,7 @@ const DetailsModal = ({
   question?: string;
   opened: boolean;
   close: () => void;
-  choices: FormChoice[] | undefined;
+  choices: BasicChoiceFragment[] | undefined;
 }) => {
   const theme = useMantineTheme();
   const [segment, setSegment] = useState('Poll');

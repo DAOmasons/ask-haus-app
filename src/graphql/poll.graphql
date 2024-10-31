@@ -16,6 +16,16 @@ fragment PollCard on AskHausPoll {
     checkpoint
     holderType
   }
+  round_id
+}
+
+fragment BasicChoice on BasicChoice {
+  id
+  choiceId
+  title
+  description
+  color
+  link
 }
 
 fragment FullPoll on AskHausPoll {
@@ -23,11 +33,7 @@ fragment FullPoll on AskHausPoll {
   pointsAddress: pointsParams_id
   choicesParams {
     choices {
-      id
-      title
-      description
-      color
-      link
+      ...BasicChoice
     }
   }
 }

@@ -42,14 +42,12 @@ export const TimeoutState = ({
   return (
     <Flex align={'center'} mt="md" direction={'column'}>
       <Box style={{ transform: 'rotate(180deg)' }}>
-        <IconMoodSmile size={60} className={classes.spinGlow} />
+        <IconMoodSmile size={60} />
       </Box>
-      <Text fz="lg" my="md" className={classes.glow} fw={600}>
+      <Text fz="lg" my="md" fw={600}>
         {title}
       </Text>
-      <Text pb="xl" className={classes.glow}>
-        {description}
-      </Text>
+      <Text pb="xl">{description}</Text>
     </Flex>
   );
 };

@@ -40,7 +40,7 @@ export const basicChoiceSchema = z.object({
   title: z.string().min(1, 'Choice title is required'),
   color: z.string().min(1, 'Choice color is required'),
   description: z.string().optional(),
-  link: z.string().url().optional(),
+  link: z.string().optional(),
 });
 
 export const pollMetadataSchema = z.object({
