@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { BigTitle } from '../components/Typography';
 import { CenterLayout } from '../layout/Layout';
 

@@ -144,6 +144,7 @@ export const VotePanel = ({
                           label={`${c.title} (${currentValue}%)`}
                           max={100}
                           min={0}
+                          disabled={!isActive}
                           color={c.color as string}
                           value={currentValue}
                           onChange={(value) =>

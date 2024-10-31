@@ -69,6 +69,7 @@ export const VoteCard = ({
     } else {
       return `Ended ${pastRelativeTimeInSeconds(endTime)} ago`;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime, endTime, duration, tickTime]);
 
   const voteTypeDisplay = useMemo(() => {

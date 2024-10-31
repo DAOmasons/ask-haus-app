@@ -147,6 +147,7 @@ export type AskHausPoll_Stream_Cursor_Value_Input = {
 /** columns and relationships of "BasicChoice" */
 export type BasicChoice = {
   __typename?: 'BasicChoice';
+  amountVoted: Scalars['numeric']['output'];
   bytes: Scalars['String']['output'];
   choiceId: Scalars['String']['output'];
   color?: Maybe<Scalars['String']['output']>;
@@ -165,9 +166,22 @@ export type BasicChoice = {
 
 /** order by aggregate values of table "BasicChoice" */
 export type BasicChoice_Aggregate_Order_By = {
+  avg?: InputMaybe<BasicChoice_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<BasicChoice_Max_Order_By>;
   min?: InputMaybe<BasicChoice_Min_Order_By>;
+  stddev?: InputMaybe<BasicChoice_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<BasicChoice_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<BasicChoice_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<BasicChoice_Sum_Order_By>;
+  var_pop?: InputMaybe<BasicChoice_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<BasicChoice_Var_Samp_Order_By>;
+  variance?: InputMaybe<BasicChoice_Variance_Order_By>;
+};
+
+/** order by avg() on columns of table "BasicChoice" */
+export type BasicChoice_Avg_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "BasicChoice". All fields are combined with a logical 'AND'. */
@@ -175,6 +189,7 @@ export type BasicChoice_Bool_Exp = {
   _and?: InputMaybe<Array<BasicChoice_Bool_Exp>>;
   _not?: InputMaybe<BasicChoice_Bool_Exp>;
   _or?: InputMaybe<Array<BasicChoice_Bool_Exp>>;
+  amountVoted?: InputMaybe<Numeric_Comparison_Exp>;
   bytes?: InputMaybe<String_Comparison_Exp>;
   choiceId?: InputMaybe<String_Comparison_Exp>;
   color?: InputMaybe<String_Comparison_Exp>;
@@ -192,6 +207,7 @@ export type BasicChoice_Bool_Exp = {
 
 /** order by max() on columns of table "BasicChoice" */
 export type BasicChoice_Max_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
   bytes?: InputMaybe<Order_By>;
   choiceId?: InputMaybe<Order_By>;
   color?: InputMaybe<Order_By>;
@@ -206,6 +222,7 @@ export type BasicChoice_Max_Order_By = {
 
 /** order by min() on columns of table "BasicChoice" */
 export type BasicChoice_Min_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
   bytes?: InputMaybe<Order_By>;
   choiceId?: InputMaybe<Order_By>;
   color?: InputMaybe<Order_By>;
@@ -220,6 +237,7 @@ export type BasicChoice_Min_Order_By = {
 
 /** Ordering options when selecting data from "BasicChoice". */
 export type BasicChoice_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
   bytes?: InputMaybe<Order_By>;
   choiceId?: InputMaybe<Order_By>;
   color?: InputMaybe<Order_By>;
@@ -237,6 +255,8 @@ export type BasicChoice_Order_By = {
 
 /** select columns of table "BasicChoice" */
 export enum BasicChoice_Select_Column {
+  /** column name */
+  AmountVoted = 'amountVoted',
   /** column name */
   Bytes = 'bytes',
   /** column name */
@@ -263,6 +283,21 @@ export enum BasicChoice_Select_Column {
   Title = 'title'
 }
 
+/** order by stddev() on columns of table "BasicChoice" */
+export type BasicChoice_Stddev_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "BasicChoice" */
+export type BasicChoice_Stddev_Pop_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "BasicChoice" */
+export type BasicChoice_Stddev_Samp_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
+};
+
 /** Streaming cursor of the table "BasicChoice" */
 export type BasicChoice_Stream_Cursor_Input = {
   /** Stream column input with initial value */
@@ -273,6 +308,7 @@ export type BasicChoice_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type BasicChoice_Stream_Cursor_Value_Input = {
+  amountVoted?: InputMaybe<Scalars['numeric']['input']>;
   bytes?: InputMaybe<Scalars['String']['input']>;
   choiceId?: InputMaybe<Scalars['String']['input']>;
   color?: InputMaybe<Scalars['String']['input']>;
@@ -285,6 +321,366 @@ export type BasicChoice_Stream_Cursor_Value_Input = {
   moduleParams_id?: InputMaybe<Scalars['String']['input']>;
   registrar?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** order by sum() on columns of table "BasicChoice" */
+export type BasicChoice_Sum_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
+};
+
+/** order by var_pop() on columns of table "BasicChoice" */
+export type BasicChoice_Var_Pop_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "BasicChoice" */
+export type BasicChoice_Var_Samp_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "BasicChoice" */
+export type BasicChoice_Variance_Order_By = {
+  amountVoted?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "BasicVote" */
+export type BasicVote = {
+  __typename?: 'BasicVote';
+  amount: Scalars['numeric']['output'];
+  /** An object relationship */
+  batch?: Maybe<BatchVote>;
+  batch_id: Scalars['String']['output'];
+  /** An object relationship */
+  choice?: Maybe<BasicChoice>;
+  choice_id: Scalars['String']['output'];
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  id: Scalars['String']['output'];
+  /** An object relationship */
+  round?: Maybe<Round>;
+  round_id: Scalars['String']['output'];
+  voter: Scalars['String']['output'];
+};
+
+/** order by aggregate values of table "BasicVote" */
+export type BasicVote_Aggregate_Order_By = {
+  avg?: InputMaybe<BasicVote_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<BasicVote_Max_Order_By>;
+  min?: InputMaybe<BasicVote_Min_Order_By>;
+  stddev?: InputMaybe<BasicVote_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<BasicVote_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<BasicVote_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<BasicVote_Sum_Order_By>;
+  var_pop?: InputMaybe<BasicVote_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<BasicVote_Var_Samp_Order_By>;
+  variance?: InputMaybe<BasicVote_Variance_Order_By>;
+};
+
+/** order by avg() on columns of table "BasicVote" */
+export type BasicVote_Avg_Order_By = {
+  amount?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "BasicVote". All fields are combined with a logical 'AND'. */
+export type BasicVote_Bool_Exp = {
+  _and?: InputMaybe<Array<BasicVote_Bool_Exp>>;
+  _not?: InputMaybe<BasicVote_Bool_Exp>;
+  _or?: InputMaybe<Array<BasicVote_Bool_Exp>>;
+  amount?: InputMaybe<Numeric_Comparison_Exp>;
+  batch?: InputMaybe<BatchVote_Bool_Exp>;
+  batch_id?: InputMaybe<String_Comparison_Exp>;
+  choice?: InputMaybe<BasicChoice_Bool_Exp>;
+  choice_id?: InputMaybe<String_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  round?: InputMaybe<Round_Bool_Exp>;
+  round_id?: InputMaybe<String_Comparison_Exp>;
+  voter?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "BasicVote" */
+export type BasicVote_Max_Order_By = {
+  amount?: InputMaybe<Order_By>;
+  batch_id?: InputMaybe<Order_By>;
+  choice_id?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  round_id?: InputMaybe<Order_By>;
+  voter?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "BasicVote" */
+export type BasicVote_Min_Order_By = {
+  amount?: InputMaybe<Order_By>;
+  batch_id?: InputMaybe<Order_By>;
+  choice_id?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  round_id?: InputMaybe<Order_By>;
+  voter?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "BasicVote". */
+export type BasicVote_Order_By = {
+  amount?: InputMaybe<Order_By>;
+  batch?: InputMaybe<BatchVote_Order_By>;
+  batch_id?: InputMaybe<Order_By>;
+  choice?: InputMaybe<BasicChoice_Order_By>;
+  choice_id?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  round?: InputMaybe<Round_Order_By>;
+  round_id?: InputMaybe<Order_By>;
+  voter?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "BasicVote" */
+export enum BasicVote_Select_Column {
+  /** column name */
+  Amount = 'amount',
+  /** column name */
+  BatchId = 'batch_id',
+  /** column name */
+  ChoiceId = 'choice_id',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  RoundId = 'round_id',
+  /** column name */
+  Voter = 'voter'
+}
+
+/** order by stddev() on columns of table "BasicVote" */
+export type BasicVote_Stddev_Order_By = {
+  amount?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "BasicVote" */
+export type BasicVote_Stddev_Pop_Order_By = {
+  amount?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "BasicVote" */
+export type BasicVote_Stddev_Samp_Order_By = {
+  amount?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "BasicVote" */
+export type BasicVote_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: BasicVote_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type BasicVote_Stream_Cursor_Value_Input = {
+  amount?: InputMaybe<Scalars['numeric']['input']>;
+  batch_id?: InputMaybe<Scalars['String']['input']>;
+  choice_id?: InputMaybe<Scalars['String']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  round_id?: InputMaybe<Scalars['String']['input']>;
+  voter?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** order by sum() on columns of table "BasicVote" */
+export type BasicVote_Sum_Order_By = {
+  amount?: InputMaybe<Order_By>;
+};
+
+/** order by var_pop() on columns of table "BasicVote" */
+export type BasicVote_Var_Pop_Order_By = {
+  amount?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "BasicVote" */
+export type BasicVote_Var_Samp_Order_By = {
+  amount?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "BasicVote" */
+export type BasicVote_Variance_Order_By = {
+  amount?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "BatchVote" */
+export type BatchVote = {
+  __typename?: 'BatchVote';
+  comment?: Maybe<Scalars['String']['output']>;
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  id: Scalars['String']['output'];
+  /** An object relationship */
+  round?: Maybe<Round>;
+  round_id: Scalars['String']['output'];
+  timestamp: Scalars['Int']['output'];
+  totalVoted: Scalars['numeric']['output'];
+  voter: Scalars['String']['output'];
+  /** An array relationship */
+  votes: Array<BasicVote>;
+};
+
+
+/** columns and relationships of "BatchVote" */
+export type BatchVoteVotesArgs = {
+  distinct_on?: InputMaybe<Array<BasicVote_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BasicVote_Order_By>>;
+  where?: InputMaybe<BasicVote_Bool_Exp>;
+};
+
+/** order by aggregate values of table "BatchVote" */
+export type BatchVote_Aggregate_Order_By = {
+  avg?: InputMaybe<BatchVote_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<BatchVote_Max_Order_By>;
+  min?: InputMaybe<BatchVote_Min_Order_By>;
+  stddev?: InputMaybe<BatchVote_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<BatchVote_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<BatchVote_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<BatchVote_Sum_Order_By>;
+  var_pop?: InputMaybe<BatchVote_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<BatchVote_Var_Samp_Order_By>;
+  variance?: InputMaybe<BatchVote_Variance_Order_By>;
+};
+
+/** order by avg() on columns of table "BatchVote" */
+export type BatchVote_Avg_Order_By = {
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "BatchVote". All fields are combined with a logical 'AND'. */
+export type BatchVote_Bool_Exp = {
+  _and?: InputMaybe<Array<BatchVote_Bool_Exp>>;
+  _not?: InputMaybe<BatchVote_Bool_Exp>;
+  _or?: InputMaybe<Array<BatchVote_Bool_Exp>>;
+  comment?: InputMaybe<String_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  round?: InputMaybe<Round_Bool_Exp>;
+  round_id?: InputMaybe<String_Comparison_Exp>;
+  timestamp?: InputMaybe<Int_Comparison_Exp>;
+  totalVoted?: InputMaybe<Numeric_Comparison_Exp>;
+  voter?: InputMaybe<String_Comparison_Exp>;
+  votes?: InputMaybe<BasicVote_Bool_Exp>;
+};
+
+/** order by max() on columns of table "BatchVote" */
+export type BatchVote_Max_Order_By = {
+  comment?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  round_id?: InputMaybe<Order_By>;
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
+  voter?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "BatchVote" */
+export type BatchVote_Min_Order_By = {
+  comment?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  round_id?: InputMaybe<Order_By>;
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
+  voter?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "BatchVote". */
+export type BatchVote_Order_By = {
+  comment?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  round?: InputMaybe<Round_Order_By>;
+  round_id?: InputMaybe<Order_By>;
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
+  voter?: InputMaybe<Order_By>;
+  votes_aggregate?: InputMaybe<BasicVote_Aggregate_Order_By>;
+};
+
+/** select columns of table "BatchVote" */
+export enum BatchVote_Select_Column {
+  /** column name */
+  Comment = 'comment',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  RoundId = 'round_id',
+  /** column name */
+  Timestamp = 'timestamp',
+  /** column name */
+  TotalVoted = 'totalVoted',
+  /** column name */
+  Voter = 'voter'
+}
+
+/** order by stddev() on columns of table "BatchVote" */
+export type BatchVote_Stddev_Order_By = {
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "BatchVote" */
+export type BatchVote_Stddev_Pop_Order_By = {
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "BatchVote" */
+export type BatchVote_Stddev_Samp_Order_By = {
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "BatchVote" */
+export type BatchVote_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: BatchVote_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type BatchVote_Stream_Cursor_Value_Input = {
+  comment?: InputMaybe<Scalars['String']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  round_id?: InputMaybe<Scalars['String']['input']>;
+  timestamp?: InputMaybe<Scalars['Int']['input']>;
+  totalVoted?: InputMaybe<Scalars['numeric']['input']>;
+  voter?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** order by sum() on columns of table "BatchVote" */
+export type BatchVote_Sum_Order_By = {
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
+};
+
+/** order by var_pop() on columns of table "BatchVote" */
+export type BatchVote_Var_Pop_Order_By = {
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "BatchVote" */
+export type BatchVote_Var_Samp_Order_By = {
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "BatchVote" */
+export type BatchVote_Variance_Order_By = {
+  timestamp?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
@@ -866,6 +1262,8 @@ export type Params_TimedVotes_V0_2_0_Stream_Cursor_Value_Input = {
 /** columns and relationships of "Round" */
 export type Round = {
   __typename?: 'Round';
+  /** An array relationship */
+  batchVotes: Array<BatchVote>;
   /** An object relationship */
   choicesModule?: Maybe<ModuleClone>;
   choicesModule_id: Scalars['String']['output'];
@@ -883,9 +1281,31 @@ export type Round = {
   pointsModule?: Maybe<ModuleClone>;
   pointsModule_id: Scalars['String']['output'];
   roundAddress: Scalars['String']['output'];
+  /** An array relationship */
+  votes: Array<BasicVote>;
   /** An object relationship */
   votesModule?: Maybe<ModuleClone>;
   votesModule_id: Scalars['String']['output'];
+};
+
+
+/** columns and relationships of "Round" */
+export type RoundBatchVotesArgs = {
+  distinct_on?: InputMaybe<Array<BatchVote_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BatchVote_Order_By>>;
+  where?: InputMaybe<BatchVote_Bool_Exp>;
+};
+
+
+/** columns and relationships of "Round" */
+export type RoundVotesArgs = {
+  distinct_on?: InputMaybe<Array<BasicVote_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BasicVote_Order_By>>;
+  where?: InputMaybe<BasicVote_Bool_Exp>;
 };
 
 /** columns and relationships of "RoundClone" */
@@ -1039,6 +1459,7 @@ export type Round_Bool_Exp = {
   _and?: InputMaybe<Array<Round_Bool_Exp>>;
   _not?: InputMaybe<Round_Bool_Exp>;
   _or?: InputMaybe<Array<Round_Bool_Exp>>;
+  batchVotes?: InputMaybe<BatchVote_Bool_Exp>;
   choicesModule?: InputMaybe<ModuleClone_Bool_Exp>;
   choicesModule_id?: InputMaybe<String_Comparison_Exp>;
   contestStatus?: InputMaybe<Numeric_Comparison_Exp>;
@@ -1053,12 +1474,14 @@ export type Round_Bool_Exp = {
   pointsModule?: InputMaybe<ModuleClone_Bool_Exp>;
   pointsModule_id?: InputMaybe<String_Comparison_Exp>;
   roundAddress?: InputMaybe<String_Comparison_Exp>;
+  votes?: InputMaybe<BasicVote_Bool_Exp>;
   votesModule?: InputMaybe<ModuleClone_Bool_Exp>;
   votesModule_id?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** Ordering options when selecting data from "Round". */
 export type Round_Order_By = {
+  batchVotes_aggregate?: InputMaybe<BatchVote_Aggregate_Order_By>;
   choicesModule?: InputMaybe<ModuleClone_Order_By>;
   choicesModule_id?: InputMaybe<Order_By>;
   contestStatus?: InputMaybe<Order_By>;
@@ -1075,6 +1498,7 @@ export type Round_Order_By = {
   roundAddress?: InputMaybe<Order_By>;
   votesModule?: InputMaybe<ModuleClone_Order_By>;
   votesModule_id?: InputMaybe<Order_By>;
+  votes_aggregate?: InputMaybe<BasicVote_Aggregate_Order_By>;
 };
 
 /** select columns of table "Round" */
@@ -2050,6 +2474,14 @@ export type Query_Root = {
   BasicChoice: Array<BasicChoice>;
   /** fetch data from the table: "BasicChoice" using primary key columns */
   BasicChoice_by_pk?: Maybe<BasicChoice>;
+  /** fetch data from the table: "BasicVote" */
+  BasicVote: Array<BasicVote>;
+  /** fetch data from the table: "BasicVote" using primary key columns */
+  BasicVote_by_pk?: Maybe<BasicVote>;
+  /** fetch data from the table: "BatchVote" */
+  BatchVote: Array<BatchVote>;
+  /** fetch data from the table: "BatchVote" using primary key columns */
+  BatchVote_by_pk?: Maybe<BatchVote>;
   /** fetch data from the table: "Factory" */
   Factory: Array<Factory>;
   /** fetch data from the table: "Factory" using primary key columns */
@@ -2155,6 +2587,34 @@ export type Query_RootBasicChoiceArgs = {
 
 
 export type Query_RootBasicChoice_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootBasicVoteArgs = {
+  distinct_on?: InputMaybe<Array<BasicVote_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BasicVote_Order_By>>;
+  where?: InputMaybe<BasicVote_Bool_Exp>;
+};
+
+
+export type Query_RootBasicVote_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootBatchVoteArgs = {
+  distinct_on?: InputMaybe<Array<BatchVote_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BatchVote_Order_By>>;
+  where?: InputMaybe<BatchVote_Bool_Exp>;
+};
+
+
+export type Query_RootBatchVote_By_PkArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -2604,6 +3064,18 @@ export type Subscription_Root = {
   BasicChoice_by_pk?: Maybe<BasicChoice>;
   /** fetch data from the table in a streaming manner: "BasicChoice" */
   BasicChoice_stream: Array<BasicChoice>;
+  /** fetch data from the table: "BasicVote" */
+  BasicVote: Array<BasicVote>;
+  /** fetch data from the table: "BasicVote" using primary key columns */
+  BasicVote_by_pk?: Maybe<BasicVote>;
+  /** fetch data from the table in a streaming manner: "BasicVote" */
+  BasicVote_stream: Array<BasicVote>;
+  /** fetch data from the table: "BatchVote" */
+  BatchVote: Array<BatchVote>;
+  /** fetch data from the table: "BatchVote" using primary key columns */
+  BatchVote_by_pk?: Maybe<BatchVote>;
+  /** fetch data from the table in a streaming manner: "BatchVote" */
+  BatchVote_stream: Array<BatchVote>;
   /** fetch data from the table: "Factory" */
   Factory: Array<Factory>;
   /** fetch data from the table: "Factory" using primary key columns */
@@ -2762,6 +3234,48 @@ export type Subscription_RootBasicChoice_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<BasicChoice_Stream_Cursor_Input>>;
   where?: InputMaybe<BasicChoice_Bool_Exp>;
+};
+
+
+export type Subscription_RootBasicVoteArgs = {
+  distinct_on?: InputMaybe<Array<BasicVote_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BasicVote_Order_By>>;
+  where?: InputMaybe<BasicVote_Bool_Exp>;
+};
+
+
+export type Subscription_RootBasicVote_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootBasicVote_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<BasicVote_Stream_Cursor_Input>>;
+  where?: InputMaybe<BasicVote_Bool_Exp>;
+};
+
+
+export type Subscription_RootBatchVoteArgs = {
+  distinct_on?: InputMaybe<Array<BatchVote_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BatchVote_Order_By>>;
+  where?: InputMaybe<BatchVote_Bool_Exp>;
+};
+
+
+export type Subscription_RootBatchVote_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootBatchVote_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<BatchVote_Stream_Cursor_Input>>;
+  where?: InputMaybe<BatchVote_Bool_Exp>;
 };
 
 
@@ -3213,18 +3727,20 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
 };
 
+export type BasicChoiceFragment = { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any };
+
+export type BasicVoteFragment = { __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string } | null };
+
 export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
-export type BasicChoiceFragment = { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null };
-
-export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
 export type GetPollQueryVariables = Exact<{
   pollId: Scalars['String']['input'];
 }>;
 
 
-export type GetPollQuery = { __typename?: 'query_root', AskHausPoll_by_pk?: { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null } | null };
+export type GetPollQuery = { __typename?: 'query_root', AskHausPoll_by_pk?: { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null } | null };
 
 export type FrontPagePollsQueryVariables = Exact<{
   now: Scalars['numeric']['input'];
@@ -3270,6 +3786,18 @@ export const BasicChoiceFragmentDoc = gql`
   description
   color
   link
+  amountVoted
+}
+    `;
+export const BasicVoteFragmentDoc = gql`
+    fragment BasicVote on BasicVote {
+  id
+  amount
+  choice {
+    id
+    choiceId
+    title
+  }
 }
     `;
 export const FullPollFragmentDoc = gql`
@@ -3281,9 +3809,21 @@ export const FullPollFragmentDoc = gql`
       ...BasicChoice
     }
   }
+  round {
+    id
+    batchVotes {
+      id
+      voter
+      totalVoted
+      votes {
+        ...BasicVote
+      }
+    }
+  }
 }
     ${PollCardFragmentDoc}
-${BasicChoiceFragmentDoc}`;
+${BasicChoiceFragmentDoc}
+${BasicVoteFragmentDoc}`;
 export const GetPollDocument = gql`
     query getPoll($pollId: String!) {
   AskHausPoll_by_pk(id: $pollId) {

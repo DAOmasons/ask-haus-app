@@ -12,6 +12,7 @@ import {
   Slider,
   Textarea,
   TextInput,
+  Tooltip,
 } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import buttonClasses from './styles/button.module.css';
@@ -164,7 +165,11 @@ export const theme = createTheme({
         indicator: radioClasses.segmentedControlLabel,
       },
     }),
+    Tooltip: Tooltip.extend({
+      defaultProps: {
+        bg: DARK[5],
+        c: STEEL[1],
+      },
+    }),
   },
-
-  /* Put your mantine theme override here */
 });

@@ -7,6 +7,7 @@ import {
   Group,
   SegmentedControl,
   Text,
+  Tooltip,
   useMantineTheme,
 } from '@mantine/core';
 import { SubTitle } from '../components/Typography';
@@ -30,6 +31,8 @@ import ContestAbi from '../abi/Contest.json';
 import { getSolPercentages } from '../utils/units';
 import { VotePanel } from '../components/poll/VotePanel';
 import { DetailsModal } from '../components/poll/DetailsModal';
+import { ResultsPanel } from '../components/poll/ResultsPanel';
+import { IconCheck } from '@tabler/icons-react';
 
 const calculateTotalVotes = (
   entries: Record<string, number>,
@@ -126,6 +129,12 @@ export const Poll = () => {
     return <Display title={'Error'} description={error.message} />;
   }
 
+  const hasVoted = data?.round?.batchVotes?.some(
+    (batch) => batch.voter === address
+  );
+
+  console.log('hasVoted', hasVoted);
+
   const handleVote = async () => {
     const choicesWithValues = Object.entries(entries).filter(
       ([, value]) => value > 0
@@ -213,7 +222,16 @@ export const Poll = () => {
     <CenterLayout>
       <Box w="100%" maw={500} mb="lg">
         <Group mb="sm" align="start" justify="space-between">
-          <SubTitle>Poll</SubTitle>
+          {
+            <Group>
+              <SubTitle>Poll</SubTitle>
+              {hasVoted && (
+                <Tooltip label="You have voted on this poll">
+                  <IconCheck size={16} color={theme.colors.steel[4]} />
+                </Tooltip>
+              )}
+            </Group>
+          }
           <SegmentedControl
             data={['Vote', 'Results']}
             value={view}
@@ -251,6 +269,9 @@ export const Poll = () => {
           handleVote={handleVote}
           isLoading={isLoading}
         />
+      )}
+      {view === 'Results' && (
+        <ResultsPanel isActive={isActive} isUpcoming={isUpcoming} />
       )}
       <DetailsModal
         opened={modalOpened}
