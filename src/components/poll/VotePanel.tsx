@@ -33,6 +33,7 @@ export const VotePanel = ({
   handleVote,
   isLoading,
   pointsDisplay,
+  hasVoted,
 }: {
   title: string;
   open: () => void;
@@ -49,6 +50,7 @@ export const VotePanel = ({
   isUpcoming: boolean;
   handleVote: () => void;
   isLoading: boolean;
+  hasVoted?: boolean;
 }) => {
   const theme = useMantineTheme();
 
@@ -197,8 +199,14 @@ export const VotePanel = ({
             description="Please check the results"
           />
         )}
+        {isActive && hasVoted && (
+          <Display
+            title="You have voted"
+            description="Please check the results"
+          />
+        )}
       </Stack>
-      {isActive && (
+      {isActive && !hasVoted && (
         <TxButton
           disabled={isLoading || totalAllocated !== 100}
           onClick={handleVote}

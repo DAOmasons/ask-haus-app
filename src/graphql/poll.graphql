@@ -15,6 +15,16 @@ fragment BasicVote on BasicVote {
     id
     choiceId
     title
+    color
+  }
+}
+
+fragment BatchVote on BatchVote {
+  id
+  voter
+  totalVoted
+  votes {
+    ...BasicVote
   }
 }
 
@@ -49,13 +59,9 @@ fragment FullPoll on AskHausPoll {
   }
   round {
     id
+    totalVoted
     batchVotes {
-      id
-      voter
-      totalVoted
-      votes {
-        ...BasicVote
-      }
+      ...BatchVote
     }
   }
 }

@@ -268,10 +268,18 @@ export const Poll = () => {
           isUpcoming={isUpcoming}
           handleVote={handleVote}
           isLoading={isLoading}
+          hasVoted={hasVoted}
         />
       )}
       {view === 'Results' && (
-        <ResultsPanel isActive={isActive} isUpcoming={isUpcoming} />
+        <ResultsPanel
+          isActive={isActive}
+          isUpcoming={isUpcoming}
+          batchVotes={data?.round?.batchVotes || []}
+          choices={data?.choicesParams?.choices || []}
+          hasVoted={hasVoted}
+          totalVoted={data?.round?.totalVoted}
+        />
       )}
       <DetailsModal
         opened={modalOpened}

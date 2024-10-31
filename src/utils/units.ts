@@ -29,6 +29,10 @@ export const getSolPercentages = (
   return amounts;
 };
 
+export const stringInPercent = (amount: string, total: string): number => {
+  return Number((BigInt(amount) * BigInt(10000)) / BigInt(total)) / 100;
+};
+
 // const testDistribution = () => {
 //   const percentages = [50.5, 25.25, 24.25, 33.33333333333333]; // Must sum to 100
 //   const oneEther = BigInt('1000000000000000000'); // 1 ether in wei

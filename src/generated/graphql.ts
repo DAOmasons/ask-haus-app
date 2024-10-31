@@ -1281,6 +1281,7 @@ export type Round = {
   pointsModule?: Maybe<ModuleClone>;
   pointsModule_id: Scalars['String']['output'];
   roundAddress: Scalars['String']['output'];
+  totalVoted: Scalars['numeric']['output'];
   /** An array relationship */
   votes: Array<BasicVote>;
   /** An object relationship */
@@ -1474,6 +1475,7 @@ export type Round_Bool_Exp = {
   pointsModule?: InputMaybe<ModuleClone_Bool_Exp>;
   pointsModule_id?: InputMaybe<String_Comparison_Exp>;
   roundAddress?: InputMaybe<String_Comparison_Exp>;
+  totalVoted?: InputMaybe<Numeric_Comparison_Exp>;
   votes?: InputMaybe<BasicVote_Bool_Exp>;
   votesModule?: InputMaybe<ModuleClone_Bool_Exp>;
   votesModule_id?: InputMaybe<String_Comparison_Exp>;
@@ -1496,6 +1498,7 @@ export type Round_Order_By = {
   pointsModule?: InputMaybe<ModuleClone_Order_By>;
   pointsModule_id?: InputMaybe<Order_By>;
   roundAddress?: InputMaybe<Order_By>;
+  totalVoted?: InputMaybe<Order_By>;
   votesModule?: InputMaybe<ModuleClone_Order_By>;
   votesModule_id?: InputMaybe<Order_By>;
   votes_aggregate?: InputMaybe<BasicVote_Aggregate_Order_By>;
@@ -1526,6 +1529,8 @@ export enum Round_Select_Column {
   /** column name */
   RoundAddress = 'roundAddress',
   /** column name */
+  TotalVoted = 'totalVoted',
+  /** column name */
   VotesModuleId = 'votesModule_id'
 }
 
@@ -1550,6 +1555,7 @@ export type Round_Stream_Cursor_Value_Input = {
   mdProtocol?: InputMaybe<Scalars['numeric']['input']>;
   pointsModule_id?: InputMaybe<Scalars['String']['input']>;
   roundAddress?: InputMaybe<Scalars['String']['input']>;
+  totalVoted?: InputMaybe<Scalars['numeric']['input']>;
   votesModule_id?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -3729,18 +3735,20 @@ export type Timestamptz_Comparison_Exp = {
 
 export type BasicChoiceFragment = { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any };
 
-export type BasicVoteFragment = { __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string } | null };
+export type BasicVoteFragment = { __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null };
+
+export type BatchVoteFragment = { __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> };
 
 export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
-export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
 export type GetPollQueryVariables = Exact<{
   pollId: Scalars['String']['input'];
 }>;
 
 
-export type GetPollQuery = { __typename?: 'query_root', AskHausPoll_by_pk?: { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null } | null };
+export type GetPollQuery = { __typename?: 'query_root', AskHausPoll_by_pk?: { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null } | null };
 
 export type FrontPagePollsQueryVariables = Exact<{
   now: Scalars['numeric']['input'];
@@ -3797,9 +3805,20 @@ export const BasicVoteFragmentDoc = gql`
     id
     choiceId
     title
+    color
   }
 }
     `;
+export const BatchVoteFragmentDoc = gql`
+    fragment BatchVote on BatchVote {
+  id
+  voter
+  totalVoted
+  votes {
+    ...BasicVote
+  }
+}
+    ${BasicVoteFragmentDoc}`;
 export const FullPollFragmentDoc = gql`
     fragment FullPoll on AskHausPoll {
   ...PollCard
@@ -3811,19 +3830,15 @@ export const FullPollFragmentDoc = gql`
   }
   round {
     id
+    totalVoted
     batchVotes {
-      id
-      voter
-      totalVoted
-      votes {
-        ...BasicVote
-      }
+      ...BatchVote
     }
   }
 }
     ${PollCardFragmentDoc}
 ${BasicChoiceFragmentDoc}
-${BasicVoteFragmentDoc}`;
+${BatchVoteFragmentDoc}`;
 export const GetPollDocument = gql`
     query getPoll($pollId: String!) {
   AskHausPoll_by_pk(id: $pollId) {
