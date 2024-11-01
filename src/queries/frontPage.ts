@@ -1,3 +1,4 @@
+import { ADDR } from '../constants/address';
 import { PollCardFragment } from '../generated/graphql';
 import { sdk } from '../utils/indexer';
 
@@ -13,6 +14,7 @@ export const frontPagePolls = async () => {
 
     const data = await sdk.frontPagePolls({
       now,
+      dao: ADDR.DAO,
     });
 
     return data;

@@ -73,24 +73,66 @@ query getPoll($pollId: String!) {
   }
 }
 
-query frontPagePolls($now: numeric!) {
+query frontPagePolls($now: numeric!, $dao: String!) {
   upcomingPolls: AskHausPoll(
-    where: { votesParams: { startTime: { _gt: $now } } }
+    where: {
+      votesParams: { startTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
     limit: 5
     order_by: { votesParams: { startTime: desc } }
   ) {
     ...PollCard
   }
   pastPolls: AskHausPoll(
-    where: { votesParams: { endTime: { _lt: $now } } }
+    where: {
+      votesParams: { endTime: { _lt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
     limit: 5
     order_by: { votesParams: { startTime: desc } }
   ) {
     ...PollCard
   }
   activePolls: AskHausPoll(
-    where: { votesParams: { startTime: { _lt: $now }, endTime: { _gt: $now } } }
+    where: {
+      votesParams: { startTime: { _lt: $now }, endTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
     limit: 5
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...PollCard
+  }
+}
+
+query livePolls($now: numeric!, $dao: String!) {
+  upcomingPolls: AskHausPoll(
+    where: {
+      votesParams: { startTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...PollCard
+  }
+  activePolls: AskHausPoll(
+    where: {
+      votesParams: { startTime: { _lt: $now }, endTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...PollCard
+  }
+}
+
+query pollHistory($now: numeric!, $dao: String!) {
+  pastPolls: AskHausPoll(
+    where: {
+      votesParams: { endTime: { _lt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
     order_by: { votesParams: { startTime: desc } }
   ) {
     ...PollCard

@@ -3752,10 +3752,27 @@ export type GetPollQuery = { __typename?: 'query_root', AskHausPoll_by_pk?: { __
 
 export type FrontPagePollsQueryVariables = Exact<{
   now: Scalars['numeric']['input'];
+  dao: Scalars['String']['input'];
 }>;
 
 
 export type FrontPagePollsQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+
+export type LivePollsQueryVariables = Exact<{
+  now: Scalars['numeric']['input'];
+  dao: Scalars['String']['input'];
+}>;
+
+
+export type LivePollsQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+
+export type PollHistoryQueryVariables = Exact<{
+  now: Scalars['numeric']['input'];
+  dao: Scalars['String']['input'];
+}>;
+
+
+export type PollHistoryQuery = { __typename?: 'query_root', pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
 
 export type GetRecentTransactionQueryVariables = Exact<{
   txHash: Scalars['String']['input'];
@@ -3848,24 +3865,50 @@ export const GetPollDocument = gql`
 }
     ${FullPollFragmentDoc}`;
 export const FrontPagePollsDocument = gql`
-    query frontPagePolls($now: numeric!) {
+    query frontPagePolls($now: numeric!, $dao: String!) {
   upcomingPolls: AskHausPoll(
-    where: {votesParams: {startTime: {_gt: $now}}}
+    where: {votesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
     limit: 5
     order_by: {votesParams: {startTime: desc}}
   ) {
     ...PollCard
   }
   pastPolls: AskHausPoll(
-    where: {votesParams: {endTime: {_lt: $now}}}
+    where: {votesParams: {endTime: {_lt: $now}}, pointsParams: {dao: {_eq: $dao}}}
     limit: 5
     order_by: {votesParams: {startTime: desc}}
   ) {
     ...PollCard
   }
   activePolls: AskHausPoll(
-    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}}
+    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
     limit: 5
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...PollCard
+  }
+}
+    ${PollCardFragmentDoc}`;
+export const LivePollsDocument = gql`
+    query livePolls($now: numeric!, $dao: String!) {
+  upcomingPolls: AskHausPoll(
+    where: {votesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...PollCard
+  }
+  activePolls: AskHausPoll(
+    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...PollCard
+  }
+}
+    ${PollCardFragmentDoc}`;
+export const PollHistoryDocument = gql`
+    query pollHistory($now: numeric!, $dao: String!) {
+  pastPolls: AskHausPoll(
+    where: {votesParams: {endTime: {_lt: $now}}, pointsParams: {dao: {_eq: $dao}}}
     order_by: {votesParams: {startTime: desc}}
   ) {
     ...PollCard
@@ -3892,6 +3935,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     frontPagePolls(variables: FrontPagePollsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FrontPagePollsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FrontPagePollsQuery>(FrontPagePollsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'frontPagePolls', 'query', variables);
+    },
+    livePolls(variables: LivePollsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LivePollsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<LivePollsQuery>(LivePollsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'livePolls', 'query', variables);
+    },
+    pollHistory(variables: PollHistoryQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<PollHistoryQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PollHistoryQuery>(PollHistoryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'pollHistory', 'query', variables);
     },
     getRecentTransaction(variables: GetRecentTransactionQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetRecentTransactionQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetRecentTransactionQuery>(GetRecentTransactionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getRecentTransaction', 'query', variables);

@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { Home } from './pages/Home';
-import { Active } from './pages/Active';
+import { Live } from './pages/Live';
 import { Factory } from './pages/Factory';
 import { My } from './pages/My';
 import { CreatePoll } from './pages/CreatePoll';
@@ -18,7 +18,7 @@ export const ClientRoutes = () => {
       <Route path="/create-poll/*" element={<CreatePoll />} />
       <Route path="/ask" element={<Ask />} />'
       <Route path="/factory" element={<Factory />} />
-      <Route path="/active" element={<Active />} />
+      <Route path="/live" element={<Live />} />
       <Route path="/" element={<Home />} />
       <Route path="*" element={<FourOhFour />} />
     </Routes>
