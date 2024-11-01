@@ -32,13 +32,7 @@ import { getSolPercentages } from '../utils/units';
 import { VotePanel } from '../components/poll/VotePanel';
 import { DetailsModal } from '../components/poll/DetailsModal';
 import { ResultsPanel } from '../components/poll/ResultsPanel';
-import {
-  IconCheck,
-  IconCircleX,
-  IconExclamationCircle,
-  IconExclamationMark,
-  IconX,
-} from '@tabler/icons-react';
+import { IconCheck, IconExclamationCircle } from '@tabler/icons-react';
 
 const calculateTotalVotes = (
   entries: Record<string, number>,
@@ -65,7 +59,11 @@ export const Poll = () => {
   const [modalOpened, { open, close }] = useDisclosure();
   const { tx } = useTx();
 
-  const { data, isLoading, error } = useQuery({
+  const {
+    data,
+    isLoading: isLoadingPoll,
+    error,
+  } = useQuery({
     queryKey: [`poll`, id],
     queryFn: () => getPoll({ pollId: id as string }),
     enabled: !!id,
@@ -77,7 +75,11 @@ export const Poll = () => {
   const isActive = !isUpcoming && endTime > nowInSeconds();
   const isComplete = !isUpcoming && !isActive;
 
-  const { points, pointsDisplay } = useBaalPoints({
+  const {
+    points,
+    pointsDisplay,
+    isLoading: isLoadingPoints,
+  } = useBaalPoints({
     userAddress: address,
     pointsAddress: data?.pointsAddress,
   });
@@ -128,7 +130,7 @@ export const Poll = () => {
     setEntries((prevValues) => ({ ...prevValues, [id]: clampedValue }));
   };
 
-  if (isLoading) {
+  if (isLoadingPoll) {
     return null;
   }
 
@@ -145,14 +147,16 @@ export const Poll = () => {
       ([, value]) => value > 0
     );
 
-    const choiceIds = choicesWithValues.map(([id]) => id);
     const percents = choicesWithValues.map(([, value]) => value);
 
     const emptyMetadata = [0n, ''] as const;
 
     const totalPercents = percents.reduce((acc, cur) => acc + cur, 0);
-    if (totalPercents !== 100) {
-      console.error('totalPercents', totalPercents);
+
+    if (
+      totalPercents !== 100 &&
+      data?.answerType === ChoiceInputType.Allocate
+    ) {
       notifications.show({
         title: 'Error',
         message: 'Total percentage must be 100',
@@ -170,15 +174,46 @@ export const Poll = () => {
       return;
     }
 
-    const amounts = getSolPercentages(percents, points as bigint);
+    let choiceIds: string[] = [];
+    let amounts: bigint[] = [];
+    let sum = 0n;
+    let encodedEmptyMetadata: string[] = [];
 
-    const encodedEmptyMetadata = amounts.map(() =>
-      encodeAbiParameters(parseAbiParameters('(uint256, string)'), [
-        emptyMetadata,
-      ])
-    );
+    if (data?.answerType === ChoiceInputType.Allocate) {
+      amounts = getSolPercentages(percents, points as bigint);
+      encodedEmptyMetadata = amounts.map(() =>
+        encodeAbiParameters(parseAbiParameters('(uint256, string)'), [
+          emptyMetadata,
+        ])
+      );
+      sum = amounts.reduce((acc, curr) => acc + curr, 0n);
+      choiceIds = choicesWithValues.map(([id]) => id);
+    } else if (data?.answerType === ChoiceInputType.Single) {
+      if (!selectedChoice) {
+        notifications.show({
+          title: 'Error',
+          message: 'Please select a choice',
+          color: 'red',
+        });
+        return;
+      }
+      choiceIds = [selectedChoice];
+      amounts = [points as bigint];
+      encodedEmptyMetadata = [
+        encodeAbiParameters(parseAbiParameters('(uint256, string)'), [
+          emptyMetadata,
+        ]),
+      ];
+      sum = points as bigint;
+    } else {
+      notifications.show({
+        title: 'Error',
+        message: 'Answer type not found',
+        color: 'red',
+      });
+      return;
+    }
 
-    const sum = amounts.reduce((acc, curr) => acc + curr, 0n);
     if (sum !== points) {
       console.error('sum', sum);
       notifications.show({
@@ -280,7 +315,7 @@ export const Poll = () => {
           totalAllocated={totalAllocated}
           isUpcoming={isUpcoming}
           handleVote={handleVote}
-          isLoading={isLoading}
+          isLoading={isLoadingPoll}
           hasVoted={hasVoted}
         />
       )}

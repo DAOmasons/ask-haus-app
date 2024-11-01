@@ -87,7 +87,7 @@ export const CreatePoll = () => {
 
   const handleCreatePoll = async () => {
     const result = step2Form.validate();
-    console.log('result', result);
+
     if (result.hasErrors) {
       notifications.show({
         title: 'Error',
