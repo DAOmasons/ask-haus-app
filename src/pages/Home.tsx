@@ -37,12 +37,12 @@ export const Home = () => {
           Icon={IconChartBar}
           onClick={() => navigate('/create-poll')}
         />
+        <VoteTypeCard title="Contest" Icon={IconTrophy} underConstruction />
         <VoteTypeCard
           title="Signal Session"
           Icon={IconBuildingBroadcastTower}
           underConstruction
         />
-        <VoteTypeCard title="Contest" Icon={IconTrophy} underConstruction />
       </Group>
       <Flex align="start" justify="space-between" gap="md">
         {notablePolls.length > 0 && (

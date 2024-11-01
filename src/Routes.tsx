@@ -7,6 +7,7 @@ import { CreatePoll } from './pages/CreatePoll';
 import { Poll } from './pages/Poll';
 import { Signal } from './pages/Signal';
 import { FourOhFour } from './pages/404';
+import { Ask } from './pages/Ask';
 
 export const ClientRoutes = () => {
   return (
@@ -15,7 +16,7 @@ export const ClientRoutes = () => {
       <Route path="/poll/:id" element={<Poll />} />
       <Route path="/create-signal" element={<CreatePoll />} />
       <Route path="/create-poll/*" element={<CreatePoll />} />
-      <Route path="/my" element={<My />} />
+      <Route path="/ask" element={<Ask />} />'
       <Route path="/factory" element={<Factory />} />
       <Route path="/active" element={<Active />} />
       <Route path="/" element={<Home />} />

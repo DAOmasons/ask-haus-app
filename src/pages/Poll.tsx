@@ -266,24 +266,23 @@ export const Poll = () => {
     <CenterLayout>
       <Box w="100%" maw={500} mb="lg">
         <Group mb="sm" align="start" justify="space-between">
-          {
-            <Group>
-              <SubTitle>Poll</SubTitle>
-              {hasVoted && (
-                <Tooltip label="You have voted on this poll">
-                  <IconCheck size={16} color={theme.colors.steel[4]} />
-                </Tooltip>
-              )}
-              {isComplete && !hasVoted && (
-                <Tooltip label="You did not vote on this poll">
-                  <IconExclamationCircle
-                    size={16}
-                    color={theme.colors.steel[4]}
-                  />
-                </Tooltip>
-              )}
-            </Group>
-          }
+          <Group>
+            <SubTitle>Poll</SubTitle>
+            {hasVoted && (
+              <Tooltip label="You have voted on this poll">
+                <IconCheck size={16} color={theme.colors.steel[4]} />
+              </Tooltip>
+            )}
+            {isComplete && !hasVoted && (
+              <Tooltip label="You did not vote on this poll">
+                <IconExclamationCircle
+                  size={16}
+                  color={theme.colors.steel[4]}
+                />
+              </Tooltip>
+            )}
+          </Group>
+
           <SegmentedControl
             data={['Vote', 'Results']}
             value={view}

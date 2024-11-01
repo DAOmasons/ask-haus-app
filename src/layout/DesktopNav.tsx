@@ -22,8 +22,8 @@ export const DesktopNav = () => {
         ask.haus
       </AppLink>
       <Group gap={32}>
-        <AppLink c={theme.colors.steel[2]} url="/create">
-          Create
+        <AppLink c={theme.colors.steel[2]} url="/ask">
+          Ask
         </AppLink>
         <AppLink c={theme.colors.steel[2]} url="/live">
           Live
@@ -31,8 +31,8 @@ export const DesktopNav = () => {
         <AppLink c={theme.colors.steel[2]} url="/past">
           Past
         </AppLink>
-        <AppLink c={theme.colors.steel[2]} url="/my">
-          My
+        <AppLink c={theme.colors.steel[2]} url="/dorks">
+          Dorks
         </AppLink>
         <ConnectButton />
       </Group>
