@@ -103,7 +103,7 @@ export const Poll = () => {
     if ((!data || points == null) && !view) {
       setView(hasVoted ? 'Results' : 'Vote');
     }
-  }, [data, points, hasVoted]);
+  }, [data, points, hasVoted, view]);
 
   const timeDisplay = useMemo(() => {
     if (!data) {
