@@ -52,7 +52,7 @@ export const Poll = () => {
   const { id } = useParams();
   const { address } = useAccount();
   const theme = useMantineTheme();
-  const [view, setView] = useState('Vote');
+  const [view, setView] = useState<string | undefined>();
   const [tick, setTick] = useState(new Date());
   const [entries, setEntries] = useState<Record<string, number>>({});
   const [selectedChoice, setSelectedChoice] = useState<string | undefined>();
@@ -63,17 +63,12 @@ export const Poll = () => {
     data,
     isLoading: isLoadingPoll,
     error,
+    refetch: refetchPoll,
   } = useQuery({
     queryKey: [`poll`, id],
     queryFn: () => getPoll({ pollId: id as string }),
     enabled: !!id,
   });
-
-  const startTime = data?.votesParams?.startTime;
-  const endTime = data?.votesParams?.endTime;
-  const isUpcoming = startTime > nowInSeconds();
-  const isActive = !isUpcoming && endTime > nowInSeconds();
-  const isComplete = !isUpcoming && !isActive;
 
   const {
     points,
@@ -84,6 +79,16 @@ export const Poll = () => {
     pointsAddress: data?.pointsAddress,
   });
 
+  const startTime = data?.votesParams?.startTime;
+  const endTime = data?.votesParams?.endTime;
+  const isUpcoming = startTime > nowInSeconds();
+  const isActive = !isUpcoming && endTime > nowInSeconds();
+  const isComplete = !isUpcoming && !isActive;
+
+  const hasVoted = data?.round?.batchVotes?.some(
+    (batch) => batch.voter === address
+  );
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTick(new Date());
@@ -93,6 +98,12 @@ export const Poll = () => {
       clearInterval(timer);
     };
   }, [tick]);
+
+  useEffect(() => {
+    if ((!data || points == null) && !view) {
+      setView(hasVoted ? 'Results' : 'Vote');
+    }
+  }, [data, points, hasVoted]);
 
   const timeDisplay = useMemo(() => {
     if (!data) {
@@ -130,17 +141,13 @@ export const Poll = () => {
     setEntries((prevValues) => ({ ...prevValues, [id]: clampedValue }));
   };
 
-  if (isLoadingPoll) {
+  if (isLoadingPoll || isLoadingPoints) {
     return null;
   }
 
   if (error) {
     return <Display title={'Error'} description={error.message} />;
   }
-
-  const hasVoted = data?.round?.batchVotes?.some(
-    (batch) => batch.voter === address
-  );
 
   const handleVote = async () => {
     const choicesWithValues = Object.entries(entries).filter(
@@ -240,11 +247,8 @@ export const Poll = () => {
         },
         writeContractOptions: {
           onPollSuccess() {
-            notifications.show({
-              title: 'Success',
-              message: 'Your vote has been submitted',
-              color: 'green',
-            });
+            refetchPoll();
+            setView('Results');
           },
         },
       });
