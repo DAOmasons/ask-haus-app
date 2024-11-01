@@ -13,12 +13,12 @@ import {
   BasicChoiceFragment,
   BatchVoteFragment,
 } from '../../generated/graphql';
-import { useEffect, useMemo, useState } from 'react';
-import { Address, formatEther } from 'viem';
-import { stringInPercent } from '../../utils/units';
-import { AddressAvatar } from '../AddressAvatar';
+import { useMemo, useState } from 'react';
+import { formatEther } from 'viem';
 import { SectionText } from '../Typography';
-import { pastRelativeTimeInSeconds } from '../../utils/time';
+import { VoteBar } from './VoteBar';
+import { TotalResults } from './TotalResults';
+import { UserAllocatedVote } from './UserAllocatedVote';
 
 export const ResultsPanel = ({
   isActive,
@@ -170,7 +170,7 @@ export const ResultsPanel = ({
           batchVotes?.length > 0 &&
           batchVotes.map((bv) => (
             <Paper>
-              <UserVote totalVoted={totalVoted} userBatchVote={bv} />
+              <UserAllocatedVote totalVoted={totalVoted} userBatchVote={bv} />
             </Paper>
           ))}
       </Box>
@@ -202,119 +202,6 @@ const YourVote = ({
           );
         })}
       </Box>
-    </Box>
-  );
-};
-
-const UserVote = ({
-  totalVoted,
-  userBatchVote,
-}: {
-  totalVoted: string;
-  userBatchVote: BatchVoteFragment;
-}) => {
-  const theme = useMantineTheme();
-  const [tick, setTick] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTick(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [tick]);
-
-  const timeDisplay = useMemo(() => {
-    if (userBatchVote) {
-      return `Voted ${pastRelativeTimeInSeconds(userBatchVote?.timestamp as number)} ago`;
-    }
-  }, [userBatchVote, tick]);
-
-  return (
-    <Box>
-      <Group mb="xl" justify="space-between">
-        <AddressAvatar address={userBatchVote.voter as Address} canCopy />
-        <Text fz="xs" c={theme.colors.steel[4]}>
-          {formatEther(userBatchVote.totalVoted)} Points
-        </Text>
-      </Group>
-      <Box mb="md">
-        {userBatchVote?.votes.map((vote) => {
-          return (
-            <VoteBar
-              key={vote.id}
-              totalVoted={totalVoted}
-              amount={vote.amount}
-              color={vote?.choice?.color as string}
-            />
-          );
-        })}
-      </Box>
-      <Text fz="xs" c={theme.colors.steel[4]}>
-        {timeDisplay}
-      </Text>
-    </Box>
-  );
-};
-
-const TotalResults = ({
-  choices,
-  totalVoted,
-  batchVotes,
-}: {
-  choices?: BasicChoiceFragment[];
-  totalVoted?: string;
-  batchVotes?: BatchVoteFragment[];
-}) => {
-  if (!choices || !batchVotes || !totalVoted) return null;
-  return (
-    <Box mb="lg">
-      <Box>
-        <Text fz="xs" mb="sm">
-          Results
-        </Text>
-        {choices?.map((choice) => {
-          return (
-            <VoteBar
-              key={choice.id}
-              totalVoted={totalVoted}
-              amount={choice.amountVoted}
-              color={choice.color as string}
-            />
-          );
-        })}
-      </Box>
-    </Box>
-  );
-};
-
-const VoteBar = ({
-  totalVoted,
-  amount,
-  color,
-}: {
-  totalVoted: string;
-  color: string;
-  amount: string;
-}) => {
-  const percentage = stringInPercent(amount, totalVoted);
-  return (
-    <Box mb="xs">
-      <Group mb="6" gap={8}>
-        <ColorSwatch color={color} size={12} />
-        <Group w="95%">
-          <Box
-            w={`${percentage}%`}
-            h={8}
-            bg={color as string}
-            style={{
-              borderBottomRightRadius: 4,
-              borderTopRightRadius: 4,
-            }}
-          />
-        </Group>
-      </Group>
-      <Text fz="xs">{percentage}%</Text>
     </Box>
   );
 };
