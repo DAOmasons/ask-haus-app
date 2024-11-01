@@ -23,6 +23,7 @@ fragment BatchVote on BatchVote {
   id
   voter
   totalVoted
+  timestamp
   votes {
     ...BasicVote
   }

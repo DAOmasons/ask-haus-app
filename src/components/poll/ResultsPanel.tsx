@@ -1,5 +1,4 @@
 import {
-  BackgroundImage,
   Box,
   ColorSwatch,
   Group,
@@ -12,22 +11,25 @@ import {
 import { useAccount } from 'wagmi';
 import {
   BasicChoiceFragment,
-  BasicVoteFragment,
   BatchVoteFragment,
 } from '../../generated/graphql';
-import { useMemo, useState } from 'react';
-import { charLimit } from '../../utils/helpers';
-import { formatEther } from 'viem';
+import { useEffect, useMemo, useState } from 'react';
+import { Address, formatEther } from 'viem';
 import { stringInPercent } from '../../utils/units';
+import { AddressAvatar } from '../AddressAvatar';
+import { SectionText } from '../Typography';
+import { pastRelativeTimeInSeconds } from '../../utils/time';
 
 export const ResultsPanel = ({
   isActive,
   isUpcoming,
+  isComplete,
   batchVotes,
   choices,
   hasVoted,
   totalVoted,
 }: {
+  isComplete: boolean;
   totalVoted?: string;
   isActive: boolean;
   isUpcoming: boolean;
@@ -36,7 +38,7 @@ export const ResultsPanel = ({
   hasVoted?: boolean;
 }) => {
   const [topSection, setTopSection] = useState<string | null>('Results');
-  const hasEnded = !isActive && !isUpcoming;
+
   const { address } = useAccount();
   const theme = useMantineTheme();
 
@@ -45,14 +47,47 @@ export const ResultsPanel = ({
     return batchVotes?.find((vote) => vote.voter === address);
   }, [batchVotes, address, hasVoted]);
 
+  const topDisplay = useMemo(() => {
+    if (isUpcoming)
+      return (
+        <Paper>
+          <Text c={theme.colors.steel[0]} fw="600" mb="sm">
+            Poll is upcoming
+          </Text>
+          <Text c={theme.colors.steel[4]}>This poll isn't open yet</Text>
+        </Paper>
+      );
+    if (isActive)
+      return (
+        <Paper>
+          <Text c={theme.colors.steel[0]} fw="600" mb="sm">
+            Poll is active
+          </Text>
+          <Text c={theme.colors.steel[4]}>
+            {hasVoted
+              ? 'You have voted on this poll'
+              : 'You have not voted on this poll'}
+          </Text>
+        </Paper>
+      );
+    if (isComplete)
+      return (
+        <Paper>
+          <Text c={theme.colors.steel[0]} fw="600" mb="sm">
+            Completed
+          </Text>
+          <Text c={theme.colors.steel[4]}>
+            {hasVoted
+              ? 'You voted on this poll'
+              : 'You did not vote on this poll'}
+          </Text>
+        </Paper>
+      );
+  }, [isUpcoming, isActive, isComplete, hasVoted, theme.colors]);
+
   return (
     <Stack w="100%" maw={500} gap={'xl'} mb="xl">
-      <Paper>
-        <Text c={theme.colors.steel[0]} fw="600" mb="sm">
-          Completed
-        </Text>
-        <Text c={theme.colors.steel[4]}>You have voted on this poll</Text>
-      </Paper>
+      {topDisplay}
       <Paper>
         <Select
           data={hasVoted ? ['Results', 'Your Vote'] : ['Results']}
@@ -112,8 +147,9 @@ export const ResultsPanel = ({
                         component="a"
                         href={choice.link}
                         c={theme.colors.steel[2]}
+                        lineClamp={1}
                       >
-                        {charLimit(choice.link, 56)}
+                        {choice.link}
                       </Text>
                     </Box>
                   )}
@@ -127,6 +163,17 @@ export const ResultsPanel = ({
           </Text>
         )}
       </Paper>
+      <Box>
+        <SectionText mb="lg">All Votes</SectionText>
+        {totalVoted &&
+          batchVotes &&
+          batchVotes?.length > 0 &&
+          batchVotes.map((bv) => (
+            <Paper>
+              <UserVote totalVoted={totalVoted} userBatchVote={bv} />
+            </Paper>
+          ))}
+      </Box>
     </Stack>
   );
 };
@@ -155,6 +202,57 @@ const YourVote = ({
           );
         })}
       </Box>
+    </Box>
+  );
+};
+
+const UserVote = ({
+  totalVoted,
+  userBatchVote,
+}: {
+  totalVoted: string;
+  userBatchVote: BatchVoteFragment;
+}) => {
+  const theme = useMantineTheme();
+  const [tick, setTick] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTick(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [tick]);
+
+  const timeDisplay = useMemo(() => {
+    if (userBatchVote) {
+      return `Voted ${pastRelativeTimeInSeconds(userBatchVote?.timestamp as number)} ago`;
+    }
+  }, [userBatchVote, tick]);
+
+  return (
+    <Box>
+      <Group mb="xl" justify="space-between">
+        <AddressAvatar address={userBatchVote.voter as Address} canCopy />
+        <Text fz="xs" c={theme.colors.steel[4]}>
+          {formatEther(userBatchVote.totalVoted)} Points
+        </Text>
+      </Group>
+      <Box mb="md">
+        {userBatchVote?.votes.map((vote) => {
+          return (
+            <VoteBar
+              key={vote.id}
+              totalVoted={totalVoted}
+              amount={vote.amount}
+              color={vote?.choice?.color as string}
+            />
+          );
+        })}
+      </Box>
+      <Text fz="xs" c={theme.colors.steel[4]}>
+        {timeDisplay}
+      </Text>
     </Box>
   );
 };
@@ -201,7 +299,7 @@ const VoteBar = ({
 }) => {
   const percentage = stringInPercent(amount, totalVoted);
   return (
-    <Box mb="sm">
+    <Box mb="xs">
       <Group mb="6" gap={8}>
         <ColorSwatch color={color} size={12} />
         <Group w="95%">

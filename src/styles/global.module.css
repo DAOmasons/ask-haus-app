@@ -29,7 +29,7 @@
   color: var(--mantine-color-steel-0);
   font-weight: 700;
   font-size: 1.125rem;
-  text-shadow: 2px -2px var(--mantine-color-dark-5);
+  text-shadow: 4px -4px #323232;
 }
 
 .appLink {

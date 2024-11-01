@@ -32,7 +32,13 @@ import { getSolPercentages } from '../utils/units';
 import { VotePanel } from '../components/poll/VotePanel';
 import { DetailsModal } from '../components/poll/DetailsModal';
 import { ResultsPanel } from '../components/poll/ResultsPanel';
-import { IconCheck } from '@tabler/icons-react';
+import {
+  IconCheck,
+  IconCircleX,
+  IconExclamationCircle,
+  IconExclamationMark,
+  IconX,
+} from '@tabler/icons-react';
 
 const calculateTotalVotes = (
   entries: Record<string, number>,
@@ -69,6 +75,7 @@ export const Poll = () => {
   const endTime = data?.votesParams?.endTime;
   const isUpcoming = startTime > nowInSeconds();
   const isActive = !isUpcoming && endTime > nowInSeconds();
+  const isComplete = !isUpcoming && !isActive;
 
   const { points, pointsDisplay } = useBaalPoints({
     userAddress: address,
@@ -132,8 +139,6 @@ export const Poll = () => {
   const hasVoted = data?.round?.batchVotes?.some(
     (batch) => batch.voter === address
   );
-
-  console.log('hasVoted', hasVoted);
 
   const handleVote = async () => {
     const choicesWithValues = Object.entries(entries).filter(
@@ -230,6 +235,14 @@ export const Poll = () => {
                   <IconCheck size={16} color={theme.colors.steel[4]} />
                 </Tooltip>
               )}
+              {isComplete && !hasVoted && (
+                <Tooltip label="You did not vote on this poll">
+                  <IconExclamationCircle
+                    size={16}
+                    color={theme.colors.steel[4]}
+                  />
+                </Tooltip>
+              )}
             </Group>
           }
           <SegmentedControl
@@ -273,6 +286,7 @@ export const Poll = () => {
       )}
       {view === 'Results' && (
         <ResultsPanel
+          isComplete={isComplete}
           isActive={isActive}
           isUpcoming={isUpcoming}
           batchVotes={data?.round?.batchVotes || []}
