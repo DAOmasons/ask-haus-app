@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getActivePolls } from '../queries/poll';
+import { getPastPolls } from '../queries/poll';
 import { Display } from '../components/Display';
 import { CenterLayout } from '../layout/Layout';
 import { Box, Stack } from '@mantine/core';
@@ -7,33 +7,36 @@ import { SubTitle } from '../components/Typography';
 import { VoteCard } from '../components/cards/VoteCard';
 import { VoteType } from '../constants/enum';
 
-export const Live = () => {
-  const { data, isLoading, error } = useQuery({
+export const Past = () => {
+  const {
+    data: polls,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['activePolls'],
-    queryFn: getActivePolls,
+    queryFn: getPastPolls,
   });
 
   if (isLoading) {
     return null;
   }
 
-  if (error) {
+  if (error || !polls) {
     return (
-      <Display title="Error" description={error.message || 'Unknown error'} />
+      <Display
+        title="Error"
+        description={error?.message || 'Error: No polls found'}
+      />
     );
   }
 
-  const allPolls = [
-    ...(data?.activePolls || []),
-    ...(data?.upcomingPolls || []),
-  ];
   return (
     <CenterLayout>
       <Box w="100%" maw={500} mb="lg">
-        <SubTitle mb="lg">Live</SubTitle>
+        <SubTitle mb="lg">Past</SubTitle>
         <Stack>
-          {allPolls?.length > 0 ? (
-            allPolls.map((poll) => {
+          {polls?.length > 0 ? (
+            polls.map((poll) => {
               return (
                 <VoteCard
                   key={poll.id}
@@ -50,7 +53,7 @@ export const Live = () => {
               );
             })
           ) : (
-            <Display title="No Polls" description="There are no live polls" />
+            <Display title="No Polls" description="There are no past polls" />
           )}
         </Stack>
       </Box>

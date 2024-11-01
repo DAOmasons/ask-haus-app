@@ -34,3 +34,15 @@ export const getActivePolls = async () => {
     throw new Error('Failed to fetch active polls');
   }
 };
+
+export const getPastPolls = async () => {
+  try {
+    const now = Math.floor(Date.now() / 1000);
+    const data = await sdk.pollHistory({ now, dao: ADDR.DAO });
+
+    return data.pastPolls;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to fetch past polls');
+  }
+};
