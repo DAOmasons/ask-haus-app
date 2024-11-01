@@ -100,7 +100,7 @@ export const Poll = () => {
   }, [tick]);
 
   useEffect(() => {
-    if ((!data || points == null) && !view) {
+    if ((data || points != null) && !view) {
       setView(hasVoted ? 'Results' : 'Vote');
     }
   }, [data, points, hasVoted, view]);

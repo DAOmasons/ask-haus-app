@@ -24,7 +24,7 @@ export const VoteTypeCard = ({
             direction="column"
             justify="center"
             h={125}
-            w={250}
+            w={200}
           >
             <Icon size={48} color={colors.steel[4]} />
             <Text c={colors.steel[4]} mt="xs" fz="sm">
@@ -38,7 +38,7 @@ export const VoteTypeCard = ({
 
   return (
     <Paper onClick={onClick} classNames={{ root: paperClasses.clickable }}>
-      <Flex align="center" direction="column" justify="center" h={125} w={250}>
+      <Flex align="center" direction="column" justify="center" h={125} w={200}>
         <Icon size={48} color={colors.steel[0]} />
         <Text c={colors.steel[0]} mt="xs" fz="sm">
           {title}
