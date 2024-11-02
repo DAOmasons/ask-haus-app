@@ -206,6 +206,7 @@ export const Poll = () => {
       }
       choiceIds = [selectedChoice];
       amounts = [points as bigint];
+
       encodedEmptyMetadata = [
         encodeAbiParameters(parseAbiParameters('(uint256, string)'), [
           emptyMetadata,
