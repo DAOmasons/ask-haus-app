@@ -1,5 +1,4 @@
 import {
-  ActionIcon,
   Box,
   Button,
   ColorSwatch,
@@ -9,13 +8,12 @@ import {
   Slider,
   Stack,
   Text,
-  Tooltip,
   useMantineTheme,
 } from '@mantine/core';
 import { CenterLayout } from '../layout/Layout';
 import { useState } from 'react';
 import { SubTitle } from '../components/Typography';
-import { IconExternalLink, IconEye, IconSearch } from '@tabler/icons-react';
+import { IconExternalLink, IconSearch } from '@tabler/icons-react';
 import { AddressAvatar } from '../components/AddressAvatar';
 
 export const My = () => {
