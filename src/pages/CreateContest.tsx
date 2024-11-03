@@ -13,6 +13,7 @@ import { useEditor } from '@tiptap/react';
 import { RichTextEditor } from '@mantine/tiptap';
 import { useState } from 'react';
 import StarterKit from '@tiptap/starter-kit';
+import { TextBoss } from '../components/TextBoss';
 
 export const CreateContest = () => {
   const { tx } = useTx();
@@ -42,12 +43,19 @@ const Form1 = () => {
       <Paper>
         <TextInput
           required
+          error={'Test'}
           label="Contest Title"
           placeholder="What is the best way to skin a cat?"
+          description="What would you like to ask Public Haus?"
         />
       </Paper>
       <Paper>
-        <TextBoss />
+        <TextBoss
+          required
+          label="Test"
+          error={'Test'}
+          description="What would you like to ask Public Haus?"
+        />
       </Paper>
     </Stack>
   );
@@ -59,20 +67,4 @@ const Form2 = () => {
 
 const FormComplete = () => {
   return <> </>;
-};
-
-const TextBoss = ({ label }: { label?: string; required?: boolean }) => {
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: [],
-  });
-
-  return (
-    <Box>
-      {label && <InputLabel>{label}</InputLabel>}
-      <RichTextEditor editor={editor}>
-        <RichTextEditor.Content />
-      </RichTextEditor>
-    </Box>
-  );
 };

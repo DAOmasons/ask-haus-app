@@ -2,6 +2,7 @@ import {
   ActionIcon,
   Button,
   createTheme,
+  InputError,
   InputLabel,
   Modal,
   Paper,
@@ -119,6 +120,12 @@ export const theme = createTheme({
     InputLabel: InputLabel.extend({
       defaultProps: {
         className: inputClasses.label,
+      },
+    }),
+    InputError: InputError.extend({
+      defaultProps: {
+        mt: 0,
+        mb: 8,
       },
     }),
     Radio: Radio.extend({

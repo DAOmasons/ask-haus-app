@@ -1,0 +1,7 @@
+.root {
+  /* background-color: red; */
+}
+
+.content {
+  border: 1.5px solid var(--mantine-color-steel-2);
+}
