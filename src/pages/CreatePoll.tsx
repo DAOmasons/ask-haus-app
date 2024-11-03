@@ -28,6 +28,7 @@ import factory from '../abi/FastFactory.json';
 import { Times } from '../utils/time';
 import { useEffect, useState } from 'react';
 import {
+  Box,
   Button,
   Group,
   Paper,
@@ -39,6 +40,7 @@ import {
 import globalClasses from '../styles/global.module.css';
 import { IconArrowRight, IconCopy } from '@tabler/icons-react';
 import { useClipboard } from '@mantine/hooks';
+import { SubTitle } from '../components/Typography';
 
 export const CreatePoll = () => {
   const { tx } = useTx();
@@ -175,7 +177,9 @@ export const CreatePoll = () => {
 
   return (
     <CenterLayout>
-      <CenterPageTitle title="Create Poll" />
+      <Box w="100%" maw="500px" miw="350px" mb="xl">
+        <SubTitle>Create Poll</SubTitle>
+      </Box>
       <Routes>
         <Route
           path="0"

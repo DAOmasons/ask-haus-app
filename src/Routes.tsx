@@ -7,6 +7,7 @@ import { Signal } from './pages/Signal';
 import { FourOhFour } from './pages/404';
 import { Ask } from './pages/Ask';
 import { Past } from './pages/Past';
+import { CreateContest } from './pages/CreateContest';
 
 export const ClientRoutes = () => {
   return (
@@ -15,7 +16,8 @@ export const ClientRoutes = () => {
       <Route path="/poll/:id" element={<Poll />} />
       {/* <Route path="/create-signal" element={<CreatePoll />} /> */}
       <Route path="/create-poll/*" element={<CreatePoll />} />
-      <Route path="/ask" element={<Ask />} />'
+      <Route path="/create-contest/*" element={<CreateContest />} />
+      <Route path="/ask" element={<Ask />} />
       {/* <Route path="/factory" element={<Factory />} /> */}
       <Route path="/live" element={<Live />} />
       <Route path="/past" element={<Past />} />

@@ -37,7 +37,12 @@ export const Home = () => {
           Icon={IconChartBar}
           onClick={() => navigate('/create-poll')}
         />
-        <VoteTypeCard title="Contest" Icon={IconTrophy} underConstruction />
+        <VoteTypeCard
+          title="Contest"
+          Icon={IconTrophy}
+          onClick={() => navigate('/create-contest')}
+          // underConstruction
+        />
         <VoteTypeCard
           title="Signal Session"
           Icon={IconBuildingBroadcastTower}
