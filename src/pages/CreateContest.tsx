@@ -28,6 +28,8 @@ import { TxButton } from '../components/TxButton';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { ChoiceInputType } from '../constants/enum';
 import globalClasses from '../styles/global.module.css';
+import { useForm, zodResolver } from '@mantine/form';
+import { createContestSchema1 } from '../schema/form/create';
 
 export const CreateContest = () => {
   const { tx } = useTx();
@@ -40,14 +42,23 @@ export const CreateContest = () => {
     navigate(`${Number(formIndex) + 1}`);
   };
 
+  const step1Form = useForm({
+    initialValues: {},
+    validate: zodResolver(createContestSchema1),
+  });
+
   return (
     <CenterLayout>
-      <Box w="100%" maw="500px" miw="350px" mb={'sm'}>
-        <SubTitle mb="sm">Create Contest</SubTitle>
-        <IconArrowLeft
+      <Box w="100%" maw="500px" miw="350px" mb={'lg'}>
+        <SubTitle mb="lg">Create Contest</SubTitle>
+        <Button
+          variant="secondary"
+          size="xs"
           onClick={() => navigate(-1)}
-          style={{ cursor: 'pointer' }}
-        />
+          leftSection={<IconArrowLeft size={16} />}
+        >
+          Back
+        </Button>
       </Box>
       <Routes>
         <Route path="0" element={<Form1 nextForm={nextForm} />} />
@@ -126,6 +137,7 @@ const Form2 = () => {
             required
             // allowDecimal={false}
             hideControls
+            mb="md"
           />
           <Box className={globalClasses.subBorder} p="md">
             <Text fz="xs" mb="sm">
@@ -174,6 +186,7 @@ const Form2 = () => {
             }
             required
             allowDeselect={false}
+            mb="md"
             // description={
             //   form.values.answerType === 'Single Choice'
             //     ? 'Voters allocate 100% of their token on one choice'

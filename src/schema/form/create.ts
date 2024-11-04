@@ -1,6 +1,7 @@
 import { UseFormReturnType } from '@mantine/form';
 import { z } from 'zod';
 import { isValidOptionalUrl } from '../../utils/helpers';
+import { tiptapContentSchema } from './tiptapSchema';
 
 export const createPollSchema1 = z
   .object({
@@ -28,6 +29,12 @@ export const createPollSchema1 = z
       path: ['customTimeEnd'],
     }
   );
+
+export const createContestSchema1 = z.object({
+  title: z.string().min(1, 'Title is required'),
+  description: tiptapContentSchema,
+  link: z.string().refine(isValidOptionalUrl, { message: 'Invalid url' }),
+});
 
 export type CreatePoll1Schema = z.infer<typeof createPollSchema1>;
 export type CreatePoll1Values = UseFormReturnType<

@@ -1,4 +1,4 @@
-import { CenterLayout, CenterPageTitle } from '../layout/Layout';
+import { CenterLayout } from '../layout/Layout';
 import { useForm, zodResolver } from '@mantine/form';
 import {
   CreatePoll1Values,
@@ -177,12 +177,16 @@ export const CreatePoll = () => {
 
   return (
     <CenterLayout>
-      <Box w="100%" maw="500px" miw="350px" mb="md">
-        <SubTitle mb="md">Create Poll</SubTitle>
-        <IconArrowLeft
+      <Box w="100%" maw="500px" miw="350px" mb="lg">
+        <SubTitle mb="lg">Create Poll</SubTitle>
+        <Button
+          variant="secondary"
+          size="xs"
           onClick={() => navigate(-1)}
-          style={{ cursor: 'pointer' }}
-        />
+          leftSection={<IconArrowLeft size={16} />}
+        >
+          Back
+        </Button>
       </Box>
       <Routes>
         <Route
