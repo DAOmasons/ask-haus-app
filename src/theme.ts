@@ -5,6 +5,7 @@ import {
   InputError,
   InputLabel,
   Modal,
+  NumberInput,
   Paper,
   Popover,
   Radio,
@@ -87,6 +88,13 @@ export const theme = createTheme({
       classNames: buttonClasses,
     }),
     TextInput: TextInput.extend({
+      classNames: inputClasses,
+
+      defaultProps: {
+        inputWrapperOrder: ['label', 'error', 'input', 'description'],
+      },
+    }),
+    NumberInput: NumberInput.extend({
       classNames: inputClasses,
 
       defaultProps: {

@@ -38,7 +38,7 @@ import {
 } from '@mantine/core';
 
 import globalClasses from '../styles/global.module.css';
-import { IconArrowRight, IconCopy } from '@tabler/icons-react';
+import { IconArrowLeft, IconArrowRight, IconCopy } from '@tabler/icons-react';
 import { useClipboard } from '@mantine/hooks';
 import { SubTitle } from '../components/Typography';
 
@@ -177,8 +177,12 @@ export const CreatePoll = () => {
 
   return (
     <CenterLayout>
-      <Box w="100%" maw="500px" miw="350px" mb="xl">
-        <SubTitle>Create Poll</SubTitle>
+      <Box w="100%" maw="500px" miw="350px" mb="md">
+        <SubTitle mb="md">Create Poll</SubTitle>
+        <IconArrowLeft
+          onClick={() => navigate(-1)}
+          style={{ cursor: 'pointer' }}
+        />
       </Box>
       <Routes>
         <Route

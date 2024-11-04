@@ -1,8 +1,11 @@
 import { Box, InputDescription, InputError, InputLabel } from '@mantine/core';
-import { RichTextEditor } from '@mantine/tiptap';
-import { useEditor } from '@tiptap/react';
+import { RichTextEditor, Link } from '@mantine/tiptap';
+import Underline from '@tiptap/extension-underline';
+import Placeholder from '@tiptap/extension-placeholder';
+
+import { useEditor, FloatingMenu, BubbleMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { ReactNode, useMemo } from 'react';
+import { useMemo } from 'react';
 import tiptapClasses from '../styles/tiptap.module.css';
 
 type TextBossProps = {
@@ -11,22 +14,35 @@ type TextBossProps = {
   value?: string;
   onChange?: (value: string) => void;
   onBlur?: () => void;
-  error?: ReactNode;
-  description?: ReactNode;
+  error?: string;
+  placeholder?: string;
+  description?: string;
 };
 
 export const TextBoss = (props: TextBossProps) => {
-  const { label, required, error, description } = props;
+  const { label, required, error, description, placeholder } = props;
 
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: [],
-  });
+  const editor = useEditor(
+    {
+      extensions: [
+        StarterKit,
+        Link,
+        Underline,
+        Placeholder.configure({ placeholder }),
+      ],
+      content: '',
+      //   onUpdate: ({ editor, ...rest }) => {
+      //     console.log('editor', editor);
+      //     console.log('rest', rest);
+      //   },
+    },
+    [placeholder]
+  );
 
   // tiptap editor is not re-rendering when props change
   const updateKey = useMemo(() => {
-    return JSON.stringify(props);
-  }, [props]);
+    return JSON.stringify({ label, required, error, description });
+  }, [label, required, error, description]);
 
   const inputError = useMemo(() => {
     if (!error) return undefined;
@@ -57,6 +73,26 @@ export const TextBoss = (props: TextBossProps) => {
           content: tiptapClasses.content,
         }}
       >
+        {editor && (
+          <FloatingMenu editor={editor}>
+            <RichTextEditor.ControlsGroup>
+              <RichTextEditor.H2 />
+              <RichTextEditor.H3 />
+              <RichTextEditor.BulletList />
+              <RichTextEditor.OrderedList />
+            </RichTextEditor.ControlsGroup>
+          </FloatingMenu>
+        )}
+        {editor && (
+          <BubbleMenu editor={editor}>
+            <RichTextEditor.ControlsGroup>
+              <RichTextEditor.Bold />
+              <RichTextEditor.Italic />
+              <RichTextEditor.Link />
+              <RichTextEditor.Underline />
+            </RichTextEditor.ControlsGroup>
+          </BubbleMenu>
+        )}
         <RichTextEditor.Content />
       </RichTextEditor>
       {inputDescription}

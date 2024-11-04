@@ -78,7 +78,6 @@ export const CreatePoll1 = ({
                 }}
                 {...form.getInputProps('customTimeStart')}
                 defaultValue={new Date()}
-                onDateChange={(e) => console.log(e.toUTCString())}
               />
             </Paper>
             <Paper>
@@ -90,7 +89,6 @@ export const CreatePoll1 = ({
                   fz: 14,
                 }}
                 {...form.getInputProps('customTimeEnd')}
-                onDateChange={(e) => console.log(e.toUTCString())}
               />
             </Paper>
           </>
