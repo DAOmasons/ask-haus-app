@@ -3,16 +3,23 @@ import { RichTextEditor, Link } from '@mantine/tiptap';
 import Underline from '@tiptap/extension-underline';
 import Placeholder from '@tiptap/extension-placeholder';
 
-import { useEditor, FloatingMenu, BubbleMenu } from '@tiptap/react';
+import {
+  useEditor,
+  FloatingMenu,
+  BubbleMenu,
+  JSONContent,
+  Content,
+} from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useMemo } from 'react';
 import tiptapClasses from '../styles/tiptap.module.css';
+import { emptyContent } from '../utils/tiptapUtils';
 
 type TextBossProps = {
   label?: string;
   required?: boolean;
-  value?: string;
-  onChange?: (value: string) => void;
+  value?: Content;
+  onChange?: (value: JSONContent) => void;
   onBlur?: () => void;
   error?: string;
   placeholder?: string;
@@ -20,7 +27,8 @@ type TextBossProps = {
 };
 
 export const TextBoss = (props: TextBossProps) => {
-  const { label, required, error, description, placeholder } = props;
+  const { label, required, error, description, placeholder, onChange, value } =
+    props;
 
   const editor = useEditor(
     {
@@ -30,7 +38,12 @@ export const TextBoss = (props: TextBossProps) => {
         Underline,
         Placeholder.configure({ placeholder }),
       ],
-      content: '',
+      content: value || emptyContent,
+      onUpdate(props) {
+        if (onChange) {
+          onChange(props.editor.getJSON());
+        }
+      },
       //   onUpdate: ({ editor, ...rest }) => {
       //     console.log('editor', editor);
       //     console.log('rest', rest);

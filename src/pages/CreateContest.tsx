@@ -29,7 +29,11 @@ import { IconArrowLeft } from '@tabler/icons-react';
 import { ChoiceInputType } from '../constants/enum';
 import globalClasses from '../styles/global.module.css';
 import { useForm, zodResolver } from '@mantine/form';
-import { createContestSchema1 } from '../schema/form/create';
+import {
+  CreateContest1Values,
+  createContestSchema1,
+} from '../schema/form/create';
+import { emptyContent } from '../utils/tiptapUtils';
 
 export const CreateContest = () => {
   const { tx } = useTx();
@@ -43,7 +47,12 @@ export const CreateContest = () => {
   };
 
   const step1Form = useForm({
-    initialValues: {},
+    initialValues: {
+      title: '',
+      description: emptyContent,
+      link: '',
+    },
+    validateInputOnBlur: true,
     validate: zodResolver(createContestSchema1),
   });
 
@@ -61,7 +70,10 @@ export const CreateContest = () => {
         </Button>
       </Box>
       <Routes>
-        <Route path="0" element={<Form1 nextForm={nextForm} />} />
+        <Route
+          path="0"
+          element={<Form1 nextForm={nextForm} form={step1Form} />}
+        />
         <Route path="1" element={<Form2 />} />
         <Route path="2" element={<FormComplete />} />
         <Route path="*" element={<Navigate to="0" replace />} />
@@ -70,7 +82,13 @@ export const CreateContest = () => {
   );
 };
 
-const Form1 = ({ nextForm }: { nextForm: () => void }) => {
+const Form1 = ({
+  nextForm,
+  form,
+}: {
+  nextForm: () => void;
+  form: CreateContest1Values;
+}) => {
   return (
     <Stack w="100%" maw="500px" miw="350px" mb="xl" gap="lg">
       <Paper>
@@ -78,17 +96,23 @@ const Form1 = ({ nextForm }: { nextForm: () => void }) => {
           required
           label="Title"
           placeholder="What is the best way to skin a cat?"
+          {...form.getInputProps('title')}
         />
       </Paper>
       <Paper>
         <TextBoss
-          required
           label="Description"
           placeholder="Write your description here"
+          data-path={form.getInputProps('description')}
+          {...form.getInputProps('description')}
         />
       </Paper>
       <Paper>
-        <TextInput label="Link" placeholder="https://example.com" />
+        <TextInput
+          label="Link"
+          placeholder="https://example.com"
+          {...form.getInputProps('link')}
+        />
       </Paper>
       <Group justify="center">
         <Button onClick={nextForm}>Next</Button>

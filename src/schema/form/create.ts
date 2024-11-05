@@ -30,16 +30,22 @@ export const createPollSchema1 = z
     }
   );
 
+export type CreatePoll1Schema = z.infer<typeof createPollSchema1>;
+export type CreatePoll1Values = UseFormReturnType<
+  CreatePoll1Schema,
+  (values: CreatePoll1Schema) => CreatePoll1Schema
+>;
+
 export const createContestSchema1 = z.object({
   title: z.string().min(1, 'Title is required'),
   description: tiptapContentSchema,
   link: z.string().refine(isValidOptionalUrl, { message: 'Invalid url' }),
 });
 
-export type CreatePoll1Schema = z.infer<typeof createPollSchema1>;
-export type CreatePoll1Values = UseFormReturnType<
-  CreatePoll1Schema,
-  (values: CreatePoll1Schema) => CreatePoll1Schema
+export type CreateContest1Schema = z.infer<typeof createContestSchema1>;
+export type CreateContest1Values = UseFormReturnType<
+  CreateContest1Schema,
+  (values: CreateContest1Schema) => CreateContest1Schema
 >;
 
 export const basicChoiceSchema = z.object({

@@ -4473,6 +4473,53 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ask.haus@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "ask.haus@workspace:."
+  dependencies:
+    "@graphql-codegen/cli": "npm:^5.0.3"
+    "@graphql-codegen/typescript": "npm:^4.1.0"
+    "@graphql-codegen/typescript-graphql-request": "npm:^6.2.0"
+    "@graphql-codegen/typescript-operations": "npm:^4.3.0"
+    "@mantine/core": "npm:7.13.0"
+    "@mantine/dates": "npm:^7.13.1"
+    "@mantine/form": "npm:^7.13.2"
+    "@mantine/hooks": "npm:7.13.0"
+    "@mantine/notifications": "npm:^7.13.3"
+    "@mantine/tiptap": "npm:^7.13.4"
+    "@rainbow-me/rainbowkit": "npm:^2.1.7"
+    "@tabler/icons-react": "npm:3.17.0"
+    "@tanstack/react-query": "npm:^5.59.0"
+    "@tiptap/extension-link": "npm:^2.9.1"
+    "@tiptap/extension-placeholder": "npm:^2.9.1"
+    "@tiptap/extension-underline": "npm:^2.9.1"
+    "@tiptap/pm": "npm:^2.9.1"
+    "@tiptap/react": "npm:^2.9.1"
+    "@tiptap/starter-kit": "npm:^2.9.1"
+    "@types/react": "npm:^18.3.3"
+    "@types/react-dom": "npm:^18.3.0"
+    "@typescript-eslint/eslint-plugin": "npm:^7.13.1"
+    "@typescript-eslint/parser": "npm:^7.13.1"
+    "@vitejs/plugin-react": "npm:^4.3.1"
+    dayjs: "npm:^1.11.13"
+    eslint: "npm:^8.57.0"
+    eslint-plugin-react-hooks: "npm:^4.6.2"
+    eslint-plugin-react-refresh: "npm:^0.4.7"
+    graphql: "npm:^16.9.0"
+    postcss: "npm:^8.4.38"
+    postcss-preset-mantine: "npm:1.17.0"
+    postcss-simple-vars: "npm:^7.0.1"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    react-router-dom: "npm:^6.26.2"
+    typescript: "npm:^5.6.3"
+    viem: "npm:^2.21.16"
+    vite: "npm:^5.3.1"
+    wagmi: "npm:^2.12.16"
+    zod: "npm:^3.23.8"
+  languageName: unknown
+  linkType: soft
+
 "astral-regex@npm:^2.0.0":
   version: 2.0.0
   resolution: "astral-regex@npm:2.0.0"
@@ -10521,53 +10568,6 @@ __metadata:
   checksum: 10c0/0f4cc97afea1224c149b455e4c7a7b11ab9c5102b577bba1216b2ebaad76ec0d9d659a537fd74f36448e8c94a2e7e2ed971ef50bca4b1968ac84936d8abcaf17
   languageName: node
   linkType: hard
-
-"vite-min-template@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "vite-min-template@workspace:."
-  dependencies:
-    "@graphql-codegen/cli": "npm:^5.0.3"
-    "@graphql-codegen/typescript": "npm:^4.1.0"
-    "@graphql-codegen/typescript-graphql-request": "npm:^6.2.0"
-    "@graphql-codegen/typescript-operations": "npm:^4.3.0"
-    "@mantine/core": "npm:7.13.0"
-    "@mantine/dates": "npm:^7.13.1"
-    "@mantine/form": "npm:^7.13.2"
-    "@mantine/hooks": "npm:7.13.0"
-    "@mantine/notifications": "npm:^7.13.3"
-    "@mantine/tiptap": "npm:^7.13.4"
-    "@rainbow-me/rainbowkit": "npm:^2.1.7"
-    "@tabler/icons-react": "npm:3.17.0"
-    "@tanstack/react-query": "npm:^5.59.0"
-    "@tiptap/extension-link": "npm:^2.9.1"
-    "@tiptap/extension-placeholder": "npm:^2.9.1"
-    "@tiptap/extension-underline": "npm:^2.9.1"
-    "@tiptap/pm": "npm:^2.9.1"
-    "@tiptap/react": "npm:^2.9.1"
-    "@tiptap/starter-kit": "npm:^2.9.1"
-    "@types/react": "npm:^18.3.3"
-    "@types/react-dom": "npm:^18.3.0"
-    "@typescript-eslint/eslint-plugin": "npm:^7.13.1"
-    "@typescript-eslint/parser": "npm:^7.13.1"
-    "@vitejs/plugin-react": "npm:^4.3.1"
-    dayjs: "npm:^1.11.13"
-    eslint: "npm:^8.57.0"
-    eslint-plugin-react-hooks: "npm:^4.6.2"
-    eslint-plugin-react-refresh: "npm:^0.4.7"
-    graphql: "npm:^16.9.0"
-    postcss: "npm:^8.4.38"
-    postcss-preset-mantine: "npm:1.17.0"
-    postcss-simple-vars: "npm:^7.0.1"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    react-router-dom: "npm:^6.26.2"
-    typescript: "npm:^5.6.3"
-    viem: "npm:^2.21.16"
-    vite: "npm:^5.3.1"
-    wagmi: "npm:^2.12.16"
-    zod: "npm:^3.23.8"
-  languageName: unknown
-  linkType: soft
 
 "vite@npm:^5.3.1":
   version: 5.3.1
