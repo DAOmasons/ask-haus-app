@@ -7,6 +7,7 @@ import {
   isHex,
   pad,
   parseAbiParameters,
+  parseEther,
   stringToHex,
   zeroAddress,
 } from 'viem';
@@ -114,9 +115,6 @@ export const encodePointsArgs = async ({
   holderType,
 }: PointsArgsType) => {
   // starts in the past to prevent checkpoint not mined errors
-  console.log('blockTimestamp', blockTimestamp);
-  console.log('holderType', holderType);
-  console.log('dao', dao);
 
   let timestamp;
 
@@ -214,7 +212,7 @@ export const baalChoiceArgs = async (args: BaalChoiceArgs) => {
       BigInt(args.duration),
       Number(args.holderType),
       BigInt(timestamp),
-      BigInt(args.holderThreshold),
+      parseEther(args.holderThreshold.toString()),
     ]
   );
 

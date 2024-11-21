@@ -85,31 +85,15 @@ export const CreateContest = () => {
   });
 
   const handleSubmit = async () => {
-    const voteStartTime = 0;
-
-    // step2Form.values.votingTime === 'Custom'
-    // ? Math.floor(step2Form.values.customVoteStart.getTime() / 1000)
-    // :
-
-    const voteDuration =
-      Times[step2Form.values.votingTime as unknown as keyof typeof Times];
-    // step2Form.values.votingTime === 'Custom'
-    // ? Math.floor(step2Form.values.customVoteEnd.getTime() / 1000)
-    // :
-
-    const choiceStartTime = nowInSeconds() + voteDuration;
-
-    console.log('choiceStartTime', choiceStartTime);
+    const choiceStartTime = 0;
 
     const choiceDuration =
+      Times[step2Form.values.votingTime as unknown as keyof typeof Times];
+
+    const voteStartTime = nowInSeconds() + choiceDuration;
+
+    const voteDuration =
       Times[step2Form.values.choiceTime as unknown as keyof typeof Times];
-
-    console.log('choiceDuration', choiceDuration);
-
-    // const choiceStartTime =
-    //   step2Form.values.choiceTime === 'Custom'
-    //     ? Math.floor(step2Form.values.customChoiceStart.getTime() / 1000)
-    //     : voteStartTime;
 
     const { args, filterTag } = await createContestArgs({
       metadata: {
@@ -377,5 +361,5 @@ const Form2 = ({
 };
 
 const FormComplete = () => {
-  return <> </>;
+  return <>Complete </>;
 };
