@@ -23,17 +23,22 @@ import {
 import { useTx } from '../hooks/useTx';
 import { useState } from 'react';
 import { TextBoss } from '../components/TextBoss';
-import { Times } from '../utils/time';
+import { nowInSeconds, Times } from '../utils/time';
 import { TxButton } from '../components/TxButton';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { ChoiceInputType } from '../constants/enum';
 import globalClasses from '../styles/global.module.css';
 import { useForm, zodResolver } from '@mantine/form';
 import {
-  CreateContest1Values,
   createContestSchema1,
+  createContestSchema2,
+  CreateContest1Values,
+  CreateContest2Values,
 } from '../schema/form/create';
 import { emptyContent } from '../utils/tiptapUtils';
+import factory from '../abi/FastFactory.json';
+import { ADDR } from '../constants/address';
+import { createContestArgs } from '../utils/factory';
 
 export const CreateContest = () => {
   const { tx } = useTx();
@@ -56,6 +61,65 @@ export const CreateContest = () => {
     validate: zodResolver(createContestSchema1),
   });
 
+  const step2Form = useForm({
+    initialValues: {
+      choiceTime: 'Three Days',
+      customChoiceStart: new Date(),
+      customChoiceTimeEnd: new Date(
+        new Date().setDate(new Date().getDate() + 7)
+      ),
+      choiceTokenType: 'Both',
+      choiceTokenAmount: 10,
+      votingTime: 'Three Days',
+      voteTokenType: 'Both',
+      customVoteStart: new Date(new Date().setDate(new Date().getDate() + 7)),
+      customVoteEnd: new Date(new Date().setDate(new Date().getDate() + 14)),
+      answerType: 'Allocation (%)',
+    },
+    validateInputOnBlur: true,
+    validate: zodResolver(createContestSchema2),
+  });
+
+  const handleSubmit = () => {
+    const voteStartTime = nowInSeconds();
+    // step2Form.values.votingTime === 'Custom'
+    // ? Math.floor(step2Form.values.customVoteStart.getTime() / 1000)
+    // :
+
+    const voteDuration =
+      Times[step2Form.values.votingTime as unknown as keyof typeof Times];
+    // step2Form.values.votingTime === 'Custom'
+    // ? Math.floor(step2Form.values.customVoteEnd.getTime() / 1000)
+    // :
+
+    const choiceStartTime = voteStartTime + voteDuration;
+
+    const choiceDuration =
+      choiceStartTime +
+      Times[step2Form.values.choiceTime as unknown as keyof typeof Times];
+
+    // const choiceStartTime =
+    //   step2Form.values.choiceTime === 'Custom'
+    //     ? Math.floor(step2Form.values.customChoiceStart.getTime() / 1000)
+    //     : voteStartTime;
+
+    const { args, filterTag } = createContestArgs({
+      timedVoteArgs: {},
+    });
+
+    //  duration: number;
+    //  autostart: boolean;
+    //  startTime: number;
+    tx({
+      writeContractParams: {
+        abi: factory,
+        functionName: 'buildContest',
+        address: ADDR.FACTORY,
+        args: [],
+      },
+    });
+  };
+
   return (
     <CenterLayout>
       <Box w="100%" maw="500px" miw="350px" mb={'lg'}>
@@ -74,7 +138,10 @@ export const CreateContest = () => {
           path="0"
           element={<Form1 nextForm={nextForm} form={step1Form} />}
         />
-        <Route path="1" element={<Form2 />} />
+        <Route
+          path="1"
+          element={<Form2 handleSubmit={handleSubmit} form={step2Form} />}
+        />
         <Route path="2" element={<FormComplete />} />
         <Route path="*" element={<Navigate to="0" replace />} />
       </Routes>
@@ -121,7 +188,13 @@ const Form1 = ({
   );
 };
 
-const Form2 = () => {
+const Form2 = ({
+  handleSubmit,
+  form,
+}: {
+  handleSubmit: () => void;
+  form: CreateContest2Values;
+}) => {
   const theme = useMantineTheme();
   return (
     <Stack w="100%" maw="500px" miw="350px" mb="xl" gap="lg">
@@ -139,7 +212,7 @@ const Form2 = () => {
             }
             required
             allowDeselect={false}
-            // {...form.getInputProps('time')}
+            {...form.getInputProps('choiceTime')}
           />
           <Select
             data={['Both', 'Loot', 'Shares']}
@@ -150,7 +223,14 @@ const Form2 = () => {
             }
             required
             allowDeselect={false}
-            // {...form.getInputProps('time')}
+            {...form.getInputProps('choiceTokenType')}
+            description={
+              form.values.choiceTokenType === 'Shares'
+                ? 'Applicants with DAO shares can submit'
+                : form.values.choiceTokenType === 'Loot'
+                  ? 'Applicants with DAO loot can submit'
+                  : 'Applicants with both DAO tokens can submit'
+            }
           />
           <NumberInput
             label={
@@ -159,9 +239,10 @@ const Form2 = () => {
               </InputLabel>
             }
             required
-            // allowDecimal={false}
             hideControls
             mb="md"
+            {...form.getInputProps('choiceTokenAmount')}
+            description={`Minimum amount of ${form.values.choiceTokenAmount} ${form.values.choiceTokenType === 'Both' ? 'tokens (either)' : form.values.choiceTokenType} required to submit`}
           />
           <Box className={globalClasses.subBorder} p="md">
             <Text fz="xs" mb="sm">
@@ -188,7 +269,7 @@ const Form2 = () => {
             }
             required
             allowDeselect={false}
-            // {...form.getInputProps('time')}
+            {...form.getInputProps('votingTime')}
           />
           <Select
             data={['Both', 'Loot', 'Shares']}
@@ -199,7 +280,14 @@ const Form2 = () => {
             }
             required
             allowDeselect={false}
-            // {...form.getInputProps('time')}
+            {...form.getInputProps('voteTokenType')}
+            description={
+              form.values.voteTokenType === 'Shares'
+                ? 'Voters can vote with DAO shares (voting token)'
+                : form.values.voteTokenType === 'Loot'
+                  ? 'Voters can vote with DAO loot (non-voting token)'
+                  : 'Voters can vote with both DAO tokens'
+            }
           />
           <Select
             data={Object.values(ChoiceInputType)}
@@ -211,14 +299,14 @@ const Form2 = () => {
             required
             allowDeselect={false}
             mb="md"
-            // description={
-            //   form.values.answerType === 'Single Choice'
-            //     ? 'Voters allocate 100% of their token on one choice'
-            //     : form.values.answerType === 'Allocation (%)'
-            //       ? 'Voters can choose how much to allocate to each choice'
-            //       : 'Choose how voters respond to the poll'
-            // }
-            // {...form.getInputProps('answerType')}
+            description={
+              form.values.answerType === 'Single Choice'
+                ? 'Voters allocate 100% of their token on one choice'
+                : form.values.answerType === 'Allocation (%)'
+                  ? 'Voters can choose how much to allocate to each choice'
+                  : 'Choose how voters respond to the poll'
+            }
+            {...form.getInputProps('answerType')}
           />
           <Box className={globalClasses.subBorder} p="md">
             <Text fz="xs" mb="sm">
@@ -233,7 +321,7 @@ const Form2 = () => {
         </Stack>
       </Paper>
       <Group justify="center">
-        <TxButton>Submit</TxButton>
+        <TxButton onClick={handleSubmit}>Submit</TxButton>
       </Group>
     </Stack>
   );

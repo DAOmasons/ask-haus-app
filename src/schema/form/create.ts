@@ -48,6 +48,50 @@ export type CreateContest1Values = UseFormReturnType<
   (values: CreateContest1Schema) => CreateContest1Schema
 >;
 
+export const createContestSchema2 = z
+  .object({
+    choiceTime: z.string().min(1, 'Submission time is required'),
+    customChoiceStart: z.date(),
+    customChoiceTimeEnd: z.date(),
+    choiceTokenType: z.string().min(1, 'Token type is required'),
+    choiceTokenAmount: z.number().min(0, 'Token type is required'),
+    votingTime: z.string().min(1, 'Voting time is required'),
+    voteTokenType: z.string().min(1, 'Token type is required'),
+    customVoteStart: z.date(),
+    customVoteEnd: z.date(),
+    answerType: z.string().min(1, 'Answer type is required'),
+  })
+  .refine(
+    ({ customChoiceStart, customChoiceTimeEnd, choiceTime }) => {
+      return (choiceTime === 'Custom' && !customChoiceStart) ||
+        ('Custom' && !customChoiceTimeEnd)
+        ? false
+        : true;
+    },
+    {
+      message: 'Custom choice time is required if selected',
+      path: ['customChoiceStart'],
+    }
+  )
+  .refine(
+    ({ customVoteStart, customVoteEnd, votingTime }) => {
+      return (votingTime === 'Custom' && !customVoteStart) ||
+        ('Custom' && !customVoteEnd)
+        ? false
+        : true;
+    },
+    {
+      message: 'Custom vote time is required if selected',
+      path: ['customChoiceStart'],
+    }
+  );
+
+export type CreateContest2Schema = z.infer<typeof createContestSchema2>;
+export type CreateContest2Values = UseFormReturnType<
+  CreateContest2Schema,
+  (values: CreateContest2Schema) => CreateContest2Schema
+>;
+
 export const basicChoiceSchema = z.object({
   id: z.string().min(1, 'Choice id is required'),
   title: z.string().min(1, 'Choice title is required'),

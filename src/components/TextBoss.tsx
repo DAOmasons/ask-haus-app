@@ -38,7 +38,7 @@ export const TextBoss = (props: TextBossProps) => {
         Underline,
         Placeholder.configure({ placeholder }),
       ],
-      content: value || emptyContent,
+      //   content: value || emptyContent,
       onUpdate(props) {
         if (onChange) {
           onChange(props.editor.getJSON());

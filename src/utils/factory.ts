@@ -22,6 +22,7 @@ import { appNetwork } from './connect';
 import { FormChoice } from '../types/ui';
 import { basicChoiceSchema, pollMetadataSchema } from '../schema/form/create';
 import { isBytes32, randomCharacters } from './helpers';
+import { Content } from '@tiptap/react';
 
 const ONE_DAY = 60 * 60 * 24;
 
@@ -170,6 +171,16 @@ export const encodePrepopChoicesArgs = ({
   return encoded;
 };
 
+type BaalChoiceArgs = {
+  daoAddress: Address;
+  startTime: number;
+  duration: number;
+  holderType: HolderType;
+  holderThreshold: number;
+};
+
+export const baalChoiceArgs = (args: BaalChoiceArgs) => {};
+
 export const emptyExecuteArgs = (): Hex => '0x0';
 
 type PollArgs = {
@@ -229,4 +240,19 @@ export const createPollArgs = async (args: PollArgs) => {
     ],
     filterTag,
   };
+};
+
+type ContestArgs = {
+  metadata: { title: string; description: Content; link?: string };
+  baalChoicesArgs: BaalChoiceArgs;
+  timedVoteArgs: TimedVoteArgs;
+  pointsArgs: PointsArgsType;
+};
+
+export const createContestArgs = (args: ContestArgs) => {
+  const encodedTimedVoteArgs = encodeTimedVoteArgs(args.timedVoteArgs);
+  const encodedPointsArgs = encodePointsArgs(args.pointsArgs);
+  const econdedChoiceArgs = baalChoiceArgs(args.baalChoicesArgs);
+
+  return { args: [], filterTag: '' };
 };

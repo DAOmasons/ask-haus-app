@@ -13,6 +13,7 @@ export const Times = {
   'Five Minutes': 60 * 5,
   'One Hour': 60 * 60,
   'One Day': 60 * 60 * 24,
+  'Three Days': 60 * 60 * 24 * 3,
   'One Week': 60 * 60 * 24 * 7,
   'Two Weeks': 60 * 60 * 24 * 14,
 };
