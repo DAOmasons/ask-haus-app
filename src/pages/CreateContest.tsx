@@ -26,7 +26,11 @@ import { TextBoss } from '../components/TextBoss';
 import { nowInSeconds, Times } from '../utils/time';
 import { TxButton } from '../components/TxButton';
 import { IconArrowLeft } from '@tabler/icons-react';
-import { ChoiceInputType } from '../constants/enum';
+import {
+  ChoiceInputType,
+  contentProtocol,
+  HolderType,
+} from '../constants/enum';
 import globalClasses from '../styles/global.module.css';
 import { useForm, zodResolver } from '@mantine/form';
 import {
@@ -80,8 +84,9 @@ export const CreateContest = () => {
     validate: zodResolver(createContestSchema2),
   });
 
-  const handleSubmit = () => {
-    const voteStartTime = nowInSeconds();
+  const handleSubmit = async () => {
+    const voteStartTime = 0;
+
     // step2Form.values.votingTime === 'Custom'
     // ? Math.floor(step2Form.values.customVoteStart.getTime() / 1000)
     // :
@@ -92,30 +97,74 @@ export const CreateContest = () => {
     // ? Math.floor(step2Form.values.customVoteEnd.getTime() / 1000)
     // :
 
-    const choiceStartTime = voteStartTime + voteDuration;
+    const choiceStartTime = nowInSeconds() + voteDuration;
+
+    console.log('choiceStartTime', choiceStartTime);
 
     const choiceDuration =
-      choiceStartTime +
       Times[step2Form.values.choiceTime as unknown as keyof typeof Times];
+
+    console.log('choiceDuration', choiceDuration);
 
     // const choiceStartTime =
     //   step2Form.values.choiceTime === 'Custom'
     //     ? Math.floor(step2Form.values.customChoiceStart.getTime() / 1000)
     //     : voteStartTime;
 
-    const { args, filterTag } = createContestArgs({
-      timedVoteArgs: {},
+    const { args, filterTag } = await createContestArgs({
+      metadata: {
+        title: step1Form.values.title,
+        description: step1Form.values.description,
+        link: step1Form.values.link,
+        answerType: step2Form.values.answerType,
+        contentType: 'onchain',
+        requestComment: false,
+      },
+      timedVoteArgs: {
+        startTime: voteStartTime,
+        duration: voteDuration,
+        autostart: true,
+      },
+      baalChoicesArgs: {
+        daoAddress: ADDR.DAO,
+        startTime: choiceStartTime,
+        duration: choiceDuration,
+        holderType:
+          step2Form.values.choiceTokenType === 'Both'
+            ? HolderType.Both
+            : step2Form.values.choiceTokenType === 'Shares'
+              ? HolderType.Share
+              : step2Form.values.choiceTokenType === 'Loot'
+                ? HolderType.Loot
+                : HolderType.None,
+        holderThreshold: step2Form.values.choiceTokenAmount,
+      },
+      pointsArgs: {
+        holderType:
+          step2Form.values.voteTokenType === 'Both'
+            ? HolderType.Both
+            : step2Form.values.voteTokenType === 'Shares'
+              ? HolderType.Share
+              : step2Form.values.voteTokenType === 'Loot'
+                ? HolderType.Loot
+                : HolderType.None,
+        dao: ADDR.DAO,
+        blockTimestamp: 'now',
+      },
     });
 
-    //  duration: number;
-    //  autostart: boolean;
-    //  startTime: number;
     tx({
       writeContractParams: {
         abi: factory,
         functionName: 'buildContest',
         address: ADDR.FACTORY,
-        args: [],
+        args,
+      },
+      writeContractOptions: {
+        onPollSuccess() {
+          navigate(`/create-poll/2`);
+          setContestTag(filterTag);
+        },
       },
     });
   };

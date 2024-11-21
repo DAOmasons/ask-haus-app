@@ -25,4 +25,5 @@ export type ContentType = keyof typeof contentProtocol;
 
 export enum IndexerKey {
   PollV0 = 'askhaus-poll-v0',
+  ContestV0 = 'askhaus-contest-v0',
 }

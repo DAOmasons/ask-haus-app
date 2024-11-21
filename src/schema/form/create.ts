@@ -108,6 +108,14 @@ export const pollMetadataSchema = z.object({
   requestComment: z.boolean(),
 });
 
+export const contestMetadataSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  description: tiptapContentSchema,
+  pollLink: z.string().optional(),
+  answerType: z.string().min(1, 'Answer type is required'),
+  requestComment: z.boolean(),
+});
+
 export const createPollSchema2 = z.object({
   pollDescription: z.string().optional(),
   pollLink: z.string().refine(isValidOptionalUrl, { message: 'Invalid url' }),

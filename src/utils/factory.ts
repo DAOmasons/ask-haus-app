@@ -20,7 +20,11 @@ import { ADDR } from '../constants/address';
 import { CONTEST_V, ContestStatus, MODULES } from '../constants/chews';
 import { appNetwork } from './connect';
 import { FormChoice } from '../types/ui';
-import { basicChoiceSchema, pollMetadataSchema } from '../schema/form/create';
+import {
+  basicChoiceSchema,
+  contestMetadataSchema,
+  pollMetadataSchema,
+} from '../schema/form/create';
 import { isBytes32, randomCharacters } from './helpers';
 import { Content } from '@tiptap/react';
 
@@ -87,9 +91,11 @@ type TimedVoteArgs = {
   startTime: number;
 };
 
-export const encodeTimedVoteArgs = ({ duration, startTime }: TimedVoteArgs) => {
-  const autostart = startTime === 0 ? true : false;
-
+export const encodeTimedVoteArgs = ({
+  duration,
+  startTime,
+  autostart,
+}: TimedVoteArgs) => {
   const args = encodeAbiParameters(
     parseAbiParameters('uint256, bool, uint256'),
     [BigInt(duration), autostart, BigInt(startTime)]
@@ -108,6 +114,9 @@ export const encodePointsArgs = async ({
   holderType,
 }: PointsArgsType) => {
   // starts in the past to prevent checkpoint not mined errors
+  console.log('blockTimestamp', blockTimestamp);
+  console.log('holderType', holderType);
+  console.log('dao', dao);
 
   let timestamp;
 
@@ -179,7 +188,38 @@ type BaalChoiceArgs = {
   holderThreshold: number;
 };
 
-export const baalChoiceArgs = (args: BaalChoiceArgs) => {};
+export const baalChoiceArgs = async (args: BaalChoiceArgs) => {
+  const publicClient = createPublicClient({
+    chain: appNetwork,
+    transport: http(import.meta.env.VITE_RPC_URL),
+  });
+  const block = await publicClient.getBlock();
+
+  const timestamp = BigInt(block.timestamp);
+
+  // (
+  //           address _daoAddress,
+  //           uint256 _startTime,
+  //           uint256 _duration,
+  //           HolderType _holderType,
+  //           uint256 _checkpoint,
+  //           uint256 _holderThreshold
+  //       )
+
+  const encoded = encodeAbiParameters(
+    parseAbiParameters('address, uint256, uint256, uint8, uint256, uint256'),
+    [
+      args.daoAddress,
+      BigInt(args.startTime),
+      BigInt(args.duration),
+      Number(args.holderType),
+      BigInt(timestamp),
+      BigInt(args.holderThreshold),
+    ]
+  );
+
+  return encoded;
+};
 
 export const emptyExecuteArgs = (): Hex => '0x0';
 
@@ -243,16 +283,63 @@ export const createPollArgs = async (args: PollArgs) => {
 };
 
 type ContestArgs = {
-  metadata: { title: string; description: Content; link?: string };
+  metadata: {
+    title: string;
+    description: Content;
+    link?: string;
+    answerType: string;
+    contentType: ContentType;
+    requestComment: boolean;
+  };
   baalChoicesArgs: BaalChoiceArgs;
   timedVoteArgs: TimedVoteArgs;
   pointsArgs: PointsArgsType;
 };
 
-export const createContestArgs = (args: ContestArgs) => {
-  const encodedTimedVoteArgs = encodeTimedVoteArgs(args.timedVoteArgs);
-  const encodedPointsArgs = encodePointsArgs(args.pointsArgs);
-  const econdedChoiceArgs = baalChoiceArgs(args.baalChoicesArgs);
+export const createContestArgs = async (args: ContestArgs) => {
+  const encodedVoteArgs = encodeTimedVoteArgs(args.timedVoteArgs);
+  const encodedPointsArgs = await encodePointsArgs(args.pointsArgs);
+  const encodedChoicesArgs = await baalChoiceArgs(args.baalChoicesArgs);
+  const encodedExecuteArgs = emptyExecuteArgs();
 
-  return { args: [], filterTag: '' };
+  const initData = encodeAbiParameters(
+    parseAbiParameters('string[4], bytes[4]'),
+    [
+      [
+        MODULES.TIMED_VOTES,
+        MODULES.BAAL_POINTS,
+        MODULES.BAAL_GATE,
+        MODULES.EMPTY_EX,
+      ],
+      [
+        encodedVoteArgs,
+        encodedPointsArgs,
+        encodedChoicesArgs,
+        encodedExecuteArgs,
+      ],
+    ]
+  );
+
+  const validated = contestMetadataSchema.safeParse(args.metadata);
+
+  if (!validated.success) {
+    throw new Error('Invalid poll metadata');
+  }
+
+  const content = JSON.stringify(validated.data);
+  const protocol = contentProtocol[args.metadata.contentType];
+
+  const filterTag = `${IndexerKey.PollV0}_${randomCharacters()}`;
+
+  return {
+    args: [
+      [protocol, content],
+      initData,
+      CONTEST_V,
+      ContestStatus.Voting,
+      false,
+      filterTag,
+    ],
+    filterTag,
+  };
 };
