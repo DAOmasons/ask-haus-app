@@ -18,3 +18,28 @@ fragment PollCard on AskHausPoll {
   }
   round_id
 }
+
+fragment ContestCard on AskHausContest {
+  id
+  title
+  answerType
+  description
+  pollLink
+  requestComment
+  postedBy
+  round_id
+  choicesParams {
+    startTime
+    endTime
+  }
+  votesParams {
+    id
+    endTime
+    startTime
+    duration
+  }
+  pointsParams {
+    checkpoint
+    holderType
+  }
+}

@@ -12,7 +12,7 @@ export const frontPagePolls = async () => {
   try {
     const now = Math.floor(Date.now() / 1000);
 
-    const data = await sdk.frontPagePolls({
+    const data = await sdk.frontPageVotes({
       now,
       dao: ADDR.DAO,
     });

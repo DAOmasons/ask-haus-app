@@ -4024,19 +4024,21 @@ export type Timestamptz_Comparison_Exp = {
 
 export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
+export type ContestCardFragment = { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+
 export type BasicChoiceFragment = { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any };
 
 export type BasicVoteFragment = { __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null };
 
 export type BatchVoteFragment = { __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> };
 
-export type GetFrontPageVotesQueryVariables = Exact<{
+export type FrontPageVotesQueryVariables = Exact<{
   now: Scalars['numeric']['input'];
   dao: Scalars['String']['input'];
 }>;
 
 
-export type GetFrontPageVotesQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+export type FrontPageVotesQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, populatingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, votingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
 
 export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
@@ -4070,6 +4072,32 @@ export type GetRecentTransactionQueryVariables = Exact<{
 
 export type GetRecentTransactionQuery = { __typename?: 'query_root', TX_by_pk?: { __typename?: 'TX', id: string } | null };
 
+export const ContestCardFragmentDoc = gql`
+    fragment ContestCard on AskHausContest {
+  id
+  title
+  answerType
+  description
+  pollLink
+  requestComment
+  postedBy
+  round_id
+  choicesParams {
+    startTime
+    endTime
+  }
+  votesParams {
+    id
+    endTime
+    startTime
+    duration
+  }
+  pointsParams {
+    checkpoint
+    holderType
+  }
+}
+    `;
 export const PollCardFragmentDoc = gql`
     fragment PollCard on AskHausPoll {
   id
@@ -4148,8 +4176,8 @@ export const FullPollFragmentDoc = gql`
     ${PollCardFragmentDoc}
 ${BasicChoiceFragmentDoc}
 ${BatchVoteFragmentDoc}`;
-export const GetFrontPageVotesDocument = gql`
-    query getFrontPageVotes($now: numeric!, $dao: String!) {
+export const FrontPageVotesDocument = gql`
+    query frontPageVotes($now: numeric!, $dao: String!) {
   upcomingPolls: AskHausPoll(
     where: {votesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
     limit: 5
@@ -4171,8 +4199,23 @@ export const GetFrontPageVotesDocument = gql`
   ) {
     ...PollCard
   }
+  populatingContests: AskHausContest(
+    where: {choicesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    limit: 5
+    order_by: {choicesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
+  votingContests: AskHausContest(
+    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    limit: 5
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
 }
-    ${PollCardFragmentDoc}`;
+    ${PollCardFragmentDoc}
+${ContestCardFragmentDoc}`;
 export const GetPollDocument = gql`
     query getPoll($pollId: String!) {
   AskHausPoll_by_pk(id: $pollId) {
@@ -4221,8 +4264,8 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    getFrontPageVotes(variables: GetFrontPageVotesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetFrontPageVotesQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetFrontPageVotesQuery>(GetFrontPageVotesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getFrontPageVotes', 'query', variables);
+    frontPageVotes(variables: FrontPageVotesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FrontPageVotesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FrontPageVotesQuery>(FrontPageVotesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'frontPageVotes', 'query', variables);
     },
     getPoll(variables: GetPollQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetPollQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetPollQuery>(GetPollDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPoll', 'query', variables);
