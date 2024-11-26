@@ -7,7 +7,7 @@ import {
   IconTrophy,
 } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
-import { frontPagePolls } from '../queries/frontPage';
+import { getFrontPageVotes } from '../queries/frontPage';
 import { useQuery } from '@tanstack/react-query';
 import { VoteType } from '../constants/enum';
 import { VoteCard } from '../components/cards/VoteCard';
@@ -16,14 +16,16 @@ export const Home = () => {
   const navigate = useNavigate();
   const { data: pollData } = useQuery({
     queryKey: [`home`],
-    queryFn: frontPagePolls,
+    queryFn: getFrontPageVotes,
     enabled: true,
   });
 
   const notablePolls = [
     ...(pollData?.activePolls || []),
     ...(pollData?.upcomingPolls || []),
-  ].slice(0, 5);
+  ];
+
+  const notableContests = [...pollData?.votingContests || [], ...pollData?.];
 
   return (
     <Box mb="xl" mt={48}>

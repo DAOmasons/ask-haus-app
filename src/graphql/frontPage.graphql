@@ -49,4 +49,24 @@ query frontPageVotes($now: numeric!, $dao: String!) {
   ) {
     ...ContestCard
   }
+  upcomingContests: AskHausContest(
+    where: {
+      choicesParams: { startTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    order_by: { choicesParams: { startTime: desc } }
+    limit: 5
+  ) {
+    ...ContestCard
+  }
+  pastContests: AskHausContest(
+    where: {
+      choicesParams: { endTime: { _lt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    order_by: { choicesParams: { startTime: desc } }
+    limit: 5
+  ) {
+    ...ContestCard
+  }
 }
