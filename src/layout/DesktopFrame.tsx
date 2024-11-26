@@ -30,7 +30,6 @@ const getRouteImage = (path: string) => {
 
 export const DesktopFrame = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
-  console.log('location', location);
   return (
     <Flex className={layoutClasses.desktopContainer}>
       <Box className={layoutClasses.desktopFrame}>

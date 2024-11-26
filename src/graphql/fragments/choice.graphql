@@ -1,0 +1,9 @@
+fragment BasicChoice on BasicChoice {
+  id
+  choiceId
+  title
+  description
+  color
+  link
+  amountVoted
+}

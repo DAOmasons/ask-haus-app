@@ -1,0 +1,20 @@
+fragment PollCard on AskHausPoll {
+  id
+  title
+  answerType
+  description
+  pollLink
+  requestComment
+  postedBy
+  votesParams {
+    id
+    endTime
+    startTime
+    duration
+  }
+  pointsParams {
+    checkpoint
+    holderType
+  }
+  round_id
+}

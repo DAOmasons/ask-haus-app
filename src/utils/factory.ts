@@ -327,14 +327,14 @@ export const createContestArgs = async (args: ContestArgs) => {
   const content = JSON.stringify(validated.data);
   const protocol = contentProtocol[args.metadata.contentType];
 
-  const filterTag = `${IndexerKey.PollV0}_${randomCharacters()}`;
+  const filterTag = `${IndexerKey.ContestV0}_${randomCharacters()}`;
 
   return {
     args: [
       [protocol, content],
       initData,
       CONTEST_V,
-      ContestStatus.Voting,
+      ContestStatus.Continuous,
       false,
       filterTag,
     ],

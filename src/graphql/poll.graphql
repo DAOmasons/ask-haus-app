@@ -1,61 +1,11 @@
-fragment BasicChoice on BasicChoice {
-  id
-  choiceId
-  title
-  description
-  color
-  link
-  amountVoted
-}
-
-fragment BasicVote on BasicVote {
-  id
-  amount
-  choice {
-    id
-    choiceId
-    title
-    color
-  }
-}
-
-fragment BatchVote on BatchVote {
-  id
-  voter
-  totalVoted
-  timestamp
-  votes {
-    ...BasicVote
-  }
-}
-
-fragment PollCard on AskHausPoll {
-  id
-  title
-  answerType
-  description
-  pollLink
-  requestComment
-  postedBy
-  votesParams {
-    id
-    endTime
-    startTime
-    duration
-  }
-  pointsParams {
-    checkpoint
-    holderType
-  }
-  round_id
-}
-
 fragment FullPoll on AskHausPoll {
   ...PollCard
   pointsAddress: pointsParams_id
   choicesParams {
-    choices {
-      ...BasicChoice
+    basicChoices {
+      choices {
+        ...BasicChoice
+      }
     }
   }
   round {
@@ -70,39 +20,6 @@ fragment FullPoll on AskHausPoll {
 query getPoll($pollId: String!) {
   AskHausPoll_by_pk(id: $pollId) {
     ...FullPoll
-  }
-}
-
-query frontPagePolls($now: numeric!, $dao: String!) {
-  upcomingPolls: AskHausPoll(
-    where: {
-      votesParams: { startTime: { _gt: $now } }
-      pointsParams: { dao: { _eq: $dao } }
-    }
-    limit: 5
-    order_by: { votesParams: { startTime: desc } }
-  ) {
-    ...PollCard
-  }
-  pastPolls: AskHausPoll(
-    where: {
-      votesParams: { endTime: { _lt: $now } }
-      pointsParams: { dao: { _eq: $dao } }
-    }
-    limit: 5
-    order_by: { votesParams: { startTime: desc } }
-  ) {
-    ...PollCard
-  }
-  activePolls: AskHausPoll(
-    where: {
-      votesParams: { startTime: { _lt: $now }, endTime: { _gt: $now } }
-      pointsParams: { dao: { _eq: $dao } }
-    }
-    limit: 5
-    order_by: { votesParams: { startTime: desc } }
-  ) {
-    ...PollCard
   }
 }
 

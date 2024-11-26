@@ -309,7 +309,7 @@ export const Poll = () => {
           open={open}
           pollLink={data?.pollLink || undefined}
           answerType={data?.answerType}
-          choices={data?.choicesParams?.choices}
+          choices={data?.choicesParams?.basicChoices?.choices || []}
           pointsDisplay={pointsDisplay}
           entries={entries}
           handleSliderChange={handleSliderChange}
@@ -329,7 +329,7 @@ export const Poll = () => {
           isActive={isActive}
           isUpcoming={isUpcoming}
           batchVotes={data?.round?.batchVotes || []}
-          choices={data?.choicesParams?.choices || []}
+          choices={data?.choicesParams?.basicChoices?.choices || []}
           hasVoted={hasVoted}
           totalVoted={data?.round?.totalVoted}
         />
@@ -341,7 +341,7 @@ export const Poll = () => {
         description={data?.description || undefined}
         pollLink={data?.pollLink || undefined}
         snapshot={data?.pointsParams?.checkpoint}
-        choices={data?.choicesParams?.choices}
+        choices={data?.choicesParams?.basicChoices?.choices}
         startTime={data?.votesParams?.startTime}
         endTime={data?.votesParams?.endTime}
       />

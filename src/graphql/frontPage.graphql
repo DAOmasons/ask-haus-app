@@ -1,0 +1,32 @@
+query getFrontPageVotes($now: numeric!, $dao: String!) {
+  upcomingPolls: AskHausPoll(
+    where: {
+      votesParams: { startTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    limit: 5
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...PollCard
+  }
+  pastPolls: AskHausPoll(
+    where: {
+      votesParams: { endTime: { _lt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    limit: 5
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...PollCard
+  }
+  activePolls: AskHausPoll(
+    where: {
+      votesParams: { startTime: { _lt: $now }, endTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    limit: 5
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...PollCard
+  }
+}
