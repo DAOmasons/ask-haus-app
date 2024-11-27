@@ -13,7 +13,6 @@ import {
 import StarterKit from '@tiptap/starter-kit';
 import { useMemo } from 'react';
 import tiptapClasses from '../styles/tiptap.module.css';
-import { emptyContent } from '../utils/tiptapUtils';
 
 type TextBossProps = {
   label?: string;
@@ -91,6 +90,7 @@ export const TextBoss = (props: TextBossProps) => {
             <RichTextEditor.ControlsGroup>
               <RichTextEditor.H2 />
               <RichTextEditor.H3 />
+              <RichTextEditor.H4 />
               <RichTextEditor.BulletList />
               <RichTextEditor.OrderedList />
             </RichTextEditor.ControlsGroup>
