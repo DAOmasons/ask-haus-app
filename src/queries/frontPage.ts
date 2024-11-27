@@ -105,10 +105,10 @@ export const getFrontPageVotes = async () => {
     return {
       active: [...processedNotableContests, ...processedNotablePolls]
         .sort((a, b) => b.startTime - a.startTime)
-        .slice(0, 5),
+        .slice(0, 5) as VoteCardType[],
       past: [...pastPolls, ...pastContests]
         .sort((a, b) => b.startTime - a.startTime)
-        .slice(0, 5),
+        .slice(0, 5) as VoteCardType[],
     };
   } catch (error) {
     console.error(error);

@@ -9,23 +9,15 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { getFrontPageVotes } from '../queries/frontPage';
 import { useQuery } from '@tanstack/react-query';
-import { VoteType } from '../constants/enum';
 import { VoteCard } from '../components/cards/VoteCard';
 
 export const Home = () => {
   const navigate = useNavigate();
-  const { data: pollData } = useQuery({
+  const { data } = useQuery({
     queryKey: [`home`],
     queryFn: getFrontPageVotes,
     enabled: true,
   });
-
-  const notablePolls = [
-    ...(pollData?.activePolls || []),
-    ...(pollData?.upcomingPolls || []),
-  ];
-
-  const notableContests = [...pollData?.votingContests || [], ...pollData?.];
 
   return (
     <Box mb="xl" mt={48}>
@@ -52,23 +44,12 @@ export const Home = () => {
         />
       </Group>
       <Flex align="start" justify="space-between" gap="md">
-        {notablePolls.length > 0 && (
+        {data?.active.length && data?.active.length > 0 && (
           <Box w="50%">
             <SectionText mb="md">Live Votes</SectionText>
             <Stack gap="md">
-              {notablePolls.map((poll) => (
-                <VoteCard
-                  key={poll.id}
-                  to={`/poll/${poll.id}`}
-                  title={poll.title}
-                  postedBy={poll.postedBy}
-                  startTime={poll.votesParams?.startTime}
-                  endTime={poll.votesParams?.endTime}
-                  duration={poll.votesParams?.duration}
-                  description={poll.description as string | undefined}
-                  pollLink={poll.pollLink as string | undefined}
-                  voteType={VoteType.Poll}
-                />
+              {data.active.map((vote) => (
+                <VoteCard key={vote.id} {...vote} />
               ))}
             </Stack>
           </Box>
@@ -76,20 +57,9 @@ export const Home = () => {
         <Box w="50%">
           <SectionText mb="md">Past Votes</SectionText>
           <Stack gap="md">
-            {pollData?.pastPolls?.map((poll) => (
-              <VoteCard
-                key={poll.id}
-                to={`/poll/${poll.id}`}
-                title={poll.title}
-                postedBy={poll.postedBy}
-                startTime={poll.votesParams?.endTime}
-                endTime={poll.votesParams?.endTime}
-                duration={poll.votesParams?.duration}
-                description={poll.description as string | undefined}
-                pollLink={poll.pollLink as string | undefined}
-                voteType={VoteType.Poll}
-              />
-            ))}
+            {data?.past.length &&
+              data.past.length > 0 &&
+              data.past.map((vote) => <VoteCard key={vote.id} {...vote} />)}
           </Stack>
         </Box>
       </Flex>

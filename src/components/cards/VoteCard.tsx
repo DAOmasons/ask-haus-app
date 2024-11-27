@@ -14,7 +14,12 @@ import {
   nowInSeconds,
   pastRelativeTimeInSeconds,
 } from '../../utils/time';
-import { IconChartBar, IconLink, IconMessage } from '@tabler/icons-react';
+import {
+  IconChartBar,
+  IconLink,
+  IconMessage,
+  IconTrophy,
+} from '@tabler/icons-react';
 import { AddressAvatar } from '../AddressAvatar';
 import { Address } from 'viem';
 import { VoteType } from '../../constants/enum';
@@ -79,6 +84,16 @@ export const VoteCard = ({
           <IconChartBar size={14} color={colors.steel[4]} />
           <Text c={colors.steel[4]} fz="xs">
             Poll
+          </Text>
+        </Group>
+      );
+    }
+    if (voteType === VoteType.Contest) {
+      return (
+        <Group gap="xs">
+          <IconTrophy size={14} color={colors.steel[4]} />
+          <Text c={colors.steel[4]} fz="xs">
+            Contest
           </Text>
         </Group>
       );
