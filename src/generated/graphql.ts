@@ -4221,7 +4221,7 @@ export const FrontPageVotesDocument = gql`
     ...ContestCard
   }
   pastContests: AskHausContest(
-    where: {choicesParams: {endTime: {_lt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    where: {votesParams: {endTime: {_lt: $now}}, pointsParams: {dao: {_eq: $dao}}}
     order_by: {choicesParams: {startTime: desc}}
     limit: 5
   ) {

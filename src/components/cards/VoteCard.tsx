@@ -22,7 +22,7 @@ import {
 } from '@tabler/icons-react';
 import { AddressAvatar } from '../AddressAvatar';
 import { Address } from 'viem';
-import { VoteType } from '../../constants/enum';
+import { VoteStage, VoteType } from '../../constants/enum';
 import paperClasses from '../../styles/paper.module.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,6 +37,7 @@ export const VoteCard = ({
   voteType,
   description,
   tick = true,
+  voteStage,
 }: {
   title: string;
   startTime: number;
@@ -47,6 +48,7 @@ export const VoteCard = ({
   pollLink?: string;
   description?: string;
   voteType: VoteType;
+  voteStage?: VoteStage;
   tick?: boolean;
 }) => {
   const [tickTime, setTickTime] = useState(new Date());
@@ -80,7 +82,7 @@ export const VoteCard = ({
   const voteTypeDisplay = useMemo(() => {
     if (voteType === VoteType.Poll) {
       return (
-        <Group gap="xs">
+        <Group gap={6}>
           <IconChartBar size={14} color={colors.steel[4]} />
           <Text c={colors.steel[4]} fz="xs">
             Poll
@@ -90,15 +92,25 @@ export const VoteCard = ({
     }
     if (voteType === VoteType.Contest) {
       return (
-        <Group gap="xs">
+        <Group gap={6}>
           <IconTrophy size={14} color={colors.steel[4]} />
           <Text c={colors.steel[4]} fz="xs">
             Contest
           </Text>
+          {voteStage && (
+            <>
+              <Text c={colors.steel[4]} fz="xs">
+                ·
+              </Text>
+              <Text c={colors.steel[4]} fz="xs">
+                {voteStage}
+              </Text>
+            </>
+          )}
         </Group>
       );
     }
-  }, [voteType, colors.steel]);
+  }, [voteType, colors.steel, voteStage]);
 
   const handleCardNavigate = () => {
     if (to) {

@@ -16,6 +16,12 @@ export enum ChoiceInputType {
   Allocate = 'Allocation (%)',
 }
 
+export enum VoteStage {
+  None,
+  Populating = 'Accepting Choices',
+  Voting = 'Voting',
+}
+
 export const contentProtocol = {
   onchain: 6969420n,
   ipfs: 1n,

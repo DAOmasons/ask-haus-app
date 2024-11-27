@@ -1,5 +1,5 @@
 import { ADDR } from '../constants/address';
-import { VoteType } from '../constants/enum';
+import { VoteStage, VoteType } from '../constants/enum';
 import { PollCardFragment } from '../generated/graphql';
 import { sdk } from '../utils/indexer';
 
@@ -20,6 +20,7 @@ export type VoteCardType = {
   description?: string;
   pollLink?: string;
   voteType: VoteType;
+  voteStage?: VoteStage;
 };
 
 export const getFrontPageVotes = async () => {
@@ -37,9 +38,18 @@ export const getFrontPageVotes = async () => {
     ];
 
     const notableContests = [
-      ...(data?.votingContests || []),
-      ...(data?.upcomingContests || []),
-      ...(data?.upcomingContests || []),
+      ...(data?.votingContests?.map((contest) => ({
+        ...contest,
+        voteStage: VoteStage.Voting,
+      })) || []),
+      ...(data?.populatingContests?.map((contest) => ({
+        ...contest,
+        voteStage: VoteStage.Populating,
+      })) || []),
+      ...(data?.upcomingContests?.map((contest) => ({
+        ...contest,
+        voteStage: undefined,
+      })) || []),
     ];
 
     const processedNotablePolls = notablePolls.map((poll) => {
@@ -69,6 +79,7 @@ export const getFrontPageVotes = async () => {
         description: contest.description || undefined,
         pollLink: contest.pollLink || undefined,
         voteType: VoteType.Contest,
+        voteStage: contest.voteStage,
       };
     });
 

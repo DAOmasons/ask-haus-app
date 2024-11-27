@@ -1,4 +1,4 @@
-import { Box, Flex, Group, Stack } from '@mantine/core';
+import { Box, Button, Flex, Group, Stack } from '@mantine/core';
 import { BigTitle, SectionText } from '../components/Typography';
 import { VoteTypeCard } from '../components/cards/VoteTypeCard';
 import {
@@ -44,7 +44,7 @@ export const Home = () => {
         />
       </Group>
       <Flex align="start" justify="space-between" gap="md">
-        {data?.active.length && data?.active.length > 0 && (
+        {data?.active && data?.active.length > 0 && (
           <Box w="50%">
             <SectionText mb="md">Live Votes</SectionText>
             <Stack gap="md">
@@ -52,15 +52,37 @@ export const Home = () => {
                 <VoteCard key={vote.id} {...vote} />
               ))}
             </Stack>
+            {data?.active && data.active.length === 5 && (
+              <Group justify="center">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => navigate('/active')}
+                >
+                  See More
+                </Button>
+              </Group>
+            )}
           </Box>
         )}
         <Box w="50%">
           <SectionText mb="md">Past Votes</SectionText>
-          <Stack gap="md">
-            {data?.past.length &&
+          <Stack gap="md" mb="xl">
+            {data?.past &&
               data.past.length > 0 &&
               data.past.map((vote) => <VoteCard key={vote.id} {...vote} />)}
           </Stack>
+          {data?.past && data.past.length === 5 && (
+            <Group justify="center">
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() => navigate('/past')}
+              >
+                See More
+              </Button>
+            </Group>
+          )}
         </Box>
       </Flex>
     </Box>
