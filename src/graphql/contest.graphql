@@ -1,0 +1,45 @@
+fragment FullContest on AskHausContest {
+  id
+  title
+  answerType
+  description
+  pollLink
+  requestComment
+  postedBy
+  round_id
+  pointsParams {
+    id
+    checkpoint
+    holderType
+  }
+  choicesParams {
+    id
+    holderThreshold
+    startTime
+    endTime
+  }
+  votesParams {
+    id
+    endTime
+    startTime
+    duration
+  }
+  basicChoices {
+    choices {
+      ...BasicChoice
+    }
+  }
+  round {
+    id
+    totalVoted
+    batchVotes {
+      ...BatchVote
+    }
+  }
+}
+
+query getContest($contestId: String!) {
+  AskHausContest_by_pk(id: $contestId) {
+    ...FullContest
+  }
+}

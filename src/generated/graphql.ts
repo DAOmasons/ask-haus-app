@@ -28,11 +28,11 @@ export type AskHausContest = {
   __typename?: 'AskHausContest';
   answerType: Scalars['String']['output'];
   /** An object relationship */
-  choices?: Maybe<BasicChoices>;
+  basicChoices?: Maybe<BasicChoices>;
+  basicChoices_id: Scalars['String']['output'];
   /** An object relationship */
   choicesParams?: Maybe<Params_BaalGate_V0_2_0>;
   choicesParams_id: Scalars['String']['output'];
-  choices_id: Scalars['String']['output'];
   createdAt: Scalars['Int']['output'];
   db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
   description?: Maybe<Scalars['String']['output']>;
@@ -58,10 +58,10 @@ export type AskHausContest_Bool_Exp = {
   _not?: InputMaybe<AskHausContest_Bool_Exp>;
   _or?: InputMaybe<Array<AskHausContest_Bool_Exp>>;
   answerType?: InputMaybe<String_Comparison_Exp>;
-  choices?: InputMaybe<BasicChoices_Bool_Exp>;
+  basicChoices?: InputMaybe<BasicChoices_Bool_Exp>;
+  basicChoices_id?: InputMaybe<String_Comparison_Exp>;
   choicesParams?: InputMaybe<Params_BaalGate_V0_2_0_Bool_Exp>;
   choicesParams_id?: InputMaybe<String_Comparison_Exp>;
-  choices_id?: InputMaybe<String_Comparison_Exp>;
   createdAt?: InputMaybe<Int_Comparison_Exp>;
   db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
@@ -81,10 +81,10 @@ export type AskHausContest_Bool_Exp = {
 /** Ordering options when selecting data from "AskHausContest". */
 export type AskHausContest_Order_By = {
   answerType?: InputMaybe<Order_By>;
-  choices?: InputMaybe<BasicChoices_Order_By>;
+  basicChoices?: InputMaybe<BasicChoices_Order_By>;
+  basicChoices_id?: InputMaybe<Order_By>;
   choicesParams?: InputMaybe<Params_BaalGate_V0_2_0_Order_By>;
   choicesParams_id?: InputMaybe<Order_By>;
-  choices_id?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   db_write_timestamp?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
@@ -106,9 +106,9 @@ export enum AskHausContest_Select_Column {
   /** column name */
   AnswerType = 'answerType',
   /** column name */
-  ChoicesParamsId = 'choicesParams_id',
+  BasicChoicesId = 'basicChoices_id',
   /** column name */
-  ChoicesId = 'choices_id',
+  ChoicesParamsId = 'choicesParams_id',
   /** column name */
   CreatedAt = 'createdAt',
   /** column name */
@@ -144,8 +144,8 @@ export type AskHausContest_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type AskHausContest_Stream_Cursor_Value_Input = {
   answerType?: InputMaybe<Scalars['String']['input']>;
+  basicChoices_id?: InputMaybe<Scalars['String']['input']>;
   choicesParams_id?: InputMaybe<Scalars['String']['input']>;
-  choices_id?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['Int']['input']>;
   db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
@@ -4022,6 +4022,15 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
 };
 
+export type FullContestFragment = { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', id: string, checkpoint: any, holderType: any } | null, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', id: string, holderThreshold: any, startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null };
+
+export type GetContestQueryVariables = Exact<{
+  contestId: Scalars['String']['input'];
+}>;
+
+
+export type GetContestQuery = { __typename?: 'query_root', AskHausContest_by_pk?: { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', id: string, checkpoint: any, holderType: any } | null, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', id: string, holderThreshold: any, startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null } | null };
+
 export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
 export type ContestCardFragment = { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
@@ -4072,6 +4081,82 @@ export type GetRecentTransactionQueryVariables = Exact<{
 
 export type GetRecentTransactionQuery = { __typename?: 'query_root', TX_by_pk?: { __typename?: 'TX', id: string } | null };
 
+export const BasicChoiceFragmentDoc = gql`
+    fragment BasicChoice on BasicChoice {
+  id
+  choiceId
+  title
+  description
+  color
+  link
+  amountVoted
+}
+    `;
+export const BasicVoteFragmentDoc = gql`
+    fragment BasicVote on BasicVote {
+  id
+  amount
+  choice {
+    id
+    choiceId
+    title
+    color
+  }
+}
+    `;
+export const BatchVoteFragmentDoc = gql`
+    fragment BatchVote on BatchVote {
+  id
+  voter
+  totalVoted
+  timestamp
+  votes {
+    ...BasicVote
+  }
+}
+    ${BasicVoteFragmentDoc}`;
+export const FullContestFragmentDoc = gql`
+    fragment FullContest on AskHausContest {
+  id
+  title
+  answerType
+  description
+  pollLink
+  requestComment
+  postedBy
+  round_id
+  pointsParams {
+    id
+    checkpoint
+    holderType
+  }
+  choicesParams {
+    id
+    holderThreshold
+    startTime
+    endTime
+  }
+  votesParams {
+    id
+    endTime
+    startTime
+    duration
+  }
+  basicChoices {
+    choices {
+      ...BasicChoice
+    }
+  }
+  round {
+    id
+    totalVoted
+    batchVotes {
+      ...BatchVote
+    }
+  }
+}
+    ${BasicChoiceFragmentDoc}
+${BatchVoteFragmentDoc}`;
 export const ContestCardFragmentDoc = gql`
     fragment ContestCard on AskHausContest {
   id
@@ -4120,40 +4205,6 @@ export const PollCardFragmentDoc = gql`
   round_id
 }
     `;
-export const BasicChoiceFragmentDoc = gql`
-    fragment BasicChoice on BasicChoice {
-  id
-  choiceId
-  title
-  description
-  color
-  link
-  amountVoted
-}
-    `;
-export const BasicVoteFragmentDoc = gql`
-    fragment BasicVote on BasicVote {
-  id
-  amount
-  choice {
-    id
-    choiceId
-    title
-    color
-  }
-}
-    `;
-export const BatchVoteFragmentDoc = gql`
-    fragment BatchVote on BatchVote {
-  id
-  voter
-  totalVoted
-  timestamp
-  votes {
-    ...BasicVote
-  }
-}
-    ${BasicVoteFragmentDoc}`;
 export const FullPollFragmentDoc = gql`
     fragment FullPoll on AskHausPoll {
   ...PollCard
@@ -4176,6 +4227,13 @@ export const FullPollFragmentDoc = gql`
     ${PollCardFragmentDoc}
 ${BasicChoiceFragmentDoc}
 ${BatchVoteFragmentDoc}`;
+export const GetContestDocument = gql`
+    query getContest($contestId: String!) {
+  AskHausContest_by_pk(id: $contestId) {
+    ...FullContest
+  }
+}
+    ${FullContestFragmentDoc}`;
 export const FrontPageVotesDocument = gql`
     query frontPageVotes($now: numeric!, $dao: String!) {
   upcomingPolls: AskHausPoll(
@@ -4278,6 +4336,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    getContest(variables: GetContestQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetContestQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetContestQuery>(GetContestDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getContest', 'query', variables);
+    },
     frontPageVotes(variables: FrontPageVotesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FrontPageVotesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FrontPageVotesQuery>(FrontPageVotesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'frontPageVotes', 'query', variables);
     },
