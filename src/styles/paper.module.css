@@ -2,6 +2,9 @@
   background-color: var(--mantine-color-dark-7);
   border: 1.5px solid var(--mantine-color-steel-9);
   padding: 20px 24px;
+  &[data-variant='secondary'] {
+    border: 1.5px dashed var(--mantine-color-steel-9);
+  }
 }
 
 .clickable {

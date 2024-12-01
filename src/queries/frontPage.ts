@@ -35,40 +35,21 @@ export const getFrontPageVotes = async () => {
     const notablePolls = [
       ...(data?.activePolls || []),
       ...(data?.upcomingPolls || []),
-    ];
+    ].map((poll) => ({
+      id: poll.id,
+      to: `/poll/${poll.id}`,
+      title: poll.title,
+      postedBy: poll.postedBy,
+      startTime: poll.votesParams?.startTime,
+      endTime: poll.votesParams?.endTime,
+      duration: poll.votesParams?.duration,
+      description: poll.description || undefined,
+      pollLink: poll.pollLink || undefined,
+      voteType: VoteType.Poll,
+    }));
 
     const notableContests = [
       ...(data?.votingContests?.map((contest) => ({
-        ...contest,
-        voteStage: VoteStage.Voting,
-      })) || []),
-      ...(data?.populatingContests?.map((contest) => ({
-        ...contest,
-        voteStage: VoteStage.Populating,
-      })) || []),
-      ...(data?.upcomingContests?.map((contest) => ({
-        ...contest,
-        voteStage: undefined,
-      })) || []),
-    ];
-
-    const processedNotablePolls = notablePolls.map((poll) => {
-      return {
-        id: poll.id,
-        to: `/poll/${poll.id}`,
-        title: poll.title,
-        postedBy: poll.postedBy,
-        startTime: poll.votesParams?.startTime,
-        endTime: poll.votesParams?.endTime,
-        duration: poll.votesParams?.duration,
-        description: poll.description || undefined,
-        pollLink: poll.pollLink || undefined,
-        voteType: VoteType.Poll,
-      };
-    });
-
-    const processedNotableContests = notableContests.map((contest) => {
-      return {
         id: contest.id,
         to: `/contest/${contest.id}`,
         title: contest.title,
@@ -76,12 +57,38 @@ export const getFrontPageVotes = async () => {
         startTime: contest.votesParams?.startTime,
         endTime: contest.votesParams?.endTime,
         duration: contest.votesParams?.duration,
-        description: contest.description || undefined,
-        pollLink: contest.pollLink || undefined,
+        description: contest.description,
+        pollLink: contest.pollLink,
         voteType: VoteType.Contest,
-        voteStage: contest.voteStage,
-      };
-    });
+        voteStage: VoteStage.Voting,
+      })) || []),
+      ...(data?.populatingContests?.map((contest) => ({
+        id: contest.id,
+        to: `/contest/${contest.id}`,
+        title: contest.title,
+        postedBy: contest.postedBy,
+        startTime: contest.choicesParams?.startTime,
+        endTime: contest.choicesParams?.endTime,
+        duration: contest.votesParams?.duration,
+        description: contest.description,
+        pollLink: contest.pollLink,
+        voteType: VoteType.Contest,
+        voteStage: VoteStage.Populating,
+      })) || []),
+      ...(data?.upcomingContests?.map((contest) => ({
+        id: contest.id,
+        to: `/contest/${contest.id}`,
+        title: contest.title,
+        postedBy: contest.postedBy,
+        startTime: contest.choicesParams?.startTime,
+        endTime: contest.choicesParams?.endTime,
+        duration: contest.votesParams?.duration,
+        description: contest.description,
+        pollLink: contest.pollLink,
+        voteType: VoteType.Contest,
+        voteStage: VoteStage.Populating,
+      })) || []),
+    ] as VoteCardType[];
 
     const pastPolls = data?.pastPolls.map((poll) => {
       return {
@@ -114,9 +121,9 @@ export const getFrontPageVotes = async () => {
     });
 
     return {
-      active: [...processedNotableContests, ...processedNotablePolls]
+      active: [...notableContests, ...notablePolls]
         .sort((a, b) => b.startTime - a.startTime)
-        .slice(0, 5) as VoteCardType[],
+        .slice(0, 5),
       past: [...pastPolls, ...pastContests]
         .sort((a, b) => b.startTime - a.startTime)
         .slice(0, 5) as VoteCardType[],

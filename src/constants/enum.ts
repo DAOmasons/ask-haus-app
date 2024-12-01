@@ -18,8 +18,10 @@ export enum ChoiceInputType {
 
 export enum VoteStage {
   None,
+  Upcoming = 'Upcoming',
   Populating = 'Accepting Choices',
   Voting = 'Voting',
+  Past = 'Past',
 }
 
 export const contentProtocol = {
