@@ -1,3 +1,4 @@
+import { HolderType } from '../constants/enum';
 import { sdk } from '../utils/indexer';
 import { Content } from '@tiptap/core';
 
@@ -20,6 +21,7 @@ export const getContest = async ({ contestId }: { contestId: string }) => {
         startTime: Number(choicesParams?.startTime),
         endTime: Number(choicesParams?.endTime),
         holderThreshold: BigInt(choicesParams?.holderThreshold),
+        holderType: Number(choicesParams?.holderType),
       },
       votesParams: {
         ...votesParams,

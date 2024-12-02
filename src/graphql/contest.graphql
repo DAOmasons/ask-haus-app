@@ -17,6 +17,7 @@ fragment FullContest on AskHausContest {
     holderThreshold
     startTime
     endTime
+    holderType
   }
   votesParams {
     id
