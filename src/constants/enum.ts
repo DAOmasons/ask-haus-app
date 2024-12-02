@@ -19,8 +19,8 @@ export enum ChoiceInputType {
 export enum VoteStage {
   None,
   Upcoming = 'Upcoming',
-  Populating = 'Accepting Choices',
-  Voting = 'Voting',
+  Populating = 'Choice Round',
+  Voting = 'Vote Round',
   Past = 'Past',
 }
 

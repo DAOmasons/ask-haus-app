@@ -3,6 +3,7 @@ import {
   Button,
   Divider,
   Group,
+  Modal,
   Paper,
   SegmentedControl,
   Stack,
@@ -10,7 +11,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { CenterLayout } from '../layout/Layout';
-import { SectionText, SubTitle } from '../components/Typography';
+import { SubTitle } from '../components/Typography';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -21,6 +22,7 @@ import {
   futureRelativeTimeInSeconds,
   nowInSeconds,
   pastRelativeTimeInSeconds,
+  secondsToDate,
 } from '../utils/time';
 import { ChoiceInputType, VoteStage } from '../constants/enum';
 import { AddressAvatar } from '../components/AddressAvatar';
@@ -28,6 +30,8 @@ import { Address, formatEther } from 'viem';
 import { IconSearch } from '@tabler/icons-react';
 import { useBaalPoints } from '../hooks/useBaalPoints';
 import { useAccount } from 'wagmi';
+import { BasicChoiceFragment } from '../generated/graphql';
+import { useDisclosure } from '@mantine/hooks';
 
 export const Contest = () => {
   const { id } = useParams();
@@ -44,16 +48,10 @@ export const Contest = () => {
 
   const { address } = useAccount();
 
-  const {
-    points,
-    pointsDisplay,
-    isLoading: isLoadingPoints,
-  } = useBaalPoints({
+  const { points, isLoading: isLoadingPoints } = useBaalPoints({
     userAddress: address,
     pointsAddress: data?.pointsParams.id,
   });
-
-  console.log('data', data);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -108,6 +106,7 @@ export const Contest = () => {
       timeDisplay: undefined,
       voteStage: undefined,
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, tick]);
 
   return (
@@ -144,6 +143,12 @@ export const Contest = () => {
           description={data?.description}
           voteStage={voteStage}
           answerType={data?.answerType}
+          holderThreshold={data?.choicesParams?.holderThreshold}
+          choices={data?.basicChoices?.choices}
+          choiceStartTime={data?.choicesParams?.startTime}
+          choiceEndTime={data?.choicesParams?.endTime}
+          voteStartTime={data?.votesParams?.startTime}
+          voteEndTime={data?.votesParams?.endTime}
         />
       )}
     </CenterLayout>
@@ -156,14 +161,27 @@ const VotesPanel = ({
   voteStage,
   userPoints,
   answerType,
+  holderThreshold,
+  choices,
+  choiceStartTime,
+  choiceEndTime,
+  voteStartTime,
+  voteEndTime,
 }: {
   userPoints?: bigint;
   voteStage?: VoteStage;
   title?: string;
   description?: Content;
   answerType?: string;
+  holderThreshold?: bigint;
+  choices?: BasicChoiceFragment[];
+  choiceStartTime?: number;
+  choiceEndTime?: number;
+  voteStartTime?: number;
+  voteEndTime?: number;
 }) => {
   const { colors } = useMantineTheme();
+  const [opened, { open, close }] = useDisclosure();
 
   return (
     <Stack w="100%" maw={500} mb="lg" gap="lg">
@@ -172,13 +190,23 @@ const VotesPanel = ({
           <Text c={colors.steel[0]} fw="600" mb="sm">
             Contest is upcoming
           </Text>
-          <Text c={colors.steel[2]}></Text>
+          <Text c={colors.steel[2]} fz="sm">
+            {choiceStartTime &&
+              `This contest will start on ${secondsToDate(choiceStartTime)}`}
+          </Text>
         </Paper>
       )}
       {voteStage === VoteStage.Populating && (
         <Paper>
-          <Text c={colors.steel[0]} fw="600" mb="sm">
+          <Text c={colors.steel[0]} fw="600" mb="xs">
             Choices Round is Open
+          </Text>
+          <Text c={colors.steel[2]} fz="sm">
+            {!userPoints || !holderThreshold
+              ? ''
+              : userPoints < holderThreshold
+                ? `This contest requires ${formatEther(holderThreshold)} points to submit a choice. Your points (${formatEther(userPoints)}) are not enough to vote on this contest`
+                : `You have enough points (${formatEther(userPoints)}) to vote on this contest`}
           </Text>
         </Paper>
       )}
@@ -203,10 +231,16 @@ const VotesPanel = ({
           <Text c={colors.steel[0]} fw="600" mb="sm">
             Contest is Complete
           </Text>
+          <Text c={colors.steel[2]} fz="sm">
+            {voteEndTime &&
+              `This contest ended on ${secondsToDate(voteEndTime)}`}
+          </Text>
         </Paper>
       )}
       <Box>
-        <SectionText>Contest Details</SectionText>
+        <Text c={colors.steel[2]} fz="sm">
+          Contest Instructions
+        </Text>
         <Paper mt="sm">
           <Box mb="md">
             <Text fz="1.5rem" mb="xs" fw={700} c={colors.steel[0]}>
@@ -218,13 +252,93 @@ const VotesPanel = ({
           <Button
             variant="secondary"
             size="xs"
-            mt={'xl'}
+            mt={'lg'}
             leftSection={<IconSearch size={14} />}
+            onClick={open}
           >
             Details
           </Button>
         </Paper>
       </Box>
+      <DetailsModal
+        opened={opened}
+        close={close}
+        voteStage={voteStage}
+        choiceStartTime={choiceStartTime}
+        choiceEndTime={choiceEndTime}
+        voteStartTime={voteStartTime}
+        voteEndTime={voteEndTime}
+      />
     </Stack>
+  );
+};
+
+export const DetailsModal = ({
+  opened,
+  close,
+  choiceStartTime,
+  choiceEndTime,
+  voteStartTime,
+  voteEndTime,
+  voteStage,
+  snapshot,
+  answerType,
+  holderThreshold,
+}: {
+  opened: boolean;
+  close: () => void;
+  choiceStartTime?: number;
+  choiceEndTime?: number;
+  voteStartTime?: number;
+  voteEndTime?: number;
+  snapshot?: string;
+  answerType?: string;
+  holderThreshold?: bigint;
+  voteStage?: VoteStage;
+}) => {
+  const { colors } = useMantineTheme();
+  return (
+    <Modal.Root opened={opened} onClose={close} centered lockScroll={false}>
+      <Modal.Overlay />
+      <Modal.Content miw={300} maw={440} h={425} style={{ overflowY: 'auto' }}>
+        <Group w="100%" justify="space-between">
+          <Modal.Title>Contest Details</Modal.Title>
+          <Modal.CloseButton onClick={close} />
+        </Group>
+        <Stack mt={'sm'}>
+          {voteStage && (
+            <Box>
+              <Text fz="xs" mb="4" c={colors.steel[2]}>
+                Current Stage
+              </Text>
+              <Text fz="sm" c={colors.steel[0]}>
+                {voteStage}
+              </Text>
+            </Box>
+          )}
+          {choiceStartTime && (
+            <Box>
+              <Text fz="xs" mb="4" c={colors.steel[2]}>
+                Choice Round Starts
+              </Text>
+              <Text fz="sm" c={colors.steel[0]}>
+                {secondsToDate(choiceStartTime)}
+              </Text>
+            </Box>
+          )}
+          {}
+          {snapshot && (
+            <Box>
+              <Text fz="xs" mb="4" c={colors.steel[2]}>
+                Contest Snapshot
+              </Text>
+              <Text fz="sm" c={colors.steel[0]}>
+                {snapshot}
+              </Text>
+            </Box>
+          )}
+        </Stack>
+      </Modal.Content>
+    </Modal.Root>
   );
 };
