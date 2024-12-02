@@ -24,7 +24,7 @@ fragment ContestCard on AskHausContest {
   title
   answerType
   description
-  pollLink
+  link
   requestComment
   postedBy
   round_id

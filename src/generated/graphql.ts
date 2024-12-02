@@ -37,10 +37,10 @@ export type AskHausContest = {
   db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
+  link?: Maybe<Scalars['String']['output']>;
   /** An object relationship */
   pointsParams?: Maybe<Params_BaalPoints_V0_2_0>;
   pointsParams_id: Scalars['String']['output'];
-  pollLink?: Maybe<Scalars['String']['output']>;
   postedBy: Scalars['String']['output'];
   requestComment?: Maybe<Scalars['Boolean']['output']>;
   /** An object relationship */
@@ -66,9 +66,9 @@ export type AskHausContest_Bool_Exp = {
   db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
+  link?: InputMaybe<String_Comparison_Exp>;
   pointsParams?: InputMaybe<Params_BaalPoints_V0_2_0_Bool_Exp>;
   pointsParams_id?: InputMaybe<String_Comparison_Exp>;
-  pollLink?: InputMaybe<String_Comparison_Exp>;
   postedBy?: InputMaybe<String_Comparison_Exp>;
   requestComment?: InputMaybe<Boolean_Comparison_Exp>;
   round?: InputMaybe<Round_Bool_Exp>;
@@ -89,9 +89,9 @@ export type AskHausContest_Order_By = {
   db_write_timestamp?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  link?: InputMaybe<Order_By>;
   pointsParams?: InputMaybe<Params_BaalPoints_V0_2_0_Order_By>;
   pointsParams_id?: InputMaybe<Order_By>;
-  pollLink?: InputMaybe<Order_By>;
   postedBy?: InputMaybe<Order_By>;
   requestComment?: InputMaybe<Order_By>;
   round?: InputMaybe<Round_Order_By>;
@@ -118,9 +118,9 @@ export enum AskHausContest_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  PointsParamsId = 'pointsParams_id',
+  Link = 'link',
   /** column name */
-  PollLink = 'pollLink',
+  PointsParamsId = 'pointsParams_id',
   /** column name */
   PostedBy = 'postedBy',
   /** column name */
@@ -150,8 +150,8 @@ export type AskHausContest_Stream_Cursor_Value_Input = {
   db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  link?: InputMaybe<Scalars['String']['input']>;
   pointsParams_id?: InputMaybe<Scalars['String']['input']>;
-  pollLink?: InputMaybe<Scalars['String']['input']>;
   postedBy?: InputMaybe<Scalars['String']['input']>;
   requestComment?: InputMaybe<Scalars['Boolean']['input']>;
   round_id?: InputMaybe<Scalars['String']['input']>;
@@ -4022,18 +4022,18 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
 };
 
-export type FullContestFragment = { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', id: string, checkpoint: any, holderType: any } | null, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', id: string, holderThreshold: any, startTime: any, endTime: any, holderType: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null };
+export type FullContestFragment = { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', id: string, checkpoint: any, holderType: any } | null, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', id: string, holderThreshold: any, startTime: any, endTime: any, holderType: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null };
 
 export type GetContestQueryVariables = Exact<{
   contestId: Scalars['String']['input'];
 }>;
 
 
-export type GetContestQuery = { __typename?: 'query_root', AskHausContest_by_pk?: { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', id: string, checkpoint: any, holderType: any } | null, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', id: string, holderThreshold: any, startTime: any, endTime: any, holderType: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null } | null };
+export type GetContestQuery = { __typename?: 'query_root', AskHausContest_by_pk?: { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', id: string, checkpoint: any, holderType: any } | null, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', id: string, holderThreshold: any, startTime: any, endTime: any, holderType: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null } | null };
 
 export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
-export type ContestCardFragment = { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+export type ContestCardFragment = { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
 export type BasicChoiceFragment = { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any };
 
@@ -4047,7 +4047,7 @@ export type FrontPageVotesQueryVariables = Exact<{
 }>;
 
 
-export type FrontPageVotesQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, populatingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, votingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, upcomingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+export type FrontPageVotesQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, populatingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, votingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, upcomingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
 
 export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
@@ -4121,7 +4121,7 @@ export const FullContestFragmentDoc = gql`
   title
   answerType
   description
-  pollLink
+  link
   requestComment
   postedBy
   round_id
@@ -4164,7 +4164,7 @@ export const ContestCardFragmentDoc = gql`
   title
   answerType
   description
-  pollLink
+  link
   requestComment
   postedBy
   round_id
