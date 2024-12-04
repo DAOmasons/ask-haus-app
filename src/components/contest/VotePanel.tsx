@@ -1,53 +1,26 @@
 import {
-  ActionIcon,
   Box,
   Button,
-  ColorPicker,
-  ColorSwatch,
   Divider,
   Group,
-  HoverCard,
-  InputLabel,
   Paper,
-  Spoiler,
   Stack,
   Text,
-  TextInput,
   useMantineTheme,
 } from '@mantine/core';
 import { ChoiceInputType, VoteStage } from '../../constants/enum';
 import { BasicChoiceFragment } from '../../generated/graphql';
 import { secondsToDate } from '../../utils/time';
-import {
-  Address,
-  encodeAbiParameters,
-  formatEther,
-  parseAbiParameters,
-} from 'viem';
+import { formatEther } from 'viem';
 import { useDisclosure } from '@mantine/hooks';
 import { useNavigate } from 'react-router-dom';
 import { SectionText } from '../Typography';
 import { TipTapDisplay } from '../TipTapDisplay';
-import {
-  IconChevronDown,
-  IconChevronUp,
-  IconExternalLink,
-  IconLink,
-  IconSearch,
-} from '@tabler/icons-react';
-import { TxButton } from '../TxButton';
+import { IconExternalLink, IconSearch } from '@tabler/icons-react';
 import { DetailsModal } from './DetailsModal';
 import { Content } from '@tiptap/react';
-import { useForm } from '@mantine/form';
-import { emptyContent } from '../../utils/tiptapUtils';
-import { TextBoss } from '../TextBoss';
-import { useTx } from '../../hooks/useTx';
-import BaalGateAbi from '../../abi/BaalGate.json';
-import { generateRandomBytes32 } from '../../utils/helpers';
-import { detailedChoiceSchema } from '../../schema/form/create';
-import { notifications } from '@mantine/notifications';
-import { useState } from 'react';
-import { AddressAvatar } from '../AddressAvatar';
+import { ChoiceCreate } from './ChoiceCreate';
+import { ChoiceList } from './ChoiceList';
 
 export const VotesPanel = ({
   title,
@@ -171,97 +144,18 @@ export const VotesPanel = ({
                 variant="secondary"
                 size="xs"
                 leftSection={<IconExternalLink size={14} />}
-                onClick={() => {
-                  navigate(contestLink);
-                }}
-              />
+                component="a"
+                href={contestLink}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Contest Link
+              </Button>
             )}
           </Group>
         </Paper>
       </Box>
-
-      <Box>
-        <SectionText>Choices</SectionText>
-        {choices && choices?.length > 0 ? (
-          choices.map((choice, index) => (
-            <Box mb="lg">
-              <Group justify="space-between">
-                <Group gap={6}>
-                  {choice.color && (
-                    <ColorSwatch color={choice.color} size={16} />
-                  )}
-                  <Text c={colors.steel[4]}>#{index + 1}</Text>
-                </Group>
-                {choice.link && (
-                  <ActionIcon
-                    size={32}
-                    radius={999}
-                    component="a"
-                    href={choice.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    variant="ghost-icon"
-                  >
-                    <IconLink size={16} color={colors.steel[4]} />
-                  </ActionIcon>
-                )}
-              </Group>
-              <Paper key={choice.id}>
-                <Text c={colors.steel[0]} fw={600} fz="h2" mb="xs">
-                  {choice.title}
-                </Text>
-                <Divider mb="xs" />
-                <Box mb={'sm'}>
-                  <Spoiler
-                    // mah={250}
-                    showLabel={
-                      <Group gap={4} mt={8}>
-                        <IconChevronDown size={16} color={colors.steel[0]} />
-                        <Text fz="xs" c={colors.steel[0]} td="underline">
-                          Show
-                        </Text>
-                      </Group>
-                    }
-                    hideLabel={
-                      <Group gap={4} mt={8}>
-                        <IconChevronUp size={16} color={colors.steel[0]} />
-                        <Text fz="xs" c={colors.steel[0]} td="underline">
-                          Hide
-                        </Text>
-                      </Group>
-                    }
-                  >
-                    {choice.description && (
-                      <TipTapDisplay content={JSON.parse(choice.description)} />
-                    )}
-                  </Spoiler>
-                </Box>
-                <Group pt="lg" gap={6}>
-                  <Text c={colors.steel[4]} fz="xs">
-                    Posted by
-                  </Text>
-                  <AddressAvatar
-                    address={choice.postedBy}
-                    size={16}
-                    gap="6"
-                    fz="xs"
-                  />
-                  <Text c={colors.steel[4]} fz="xs">
-                    · 11/11/2022
-                    {/* {secondsToDate(choice.createdAt)} */}
-                  </Text>
-                </Group>
-              </Paper>
-            </Box>
-          ))
-        ) : (
-          <Paper variant="secondary">
-            <Text c={colors.steel[2]} fz="sm">
-              Choices have not been submitted yet
-            </Text>
-          </Paper>
-        )}
-      </Box>
+      <ChoiceList choices={choices} />
       {voteStage === VoteStage.Populating && canSubmitChoice && (
         <ChoiceCreate choiceAddress={choiceAddress} refetch={refetch} />
       )}
@@ -280,129 +174,5 @@ export const VotesPanel = ({
         choiceToken={choiceToken}
       />
     </Stack>
-  );
-};
-
-const ChoiceCreate = ({
-  choiceAddress,
-  refetch,
-}: {
-  choiceAddress?: string;
-  refetch?: () => void;
-}) => {
-  const [displayForm, setDisplayForm] = useState(false);
-  const { tx } = useTx();
-
-  const form = useForm({
-    initialValues: {
-      title: '',
-      description: emptyContent,
-      link: '',
-      color: '',
-    },
-  });
-
-  const handleChoiceCreate = async () => {
-    if (!choiceAddress) {
-      notifications.show({
-        color: 'red',
-        title: 'Error',
-        message: 'Choice address not found',
-      });
-      return;
-    }
-    const choiceId = generateRandomBytes32();
-
-    const validated = detailedChoiceSchema.safeParse({
-      id: choiceId,
-      ...form.values,
-    });
-
-    if (!validated.success) {
-      notifications.show({
-        color: 'red',
-        title: 'Validation Error',
-        message: 'Please check your choice data',
-      });
-      return;
-    }
-
-    const data = encodeAbiParameters(
-      parseAbiParameters('bytes, (uint256,string)'),
-      ['0x', [6969420n, JSON.stringify(validated.data)]]
-    );
-
-    tx({
-      writeContractParams: {
-        abi: BaalGateAbi,
-        address: choiceAddress as Address,
-        functionName: 'registerChoice',
-        args: [choiceId, data],
-      },
-      writeContractOptions: {
-        onPollSuccess() {
-          setDisplayForm(false);
-          refetch?.();
-        },
-      },
-    });
-  };
-
-  return (
-    <>
-      {displayForm && (
-        <>
-          <SectionText>Create Choice</SectionText>
-          <Paper>
-            <Stack>
-              <Group align="center">
-                <InputLabel h={18} required>
-                  Choice Color
-                </InputLabel>
-                <HoverCard openDelay={200} closeDelay={300}>
-                  <HoverCard.Target>
-                    <ColorSwatch color={form.values.color} />
-                  </HoverCard.Target>
-                  <HoverCard.Dropdown>
-                    <ColorPicker
-                      value={form.values.color}
-                      onChange={(color) => form.setFieldValue('color', color)}
-                    />
-                  </HoverCard.Dropdown>
-                </HoverCard>
-              </Group>
-              <TextInput
-                label="Choice Title"
-                placeholder="Name for your choice"
-                description="There must be at least two choices"
-                required
-                {...form.getInputProps('title')}
-              />
-              <TextBoss
-                label="Choice Description"
-                placeholder="Write your description here"
-                required
-                {...form.getInputProps('description')}
-              />
-              <TextInput
-                label="Choice Link"
-                placeholder="https://example.com"
-                {...form.getInputProps('link')}
-              />
-            </Stack>
-          </Paper>
-        </>
-      )}
-
-      <Group justify="center">
-        <TxButton
-          onClick={
-            !displayForm ? () => setDisplayForm(true) : handleChoiceCreate
-          }
-        >
-          Create Choice
-        </TxButton>
-      </Group>
-    </>
   );
 };

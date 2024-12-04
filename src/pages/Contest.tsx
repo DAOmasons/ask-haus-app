@@ -51,6 +51,7 @@ export const Contest = () => {
       clearInterval(timer);
     };
   }, []);
+
   const { timeDisplay, voteStage } = useMemo(() => {
     if (!data) {
       return {
@@ -98,6 +99,9 @@ export const Contest = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, tick]);
 
+  const canViewResults =
+    voteStage === VoteStage.Voting || voteStage === VoteStage.Past;
+
   return (
     <CenterLayout>
       <Box w="100%" maw={500}>
@@ -109,6 +113,7 @@ export const Contest = () => {
             data={['Vote', 'Results']}
             size="xs"
             onChange={setView}
+            disabled={!canViewResults}
           />
         </Group>
         <Group justify="space-between" mb="lg">

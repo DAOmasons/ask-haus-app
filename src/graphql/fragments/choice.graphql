@@ -6,4 +6,6 @@ fragment BasicChoice on BasicChoice {
   color
   link
   amountVoted
+  postedBy
+  postedAt
 }

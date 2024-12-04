@@ -142,7 +142,7 @@ export const CreateContest = () => {
       },
       writeContractOptions: {
         onPollSuccess() {
-          navigate(`/create-poll/2`);
+          navigate(`/create-contest/2`);
           setContestTag(filterTag);
         },
       },
