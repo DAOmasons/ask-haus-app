@@ -4081,6 +4081,14 @@ export type PastRoundsQueryVariables = Exact<{
 
 export type PastRoundsQuery = { __typename?: 'query_root', pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
 
+export type LiveRoundsQueryVariables = Exact<{
+  now: Scalars['numeric']['input'];
+  dao: Scalars['String']['input'];
+}>;
+
+
+export type LiveRoundsQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, populatingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, votingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, upcomingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+
 export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any, postedBy: string, postedAt: number }> } | null } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
 export type GetPollQueryVariables = Exact<{
@@ -4089,14 +4097,6 @@ export type GetPollQueryVariables = Exact<{
 
 
 export type GetPollQuery = { __typename?: 'query_root', AskHausPoll_by_pk?: { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any, postedBy: string, postedAt: number }> } | null } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null } | null };
-
-export type LivePollsQueryVariables = Exact<{
-  now: Scalars['numeric']['input'];
-  dao: Scalars['String']['input'];
-}>;
-
-
-export type LivePollsQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
 
 export type GetRecentTransactionQueryVariables = Exact<{
   txHash: Scalars['String']['input'];
@@ -4332,15 +4332,8 @@ export const PastRoundsDocument = gql`
 }
     ${PollCardFragmentDoc}
 ${ContestCardFragmentDoc}`;
-export const GetPollDocument = gql`
-    query getPoll($pollId: String!) {
-  AskHausPoll_by_pk(id: $pollId) {
-    ...FullPoll
-  }
-}
-    ${FullPollFragmentDoc}`;
-export const LivePollsDocument = gql`
-    query livePolls($now: numeric!, $dao: String!) {
+export const LiveRoundsDocument = gql`
+    query liveRounds($now: numeric!, $dao: String!) {
   upcomingPolls: AskHausPoll(
     where: {votesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
     order_by: {votesParams: {startTime: desc}}
@@ -4353,8 +4346,34 @@ export const LivePollsDocument = gql`
   ) {
     ...PollCard
   }
+  populatingContests: AskHausContest(
+    where: {choicesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {choicesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
+  votingContests: AskHausContest(
+    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
+  upcomingContests: AskHausContest(
+    where: {choicesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {choicesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
 }
-    ${PollCardFragmentDoc}`;
+    ${PollCardFragmentDoc}
+${ContestCardFragmentDoc}`;
+export const GetPollDocument = gql`
+    query getPoll($pollId: String!) {
+  AskHausPoll_by_pk(id: $pollId) {
+    ...FullPoll
+  }
+}
+    ${FullPollFragmentDoc}`;
 export const GetRecentTransactionDocument = gql`
     query getRecentTransaction($txHash: String!) {
   TX_by_pk(id: $txHash) {
@@ -4379,11 +4398,11 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     pastRounds(variables: PastRoundsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<PastRoundsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<PastRoundsQuery>(PastRoundsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'pastRounds', 'query', variables);
     },
+    liveRounds(variables: LiveRoundsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LiveRoundsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<LiveRoundsQuery>(LiveRoundsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'liveRounds', 'query', variables);
+    },
     getPoll(variables: GetPollQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetPollQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetPollQuery>(GetPollDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPoll', 'query', variables);
-    },
-    livePolls(variables: LivePollsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LivePollsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<LivePollsQuery>(LivePollsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'livePolls', 'query', variables);
     },
     getRecentTransaction(variables: GetRecentTransactionQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetRecentTransactionQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetRecentTransactionQuery>(GetRecentTransactionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getRecentTransaction', 'query', variables);
