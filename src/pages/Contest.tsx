@@ -124,7 +124,7 @@ export const Contest = () => {
             value={view}
           />
         </Group>
-        <Group justify="space-between" mb="lg">
+        <Group justify="space-between" mb="sm">
           <Text c={colors.steel[2]} fz="sm">
             {timeDisplay}
           </Text>

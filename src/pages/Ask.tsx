@@ -54,29 +54,32 @@ export const Ask = () => {
               </Text>
             </Group>
           </Paper>
-          <Tooltip label="Under Construction">
-            <Paper>
-              <Group>
-                <Text c={colors.steel[4]} fz="sm" style={{ flex: 1 }}>
-                  The DAO <Bold>members submit their own options</Bold>. Then
-                  the DAO votes to decide on the best option. Contests use
-                  collective decision making to arrive at the best decision.
+
+          <Paper
+            classNames={{ root: paperClasses.clickable }}
+            onClick={() => navigate('/create-contest')}
+          >
+            <Group>
+              <Text c={colors.steel[2]} fz="sm" style={{ flex: 1 }}>
+                The DAO <Bold>members submit their own options</Bold>. Then the
+                DAO votes to decide on the best option. Contests use collective
+                decision making to arrive at the best decision.
+              </Text>
+              <Flex
+                align="center"
+                direction="column"
+                justify="center"
+                h={125}
+                w={125}
+              >
+                <IconTrophy size={48} color={colors.steel[2]} />
+                <Text c={colors.steel[2]} mt="xs" fz="sm">
+                  Contest
                 </Text>
-                <Flex
-                  align="center"
-                  direction="column"
-                  justify="center"
-                  h={125}
-                  w={125}
-                >
-                  <IconTrophy size={48} color={colors.steel[4]} />
-                  <Text c={colors.steel[4]} mt="xs" fz="sm">
-                    Contest
-                  </Text>
-                </Flex>
-              </Group>
-            </Paper>
-          </Tooltip>
+              </Flex>
+            </Group>
+          </Paper>
+
           <Tooltip label="Under Construction">
             <Paper>
               <Group>

@@ -72,8 +72,40 @@ export const VotesPanel = ({
 
   return (
     <Stack w="100%" maw={500} mb="lg" gap="lg">
+      <Paper>
+        <Box mb="md">
+          <Text fz="1.5rem" mb="xs" fw={700} c={colors.steel[0]}>
+            {title}
+          </Text>
+          {description && <Divider mb="lg" />}
+        </Box>
+        {description && <TipTapDisplay content={description} />}
+        <Group mt={'lg'}>
+          <Button
+            variant="secondary"
+            size="xs"
+            leftSection={<IconSearch size={14} />}
+            onClick={open}
+          >
+            Details
+          </Button>
+          {contestLink && (
+            <Button
+              variant="secondary"
+              size="xs"
+              leftSection={<IconExternalLink size={14} />}
+              component="a"
+              href={contestLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Contest Link
+            </Button>
+          )}
+        </Group>
+      </Paper>
       {voteStage === VoteStage.Upcoming && (
-        <Paper>
+        <Paper variant="secondary">
           <Text c={colors.steel[0]} fw="600" mb="sm">
             Contest is upcoming
           </Text>
@@ -83,8 +115,9 @@ export const VotesPanel = ({
           </Text>
         </Paper>
       )}
+
       {voteStage === VoteStage.Populating && (
-        <Paper>
+        <Paper variant="secondary">
           <Text c={colors.steel[0]} fw="600" mb="xs">
             Choices Round is Open
           </Text>
@@ -98,7 +131,7 @@ export const VotesPanel = ({
         </Paper>
       )}
       {voteStage === VoteStage.Voting && (
-        <Paper>
+        <Paper variant="secondary">
           <Text c={colors.steel[0]} fw="600" mb="xs">
             Voting Round is Open
           </Text>
@@ -114,7 +147,7 @@ export const VotesPanel = ({
         </Paper>
       )}
       {voteStage === VoteStage.Past && (
-        <Paper>
+        <Paper variant="secondary">
           <Text c={colors.steel[0]} fw="600" mb="sm">
             Contest is Complete
           </Text>
@@ -124,41 +157,7 @@ export const VotesPanel = ({
           </Text>
         </Paper>
       )}
-      <Box>
-        <SectionText>Contest Instructions</SectionText>
-        <Paper mt="sm">
-          <Box mb="md">
-            <Text fz="1.5rem" mb="xs" fw={700} c={colors.steel[0]}>
-              {title}
-            </Text>
-            {description && <Divider mb="lg" />}
-          </Box>
-          {description && <TipTapDisplay content={description} />}
-          <Group mt={'lg'}>
-            <Button
-              variant="secondary"
-              size="xs"
-              leftSection={<IconSearch size={14} />}
-              onClick={open}
-            >
-              Details
-            </Button>
-            {contestLink && (
-              <Button
-                variant="secondary"
-                size="xs"
-                leftSection={<IconExternalLink size={14} />}
-                component="a"
-                href={contestLink}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Contest Link
-              </Button>
-            )}
-          </Group>
-        </Paper>
-      </Box>
+
       <ChoiceList choices={choices} />
       {voteStage === VoteStage.Past && (
         <Display
