@@ -12,7 +12,7 @@ import {
   TextInput,
   useMantineTheme,
 } from '@mantine/core';
-import { SubTitle } from '../components/Typography';
+import { Bold, SubTitle } from '../components/Typography';
 import {
   Link,
   Navigate,
@@ -236,7 +236,7 @@ const Form2 = ({
         </Text>
         <Stack fz={'sm'}>
           <Select
-            data={[...Object.keys(Times), 'Custom']}
+            data={Object.keys(Times)}
             label={
               <InputLabel fz="sm" c={theme.colors.steel[2]}>
                 Submission Time
@@ -278,11 +278,18 @@ const Form2 = ({
           />
           <Box className={globalClasses.subBorder} p="md">
             <Text fz="xs" mb="sm">
-              DAO members who have 500 shares or more are allowed to submit
-              choices for this contest.
+              DAO members require at least{' '}
+              <Bold>{form.values.choiceTokenAmount}</Bold>{' '}
+              <Bold>
+                {form.values.choiceTokenType === 'Both'
+                  ? 'tokens (either)'
+                  : form.values.choiceTokenType}
+              </Bold>{' '}
+              to create choices for this contest
             </Text>
             <Text fz="xs">
-              Members can submit choices from Oct 12th to Dec 31st.
+              Choice submission round will last for{' '}
+              <Bold>{form.values.choiceTime}</Bold>
             </Text>
           </Box>
         </Stack>
@@ -293,7 +300,7 @@ const Form2 = ({
         </Text>
         <Stack fz={'sm'}>
           <Select
-            data={[...Object.keys(Times), 'Custom']}
+            data={Object.keys(Times)}
             label={
               <InputLabel fz="sm" c={theme.colors.steel[2]}>
                 Voting Time
@@ -342,12 +349,18 @@ const Form2 = ({
           />
           <Box className={globalClasses.subBorder} p="md">
             <Text fz="xs" mb="sm">
-              Voters can use both loot and shares tokens to vote from Feb 27th
-              to Feb 29th.
+              Voters can use <Bold>{form.values.voteTokenType} tokens</Bold> to
+              vote
+            </Text>
+            <Text fz="xs" mb="sm">
+              {form.values.answerType === 'Single Choice'
+                ? 'Voters allocate 100% of their token on one choice'
+                : form.values.answerType === 'Allocation (%)'
+                  ? 'Voters can choose how much to allocate to each choice'
+                  : 'Choose how voters respond to the contest'}
             </Text>
             <Text fz="xs">
-              Voters will be able to distribute a % voting power across many
-              options.
+              Voting round will last for <Bold>{form.values.votingTime}</Bold>
             </Text>
           </Box>
         </Stack>
