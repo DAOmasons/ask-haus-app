@@ -46,7 +46,7 @@ export const Home = () => {
       <Flex align="start" justify="space-between" gap="md">
         {data?.active && data?.active.length > 0 && (
           <Box w="50%">
-            <SectionText mb="md">Live Votes</SectionText>
+            <SectionText mb="md">Live Rounds</SectionText>
             <Stack gap="md">
               {data.active.map((vote) => (
                 <VoteCard key={vote.id} {...vote} />
@@ -66,7 +66,7 @@ export const Home = () => {
           </Box>
         )}
         <Box w="50%">
-          <SectionText mb="md">Past Votes</SectionText>
+          <SectionText mb="md">Past Rounds</SectionText>
           <Stack gap="md" mb="xl">
             {data?.past &&
               data.past.length > 0 &&

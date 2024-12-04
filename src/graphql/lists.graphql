@@ -1,0 +1,20 @@
+query pastRounds($now: numeric!, $dao: String!) {
+  pastPolls: AskHausPoll(
+    where: {
+      votesParams: { endTime: { _lt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...PollCard
+  }
+  pastContests: AskHausContest(
+    where: {
+      votesParams: { endTime: { _lt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    order_by: { choicesParams: { startTime: desc } }
+  ) {
+    ...ContestCard
+  }
+}

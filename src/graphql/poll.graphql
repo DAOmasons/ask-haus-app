@@ -43,15 +43,3 @@ query livePolls($now: numeric!, $dao: String!) {
     ...PollCard
   }
 }
-
-query pollHistory($now: numeric!, $dao: String!) {
-  pastPolls: AskHausPoll(
-    where: {
-      votesParams: { endTime: { _lt: $now } }
-      pointsParams: { dao: { _eq: $dao } }
-    }
-    order_by: { votesParams: { startTime: desc } }
-  ) {
-    ...PollCard
-  }
-}
