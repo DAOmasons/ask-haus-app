@@ -21,6 +21,8 @@ import { DetailsModal } from './DetailsModal';
 import { Content } from '@tiptap/react';
 import { ChoiceCreate } from './ChoiceCreate';
 import { ChoiceList } from './ChoiceList';
+import { VoteSlider } from './VoteSlider';
+import { Display } from '../Display';
 
 export const VotesPanel = ({
   title,
@@ -40,6 +42,8 @@ export const VotesPanel = ({
   voteToken,
   choiceToken,
   refetch,
+  hasVoted,
+  roundAddress,
 }: {
   userPoints?: bigint;
   voteStage?: VoteStage;
@@ -47,6 +51,7 @@ export const VotesPanel = ({
   description?: Content;
   answerType?: string;
   choiceAddress?: string;
+  roundAddress?: string;
   holderThreshold?: bigint;
   choices?: BasicChoiceFragment[];
   choiceStartTime?: number;
@@ -58,6 +63,7 @@ export const VotesPanel = ({
   choiceToken?: number;
   contestLink?: string;
   refetch?: () => void;
+  hasVoted?: boolean;
 }) => {
   const { colors } = useMantineTheme();
   const [opened, { open, close }] = useDisclosure();
@@ -156,6 +162,30 @@ export const VotesPanel = ({
         </Paper>
       </Box>
       <ChoiceList choices={choices} />
+      {voteStage === VoteStage.Past && (
+        <Display
+          title="Voting has ended"
+          description="Please check the results"
+        />
+      )}
+      {(voteStage === VoteStage.Past || voteStage === VoteStage.Voting) &&
+        hasVoted && (
+          <Display
+            title="You have voted"
+            description="Please check the results"
+          />
+        )}
+      {!hasVoted && voteStage === VoteStage.Voting && answerType && (
+        <VoteSlider
+          choices={choices}
+          answerType={answerType}
+          isActive
+          refetch={refetch}
+          userPoints={userPoints}
+          roundAddress={roundAddress}
+          userPointsDisplay={userPoints ? formatEther(userPoints) : undefined}
+        />
+      )}
       {voteStage === VoteStage.Populating && canSubmitChoice && (
         <ChoiceCreate choiceAddress={choiceAddress} refetch={refetch} />
       )}

@@ -25,12 +25,12 @@ export const ChoiceList = ({
   const { colors } = useMantineTheme();
   return (
     <Box>
-      <SectionText>Choices</SectionText>
+      <SectionText mb="xs">Choices</SectionText>
       {choices && choices?.length > 0 ? (
         choices.map((choice, index) => (
-          <Box mb="lg">
+          <Box mb="lg" key={choice.id}>
             <Group justify="space-between">
-              <Group gap={6}>
+              <Group gap={6} mb="6">
                 {choice.color && <ColorSwatch color={choice.color} size={16} />}
                 <Text c={colors.steel[4]}>#{index + 1}</Text>
               </Group>

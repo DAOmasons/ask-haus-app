@@ -42,6 +42,10 @@ export const Contest = () => {
     pointsAddress: data?.pointsParams.id,
   });
 
+  const hasVoted = data?.round?.batchVotes?.some(
+    (batch) => batch.voter === address
+  );
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTick(new Date());
@@ -149,6 +153,8 @@ export const Contest = () => {
           choiceToken={data?.choicesParams?.holderType}
           contestLink={data?.link || undefined}
           choiceAddress={data?.choicesParams?.id}
+          roundAddress={data?.round_id}
+          hasVoted={hasVoted}
         />
       )}
     </CenterLayout>

@@ -237,7 +237,7 @@ export const Poll = () => {
         writeContractParams: {
           abi: ContestAbi,
           functionName: 'batchVote',
-          args: [choiceIds, amounts, encodedEmptyMetadata, sum, [0n, '']],
+          args: [choiceIds, amounts, encodedEmptyMetadata, sum, [9999999n, '']],
           address: data?.round_id as Address,
         },
         writeContractOptions: {

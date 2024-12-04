@@ -84,12 +84,12 @@ export const CreateContest = () => {
     const choiceStartTime = 0;
 
     const choiceDuration =
-      Times[step2Form.values.votingTime as unknown as keyof typeof Times];
+      Times[step2Form.values.choiceTime as unknown as keyof typeof Times];
 
     const voteStartTime = nowInSeconds() + choiceDuration;
 
     const voteDuration =
-      Times[step2Form.values.choiceTime as unknown as keyof typeof Times];
+      Times[step2Form.values.votingTime as unknown as keyof typeof Times];
 
     const { args, filterTag } = await createContestArgs({
       metadata: {
