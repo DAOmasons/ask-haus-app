@@ -22,6 +22,7 @@ import { Address } from 'viem';
 import { useBaalPoints } from '../hooks/useBaalPoints';
 import { useAccount } from 'wagmi';
 import { VotesPanel } from '../components/contest/VotePanel';
+import { ResultsPanel } from '../components/poll/ResultsPanel';
 
 export const Contest = () => {
   const { id } = useParams();
@@ -45,6 +46,9 @@ export const Contest = () => {
   const hasVoted = data?.round?.batchVotes?.some(
     (batch) => batch.voter === address
   );
+
+  console.log('hasVoted', hasVoted);
+  console.log('data', data);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -155,6 +159,20 @@ export const Contest = () => {
           choiceAddress={data?.choicesParams?.id}
           roundAddress={data?.round_id}
           hasVoted={hasVoted}
+        />
+      )}
+      {data && view === 'Results' && (
+        <ResultsPanel
+          isActive={voteStage === VoteStage.Voting}
+          isComplete={voteStage === VoteStage.Past}
+          isUpcoming={
+            voteStage === VoteStage.Upcoming ||
+            voteStage === VoteStage.Populating
+          }
+          batchVotes={data?.round?.batchVotes || []}
+          choices={data?.basicChoices?.choices || []}
+          hasVoted={hasVoted}
+          totalVoted={data?.round?.totalVoted}
         />
       )}
     </CenterLayout>

@@ -127,7 +127,7 @@ export const ResultsPanel = ({
                     <ColorSwatch color={choice.color as string} size={16} />
                     <Text fw={500}>{choice.title}</Text>
                   </Group>
-                  {choice.description && (
+                  {/* {choice.description && (
                     <Box mb={8}>
                       <Text fz="xs" c={theme.colors.steel[4]}>
                         Description
@@ -152,7 +152,7 @@ export const ResultsPanel = ({
                         {choice.link}
                       </Text>
                     </Box>
-                  )}
+                  )} */}
                 </Box>
               );
             })}
