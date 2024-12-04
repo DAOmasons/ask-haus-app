@@ -14,6 +14,7 @@ import {
 } from '@mantine/core';
 import { SubTitle } from '../components/Typography';
 import {
+  Link,
   Navigate,
   Route,
   Routes,
@@ -25,7 +26,7 @@ import { useState } from 'react';
 import { TextBoss } from '../components/TextBoss';
 import { nowInSeconds, Times } from '../utils/time';
 import { TxButton } from '../components/TxButton';
-import { IconArrowLeft } from '@tabler/icons-react';
+import { IconArrowLeft, IconArrowRight, IconCopy } from '@tabler/icons-react';
 import { ChoiceInputType, HolderType } from '../constants/enum';
 import globalClasses from '../styles/global.module.css';
 import { useForm, zodResolver } from '@mantine/form';
@@ -39,6 +40,8 @@ import { emptyContent } from '../utils/tiptapUtils';
 import factory from '../abi/FastFactory.json';
 import { ADDR } from '../constants/address';
 import { createContestArgs } from '../utils/factory';
+import { useClipboard } from '@mantine/hooks';
+import { notifications } from '@mantine/notifications';
 
 export const CreateContest = () => {
   const { tx } = useTx();
@@ -142,8 +145,8 @@ export const CreateContest = () => {
       },
       writeContractOptions: {
         onPollSuccess() {
-          navigate(`/create-contest/2`);
           setContestTag(filterTag);
+          navigate(`/create-contest/2`);
         },
       },
     });
@@ -171,7 +174,7 @@ export const CreateContest = () => {
           path="1"
           element={<Form2 handleSubmit={handleSubmit} form={step2Form} />}
         />
-        <Route path="2" element={<FormComplete />} />
+        <Route path="2" element={<FormComplete contestId={contestTag} />} />
         <Route path="*" element={<Navigate to="0" replace />} />
       </Routes>
     </CenterLayout>
@@ -333,7 +336,7 @@ const Form2 = ({
                 ? 'Voters allocate 100% of their token on one choice'
                 : form.values.answerType === 'Allocation (%)'
                   ? 'Voters can choose how much to allocate to each choice'
-                  : 'Choose how voters respond to the poll'
+                  : 'Choose how voters respond to the contest'
             }
             {...form.getInputProps('answerType')}
           />
@@ -356,6 +359,50 @@ const Form2 = ({
   );
 };
 
-const FormComplete = () => {
-  return <>Complete </>;
+const FormComplete = ({ contestId }: { contestId?: string }) => {
+  const theme = useMantineTheme();
+  const { copy } = useClipboard();
+
+  return (
+    <Stack gap="lg" w="100%" maw="500px" miw="350px" mb="xl">
+      <Paper>
+        <Text fw={600} mb="sm" c={theme.colors.steel[0]}>
+          Completed
+        </Text>
+        <Text c={theme.colors.steel[2]}> Your contest has been created</Text>
+      </Paper>
+      {contestId && (
+        <Paper>
+          <Text c={theme.colors.steel[0]} fw={600} mb="sm">
+            Your Contest Link
+          </Text>
+
+          <Group mb="md" gap="xs">
+            <Text
+              component={Link}
+              to={`/contest/${contestId}`}
+              className={globalClasses.appLink}
+              c={theme.colors.steel[4]}
+            >
+              See your Contest
+            </Text>
+            <IconArrowRight size={16} color={theme.colors.steel[4]} />
+          </Group>
+          <Button
+            leftSection={<IconCopy size={16} />}
+            onClick={() => {
+              notifications.show({
+                title: 'Copied',
+                message: 'Contest link copied to clipboard',
+                color: 'teal',
+              });
+              copy(`https://ask.haus/contest/${contestId}`);
+            }}
+          >
+            Copy Link
+          </Button>
+        </Paper>
+      )}
+    </Stack>
+  );
 };

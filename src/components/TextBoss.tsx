@@ -26,8 +26,7 @@ type TextBossProps = {
 };
 
 export const TextBoss = (props: TextBossProps) => {
-  const { label, required, error, description, placeholder, onChange, value } =
-    props;
+  const { label, required, error, description, placeholder, onChange } = props;
 
   const editor = useEditor(
     {

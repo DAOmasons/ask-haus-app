@@ -186,7 +186,7 @@ export const VoteSlider = ({
         )}
         {answerType === ChoiceInputType.Allocate && (
           <Stack gap={'xl'}>
-            {choices?.map((c, index) => {
+            {choices?.map((c) => {
               const currentValue = values[c.choiceId] || 0;
               return (
                 <Box key={c.id}>

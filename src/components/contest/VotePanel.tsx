@@ -13,7 +13,6 @@ import { BasicChoiceFragment } from '../../generated/graphql';
 import { secondsToDate } from '../../utils/time';
 import { formatEther } from 'viem';
 import { useDisclosure } from '@mantine/hooks';
-import { useNavigate } from 'react-router-dom';
 import { SectionText } from '../Typography';
 import { TipTapDisplay } from '../TipTapDisplay';
 import { IconExternalLink, IconSearch } from '@tabler/icons-react';
@@ -67,7 +66,6 @@ export const VotesPanel = ({
 }) => {
   const { colors } = useMantineTheme();
   const [opened, { open, close }] = useDisclosure();
-  const navigate = useNavigate();
 
   const canSubmitChoice =
     !!userPoints && !!holderThreshold && userPoints >= holderThreshold;
@@ -168,13 +166,12 @@ export const VotesPanel = ({
           description="Please check the results"
         />
       )}
-      {(voteStage === VoteStage.Past || voteStage === VoteStage.Voting) &&
-        hasVoted && (
-          <Display
-            title="You have voted"
-            description="Please check the results"
-          />
-        )}
+      {voteStage === VoteStage.Voting && hasVoted && (
+        <Display
+          title="You have voted"
+          description="Please check the results"
+        />
+      )}
       {!hasVoted && voteStage === VoteStage.Voting && answerType && (
         <VoteSlider
           choices={choices}
