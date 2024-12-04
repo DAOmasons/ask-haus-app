@@ -19,7 +19,7 @@ import {
 } from '../utils/time';
 import { AddressAvatar } from '../components/AddressAvatar';
 import { Address, encodeAbiParameters, parseAbiParameters } from 'viem';
-import { ChoiceInputType } from '../constants/enum';
+import { ChoiceInputType, VoteType } from '../constants/enum';
 import { useAccount } from 'wagmi';
 import { useBaalPoints } from '../hooks/useBaalPoints';
 import { Display } from '../components/Display';
@@ -326,6 +326,7 @@ export const Poll = () => {
           choices={data?.choicesParams?.basicChoices?.choices || []}
           hasVoted={hasVoted}
           totalVoted={data?.round?.totalVoted}
+          voteType={VoteType.Poll}
         />
       )}
       <DetailsModal

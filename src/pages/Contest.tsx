@@ -16,7 +16,7 @@ import {
   nowInSeconds,
   pastRelativeTimeInSeconds,
 } from '../utils/time';
-import { VoteStage } from '../constants/enum';
+import { VoteStage, VoteType } from '../constants/enum';
 import { AddressAvatar } from '../components/AddressAvatar';
 import { Address } from 'viem';
 import { useBaalPoints } from '../hooks/useBaalPoints';
@@ -27,7 +27,7 @@ import { ResultsPanel } from '../components/poll/ResultsPanel';
 export const Contest = () => {
   const { id } = useParams();
   const { colors } = useMantineTheme();
-  const [view, setView] = useState<string | undefined>('Vote');
+  const [view, setView] = useState<string | undefined>();
   const [tick, setTick] = useState(new Date());
 
   const { data, refetch: refetchContest } = useQuery({
@@ -47,9 +47,6 @@ export const Contest = () => {
     (batch) => batch.voter === address
   );
 
-  console.log('hasVoted', hasVoted);
-  console.log('data', data);
-
   useEffect(() => {
     const timer = setInterval(() => {
       setTick(new Date());
@@ -59,6 +56,12 @@ export const Contest = () => {
       clearInterval(timer);
     };
   }, []);
+
+  useEffect(() => {
+    if ((data || points != null) && !view) {
+      setView(hasVoted ? 'Results' : 'Vote');
+    }
+  }, [data, points, hasVoted, view]);
 
   const { timeDisplay, voteStage } = useMemo(() => {
     if (!data) {
@@ -107,9 +110,6 @@ export const Contest = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, tick]);
 
-  const canViewResults =
-    voteStage === VoteStage.Voting || voteStage === VoteStage.Past;
-
   return (
     <CenterLayout>
       <Box w="100%" maw={500}>
@@ -121,7 +121,7 @@ export const Contest = () => {
             data={['Vote', 'Results']}
             size="xs"
             onChange={setView}
-            disabled={!canViewResults}
+            value={view}
           />
         </Group>
         <Group justify="space-between" mb="lg">
@@ -173,6 +173,7 @@ export const Contest = () => {
           choices={data?.basicChoices?.choices || []}
           hasVoted={hasVoted}
           totalVoted={data?.round?.totalVoted}
+          voteType={VoteType.Contest}
         />
       )}
     </CenterLayout>

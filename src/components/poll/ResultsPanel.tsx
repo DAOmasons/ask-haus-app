@@ -19,6 +19,7 @@ import { SectionText } from '../Typography';
 import { VoteBar } from './VoteBar';
 import { TotalResults } from './TotalResults';
 import { UserAllocatedVote } from './UserAllocatedVote';
+import { VoteType } from '../../constants/enum';
 
 export const ResultsPanel = ({
   isActive,
@@ -28,6 +29,7 @@ export const ResultsPanel = ({
   choices,
   hasVoted,
   totalVoted,
+  voteType,
 }: {
   isComplete: boolean;
   totalVoted?: string;
@@ -36,6 +38,7 @@ export const ResultsPanel = ({
   batchVotes: BatchVoteFragment[];
   choices?: BasicChoiceFragment[];
   hasVoted?: boolean;
+  voteType: VoteType;
 }) => {
   const [topSection, setTopSection] = useState<string | null>('Results');
 
@@ -47,26 +50,36 @@ export const ResultsPanel = ({
     return batchVotes?.find((vote) => vote.voter === address);
   }, [batchVotes, address, hasVoted]);
 
+  const voteTypeName = useMemo(() => {
+    return voteType === VoteType.Poll
+      ? ['Poll', 'poll']
+      : voteType === VoteType.Contest
+        ? ['Contest', 'contest']
+        : ['Session', 'session'];
+  }, [voteType]);
+
   const topDisplay = useMemo(() => {
     if (isUpcoming)
       return (
         <Paper>
           <Text c={theme.colors.steel[0]} fw="600" mb="sm">
-            Poll is upcoming
+            {voteTypeName[0]} is upcoming
           </Text>
-          <Text c={theme.colors.steel[4]}>This poll isn't open yet</Text>
+          <Text c={theme.colors.steel[4]}>
+            This {voteTypeName[1]} isn't open yet
+          </Text>
         </Paper>
       );
     if (isActive)
       return (
         <Paper>
           <Text c={theme.colors.steel[0]} fw="600" mb="sm">
-            Poll is active
+            {voteTypeName[0]} is active
           </Text>
           <Text c={theme.colors.steel[4]}>
             {hasVoted
-              ? 'You have voted on this poll'
-              : 'You have not voted on this poll'}
+              ? `You have voted on this ${voteTypeName[1]}`
+              : `You have not voted on this ${voteTypeName[1]}`}
           </Text>
         </Paper>
       );
@@ -78,12 +91,12 @@ export const ResultsPanel = ({
           </Text>
           <Text c={theme.colors.steel[4]}>
             {hasVoted
-              ? 'You voted on this poll'
-              : 'You did not vote on this poll'}
+              ? `You voted on this ${voteTypeName[1]}`
+              : `You did not vote on this ${voteTypeName[1]}`}
           </Text>
         </Paper>
       );
-  }, [isUpcoming, isActive, isComplete, hasVoted, theme.colors]);
+  }, [isUpcoming, isActive, isComplete, hasVoted, theme.colors, voteTypeName]);
 
   return (
     <Stack w="100%" maw={500} gap={'xl'} mb="xl">
