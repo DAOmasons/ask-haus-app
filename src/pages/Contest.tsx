@@ -29,13 +29,11 @@ export const Contest = () => {
   const [view, setView] = useState<string | undefined>('Vote');
   const [tick, setTick] = useState(new Date());
 
-  const { data } = useQuery({
+  const { data, refetch: refetchContest } = useQuery({
     queryKey: ['contest', id],
     queryFn: () => getContest({ contestId: id as string }),
     enabled: !!id,
   });
-
-  console.log('data', data);
 
   const { address } = useAccount();
 
@@ -138,6 +136,7 @@ export const Contest = () => {
           choices={data?.basicChoices?.choices}
           choiceStartTime={data?.choicesParams?.startTime}
           choiceEndTime={data?.choicesParams?.endTime}
+          refetch={refetchContest}
           voteStartTime={data?.votesParams?.startTime}
           voteEndTime={data?.votesParams?.endTime}
           snapshot={data?.pointsParams.checkpoint}

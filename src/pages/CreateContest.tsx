@@ -26,11 +26,7 @@ import { TextBoss } from '../components/TextBoss';
 import { nowInSeconds, Times } from '../utils/time';
 import { TxButton } from '../components/TxButton';
 import { IconArrowLeft } from '@tabler/icons-react';
-import {
-  ChoiceInputType,
-  contentProtocol,
-  HolderType,
-} from '../constants/enum';
+import { ChoiceInputType, HolderType } from '../constants/enum';
 import globalClasses from '../styles/global.module.css';
 import { useForm, zodResolver } from '@mantine/form';
 import {

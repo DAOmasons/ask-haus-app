@@ -28,6 +28,7 @@ fragment FullContest on AskHausContest {
   basicChoices {
     choices {
       ...BasicChoice
+      postedBy
     }
   }
   round {
