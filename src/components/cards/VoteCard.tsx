@@ -1,25 +1,11 @@
-import {
-  ActionIcon,
-  Box,
-  Flex,
-  Group,
-  HoverCard,
-  Paper,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
+import { Box, Flex, Group, Paper, Text, useMantineTheme } from '@mantine/core';
 import { useEffect, useMemo, useState } from 'react';
 import {
   futureRelativeTimeInSeconds,
   nowInSeconds,
   pastRelativeTimeInSeconds,
 } from '../../utils/time';
-import {
-  IconChartBar,
-  IconLink,
-  IconMessage,
-  IconTrophy,
-} from '@tabler/icons-react';
+import { IconChartBar, IconTrophy } from '@tabler/icons-react';
 import { AddressAvatar } from '../AddressAvatar';
 import { Address } from 'viem';
 import { VoteStage, VoteType } from '../../constants/enum';
@@ -31,11 +17,9 @@ export const VoteCard = ({
   startTime,
   endTime,
   duration,
-  pollLink,
   postedBy,
   to,
   voteType,
-  description,
   tick = true,
   voteStage,
 }: {
@@ -45,8 +29,6 @@ export const VoteCard = ({
   to?: string;
   duration: number;
   postedBy: string;
-  pollLink?: string;
-  description?: string;
   voteType: VoteType;
   voteStage?: VoteStage;
   tick?: boolean;
@@ -128,37 +110,6 @@ export const VoteCard = ({
         <Text fw={500} c={colors.steel[0]} mb="sm" style={{ flex: 1 }}>
           {title}
         </Text>
-        <Group gap={4}>
-          {pollLink && (
-            <ActionIcon
-              radius={999}
-              component="a"
-              href={pollLink}
-              target="_blank"
-              rel="noreferrer"
-              variant="ghost-icon"
-            >
-              <IconLink size={16} color={colors.steel[4]} />
-            </ActionIcon>
-          )}
-          {description && (
-            <HoverCard openDelay={200} closeDelay={300}>
-              <HoverCard.Target>
-                <ActionIcon
-                  radius={999}
-                  onClick={() => {}}
-                  variant="ghost-icon"
-                  style={{ cursor: 'default' }}
-                >
-                  <IconMessage size={16} color={colors.steel[4]} />
-                </ActionIcon>
-              </HoverCard.Target>
-              <HoverCard.Dropdown>
-                <Text fz="sm">{description}</Text>
-              </HoverCard.Dropdown>
-            </HoverCard>
-          )}
-        </Group>
       </Flex>
       <Box mb="sm">{<AddressAvatar address={postedBy as Address} />}</Box>
       <Group justify="space-between">

@@ -13,7 +13,6 @@ import { BasicChoiceFragment } from '../../generated/graphql';
 import { secondsToDate } from '../../utils/time';
 import { formatEther } from 'viem';
 import { useDisclosure } from '@mantine/hooks';
-import { SectionText } from '../Typography';
 import { TipTapDisplay } from '../TipTapDisplay';
 import { IconExternalLink, IconSearch } from '@tabler/icons-react';
 import { DetailsModal } from './DetailsModal';

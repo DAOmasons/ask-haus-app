@@ -2,8 +2,8 @@ import { Box, Button, Flex, Group, Stack } from '@mantine/core';
 import { BigTitle, SectionText } from '../components/Typography';
 import { VoteTypeCard } from '../components/cards/VoteTypeCard';
 import {
-  IconBuildingBroadcastTower,
   IconChartBar,
+  IconQuestionMark,
   IconTrophy,
 } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
@@ -38,8 +38,8 @@ export const Home = () => {
           // underConstruction
         />
         <VoteTypeCard
-          title="Signal Session"
-          Icon={IconBuildingBroadcastTower}
+          title="New Vote Type"
+          Icon={IconQuestionMark}
           underConstruction
         />
       </Group>

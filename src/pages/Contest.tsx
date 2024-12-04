@@ -3,6 +3,7 @@ import {
   Group,
   SegmentedControl,
   Text,
+  Tooltip,
   useMantineTheme,
 } from '@mantine/core';
 import { CenterLayout } from '../layout/Layout';
@@ -23,6 +24,7 @@ import { useBaalPoints } from '../hooks/useBaalPoints';
 import { useAccount } from 'wagmi';
 import { VotesPanel } from '../components/contest/VotePanel';
 import { ResultsPanel } from '../components/poll/ResultsPanel';
+import { IconCheck, IconExclamationCircle } from '@tabler/icons-react';
 
 export const Contest = () => {
   const { id } = useParams();
@@ -110,12 +112,31 @@ export const Contest = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, tick]);
 
+  const showTooltip =
+    voteStage === VoteStage.Voting || voteStage === VoteStage.Past;
+
   return (
     <CenterLayout>
       <Box w="100%" maw={500}>
         <Group mb="lg" align="center" justify="space-between">
-          <Group gap="xs">
+          <Group gap="md">
             <SubTitle>Contest</SubTitle>
+            {showTooltip && hasVoted && (
+              <Tooltip label="You have voted on this contest">
+                <IconCheck size={16} color={colors.steel[4]} />
+              </Tooltip>
+            )}
+            {showTooltip && !hasVoted && (
+              <Tooltip
+                label={
+                  voteStage === VoteStage.Past
+                    ? 'You did not vote on this contest'
+                    : 'You have not voted on this contest'
+                }
+              >
+                <IconExclamationCircle size={16} color={colors.steel[4]} />
+              </Tooltip>
+            )}
           </Group>
           <SegmentedControl
             data={['Vote', 'Results']}

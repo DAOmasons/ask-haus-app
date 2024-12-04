@@ -11,8 +11,8 @@ import {
 import { CenterLayout } from '../layout/Layout';
 import { Bold, SubTitle } from '../components/Typography';
 import {
-  IconBuildingBroadcastTower,
   IconChartBar,
+  IconQuestionMark,
   IconTrophy,
 } from '@tabler/icons-react';
 import paperClasses from '../styles/paper.module.css';
@@ -90,23 +90,16 @@ export const Ask = () => {
                   h={125}
                   w={125}
                 >
-                  <IconBuildingBroadcastTower
-                    size={48}
-                    color={colors.steel[4]}
-                  />
+                  <IconQuestionMark size={48} color={colors.steel[4]} />
                   <Text c={colors.steel[4]} mt="xs" fz="sm">
-                    Signal Sessions
+                    New Vote Type
                   </Text>
                 </Flex>
                 <Text c={colors.steel[4]} fz="sm" style={{ flex: 1 }}>
-                  Signal Sessions is a vote style similar to a contest, except
-                  that{' '}
-                  <Bold>
-                    options are created during the voting round and votes are
-                    retractable.
-                  </Bold>{' '}
-                  This style is good for setting strategic priorities for an
-                  upcoming term.
+                  The best part about AskHaus is that{' '}
+                  <Bold>we can build new vote types and add them here.</Bold>{' '}
+                  The goal for the PublicHaus community is to use Contest and
+                  Polls to decide on what we will build next.
                 </Text>
               </Group>
             </Paper>
