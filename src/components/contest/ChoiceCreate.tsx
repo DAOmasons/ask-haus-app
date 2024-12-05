@@ -88,6 +88,12 @@ export const ChoiceCreate = ({
         onPollSuccess() {
           setDisplayForm(false);
           refetch?.();
+          form.setValues({
+            title: '',
+            description: emptyContent,
+            link: '',
+            color: '',
+          });
         },
       },
     });
