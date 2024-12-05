@@ -16,7 +16,6 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   contract_type: { input: any; output: any; }
-  entity_type: { input: any; output: any; }
   jsonb: { input: any; output: any; }
   numeric: { input: any; output: any; }
   timestamp: { input: any; output: any; }
@@ -2018,11 +2017,16 @@ export enum Cursor_Ordering {
 /** columns and relationships of "dynamic_contract_registry" */
 export type Dynamic_Contract_Registry = {
   __typename?: 'dynamic_contract_registry';
-  block_timestamp: Scalars['Int']['output'];
   chain_id: Scalars['Int']['output'];
   contract_address: Scalars['String']['output'];
   contract_type: Scalars['contract_type']['output'];
-  event_id: Scalars['numeric']['output'];
+  id: Scalars['String']['output'];
+  registering_event_block_number: Scalars['Int']['output'];
+  registering_event_block_timestamp: Scalars['Int']['output'];
+  registering_event_contract_name: Scalars['String']['output'];
+  registering_event_log_index: Scalars['Int']['output'];
+  registering_event_name: Scalars['String']['output'];
+  registering_event_src_address: Scalars['String']['output'];
 };
 
 /** Boolean expression to filter rows from the table "dynamic_contract_registry". All fields are combined with a logical 'AND'. */
@@ -2030,26 +2034,34 @@ export type Dynamic_Contract_Registry_Bool_Exp = {
   _and?: InputMaybe<Array<Dynamic_Contract_Registry_Bool_Exp>>;
   _not?: InputMaybe<Dynamic_Contract_Registry_Bool_Exp>;
   _or?: InputMaybe<Array<Dynamic_Contract_Registry_Bool_Exp>>;
-  block_timestamp?: InputMaybe<Int_Comparison_Exp>;
   chain_id?: InputMaybe<Int_Comparison_Exp>;
   contract_address?: InputMaybe<String_Comparison_Exp>;
   contract_type?: InputMaybe<Contract_Type_Comparison_Exp>;
-  event_id?: InputMaybe<Numeric_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  registering_event_block_number?: InputMaybe<Int_Comparison_Exp>;
+  registering_event_block_timestamp?: InputMaybe<Int_Comparison_Exp>;
+  registering_event_contract_name?: InputMaybe<String_Comparison_Exp>;
+  registering_event_log_index?: InputMaybe<Int_Comparison_Exp>;
+  registering_event_name?: InputMaybe<String_Comparison_Exp>;
+  registering_event_src_address?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** Ordering options when selecting data from "dynamic_contract_registry". */
 export type Dynamic_Contract_Registry_Order_By = {
-  block_timestamp?: InputMaybe<Order_By>;
   chain_id?: InputMaybe<Order_By>;
   contract_address?: InputMaybe<Order_By>;
   contract_type?: InputMaybe<Order_By>;
-  event_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  registering_event_block_number?: InputMaybe<Order_By>;
+  registering_event_block_timestamp?: InputMaybe<Order_By>;
+  registering_event_contract_name?: InputMaybe<Order_By>;
+  registering_event_log_index?: InputMaybe<Order_By>;
+  registering_event_name?: InputMaybe<Order_By>;
+  registering_event_src_address?: InputMaybe<Order_By>;
 };
 
 /** select columns of table "dynamic_contract_registry" */
 export enum Dynamic_Contract_Registry_Select_Column {
-  /** column name */
-  BlockTimestamp = 'block_timestamp',
   /** column name */
   ChainId = 'chain_id',
   /** column name */
@@ -2057,7 +2069,19 @@ export enum Dynamic_Contract_Registry_Select_Column {
   /** column name */
   ContractType = 'contract_type',
   /** column name */
-  EventId = 'event_id'
+  Id = 'id',
+  /** column name */
+  RegisteringEventBlockNumber = 'registering_event_block_number',
+  /** column name */
+  RegisteringEventBlockTimestamp = 'registering_event_block_timestamp',
+  /** column name */
+  RegisteringEventContractName = 'registering_event_contract_name',
+  /** column name */
+  RegisteringEventLogIndex = 'registering_event_log_index',
+  /** column name */
+  RegisteringEventName = 'registering_event_name',
+  /** column name */
+  RegisteringEventSrcAddress = 'registering_event_src_address'
 }
 
 /** Streaming cursor of the table "dynamic_contract_registry" */
@@ -2070,11 +2094,16 @@ export type Dynamic_Contract_Registry_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Dynamic_Contract_Registry_Stream_Cursor_Value_Input = {
-  block_timestamp?: InputMaybe<Scalars['Int']['input']>;
   chain_id?: InputMaybe<Scalars['Int']['input']>;
   contract_address?: InputMaybe<Scalars['String']['input']>;
   contract_type?: InputMaybe<Scalars['contract_type']['input']>;
-  event_id?: InputMaybe<Scalars['numeric']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  registering_event_block_number?: InputMaybe<Scalars['Int']['input']>;
+  registering_event_block_timestamp?: InputMaybe<Scalars['Int']['input']>;
+  registering_event_contract_name?: InputMaybe<Scalars['String']['input']>;
+  registering_event_log_index?: InputMaybe<Scalars['Int']['input']>;
+  registering_event_name?: InputMaybe<Scalars['String']['input']>;
+  registering_event_src_address?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** columns and relationships of "end_of_block_range_scanned_data" */
@@ -2133,380 +2162,13 @@ export type End_Of_Block_Range_Scanned_Data_Stream_Cursor_Value_Input = {
   chain_id?: InputMaybe<Scalars['Int']['input']>;
 };
 
-/** columns and relationships of "entity_history" */
-export type Entity_History = {
-  __typename?: 'entity_history';
-  block_number: Scalars['Int']['output'];
-  block_timestamp: Scalars['Int']['output'];
-  chain_id: Scalars['Int']['output'];
-  entity_id: Scalars['String']['output'];
-  entity_type: Scalars['entity_type']['output'];
-  /** An object relationship */
-  event?: Maybe<Raw_Events>;
-  log_index: Scalars['Int']['output'];
-  params?: Maybe<Scalars['jsonb']['output']>;
-  previous_block_number?: Maybe<Scalars['Int']['output']>;
-  previous_block_timestamp?: Maybe<Scalars['Int']['output']>;
-  previous_chain_id?: Maybe<Scalars['Int']['output']>;
-  previous_log_index?: Maybe<Scalars['Int']['output']>;
-};
-
-
-/** columns and relationships of "entity_history" */
-export type Entity_HistoryParamsArgs = {
-  path?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** order by aggregate values of table "entity_history" */
-export type Entity_History_Aggregate_Order_By = {
-  avg?: InputMaybe<Entity_History_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Entity_History_Max_Order_By>;
-  min?: InputMaybe<Entity_History_Min_Order_By>;
-  stddev?: InputMaybe<Entity_History_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Entity_History_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Entity_History_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Entity_History_Sum_Order_By>;
-  var_pop?: InputMaybe<Entity_History_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Entity_History_Var_Samp_Order_By>;
-  variance?: InputMaybe<Entity_History_Variance_Order_By>;
-};
-
-/** order by avg() on columns of table "entity_history" */
-export type Entity_History_Avg_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** Boolean expression to filter rows from the table "entity_history". All fields are combined with a logical 'AND'. */
-export type Entity_History_Bool_Exp = {
-  _and?: InputMaybe<Array<Entity_History_Bool_Exp>>;
-  _not?: InputMaybe<Entity_History_Bool_Exp>;
-  _or?: InputMaybe<Array<Entity_History_Bool_Exp>>;
-  block_number?: InputMaybe<Int_Comparison_Exp>;
-  block_timestamp?: InputMaybe<Int_Comparison_Exp>;
-  chain_id?: InputMaybe<Int_Comparison_Exp>;
-  entity_id?: InputMaybe<String_Comparison_Exp>;
-  entity_type?: InputMaybe<Entity_Type_Comparison_Exp>;
-  event?: InputMaybe<Raw_Events_Bool_Exp>;
-  log_index?: InputMaybe<Int_Comparison_Exp>;
-  params?: InputMaybe<Jsonb_Comparison_Exp>;
-  previous_block_number?: InputMaybe<Int_Comparison_Exp>;
-  previous_block_timestamp?: InputMaybe<Int_Comparison_Exp>;
-  previous_chain_id?: InputMaybe<Int_Comparison_Exp>;
-  previous_log_index?: InputMaybe<Int_Comparison_Exp>;
-};
-
-/** columns and relationships of "entity_history_filter" */
-export type Entity_History_Filter = {
-  __typename?: 'entity_history_filter';
-  block_number: Scalars['Int']['output'];
-  block_timestamp: Scalars['Int']['output'];
-  chain_id: Scalars['Int']['output'];
-  entity_id: Scalars['String']['output'];
-  entity_type: Scalars['entity_type']['output'];
-  /** An object relationship */
-  event?: Maybe<Raw_Events>;
-  log_index: Scalars['Int']['output'];
-  new_val?: Maybe<Scalars['jsonb']['output']>;
-  old_val?: Maybe<Scalars['jsonb']['output']>;
-  previous_block_number?: Maybe<Scalars['Int']['output']>;
-  previous_log_index: Scalars['Int']['output'];
-};
-
-
-/** columns and relationships of "entity_history_filter" */
-export type Entity_History_FilterNew_ValArgs = {
-  path?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** columns and relationships of "entity_history_filter" */
-export type Entity_History_FilterOld_ValArgs = {
-  path?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Boolean expression to filter rows from the table "entity_history_filter". All fields are combined with a logical 'AND'. */
-export type Entity_History_Filter_Bool_Exp = {
-  _and?: InputMaybe<Array<Entity_History_Filter_Bool_Exp>>;
-  _not?: InputMaybe<Entity_History_Filter_Bool_Exp>;
-  _or?: InputMaybe<Array<Entity_History_Filter_Bool_Exp>>;
-  block_number?: InputMaybe<Int_Comparison_Exp>;
-  block_timestamp?: InputMaybe<Int_Comparison_Exp>;
-  chain_id?: InputMaybe<Int_Comparison_Exp>;
-  entity_id?: InputMaybe<String_Comparison_Exp>;
-  entity_type?: InputMaybe<Entity_Type_Comparison_Exp>;
-  event?: InputMaybe<Raw_Events_Bool_Exp>;
-  log_index?: InputMaybe<Int_Comparison_Exp>;
-  new_val?: InputMaybe<Jsonb_Comparison_Exp>;
-  old_val?: InputMaybe<Jsonb_Comparison_Exp>;
-  previous_block_number?: InputMaybe<Int_Comparison_Exp>;
-  previous_log_index?: InputMaybe<Int_Comparison_Exp>;
-};
-
-/** Ordering options when selecting data from "entity_history_filter". */
-export type Entity_History_Filter_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  entity_id?: InputMaybe<Order_By>;
-  entity_type?: InputMaybe<Order_By>;
-  event?: InputMaybe<Raw_Events_Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  new_val?: InputMaybe<Order_By>;
-  old_val?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** select columns of table "entity_history_filter" */
-export enum Entity_History_Filter_Select_Column {
-  /** column name */
-  BlockNumber = 'block_number',
-  /** column name */
-  BlockTimestamp = 'block_timestamp',
-  /** column name */
-  ChainId = 'chain_id',
-  /** column name */
-  EntityId = 'entity_id',
-  /** column name */
-  EntityType = 'entity_type',
-  /** column name */
-  LogIndex = 'log_index',
-  /** column name */
-  NewVal = 'new_val',
-  /** column name */
-  OldVal = 'old_val',
-  /** column name */
-  PreviousBlockNumber = 'previous_block_number',
-  /** column name */
-  PreviousLogIndex = 'previous_log_index'
-}
-
-/** Streaming cursor of the table "entity_history_filter" */
-export type Entity_History_Filter_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Entity_History_Filter_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Entity_History_Filter_Stream_Cursor_Value_Input = {
-  block_number?: InputMaybe<Scalars['Int']['input']>;
-  block_timestamp?: InputMaybe<Scalars['Int']['input']>;
-  chain_id?: InputMaybe<Scalars['Int']['input']>;
-  entity_id?: InputMaybe<Scalars['String']['input']>;
-  entity_type?: InputMaybe<Scalars['entity_type']['input']>;
-  log_index?: InputMaybe<Scalars['Int']['input']>;
-  new_val?: InputMaybe<Scalars['jsonb']['input']>;
-  old_val?: InputMaybe<Scalars['jsonb']['input']>;
-  previous_block_number?: InputMaybe<Scalars['Int']['input']>;
-  previous_log_index?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** order by max() on columns of table "entity_history" */
-export type Entity_History_Max_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  entity_id?: InputMaybe<Order_By>;
-  entity_type?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by min() on columns of table "entity_history" */
-export type Entity_History_Min_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  entity_id?: InputMaybe<Order_By>;
-  entity_type?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** Ordering options when selecting data from "entity_history". */
-export type Entity_History_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  entity_id?: InputMaybe<Order_By>;
-  entity_type?: InputMaybe<Order_By>;
-  event?: InputMaybe<Raw_Events_Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  params?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** select columns of table "entity_history" */
-export enum Entity_History_Select_Column {
-  /** column name */
-  BlockNumber = 'block_number',
-  /** column name */
-  BlockTimestamp = 'block_timestamp',
-  /** column name */
-  ChainId = 'chain_id',
-  /** column name */
-  EntityId = 'entity_id',
-  /** column name */
-  EntityType = 'entity_type',
-  /** column name */
-  LogIndex = 'log_index',
-  /** column name */
-  Params = 'params',
-  /** column name */
-  PreviousBlockNumber = 'previous_block_number',
-  /** column name */
-  PreviousBlockTimestamp = 'previous_block_timestamp',
-  /** column name */
-  PreviousChainId = 'previous_chain_id',
-  /** column name */
-  PreviousLogIndex = 'previous_log_index'
-}
-
-/** order by stddev() on columns of table "entity_history" */
-export type Entity_History_Stddev_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by stddev_pop() on columns of table "entity_history" */
-export type Entity_History_Stddev_Pop_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by stddev_samp() on columns of table "entity_history" */
-export type Entity_History_Stddev_Samp_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** Streaming cursor of the table "entity_history" */
-export type Entity_History_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Entity_History_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Entity_History_Stream_Cursor_Value_Input = {
-  block_number?: InputMaybe<Scalars['Int']['input']>;
-  block_timestamp?: InputMaybe<Scalars['Int']['input']>;
-  chain_id?: InputMaybe<Scalars['Int']['input']>;
-  entity_id?: InputMaybe<Scalars['String']['input']>;
-  entity_type?: InputMaybe<Scalars['entity_type']['input']>;
-  log_index?: InputMaybe<Scalars['Int']['input']>;
-  params?: InputMaybe<Scalars['jsonb']['input']>;
-  previous_block_number?: InputMaybe<Scalars['Int']['input']>;
-  previous_block_timestamp?: InputMaybe<Scalars['Int']['input']>;
-  previous_chain_id?: InputMaybe<Scalars['Int']['input']>;
-  previous_log_index?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** order by sum() on columns of table "entity_history" */
-export type Entity_History_Sum_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by var_pop() on columns of table "entity_history" */
-export type Entity_History_Var_Pop_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by var_samp() on columns of table "entity_history" */
-export type Entity_History_Var_Samp_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by variance() on columns of table "entity_history" */
-export type Entity_History_Variance_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** Boolean expression to compare columns of type "entity_type". All fields are combined with logical 'AND'. */
-export type Entity_Type_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['entity_type']['input']>;
-  _gt?: InputMaybe<Scalars['entity_type']['input']>;
-  _gte?: InputMaybe<Scalars['entity_type']['input']>;
-  _in?: InputMaybe<Array<Scalars['entity_type']['input']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
-  _lt?: InputMaybe<Scalars['entity_type']['input']>;
-  _lte?: InputMaybe<Scalars['entity_type']['input']>;
-  _neq?: InputMaybe<Scalars['entity_type']['input']>;
-  _nin?: InputMaybe<Array<Scalars['entity_type']['input']>>;
-};
-
 /** columns and relationships of "event_sync_state" */
 export type Event_Sync_State = {
   __typename?: 'event_sync_state';
   block_number: Scalars['Int']['output'];
   block_timestamp: Scalars['Int']['output'];
   chain_id: Scalars['Int']['output'];
+  is_pre_registering_dynamic_contracts: Scalars['Boolean']['output'];
   log_index: Scalars['Int']['output'];
 };
 
@@ -2518,6 +2180,7 @@ export type Event_Sync_State_Bool_Exp = {
   block_number?: InputMaybe<Int_Comparison_Exp>;
   block_timestamp?: InputMaybe<Int_Comparison_Exp>;
   chain_id?: InputMaybe<Int_Comparison_Exp>;
+  is_pre_registering_dynamic_contracts?: InputMaybe<Boolean_Comparison_Exp>;
   log_index?: InputMaybe<Int_Comparison_Exp>;
 };
 
@@ -2526,6 +2189,7 @@ export type Event_Sync_State_Order_By = {
   block_number?: InputMaybe<Order_By>;
   block_timestamp?: InputMaybe<Order_By>;
   chain_id?: InputMaybe<Order_By>;
+  is_pre_registering_dynamic_contracts?: InputMaybe<Order_By>;
   log_index?: InputMaybe<Order_By>;
 };
 
@@ -2537,6 +2201,8 @@ export enum Event_Sync_State_Select_Column {
   BlockTimestamp = 'block_timestamp',
   /** column name */
   ChainId = 'chain_id',
+  /** column name */
+  IsPreRegisteringDynamicContracts = 'is_pre_registering_dynamic_contracts',
   /** column name */
   LogIndex = 'log_index'
 }
@@ -2554,18 +2220,8 @@ export type Event_Sync_State_Stream_Cursor_Value_Input = {
   block_number?: InputMaybe<Scalars['Int']['input']>;
   block_timestamp?: InputMaybe<Scalars['Int']['input']>;
   chain_id?: InputMaybe<Scalars['Int']['input']>;
+  is_pre_registering_dynamic_contracts?: InputMaybe<Scalars['Boolean']['input']>;
   log_index?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type Get_Entity_History_Filter_Args = {
-  end_block?: InputMaybe<Scalars['Int']['input']>;
-  end_chain_id?: InputMaybe<Scalars['Int']['input']>;
-  end_log_index?: InputMaybe<Scalars['Int']['input']>;
-  end_timestamp?: InputMaybe<Scalars['Int']['input']>;
-  start_block?: InputMaybe<Scalars['Int']['input']>;
-  start_chain_id?: InputMaybe<Scalars['Int']['input']>;
-  start_log_index?: InputMaybe<Scalars['Int']['input']>;
-  start_timestamp?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type Jsonb_Cast_Exp = {
@@ -2775,20 +2431,10 @@ export type Query_Root = {
   end_of_block_range_scanned_data: Array<End_Of_Block_Range_Scanned_Data>;
   /** fetch data from the table: "end_of_block_range_scanned_data" using primary key columns */
   end_of_block_range_scanned_data_by_pk?: Maybe<End_Of_Block_Range_Scanned_Data>;
-  /** fetch data from the table: "entity_history" */
-  entity_history: Array<Entity_History>;
-  /** fetch data from the table: "entity_history" using primary key columns */
-  entity_history_by_pk?: Maybe<Entity_History>;
-  /** fetch data from the table: "entity_history_filter" */
-  entity_history_filter: Array<Entity_History_Filter>;
-  /** fetch data from the table: "entity_history_filter" using primary key columns */
-  entity_history_filter_by_pk?: Maybe<Entity_History_Filter>;
   /** fetch data from the table: "event_sync_state" */
   event_sync_state: Array<Event_Sync_State>;
   /** fetch data from the table: "event_sync_state" using primary key columns */
   event_sync_state_by_pk?: Maybe<Event_Sync_State>;
-  /** This function helps search for articles */
-  get_entity_history_filter: Array<Entity_History_Filter>;
   /** fetch data from the table: "persisted_state" */
   persisted_state: Array<Persisted_State>;
   /** fetch data from the table: "persisted_state" using primary key columns */
@@ -3062,8 +2708,7 @@ export type Query_RootDynamic_Contract_RegistryArgs = {
 
 
 export type Query_RootDynamic_Contract_Registry_By_PkArgs = {
-  chain_id: Scalars['Int']['input'];
-  contract_address: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 };
 
 
@@ -3082,45 +2727,6 @@ export type Query_RootEnd_Of_Block_Range_Scanned_Data_By_PkArgs = {
 };
 
 
-export type Query_RootEntity_HistoryArgs = {
-  distinct_on?: InputMaybe<Array<Entity_History_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Order_By>>;
-  where?: InputMaybe<Entity_History_Bool_Exp>;
-};
-
-
-export type Query_RootEntity_History_By_PkArgs = {
-  block_number: Scalars['Int']['input'];
-  block_timestamp: Scalars['Int']['input'];
-  chain_id: Scalars['Int']['input'];
-  entity_id: Scalars['String']['input'];
-  entity_type: Scalars['entity_type']['input'];
-  log_index: Scalars['Int']['input'];
-};
-
-
-export type Query_RootEntity_History_FilterArgs = {
-  distinct_on?: InputMaybe<Array<Entity_History_Filter_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Filter_Order_By>>;
-  where?: InputMaybe<Entity_History_Filter_Bool_Exp>;
-};
-
-
-export type Query_RootEntity_History_Filter_By_PkArgs = {
-  block_number: Scalars['Int']['input'];
-  block_timestamp: Scalars['Int']['input'];
-  chain_id: Scalars['Int']['input'];
-  entity_id: Scalars['String']['input'];
-  entity_type: Scalars['entity_type']['input'];
-  log_index: Scalars['Int']['input'];
-  previous_log_index: Scalars['Int']['input'];
-};
-
-
 export type Query_RootEvent_Sync_StateArgs = {
   distinct_on?: InputMaybe<Array<Event_Sync_State_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3132,16 +2738,6 @@ export type Query_RootEvent_Sync_StateArgs = {
 
 export type Query_RootEvent_Sync_State_By_PkArgs = {
   chain_id: Scalars['Int']['input'];
-};
-
-
-export type Query_RootGet_Entity_History_FilterArgs = {
-  args: Get_Entity_History_Filter_Args;
-  distinct_on?: InputMaybe<Array<Entity_History_Filter_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Filter_Order_By>>;
-  where?: InputMaybe<Entity_History_Filter_Bool_Exp>;
 };
 
 
@@ -3169,8 +2765,7 @@ export type Query_RootRaw_EventsArgs = {
 
 
 export type Query_RootRaw_Events_By_PkArgs = {
-  chain_id: Scalars['Int']['input'];
-  event_id: Scalars['numeric']['input'];
+  serial: Scalars['Int']['input'];
 };
 
 /** columns and relationships of "raw_events" */
@@ -3183,12 +2778,11 @@ export type Raw_Events = {
   chain_id: Scalars['Int']['output'];
   contract_name: Scalars['String']['output'];
   db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
-  /** An array relationship */
-  event_history: Array<Entity_History>;
   event_id: Scalars['numeric']['output'];
   event_name: Scalars['String']['output'];
   log_index: Scalars['Int']['output'];
   params: Scalars['jsonb']['output'];
+  serial: Scalars['Int']['output'];
   src_address: Scalars['String']['output'];
   transaction_fields: Scalars['jsonb']['output'];
 };
@@ -3197,16 +2791,6 @@ export type Raw_Events = {
 /** columns and relationships of "raw_events" */
 export type Raw_EventsBlock_FieldsArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** columns and relationships of "raw_events" */
-export type Raw_EventsEvent_HistoryArgs = {
-  distinct_on?: InputMaybe<Array<Entity_History_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Order_By>>;
-  where?: InputMaybe<Entity_History_Bool_Exp>;
 };
 
 
@@ -3233,11 +2817,11 @@ export type Raw_Events_Bool_Exp = {
   chain_id?: InputMaybe<Int_Comparison_Exp>;
   contract_name?: InputMaybe<String_Comparison_Exp>;
   db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
-  event_history?: InputMaybe<Entity_History_Bool_Exp>;
   event_id?: InputMaybe<Numeric_Comparison_Exp>;
   event_name?: InputMaybe<String_Comparison_Exp>;
   log_index?: InputMaybe<Int_Comparison_Exp>;
   params?: InputMaybe<Jsonb_Comparison_Exp>;
+  serial?: InputMaybe<Int_Comparison_Exp>;
   src_address?: InputMaybe<String_Comparison_Exp>;
   transaction_fields?: InputMaybe<Jsonb_Comparison_Exp>;
 };
@@ -3251,11 +2835,11 @@ export type Raw_Events_Order_By = {
   chain_id?: InputMaybe<Order_By>;
   contract_name?: InputMaybe<Order_By>;
   db_write_timestamp?: InputMaybe<Order_By>;
-  event_history_aggregate?: InputMaybe<Entity_History_Aggregate_Order_By>;
   event_id?: InputMaybe<Order_By>;
   event_name?: InputMaybe<Order_By>;
   log_index?: InputMaybe<Order_By>;
   params?: InputMaybe<Order_By>;
+  serial?: InputMaybe<Order_By>;
   src_address?: InputMaybe<Order_By>;
   transaction_fields?: InputMaybe<Order_By>;
 };
@@ -3285,6 +2869,8 @@ export enum Raw_Events_Select_Column {
   /** column name */
   Params = 'params',
   /** column name */
+  Serial = 'serial',
+  /** column name */
   SrcAddress = 'src_address',
   /** column name */
   TransactionFields = 'transaction_fields'
@@ -3311,6 +2897,7 @@ export type Raw_Events_Stream_Cursor_Value_Input = {
   event_name?: InputMaybe<Scalars['String']['input']>;
   log_index?: InputMaybe<Scalars['Int']['input']>;
   params?: InputMaybe<Scalars['jsonb']['input']>;
+  serial?: InputMaybe<Scalars['Int']['input']>;
   src_address?: InputMaybe<Scalars['String']['input']>;
   transaction_fields?: InputMaybe<Scalars['jsonb']['input']>;
 };
@@ -3437,26 +3024,12 @@ export type Subscription_Root = {
   end_of_block_range_scanned_data_by_pk?: Maybe<End_Of_Block_Range_Scanned_Data>;
   /** fetch data from the table in a streaming manner: "end_of_block_range_scanned_data" */
   end_of_block_range_scanned_data_stream: Array<End_Of_Block_Range_Scanned_Data>;
-  /** fetch data from the table: "entity_history" */
-  entity_history: Array<Entity_History>;
-  /** fetch data from the table: "entity_history" using primary key columns */
-  entity_history_by_pk?: Maybe<Entity_History>;
-  /** fetch data from the table: "entity_history_filter" */
-  entity_history_filter: Array<Entity_History_Filter>;
-  /** fetch data from the table: "entity_history_filter" using primary key columns */
-  entity_history_filter_by_pk?: Maybe<Entity_History_Filter>;
-  /** fetch data from the table in a streaming manner: "entity_history_filter" */
-  entity_history_filter_stream: Array<Entity_History_Filter>;
-  /** fetch data from the table in a streaming manner: "entity_history" */
-  entity_history_stream: Array<Entity_History>;
   /** fetch data from the table: "event_sync_state" */
   event_sync_state: Array<Event_Sync_State>;
   /** fetch data from the table: "event_sync_state" using primary key columns */
   event_sync_state_by_pk?: Maybe<Event_Sync_State>;
   /** fetch data from the table in a streaming manner: "event_sync_state" */
   event_sync_state_stream: Array<Event_Sync_State>;
-  /** This function helps search for articles */
-  get_entity_history_filter: Array<Entity_History_Filter>;
   /** fetch data from the table: "persisted_state" */
   persisted_state: Array<Persisted_State>;
   /** fetch data from the table: "persisted_state" using primary key columns */
@@ -3860,8 +3433,7 @@ export type Subscription_RootDynamic_Contract_RegistryArgs = {
 
 
 export type Subscription_RootDynamic_Contract_Registry_By_PkArgs = {
-  chain_id: Scalars['Int']['input'];
-  contract_address: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 };
 
 
@@ -3894,59 +3466,6 @@ export type Subscription_RootEnd_Of_Block_Range_Scanned_Data_StreamArgs = {
 };
 
 
-export type Subscription_RootEntity_HistoryArgs = {
-  distinct_on?: InputMaybe<Array<Entity_History_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Order_By>>;
-  where?: InputMaybe<Entity_History_Bool_Exp>;
-};
-
-
-export type Subscription_RootEntity_History_By_PkArgs = {
-  block_number: Scalars['Int']['input'];
-  block_timestamp: Scalars['Int']['input'];
-  chain_id: Scalars['Int']['input'];
-  entity_id: Scalars['String']['input'];
-  entity_type: Scalars['entity_type']['input'];
-  log_index: Scalars['Int']['input'];
-};
-
-
-export type Subscription_RootEntity_History_FilterArgs = {
-  distinct_on?: InputMaybe<Array<Entity_History_Filter_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Filter_Order_By>>;
-  where?: InputMaybe<Entity_History_Filter_Bool_Exp>;
-};
-
-
-export type Subscription_RootEntity_History_Filter_By_PkArgs = {
-  block_number: Scalars['Int']['input'];
-  block_timestamp: Scalars['Int']['input'];
-  chain_id: Scalars['Int']['input'];
-  entity_id: Scalars['String']['input'];
-  entity_type: Scalars['entity_type']['input'];
-  log_index: Scalars['Int']['input'];
-  previous_log_index: Scalars['Int']['input'];
-};
-
-
-export type Subscription_RootEntity_History_Filter_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Entity_History_Filter_Stream_Cursor_Input>>;
-  where?: InputMaybe<Entity_History_Filter_Bool_Exp>;
-};
-
-
-export type Subscription_RootEntity_History_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Entity_History_Stream_Cursor_Input>>;
-  where?: InputMaybe<Entity_History_Bool_Exp>;
-};
-
-
 export type Subscription_RootEvent_Sync_StateArgs = {
   distinct_on?: InputMaybe<Array<Event_Sync_State_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3965,16 +3484,6 @@ export type Subscription_RootEvent_Sync_State_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Event_Sync_State_Stream_Cursor_Input>>;
   where?: InputMaybe<Event_Sync_State_Bool_Exp>;
-};
-
-
-export type Subscription_RootGet_Entity_History_FilterArgs = {
-  args: Get_Entity_History_Filter_Args;
-  distinct_on?: InputMaybe<Array<Entity_History_Filter_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Filter_Order_By>>;
-  where?: InputMaybe<Entity_History_Filter_Bool_Exp>;
 };
 
 
@@ -4009,8 +3518,7 @@ export type Subscription_RootRaw_EventsArgs = {
 
 
 export type Subscription_RootRaw_Events_By_PkArgs = {
-  chain_id: Scalars['Int']['input'];
-  event_id: Scalars['numeric']['input'];
+  serial: Scalars['Int']['input'];
 };
 
 
