@@ -47,7 +47,7 @@ export const Home = () => {
         {data?.active && data?.active.length > 0 && (
           <Box w="50%">
             <SectionText mb="md">Live Rounds</SectionText>
-            <Stack gap="md">
+            <Stack gap="md" mb="xl">
               {data.active.map((vote) => (
                 <VoteCard key={vote.id} {...vote} />
               ))}

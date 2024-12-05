@@ -66,7 +66,7 @@ export const createContestSchema2 = z
   .refine(
     ({ customChoiceStart, customChoiceTimeEnd, choiceTime }) => {
       return (choiceTime === 'Custom' && !customChoiceStart) ||
-        ('Custom' && !customChoiceTimeEnd)
+        (choiceTime === 'Custom' && !customChoiceTimeEnd)
         ? false
         : true;
     },
@@ -78,7 +78,7 @@ export const createContestSchema2 = z
   .refine(
     ({ customVoteStart, customVoteEnd, votingTime }) => {
       return (votingTime === 'Custom' && !customVoteStart) ||
-        ('Custom' && !customVoteEnd)
+        (votingTime === 'Custom' && !customVoteEnd)
         ? false
         : true;
     },
