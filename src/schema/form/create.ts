@@ -54,7 +54,9 @@ export const createContestSchema2 = z
     customChoiceStart: z.date(),
     customChoiceTimeEnd: z.date(),
     choiceTokenType: z.string().min(1, 'Token type is required'),
-    choiceTokenAmount: z.number().min(0, 'Token type is required'),
+    choiceTokenAmount: z
+      .number()
+      .gt(0, 'Gate token amount must be greater than 0'),
     votingTime: z.string().min(1, 'Voting time is required'),
     voteTokenType: z.string().min(1, 'Token type is required'),
     customVoteStart: z.date(),
@@ -104,6 +106,13 @@ export const detailedChoiceSchema = z.object({
   id: z.string().min(1, 'Choice id is required'),
   title: z.string().min(1, 'Choice title is required'),
   color: z.string().min(1, 'Choice color is required'),
+  description: tiptapContentSchema,
+  link: z.string().optional(),
+});
+
+export const detailedChoiceFormSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  color: z.string().min(1, 'Color is required'),
   description: tiptapContentSchema,
   link: z.string().optional(),
 });

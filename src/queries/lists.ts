@@ -20,6 +20,7 @@ export const getPastRounds = async () => {
       pollLink: poll.pollLink || undefined,
       voteType: VoteType.Poll,
     }));
+
     const contests = data.pastContests.map((contest) => ({
       id: contest.id,
       to: `/contest/${contest.id}`,

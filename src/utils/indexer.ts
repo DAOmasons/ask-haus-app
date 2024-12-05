@@ -21,7 +21,7 @@ export const fetchRecentTransaction = async (txHash: string) => {
 };
 export const pollEnvio = async ({
   txHash,
-  interval = 1000,
+  interval = 2000,
   tries = 20,
   onPollSuccess,
   onPollError,

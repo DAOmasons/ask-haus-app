@@ -214,7 +214,9 @@ const Form1 = ({
         />
       </Paper>
       <Group justify="center">
-        <Button onClick={nextForm}>Next</Button>
+        <Button onClick={nextForm} disabled={!form.isValid()}>
+          Next
+        </Button>
       </Group>
     </Stack>
   );
@@ -366,7 +368,9 @@ const Form2 = ({
         </Stack>
       </Paper>
       <Group justify="center">
-        <TxButton onClick={handleSubmit}>Submit</TxButton>
+        <TxButton onClick={handleSubmit} disabled={!form.isValid()}>
+          Submit
+        </TxButton>
       </Group>
     </Stack>
   );

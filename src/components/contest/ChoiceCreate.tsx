@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { useTx } from '../../hooks/useTx';
-import { useForm } from '@mantine/form';
+import { useForm, zodResolver } from '@mantine/form';
 import { emptyContent } from '../../utils/tiptapUtils';
 import { notifications } from '@mantine/notifications';
 import { generateRandomBytes32 } from '../../utils/helpers';
-import { detailedChoiceSchema } from '../../schema/form/create';
+import {
+  detailedChoiceFormSchema,
+  detailedChoiceSchema,
+} from '../../schema/form/create';
 import { Address, encodeAbiParameters, parseAbiParameters } from 'viem';
 import BaalGateAbi from '../../abi/BaalGate.json';
 import {
   Box,
+  Button,
   ColorPicker,
   ColorSwatch,
   Group,
@@ -39,6 +43,8 @@ export const ChoiceCreate = ({
       link: '',
       color: '',
     },
+    validate: zodResolver(detailedChoiceFormSchema),
+    validateInputOnBlur: true,
   });
 
   const handleChoiceCreate = async () => {
@@ -134,13 +140,13 @@ export const ChoiceCreate = ({
       )}
 
       <Group justify="center">
-        <TxButton
-          onClick={
-            !displayForm ? () => setDisplayForm(true) : handleChoiceCreate
-          }
-        >
-          Create Choice
-        </TxButton>
+        {!displayForm ? (
+          <Button onClick={() => setDisplayForm(true)}>Create Choice</Button>
+        ) : (
+          <TxButton onClick={handleChoiceCreate} disabled={!form.isValid()}>
+            Submit Choice
+          </TxButton>
+        )}
       </Group>
     </>
   );
