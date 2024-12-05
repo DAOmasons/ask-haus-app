@@ -1,29 +1,23 @@
-import { Box, Flex, Group, Stack } from '@mantine/core';
+import { Box, Button, Flex, Group, Stack } from '@mantine/core';
 import { BigTitle, SectionText } from '../components/Typography';
 import { VoteTypeCard } from '../components/cards/VoteTypeCard';
 import {
-  IconBuildingBroadcastTower,
   IconChartBar,
+  IconQuestionMark,
   IconTrophy,
 } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
-import { frontPagePolls } from '../queries/frontPage';
+import { getFrontPageVotes } from '../queries/frontPage';
 import { useQuery } from '@tanstack/react-query';
-import { VoteType } from '../constants/enum';
 import { VoteCard } from '../components/cards/VoteCard';
 
 export const Home = () => {
   const navigate = useNavigate();
-  const { data: pollData } = useQuery({
+  const { data } = useQuery({
     queryKey: [`home`],
-    queryFn: frontPagePolls,
+    queryFn: getFrontPageVotes,
     enabled: true,
   });
-
-  const notablePolls = [
-    ...(pollData?.activePolls || []),
-    ...(pollData?.upcomingPolls || []),
-  ].slice(0, 5);
 
   return (
     <Box mb="xl" mt={48}>
@@ -37,53 +31,58 @@ export const Home = () => {
           Icon={IconChartBar}
           onClick={() => navigate('/create-poll')}
         />
-        <VoteTypeCard title="Contest" Icon={IconTrophy} underConstruction />
         <VoteTypeCard
-          title="Signal Session"
-          Icon={IconBuildingBroadcastTower}
+          title="Contest"
+          Icon={IconTrophy}
+          onClick={() => navigate('/create-contest')}
+          // underConstruction
+        />
+        <VoteTypeCard
+          title="New Vote Type"
+          Icon={IconQuestionMark}
           underConstruction
         />
       </Group>
       <Flex align="start" justify="space-between" gap="md">
-        {notablePolls.length > 0 && (
+        {data?.active && data?.active.length > 0 && (
           <Box w="50%">
-            <SectionText mb="md">Live Votes</SectionText>
-            <Stack gap="md">
-              {notablePolls.map((poll) => (
-                <VoteCard
-                  key={poll.id}
-                  to={`/poll/${poll.id}`}
-                  title={poll.title}
-                  postedBy={poll.postedBy}
-                  startTime={poll.votesParams?.startTime}
-                  endTime={poll.votesParams?.endTime}
-                  duration={poll.votesParams?.duration}
-                  description={poll.description as string | undefined}
-                  pollLink={poll.pollLink as string | undefined}
-                  voteType={VoteType.Poll}
-                />
+            <SectionText mb="md">Live Rounds</SectionText>
+            <Stack gap="md" mb="xl">
+              {data.active.map((vote) => (
+                <VoteCard key={vote.id} {...vote} />
               ))}
             </Stack>
+            {data?.active && data.active.length === 5 && (
+              <Group justify="center">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => navigate('/active')}
+                >
+                  See More
+                </Button>
+              </Group>
+            )}
           </Box>
         )}
         <Box w="50%">
-          <SectionText mb="md">Past Votes</SectionText>
-          <Stack gap="md">
-            {pollData?.pastPolls?.map((poll) => (
-              <VoteCard
-                key={poll.id}
-                to={`/poll/${poll.id}`}
-                title={poll.title}
-                postedBy={poll.postedBy}
-                startTime={poll.votesParams?.endTime}
-                endTime={poll.votesParams?.endTime}
-                duration={poll.votesParams?.duration}
-                description={poll.description as string | undefined}
-                pollLink={poll.pollLink as string | undefined}
-                voteType={VoteType.Poll}
-              />
-            ))}
+          <SectionText mb="md">Past Rounds</SectionText>
+          <Stack gap="md" mb="xl">
+            {data?.past &&
+              data.past.length > 0 &&
+              data.past.map((vote) => <VoteCard key={vote.id} {...vote} />)}
           </Stack>
+          {data?.past && data.past.length === 5 && (
+            <Group justify="center">
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() => navigate('/past')}
+              >
+                See More
+              </Button>
+            </Group>
+          )}
         </Box>
       </Flex>
     </Box>

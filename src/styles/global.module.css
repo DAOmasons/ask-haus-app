@@ -7,6 +7,10 @@
   border: 1.5px solid var(--mantine-color-steel-2);
 }
 
+.subBorder {
+  border: 1.5px dashed var(--mantine-color-steel-4);
+}
+
 .bigTitle {
   color: var(--mantine-color-steel-0);
   font-weight: 900;

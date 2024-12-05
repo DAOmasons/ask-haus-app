@@ -39,7 +39,7 @@ export const useBaalPoints = ({
   }
 
   return {
-    points: data,
+    points: data as bigint | undefined,
     pointsDisplay: typeof data === 'bigint' ? formatEther(data) : undefined,
     isLoading,
     error,

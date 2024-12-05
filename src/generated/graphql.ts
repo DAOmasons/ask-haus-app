@@ -15,13 +15,147 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  _text: { input: any; output: any; }
   contract_type: { input: any; output: any; }
-  entity_type: { input: any; output: any; }
   jsonb: { input: any; output: any; }
   numeric: { input: any; output: any; }
   timestamp: { input: any; output: any; }
   timestamptz: { input: any; output: any; }
+};
+
+/** columns and relationships of "AskHausContest" */
+export type AskHausContest = {
+  __typename?: 'AskHausContest';
+  answerType: Scalars['String']['output'];
+  /** An object relationship */
+  basicChoices?: Maybe<BasicChoices>;
+  basicChoices_id: Scalars['String']['output'];
+  /** An object relationship */
+  choicesParams?: Maybe<Params_BaalGate_V0_2_0>;
+  choicesParams_id: Scalars['String']['output'];
+  createdAt: Scalars['Int']['output'];
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  link?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  pointsParams?: Maybe<Params_BaalPoints_V0_2_0>;
+  pointsParams_id: Scalars['String']['output'];
+  postedBy: Scalars['String']['output'];
+  requestComment?: Maybe<Scalars['Boolean']['output']>;
+  /** An object relationship */
+  round?: Maybe<Round>;
+  round_id: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  /** An object relationship */
+  votesParams?: Maybe<Params_TimedVotes_V0_2_0>;
+  votesParams_id: Scalars['String']['output'];
+};
+
+/** Boolean expression to filter rows from the table "AskHausContest". All fields are combined with a logical 'AND'. */
+export type AskHausContest_Bool_Exp = {
+  _and?: InputMaybe<Array<AskHausContest_Bool_Exp>>;
+  _not?: InputMaybe<AskHausContest_Bool_Exp>;
+  _or?: InputMaybe<Array<AskHausContest_Bool_Exp>>;
+  answerType?: InputMaybe<String_Comparison_Exp>;
+  basicChoices?: InputMaybe<BasicChoices_Bool_Exp>;
+  basicChoices_id?: InputMaybe<String_Comparison_Exp>;
+  choicesParams?: InputMaybe<Params_BaalGate_V0_2_0_Bool_Exp>;
+  choicesParams_id?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Int_Comparison_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  link?: InputMaybe<String_Comparison_Exp>;
+  pointsParams?: InputMaybe<Params_BaalPoints_V0_2_0_Bool_Exp>;
+  pointsParams_id?: InputMaybe<String_Comparison_Exp>;
+  postedBy?: InputMaybe<String_Comparison_Exp>;
+  requestComment?: InputMaybe<Boolean_Comparison_Exp>;
+  round?: InputMaybe<Round_Bool_Exp>;
+  round_id?: InputMaybe<String_Comparison_Exp>;
+  title?: InputMaybe<String_Comparison_Exp>;
+  votesParams?: InputMaybe<Params_TimedVotes_V0_2_0_Bool_Exp>;
+  votesParams_id?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "AskHausContest". */
+export type AskHausContest_Order_By = {
+  answerType?: InputMaybe<Order_By>;
+  basicChoices?: InputMaybe<BasicChoices_Order_By>;
+  basicChoices_id?: InputMaybe<Order_By>;
+  choicesParams?: InputMaybe<Params_BaalGate_V0_2_0_Order_By>;
+  choicesParams_id?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  link?: InputMaybe<Order_By>;
+  pointsParams?: InputMaybe<Params_BaalPoints_V0_2_0_Order_By>;
+  pointsParams_id?: InputMaybe<Order_By>;
+  postedBy?: InputMaybe<Order_By>;
+  requestComment?: InputMaybe<Order_By>;
+  round?: InputMaybe<Round_Order_By>;
+  round_id?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  votesParams?: InputMaybe<Params_TimedVotes_V0_2_0_Order_By>;
+  votesParams_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "AskHausContest" */
+export enum AskHausContest_Select_Column {
+  /** column name */
+  AnswerType = 'answerType',
+  /** column name */
+  BasicChoicesId = 'basicChoices_id',
+  /** column name */
+  ChoicesParamsId = 'choicesParams_id',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Link = 'link',
+  /** column name */
+  PointsParamsId = 'pointsParams_id',
+  /** column name */
+  PostedBy = 'postedBy',
+  /** column name */
+  RequestComment = 'requestComment',
+  /** column name */
+  RoundId = 'round_id',
+  /** column name */
+  Title = 'title',
+  /** column name */
+  VotesParamsId = 'votesParams_id'
+}
+
+/** Streaming cursor of the table "AskHausContest" */
+export type AskHausContest_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: AskHausContest_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type AskHausContest_Stream_Cursor_Value_Input = {
+  answerType?: InputMaybe<Scalars['String']['input']>;
+  basicChoices_id?: InputMaybe<Scalars['String']['input']>;
+  choicesParams_id?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['Int']['input']>;
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  link?: InputMaybe<Scalars['String']['input']>;
+  pointsParams_id?: InputMaybe<Scalars['String']['input']>;
+  postedBy?: InputMaybe<Scalars['String']['input']>;
+  requestComment?: InputMaybe<Scalars['Boolean']['input']>;
+  round_id?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  votesParams_id?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** columns and relationships of "AskHausPoll" */
@@ -31,6 +165,7 @@ export type AskHausPoll = {
   /** An object relationship */
   choicesParams?: Maybe<Params_PrePop_V0_2_0>;
   choicesParams_id: Scalars['String']['output'];
+  createdAt: Scalars['Int']['output'];
   db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
@@ -57,6 +192,7 @@ export type AskHausPoll_Bool_Exp = {
   answerType?: InputMaybe<String_Comparison_Exp>;
   choicesParams?: InputMaybe<Params_PrePop_V0_2_0_Bool_Exp>;
   choicesParams_id?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Int_Comparison_Exp>;
   db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
@@ -77,6 +213,7 @@ export type AskHausPoll_Order_By = {
   answerType?: InputMaybe<Order_By>;
   choicesParams?: InputMaybe<Params_PrePop_V0_2_0_Order_By>;
   choicesParams_id?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
   db_write_timestamp?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -98,6 +235,8 @@ export enum AskHausPoll_Select_Column {
   AnswerType = 'answerType',
   /** column name */
   ChoicesParamsId = 'choicesParams_id',
+  /** column name */
+  CreatedAt = 'createdAt',
   /** column name */
   DbWriteTimestamp = 'db_write_timestamp',
   /** column name */
@@ -132,6 +271,7 @@ export type AskHausPoll_Stream_Cursor_Input = {
 export type AskHausPoll_Stream_Cursor_Value_Input = {
   answerType?: InputMaybe<Scalars['String']['input']>;
   choicesParams_id?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['Int']['input']>;
   db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
@@ -148,6 +288,9 @@ export type AskHausPoll_Stream_Cursor_Value_Input = {
 export type BasicChoice = {
   __typename?: 'BasicChoice';
   amountVoted: Scalars['numeric']['output'];
+  /** An object relationship */
+  basicChoices?: Maybe<BasicChoices>;
+  basicChoices_id: Scalars['String']['output'];
   bytes: Scalars['String']['output'];
   choiceId: Scalars['String']['output'];
   color?: Maybe<Scalars['String']['output']>;
@@ -157,9 +300,8 @@ export type BasicChoice = {
   isActive: Scalars['Boolean']['output'];
   isValid: Scalars['Boolean']['output'];
   link?: Maybe<Scalars['String']['output']>;
-  /** An object relationship */
-  moduleParams?: Maybe<Params_PrePop_V0_2_0>;
-  moduleParams_id: Scalars['String']['output'];
+  postedAt: Scalars['Int']['output'];
+  postedBy: Scalars['String']['output'];
   registrar: Scalars['String']['output'];
   title: Scalars['String']['output'];
 };
@@ -182,6 +324,7 @@ export type BasicChoice_Aggregate_Order_By = {
 /** order by avg() on columns of table "BasicChoice" */
 export type BasicChoice_Avg_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "BasicChoice". All fields are combined with a logical 'AND'. */
@@ -190,6 +333,8 @@ export type BasicChoice_Bool_Exp = {
   _not?: InputMaybe<BasicChoice_Bool_Exp>;
   _or?: InputMaybe<Array<BasicChoice_Bool_Exp>>;
   amountVoted?: InputMaybe<Numeric_Comparison_Exp>;
+  basicChoices?: InputMaybe<BasicChoices_Bool_Exp>;
+  basicChoices_id?: InputMaybe<String_Comparison_Exp>;
   bytes?: InputMaybe<String_Comparison_Exp>;
   choiceId?: InputMaybe<String_Comparison_Exp>;
   color?: InputMaybe<String_Comparison_Exp>;
@@ -199,8 +344,8 @@ export type BasicChoice_Bool_Exp = {
   isActive?: InputMaybe<Boolean_Comparison_Exp>;
   isValid?: InputMaybe<Boolean_Comparison_Exp>;
   link?: InputMaybe<String_Comparison_Exp>;
-  moduleParams?: InputMaybe<Params_PrePop_V0_2_0_Bool_Exp>;
-  moduleParams_id?: InputMaybe<String_Comparison_Exp>;
+  postedAt?: InputMaybe<Int_Comparison_Exp>;
+  postedBy?: InputMaybe<String_Comparison_Exp>;
   registrar?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
 };
@@ -208,6 +353,7 @@ export type BasicChoice_Bool_Exp = {
 /** order by max() on columns of table "BasicChoice" */
 export type BasicChoice_Max_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  basicChoices_id?: InputMaybe<Order_By>;
   bytes?: InputMaybe<Order_By>;
   choiceId?: InputMaybe<Order_By>;
   color?: InputMaybe<Order_By>;
@@ -215,7 +361,8 @@ export type BasicChoice_Max_Order_By = {
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   link?: InputMaybe<Order_By>;
-  moduleParams_id?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
+  postedBy?: InputMaybe<Order_By>;
   registrar?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
 };
@@ -223,6 +370,7 @@ export type BasicChoice_Max_Order_By = {
 /** order by min() on columns of table "BasicChoice" */
 export type BasicChoice_Min_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  basicChoices_id?: InputMaybe<Order_By>;
   bytes?: InputMaybe<Order_By>;
   choiceId?: InputMaybe<Order_By>;
   color?: InputMaybe<Order_By>;
@@ -230,7 +378,8 @@ export type BasicChoice_Min_Order_By = {
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   link?: InputMaybe<Order_By>;
-  moduleParams_id?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
+  postedBy?: InputMaybe<Order_By>;
   registrar?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
 };
@@ -238,6 +387,8 @@ export type BasicChoice_Min_Order_By = {
 /** Ordering options when selecting data from "BasicChoice". */
 export type BasicChoice_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  basicChoices?: InputMaybe<BasicChoices_Order_By>;
+  basicChoices_id?: InputMaybe<Order_By>;
   bytes?: InputMaybe<Order_By>;
   choiceId?: InputMaybe<Order_By>;
   color?: InputMaybe<Order_By>;
@@ -247,8 +398,8 @@ export type BasicChoice_Order_By = {
   isActive?: InputMaybe<Order_By>;
   isValid?: InputMaybe<Order_By>;
   link?: InputMaybe<Order_By>;
-  moduleParams?: InputMaybe<Params_PrePop_V0_2_0_Order_By>;
-  moduleParams_id?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
+  postedBy?: InputMaybe<Order_By>;
   registrar?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
 };
@@ -257,6 +408,8 @@ export type BasicChoice_Order_By = {
 export enum BasicChoice_Select_Column {
   /** column name */
   AmountVoted = 'amountVoted',
+  /** column name */
+  BasicChoicesId = 'basicChoices_id',
   /** column name */
   Bytes = 'bytes',
   /** column name */
@@ -276,7 +429,9 @@ export enum BasicChoice_Select_Column {
   /** column name */
   Link = 'link',
   /** column name */
-  ModuleParamsId = 'moduleParams_id',
+  PostedAt = 'postedAt',
+  /** column name */
+  PostedBy = 'postedBy',
   /** column name */
   Registrar = 'registrar',
   /** column name */
@@ -286,16 +441,19 @@ export enum BasicChoice_Select_Column {
 /** order by stddev() on columns of table "BasicChoice" */
 export type BasicChoice_Stddev_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_pop() on columns of table "BasicChoice" */
 export type BasicChoice_Stddev_Pop_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_samp() on columns of table "BasicChoice" */
 export type BasicChoice_Stddev_Samp_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "BasicChoice" */
@@ -309,6 +467,7 @@ export type BasicChoice_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type BasicChoice_Stream_Cursor_Value_Input = {
   amountVoted?: InputMaybe<Scalars['numeric']['input']>;
+  basicChoices_id?: InputMaybe<Scalars['String']['input']>;
   bytes?: InputMaybe<Scalars['String']['input']>;
   choiceId?: InputMaybe<Scalars['String']['input']>;
   color?: InputMaybe<Scalars['String']['input']>;
@@ -318,7 +477,8 @@ export type BasicChoice_Stream_Cursor_Value_Input = {
   isActive?: InputMaybe<Scalars['Boolean']['input']>;
   isValid?: InputMaybe<Scalars['Boolean']['input']>;
   link?: InputMaybe<Scalars['String']['input']>;
-  moduleParams_id?: InputMaybe<Scalars['String']['input']>;
+  postedAt?: InputMaybe<Scalars['Int']['input']>;
+  postedBy?: InputMaybe<Scalars['String']['input']>;
   registrar?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
@@ -326,21 +486,83 @@ export type BasicChoice_Stream_Cursor_Value_Input = {
 /** order by sum() on columns of table "BasicChoice" */
 export type BasicChoice_Sum_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
 };
 
 /** order by var_pop() on columns of table "BasicChoice" */
 export type BasicChoice_Var_Pop_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
 };
 
 /** order by var_samp() on columns of table "BasicChoice" */
 export type BasicChoice_Var_Samp_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
 };
 
 /** order by variance() on columns of table "BasicChoice" */
 export type BasicChoice_Variance_Order_By = {
   amountVoted?: InputMaybe<Order_By>;
+  postedAt?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "BasicChoices" */
+export type BasicChoices = {
+  __typename?: 'BasicChoices';
+  /** An array relationship */
+  choices: Array<BasicChoice>;
+  db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
+  id: Scalars['String']['output'];
+};
+
+
+/** columns and relationships of "BasicChoices" */
+export type BasicChoicesChoicesArgs = {
+  distinct_on?: InputMaybe<Array<BasicChoice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BasicChoice_Order_By>>;
+  where?: InputMaybe<BasicChoice_Bool_Exp>;
+};
+
+/** Boolean expression to filter rows from the table "BasicChoices". All fields are combined with a logical 'AND'. */
+export type BasicChoices_Bool_Exp = {
+  _and?: InputMaybe<Array<BasicChoices_Bool_Exp>>;
+  _not?: InputMaybe<BasicChoices_Bool_Exp>;
+  _or?: InputMaybe<Array<BasicChoices_Bool_Exp>>;
+  choices?: InputMaybe<BasicChoice_Bool_Exp>;
+  db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "BasicChoices". */
+export type BasicChoices_Order_By = {
+  choices_aggregate?: InputMaybe<BasicChoice_Aggregate_Order_By>;
+  db_write_timestamp?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "BasicChoices" */
+export enum BasicChoices_Select_Column {
+  /** column name */
+  DbWriteTimestamp = 'db_write_timestamp',
+  /** column name */
+  Id = 'id'
+}
+
+/** Streaming cursor of the table "BasicChoices" */
+export type BasicChoices_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: BasicChoices_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type BasicChoices_Stream_Cursor_Value_Input = {
+  db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** columns and relationships of "BasicVote" */
@@ -700,7 +922,7 @@ export type Boolean_Comparison_Exp = {
 export type Factory = {
   __typename?: 'Factory';
   address: Scalars['String']['output'];
-  admins: Scalars['_text']['output'];
+  admins: Array<Scalars['String']['output']>;
   db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
   id: Scalars['String']['output'];
 };
@@ -711,7 +933,7 @@ export type Factory_Bool_Exp = {
   _not?: InputMaybe<Factory_Bool_Exp>;
   _or?: InputMaybe<Array<Factory_Bool_Exp>>;
   address?: InputMaybe<String_Comparison_Exp>;
-  admins?: InputMaybe<_Text_Comparison_Exp>;
+  admins?: InputMaybe<String_Array_Comparison_Exp>;
   db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
 };
@@ -747,7 +969,7 @@ export type Factory_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Factory_Stream_Cursor_Value_Input = {
   address?: InputMaybe<Scalars['String']['input']>;
-  admins?: InputMaybe<Scalars['_text']['input']>;
+  admins?: InputMaybe<Array<Scalars['String']['input']>>;
   db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1122,8 +1344,9 @@ export type Params_BaalPoints_V0_2_0_Stream_Cursor_Value_Input = {
 /** columns and relationships of "Params_PrePop_v0_2_0" */
 export type Params_PrePop_V0_2_0 = {
   __typename?: 'Params_PrePop_v0_2_0';
-  /** An array relationship */
-  choices: Array<BasicChoice>;
+  /** An object relationship */
+  basicChoices?: Maybe<BasicChoices>;
+  basicChoices_id: Scalars['String']['output'];
   /** An object relationship */
   clone?: Maybe<ModuleClone>;
   clone_id: Scalars['String']['output'];
@@ -1131,22 +1354,13 @@ export type Params_PrePop_V0_2_0 = {
   id: Scalars['String']['output'];
 };
 
-
-/** columns and relationships of "Params_PrePop_v0_2_0" */
-export type Params_PrePop_V0_2_0ChoicesArgs = {
-  distinct_on?: InputMaybe<Array<BasicChoice_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<BasicChoice_Order_By>>;
-  where?: InputMaybe<BasicChoice_Bool_Exp>;
-};
-
 /** Boolean expression to filter rows from the table "Params_PrePop_v0_2_0". All fields are combined with a logical 'AND'. */
 export type Params_PrePop_V0_2_0_Bool_Exp = {
   _and?: InputMaybe<Array<Params_PrePop_V0_2_0_Bool_Exp>>;
   _not?: InputMaybe<Params_PrePop_V0_2_0_Bool_Exp>;
   _or?: InputMaybe<Array<Params_PrePop_V0_2_0_Bool_Exp>>;
-  choices?: InputMaybe<BasicChoice_Bool_Exp>;
+  basicChoices?: InputMaybe<BasicChoices_Bool_Exp>;
+  basicChoices_id?: InputMaybe<String_Comparison_Exp>;
   clone?: InputMaybe<ModuleClone_Bool_Exp>;
   clone_id?: InputMaybe<String_Comparison_Exp>;
   db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
@@ -1155,7 +1369,8 @@ export type Params_PrePop_V0_2_0_Bool_Exp = {
 
 /** Ordering options when selecting data from "Params_PrePop_v0_2_0". */
 export type Params_PrePop_V0_2_0_Order_By = {
-  choices_aggregate?: InputMaybe<BasicChoice_Aggregate_Order_By>;
+  basicChoices?: InputMaybe<BasicChoices_Order_By>;
+  basicChoices_id?: InputMaybe<Order_By>;
   clone?: InputMaybe<ModuleClone_Order_By>;
   clone_id?: InputMaybe<Order_By>;
   db_write_timestamp?: InputMaybe<Order_By>;
@@ -1164,6 +1379,8 @@ export type Params_PrePop_V0_2_0_Order_By = {
 
 /** select columns of table "Params_PrePop_v0_2_0" */
 export enum Params_PrePop_V0_2_0_Select_Column {
+  /** column name */
+  BasicChoicesId = 'basicChoices_id',
   /** column name */
   CloneId = 'clone_id',
   /** column name */
@@ -1182,6 +1399,7 @@ export type Params_PrePop_V0_2_0_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Params_PrePop_V0_2_0_Stream_Cursor_Value_Input = {
+  basicChoices_id?: InputMaybe<Scalars['String']['input']>;
   clone_id?: InputMaybe<Scalars['String']['input']>;
   db_write_timestamp?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
@@ -1560,6 +1778,23 @@ export type Round_Stream_Cursor_Value_Input = {
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
+export type String_Array_Comparison_Exp = {
+  /** is the array contained in the given array value */
+  _contained_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** does the array contain the given value */
+  _contains?: InputMaybe<Array<Scalars['String']['input']>>;
+  _eq?: InputMaybe<Array<Scalars['String']['input']>>;
+  _gt?: InputMaybe<Array<Scalars['String']['input']>>;
+  _gte?: InputMaybe<Array<Scalars['String']['input']>>;
+  _in?: InputMaybe<Array<Array<Scalars['String']['input']>>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Array<Scalars['String']['input']>>;
+  _lte?: InputMaybe<Array<Scalars['String']['input']>>;
+  _neq?: InputMaybe<Array<Scalars['String']['input']>>;
+  _nin?: InputMaybe<Array<Array<Scalars['String']['input']>>>;
+};
+
+/** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['String']['input']>;
   _gt?: InputMaybe<Scalars['String']['input']>;
@@ -1658,19 +1893,6 @@ export type Tx_Stream_Cursor_Value_Input = {
   srcAddress?: InputMaybe<Scalars['String']['input']>;
   timestamp?: InputMaybe<Scalars['Int']['input']>;
   txHash?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Boolean expression to compare columns of type "_text". All fields are combined with logical 'AND'. */
-export type _Text_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['_text']['input']>;
-  _gt?: InputMaybe<Scalars['_text']['input']>;
-  _gte?: InputMaybe<Scalars['_text']['input']>;
-  _in?: InputMaybe<Array<Scalars['_text']['input']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
-  _lt?: InputMaybe<Scalars['_text']['input']>;
-  _lte?: InputMaybe<Scalars['_text']['input']>;
-  _neq?: InputMaybe<Scalars['_text']['input']>;
-  _nin?: InputMaybe<Array<Scalars['_text']['input']>>;
 };
 
 /** columns and relationships of "chain_metadata" */
@@ -1795,11 +2017,16 @@ export enum Cursor_Ordering {
 /** columns and relationships of "dynamic_contract_registry" */
 export type Dynamic_Contract_Registry = {
   __typename?: 'dynamic_contract_registry';
-  block_timestamp: Scalars['Int']['output'];
   chain_id: Scalars['Int']['output'];
   contract_address: Scalars['String']['output'];
   contract_type: Scalars['contract_type']['output'];
-  event_id: Scalars['numeric']['output'];
+  id: Scalars['String']['output'];
+  registering_event_block_number: Scalars['Int']['output'];
+  registering_event_block_timestamp: Scalars['Int']['output'];
+  registering_event_contract_name: Scalars['String']['output'];
+  registering_event_log_index: Scalars['Int']['output'];
+  registering_event_name: Scalars['String']['output'];
+  registering_event_src_address: Scalars['String']['output'];
 };
 
 /** Boolean expression to filter rows from the table "dynamic_contract_registry". All fields are combined with a logical 'AND'. */
@@ -1807,26 +2034,34 @@ export type Dynamic_Contract_Registry_Bool_Exp = {
   _and?: InputMaybe<Array<Dynamic_Contract_Registry_Bool_Exp>>;
   _not?: InputMaybe<Dynamic_Contract_Registry_Bool_Exp>;
   _or?: InputMaybe<Array<Dynamic_Contract_Registry_Bool_Exp>>;
-  block_timestamp?: InputMaybe<Int_Comparison_Exp>;
   chain_id?: InputMaybe<Int_Comparison_Exp>;
   contract_address?: InputMaybe<String_Comparison_Exp>;
   contract_type?: InputMaybe<Contract_Type_Comparison_Exp>;
-  event_id?: InputMaybe<Numeric_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  registering_event_block_number?: InputMaybe<Int_Comparison_Exp>;
+  registering_event_block_timestamp?: InputMaybe<Int_Comparison_Exp>;
+  registering_event_contract_name?: InputMaybe<String_Comparison_Exp>;
+  registering_event_log_index?: InputMaybe<Int_Comparison_Exp>;
+  registering_event_name?: InputMaybe<String_Comparison_Exp>;
+  registering_event_src_address?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** Ordering options when selecting data from "dynamic_contract_registry". */
 export type Dynamic_Contract_Registry_Order_By = {
-  block_timestamp?: InputMaybe<Order_By>;
   chain_id?: InputMaybe<Order_By>;
   contract_address?: InputMaybe<Order_By>;
   contract_type?: InputMaybe<Order_By>;
-  event_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  registering_event_block_number?: InputMaybe<Order_By>;
+  registering_event_block_timestamp?: InputMaybe<Order_By>;
+  registering_event_contract_name?: InputMaybe<Order_By>;
+  registering_event_log_index?: InputMaybe<Order_By>;
+  registering_event_name?: InputMaybe<Order_By>;
+  registering_event_src_address?: InputMaybe<Order_By>;
 };
 
 /** select columns of table "dynamic_contract_registry" */
 export enum Dynamic_Contract_Registry_Select_Column {
-  /** column name */
-  BlockTimestamp = 'block_timestamp',
   /** column name */
   ChainId = 'chain_id',
   /** column name */
@@ -1834,7 +2069,19 @@ export enum Dynamic_Contract_Registry_Select_Column {
   /** column name */
   ContractType = 'contract_type',
   /** column name */
-  EventId = 'event_id'
+  Id = 'id',
+  /** column name */
+  RegisteringEventBlockNumber = 'registering_event_block_number',
+  /** column name */
+  RegisteringEventBlockTimestamp = 'registering_event_block_timestamp',
+  /** column name */
+  RegisteringEventContractName = 'registering_event_contract_name',
+  /** column name */
+  RegisteringEventLogIndex = 'registering_event_log_index',
+  /** column name */
+  RegisteringEventName = 'registering_event_name',
+  /** column name */
+  RegisteringEventSrcAddress = 'registering_event_src_address'
 }
 
 /** Streaming cursor of the table "dynamic_contract_registry" */
@@ -1847,11 +2094,16 @@ export type Dynamic_Contract_Registry_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Dynamic_Contract_Registry_Stream_Cursor_Value_Input = {
-  block_timestamp?: InputMaybe<Scalars['Int']['input']>;
   chain_id?: InputMaybe<Scalars['Int']['input']>;
   contract_address?: InputMaybe<Scalars['String']['input']>;
   contract_type?: InputMaybe<Scalars['contract_type']['input']>;
-  event_id?: InputMaybe<Scalars['numeric']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  registering_event_block_number?: InputMaybe<Scalars['Int']['input']>;
+  registering_event_block_timestamp?: InputMaybe<Scalars['Int']['input']>;
+  registering_event_contract_name?: InputMaybe<Scalars['String']['input']>;
+  registering_event_log_index?: InputMaybe<Scalars['Int']['input']>;
+  registering_event_name?: InputMaybe<Scalars['String']['input']>;
+  registering_event_src_address?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** columns and relationships of "end_of_block_range_scanned_data" */
@@ -1910,380 +2162,13 @@ export type End_Of_Block_Range_Scanned_Data_Stream_Cursor_Value_Input = {
   chain_id?: InputMaybe<Scalars['Int']['input']>;
 };
 
-/** columns and relationships of "entity_history" */
-export type Entity_History = {
-  __typename?: 'entity_history';
-  block_number: Scalars['Int']['output'];
-  block_timestamp: Scalars['Int']['output'];
-  chain_id: Scalars['Int']['output'];
-  entity_id: Scalars['String']['output'];
-  entity_type: Scalars['entity_type']['output'];
-  /** An object relationship */
-  event?: Maybe<Raw_Events>;
-  log_index: Scalars['Int']['output'];
-  params?: Maybe<Scalars['jsonb']['output']>;
-  previous_block_number?: Maybe<Scalars['Int']['output']>;
-  previous_block_timestamp?: Maybe<Scalars['Int']['output']>;
-  previous_chain_id?: Maybe<Scalars['Int']['output']>;
-  previous_log_index?: Maybe<Scalars['Int']['output']>;
-};
-
-
-/** columns and relationships of "entity_history" */
-export type Entity_HistoryParamsArgs = {
-  path?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** order by aggregate values of table "entity_history" */
-export type Entity_History_Aggregate_Order_By = {
-  avg?: InputMaybe<Entity_History_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Entity_History_Max_Order_By>;
-  min?: InputMaybe<Entity_History_Min_Order_By>;
-  stddev?: InputMaybe<Entity_History_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Entity_History_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Entity_History_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Entity_History_Sum_Order_By>;
-  var_pop?: InputMaybe<Entity_History_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Entity_History_Var_Samp_Order_By>;
-  variance?: InputMaybe<Entity_History_Variance_Order_By>;
-};
-
-/** order by avg() on columns of table "entity_history" */
-export type Entity_History_Avg_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** Boolean expression to filter rows from the table "entity_history". All fields are combined with a logical 'AND'. */
-export type Entity_History_Bool_Exp = {
-  _and?: InputMaybe<Array<Entity_History_Bool_Exp>>;
-  _not?: InputMaybe<Entity_History_Bool_Exp>;
-  _or?: InputMaybe<Array<Entity_History_Bool_Exp>>;
-  block_number?: InputMaybe<Int_Comparison_Exp>;
-  block_timestamp?: InputMaybe<Int_Comparison_Exp>;
-  chain_id?: InputMaybe<Int_Comparison_Exp>;
-  entity_id?: InputMaybe<String_Comparison_Exp>;
-  entity_type?: InputMaybe<Entity_Type_Comparison_Exp>;
-  event?: InputMaybe<Raw_Events_Bool_Exp>;
-  log_index?: InputMaybe<Int_Comparison_Exp>;
-  params?: InputMaybe<Jsonb_Comparison_Exp>;
-  previous_block_number?: InputMaybe<Int_Comparison_Exp>;
-  previous_block_timestamp?: InputMaybe<Int_Comparison_Exp>;
-  previous_chain_id?: InputMaybe<Int_Comparison_Exp>;
-  previous_log_index?: InputMaybe<Int_Comparison_Exp>;
-};
-
-/** columns and relationships of "entity_history_filter" */
-export type Entity_History_Filter = {
-  __typename?: 'entity_history_filter';
-  block_number: Scalars['Int']['output'];
-  block_timestamp: Scalars['Int']['output'];
-  chain_id: Scalars['Int']['output'];
-  entity_id: Scalars['String']['output'];
-  entity_type: Scalars['entity_type']['output'];
-  /** An object relationship */
-  event?: Maybe<Raw_Events>;
-  log_index: Scalars['Int']['output'];
-  new_val?: Maybe<Scalars['jsonb']['output']>;
-  old_val?: Maybe<Scalars['jsonb']['output']>;
-  previous_block_number?: Maybe<Scalars['Int']['output']>;
-  previous_log_index: Scalars['Int']['output'];
-};
-
-
-/** columns and relationships of "entity_history_filter" */
-export type Entity_History_FilterNew_ValArgs = {
-  path?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** columns and relationships of "entity_history_filter" */
-export type Entity_History_FilterOld_ValArgs = {
-  path?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Boolean expression to filter rows from the table "entity_history_filter". All fields are combined with a logical 'AND'. */
-export type Entity_History_Filter_Bool_Exp = {
-  _and?: InputMaybe<Array<Entity_History_Filter_Bool_Exp>>;
-  _not?: InputMaybe<Entity_History_Filter_Bool_Exp>;
-  _or?: InputMaybe<Array<Entity_History_Filter_Bool_Exp>>;
-  block_number?: InputMaybe<Int_Comparison_Exp>;
-  block_timestamp?: InputMaybe<Int_Comparison_Exp>;
-  chain_id?: InputMaybe<Int_Comparison_Exp>;
-  entity_id?: InputMaybe<String_Comparison_Exp>;
-  entity_type?: InputMaybe<Entity_Type_Comparison_Exp>;
-  event?: InputMaybe<Raw_Events_Bool_Exp>;
-  log_index?: InputMaybe<Int_Comparison_Exp>;
-  new_val?: InputMaybe<Jsonb_Comparison_Exp>;
-  old_val?: InputMaybe<Jsonb_Comparison_Exp>;
-  previous_block_number?: InputMaybe<Int_Comparison_Exp>;
-  previous_log_index?: InputMaybe<Int_Comparison_Exp>;
-};
-
-/** Ordering options when selecting data from "entity_history_filter". */
-export type Entity_History_Filter_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  entity_id?: InputMaybe<Order_By>;
-  entity_type?: InputMaybe<Order_By>;
-  event?: InputMaybe<Raw_Events_Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  new_val?: InputMaybe<Order_By>;
-  old_val?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** select columns of table "entity_history_filter" */
-export enum Entity_History_Filter_Select_Column {
-  /** column name */
-  BlockNumber = 'block_number',
-  /** column name */
-  BlockTimestamp = 'block_timestamp',
-  /** column name */
-  ChainId = 'chain_id',
-  /** column name */
-  EntityId = 'entity_id',
-  /** column name */
-  EntityType = 'entity_type',
-  /** column name */
-  LogIndex = 'log_index',
-  /** column name */
-  NewVal = 'new_val',
-  /** column name */
-  OldVal = 'old_val',
-  /** column name */
-  PreviousBlockNumber = 'previous_block_number',
-  /** column name */
-  PreviousLogIndex = 'previous_log_index'
-}
-
-/** Streaming cursor of the table "entity_history_filter" */
-export type Entity_History_Filter_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Entity_History_Filter_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Entity_History_Filter_Stream_Cursor_Value_Input = {
-  block_number?: InputMaybe<Scalars['Int']['input']>;
-  block_timestamp?: InputMaybe<Scalars['Int']['input']>;
-  chain_id?: InputMaybe<Scalars['Int']['input']>;
-  entity_id?: InputMaybe<Scalars['String']['input']>;
-  entity_type?: InputMaybe<Scalars['entity_type']['input']>;
-  log_index?: InputMaybe<Scalars['Int']['input']>;
-  new_val?: InputMaybe<Scalars['jsonb']['input']>;
-  old_val?: InputMaybe<Scalars['jsonb']['input']>;
-  previous_block_number?: InputMaybe<Scalars['Int']['input']>;
-  previous_log_index?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** order by max() on columns of table "entity_history" */
-export type Entity_History_Max_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  entity_id?: InputMaybe<Order_By>;
-  entity_type?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by min() on columns of table "entity_history" */
-export type Entity_History_Min_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  entity_id?: InputMaybe<Order_By>;
-  entity_type?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** Ordering options when selecting data from "entity_history". */
-export type Entity_History_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  entity_id?: InputMaybe<Order_By>;
-  entity_type?: InputMaybe<Order_By>;
-  event?: InputMaybe<Raw_Events_Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  params?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** select columns of table "entity_history" */
-export enum Entity_History_Select_Column {
-  /** column name */
-  BlockNumber = 'block_number',
-  /** column name */
-  BlockTimestamp = 'block_timestamp',
-  /** column name */
-  ChainId = 'chain_id',
-  /** column name */
-  EntityId = 'entity_id',
-  /** column name */
-  EntityType = 'entity_type',
-  /** column name */
-  LogIndex = 'log_index',
-  /** column name */
-  Params = 'params',
-  /** column name */
-  PreviousBlockNumber = 'previous_block_number',
-  /** column name */
-  PreviousBlockTimestamp = 'previous_block_timestamp',
-  /** column name */
-  PreviousChainId = 'previous_chain_id',
-  /** column name */
-  PreviousLogIndex = 'previous_log_index'
-}
-
-/** order by stddev() on columns of table "entity_history" */
-export type Entity_History_Stddev_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by stddev_pop() on columns of table "entity_history" */
-export type Entity_History_Stddev_Pop_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by stddev_samp() on columns of table "entity_history" */
-export type Entity_History_Stddev_Samp_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** Streaming cursor of the table "entity_history" */
-export type Entity_History_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Entity_History_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type Entity_History_Stream_Cursor_Value_Input = {
-  block_number?: InputMaybe<Scalars['Int']['input']>;
-  block_timestamp?: InputMaybe<Scalars['Int']['input']>;
-  chain_id?: InputMaybe<Scalars['Int']['input']>;
-  entity_id?: InputMaybe<Scalars['String']['input']>;
-  entity_type?: InputMaybe<Scalars['entity_type']['input']>;
-  log_index?: InputMaybe<Scalars['Int']['input']>;
-  params?: InputMaybe<Scalars['jsonb']['input']>;
-  previous_block_number?: InputMaybe<Scalars['Int']['input']>;
-  previous_block_timestamp?: InputMaybe<Scalars['Int']['input']>;
-  previous_chain_id?: InputMaybe<Scalars['Int']['input']>;
-  previous_log_index?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** order by sum() on columns of table "entity_history" */
-export type Entity_History_Sum_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by var_pop() on columns of table "entity_history" */
-export type Entity_History_Var_Pop_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by var_samp() on columns of table "entity_history" */
-export type Entity_History_Var_Samp_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** order by variance() on columns of table "entity_history" */
-export type Entity_History_Variance_Order_By = {
-  block_number?: InputMaybe<Order_By>;
-  block_timestamp?: InputMaybe<Order_By>;
-  chain_id?: InputMaybe<Order_By>;
-  log_index?: InputMaybe<Order_By>;
-  previous_block_number?: InputMaybe<Order_By>;
-  previous_block_timestamp?: InputMaybe<Order_By>;
-  previous_chain_id?: InputMaybe<Order_By>;
-  previous_log_index?: InputMaybe<Order_By>;
-};
-
-/** Boolean expression to compare columns of type "entity_type". All fields are combined with logical 'AND'. */
-export type Entity_Type_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['entity_type']['input']>;
-  _gt?: InputMaybe<Scalars['entity_type']['input']>;
-  _gte?: InputMaybe<Scalars['entity_type']['input']>;
-  _in?: InputMaybe<Array<Scalars['entity_type']['input']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
-  _lt?: InputMaybe<Scalars['entity_type']['input']>;
-  _lte?: InputMaybe<Scalars['entity_type']['input']>;
-  _neq?: InputMaybe<Scalars['entity_type']['input']>;
-  _nin?: InputMaybe<Array<Scalars['entity_type']['input']>>;
-};
-
 /** columns and relationships of "event_sync_state" */
 export type Event_Sync_State = {
   __typename?: 'event_sync_state';
   block_number: Scalars['Int']['output'];
   block_timestamp: Scalars['Int']['output'];
   chain_id: Scalars['Int']['output'];
+  is_pre_registering_dynamic_contracts: Scalars['Boolean']['output'];
   log_index: Scalars['Int']['output'];
 };
 
@@ -2295,6 +2180,7 @@ export type Event_Sync_State_Bool_Exp = {
   block_number?: InputMaybe<Int_Comparison_Exp>;
   block_timestamp?: InputMaybe<Int_Comparison_Exp>;
   chain_id?: InputMaybe<Int_Comparison_Exp>;
+  is_pre_registering_dynamic_contracts?: InputMaybe<Boolean_Comparison_Exp>;
   log_index?: InputMaybe<Int_Comparison_Exp>;
 };
 
@@ -2303,6 +2189,7 @@ export type Event_Sync_State_Order_By = {
   block_number?: InputMaybe<Order_By>;
   block_timestamp?: InputMaybe<Order_By>;
   chain_id?: InputMaybe<Order_By>;
+  is_pre_registering_dynamic_contracts?: InputMaybe<Order_By>;
   log_index?: InputMaybe<Order_By>;
 };
 
@@ -2314,6 +2201,8 @@ export enum Event_Sync_State_Select_Column {
   BlockTimestamp = 'block_timestamp',
   /** column name */
   ChainId = 'chain_id',
+  /** column name */
+  IsPreRegisteringDynamicContracts = 'is_pre_registering_dynamic_contracts',
   /** column name */
   LogIndex = 'log_index'
 }
@@ -2331,18 +2220,8 @@ export type Event_Sync_State_Stream_Cursor_Value_Input = {
   block_number?: InputMaybe<Scalars['Int']['input']>;
   block_timestamp?: InputMaybe<Scalars['Int']['input']>;
   chain_id?: InputMaybe<Scalars['Int']['input']>;
+  is_pre_registering_dynamic_contracts?: InputMaybe<Scalars['Boolean']['input']>;
   log_index?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type Get_Entity_History_Filter_Args = {
-  end_block?: InputMaybe<Scalars['Int']['input']>;
-  end_chain_id?: InputMaybe<Scalars['Int']['input']>;
-  end_log_index?: InputMaybe<Scalars['Int']['input']>;
-  end_timestamp?: InputMaybe<Scalars['Int']['input']>;
-  start_block?: InputMaybe<Scalars['Int']['input']>;
-  start_chain_id?: InputMaybe<Scalars['Int']['input']>;
-  start_log_index?: InputMaybe<Scalars['Int']['input']>;
-  start_timestamp?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type Jsonb_Cast_Exp = {
@@ -2472,6 +2351,10 @@ export type Persisted_State_Stream_Cursor_Value_Input = {
 
 export type Query_Root = {
   __typename?: 'query_root';
+  /** fetch data from the table: "AskHausContest" */
+  AskHausContest: Array<AskHausContest>;
+  /** fetch data from the table: "AskHausContest" using primary key columns */
+  AskHausContest_by_pk?: Maybe<AskHausContest>;
   /** fetch data from the table: "AskHausPoll" */
   AskHausPoll: Array<AskHausPoll>;
   /** fetch data from the table: "AskHausPoll" using primary key columns */
@@ -2480,6 +2363,10 @@ export type Query_Root = {
   BasicChoice: Array<BasicChoice>;
   /** fetch data from the table: "BasicChoice" using primary key columns */
   BasicChoice_by_pk?: Maybe<BasicChoice>;
+  /** fetch data from the table: "BasicChoices" */
+  BasicChoices: Array<BasicChoices>;
+  /** fetch data from the table: "BasicChoices" using primary key columns */
+  BasicChoices_by_pk?: Maybe<BasicChoices>;
   /** fetch data from the table: "BasicVote" */
   BasicVote: Array<BasicVote>;
   /** fetch data from the table: "BasicVote" using primary key columns */
@@ -2544,20 +2431,10 @@ export type Query_Root = {
   end_of_block_range_scanned_data: Array<End_Of_Block_Range_Scanned_Data>;
   /** fetch data from the table: "end_of_block_range_scanned_data" using primary key columns */
   end_of_block_range_scanned_data_by_pk?: Maybe<End_Of_Block_Range_Scanned_Data>;
-  /** fetch data from the table: "entity_history" */
-  entity_history: Array<Entity_History>;
-  /** fetch data from the table: "entity_history" using primary key columns */
-  entity_history_by_pk?: Maybe<Entity_History>;
-  /** fetch data from the table: "entity_history_filter" */
-  entity_history_filter: Array<Entity_History_Filter>;
-  /** fetch data from the table: "entity_history_filter" using primary key columns */
-  entity_history_filter_by_pk?: Maybe<Entity_History_Filter>;
   /** fetch data from the table: "event_sync_state" */
   event_sync_state: Array<Event_Sync_State>;
   /** fetch data from the table: "event_sync_state" using primary key columns */
   event_sync_state_by_pk?: Maybe<Event_Sync_State>;
-  /** This function helps search for articles */
-  get_entity_history_filter: Array<Entity_History_Filter>;
   /** fetch data from the table: "persisted_state" */
   persisted_state: Array<Persisted_State>;
   /** fetch data from the table: "persisted_state" using primary key columns */
@@ -2566,6 +2443,20 @@ export type Query_Root = {
   raw_events: Array<Raw_Events>;
   /** fetch data from the table: "raw_events" using primary key columns */
   raw_events_by_pk?: Maybe<Raw_Events>;
+};
+
+
+export type Query_RootAskHausContestArgs = {
+  distinct_on?: InputMaybe<Array<AskHausContest_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<AskHausContest_Order_By>>;
+  where?: InputMaybe<AskHausContest_Bool_Exp>;
+};
+
+
+export type Query_RootAskHausContest_By_PkArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -2593,6 +2484,20 @@ export type Query_RootBasicChoiceArgs = {
 
 
 export type Query_RootBasicChoice_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Query_RootBasicChoicesArgs = {
+  distinct_on?: InputMaybe<Array<BasicChoices_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BasicChoices_Order_By>>;
+  where?: InputMaybe<BasicChoices_Bool_Exp>;
+};
+
+
+export type Query_RootBasicChoices_By_PkArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -2803,8 +2708,7 @@ export type Query_RootDynamic_Contract_RegistryArgs = {
 
 
 export type Query_RootDynamic_Contract_Registry_By_PkArgs = {
-  chain_id: Scalars['Int']['input'];
-  contract_address: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 };
 
 
@@ -2823,45 +2727,6 @@ export type Query_RootEnd_Of_Block_Range_Scanned_Data_By_PkArgs = {
 };
 
 
-export type Query_RootEntity_HistoryArgs = {
-  distinct_on?: InputMaybe<Array<Entity_History_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Order_By>>;
-  where?: InputMaybe<Entity_History_Bool_Exp>;
-};
-
-
-export type Query_RootEntity_History_By_PkArgs = {
-  block_number: Scalars['Int']['input'];
-  block_timestamp: Scalars['Int']['input'];
-  chain_id: Scalars['Int']['input'];
-  entity_id: Scalars['String']['input'];
-  entity_type: Scalars['entity_type']['input'];
-  log_index: Scalars['Int']['input'];
-};
-
-
-export type Query_RootEntity_History_FilterArgs = {
-  distinct_on?: InputMaybe<Array<Entity_History_Filter_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Filter_Order_By>>;
-  where?: InputMaybe<Entity_History_Filter_Bool_Exp>;
-};
-
-
-export type Query_RootEntity_History_Filter_By_PkArgs = {
-  block_number: Scalars['Int']['input'];
-  block_timestamp: Scalars['Int']['input'];
-  chain_id: Scalars['Int']['input'];
-  entity_id: Scalars['String']['input'];
-  entity_type: Scalars['entity_type']['input'];
-  log_index: Scalars['Int']['input'];
-  previous_log_index: Scalars['Int']['input'];
-};
-
-
 export type Query_RootEvent_Sync_StateArgs = {
   distinct_on?: InputMaybe<Array<Event_Sync_State_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2873,16 +2738,6 @@ export type Query_RootEvent_Sync_StateArgs = {
 
 export type Query_RootEvent_Sync_State_By_PkArgs = {
   chain_id: Scalars['Int']['input'];
-};
-
-
-export type Query_RootGet_Entity_History_FilterArgs = {
-  args: Get_Entity_History_Filter_Args;
-  distinct_on?: InputMaybe<Array<Entity_History_Filter_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Filter_Order_By>>;
-  where?: InputMaybe<Entity_History_Filter_Bool_Exp>;
 };
 
 
@@ -2910,8 +2765,7 @@ export type Query_RootRaw_EventsArgs = {
 
 
 export type Query_RootRaw_Events_By_PkArgs = {
-  chain_id: Scalars['Int']['input'];
-  event_id: Scalars['numeric']['input'];
+  serial: Scalars['Int']['input'];
 };
 
 /** columns and relationships of "raw_events" */
@@ -2924,12 +2778,11 @@ export type Raw_Events = {
   chain_id: Scalars['Int']['output'];
   contract_name: Scalars['String']['output'];
   db_write_timestamp?: Maybe<Scalars['timestamp']['output']>;
-  /** An array relationship */
-  event_history: Array<Entity_History>;
   event_id: Scalars['numeric']['output'];
   event_name: Scalars['String']['output'];
   log_index: Scalars['Int']['output'];
   params: Scalars['jsonb']['output'];
+  serial: Scalars['Int']['output'];
   src_address: Scalars['String']['output'];
   transaction_fields: Scalars['jsonb']['output'];
 };
@@ -2938,16 +2791,6 @@ export type Raw_Events = {
 /** columns and relationships of "raw_events" */
 export type Raw_EventsBlock_FieldsArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** columns and relationships of "raw_events" */
-export type Raw_EventsEvent_HistoryArgs = {
-  distinct_on?: InputMaybe<Array<Entity_History_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Order_By>>;
-  where?: InputMaybe<Entity_History_Bool_Exp>;
 };
 
 
@@ -2974,11 +2817,11 @@ export type Raw_Events_Bool_Exp = {
   chain_id?: InputMaybe<Int_Comparison_Exp>;
   contract_name?: InputMaybe<String_Comparison_Exp>;
   db_write_timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
-  event_history?: InputMaybe<Entity_History_Bool_Exp>;
   event_id?: InputMaybe<Numeric_Comparison_Exp>;
   event_name?: InputMaybe<String_Comparison_Exp>;
   log_index?: InputMaybe<Int_Comparison_Exp>;
   params?: InputMaybe<Jsonb_Comparison_Exp>;
+  serial?: InputMaybe<Int_Comparison_Exp>;
   src_address?: InputMaybe<String_Comparison_Exp>;
   transaction_fields?: InputMaybe<Jsonb_Comparison_Exp>;
 };
@@ -2992,11 +2835,11 @@ export type Raw_Events_Order_By = {
   chain_id?: InputMaybe<Order_By>;
   contract_name?: InputMaybe<Order_By>;
   db_write_timestamp?: InputMaybe<Order_By>;
-  event_history_aggregate?: InputMaybe<Entity_History_Aggregate_Order_By>;
   event_id?: InputMaybe<Order_By>;
   event_name?: InputMaybe<Order_By>;
   log_index?: InputMaybe<Order_By>;
   params?: InputMaybe<Order_By>;
+  serial?: InputMaybe<Order_By>;
   src_address?: InputMaybe<Order_By>;
   transaction_fields?: InputMaybe<Order_By>;
 };
@@ -3026,6 +2869,8 @@ export enum Raw_Events_Select_Column {
   /** column name */
   Params = 'params',
   /** column name */
+  Serial = 'serial',
+  /** column name */
   SrcAddress = 'src_address',
   /** column name */
   TransactionFields = 'transaction_fields'
@@ -3052,12 +2897,19 @@ export type Raw_Events_Stream_Cursor_Value_Input = {
   event_name?: InputMaybe<Scalars['String']['input']>;
   log_index?: InputMaybe<Scalars['Int']['input']>;
   params?: InputMaybe<Scalars['jsonb']['input']>;
+  serial?: InputMaybe<Scalars['Int']['input']>;
   src_address?: InputMaybe<Scalars['String']['input']>;
   transaction_fields?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
+  /** fetch data from the table: "AskHausContest" */
+  AskHausContest: Array<AskHausContest>;
+  /** fetch data from the table: "AskHausContest" using primary key columns */
+  AskHausContest_by_pk?: Maybe<AskHausContest>;
+  /** fetch data from the table in a streaming manner: "AskHausContest" */
+  AskHausContest_stream: Array<AskHausContest>;
   /** fetch data from the table: "AskHausPoll" */
   AskHausPoll: Array<AskHausPoll>;
   /** fetch data from the table: "AskHausPoll" using primary key columns */
@@ -3070,6 +2922,12 @@ export type Subscription_Root = {
   BasicChoice_by_pk?: Maybe<BasicChoice>;
   /** fetch data from the table in a streaming manner: "BasicChoice" */
   BasicChoice_stream: Array<BasicChoice>;
+  /** fetch data from the table: "BasicChoices" */
+  BasicChoices: Array<BasicChoices>;
+  /** fetch data from the table: "BasicChoices" using primary key columns */
+  BasicChoices_by_pk?: Maybe<BasicChoices>;
+  /** fetch data from the table in a streaming manner: "BasicChoices" */
+  BasicChoices_stream: Array<BasicChoices>;
   /** fetch data from the table: "BasicVote" */
   BasicVote: Array<BasicVote>;
   /** fetch data from the table: "BasicVote" using primary key columns */
@@ -3166,26 +3024,12 @@ export type Subscription_Root = {
   end_of_block_range_scanned_data_by_pk?: Maybe<End_Of_Block_Range_Scanned_Data>;
   /** fetch data from the table in a streaming manner: "end_of_block_range_scanned_data" */
   end_of_block_range_scanned_data_stream: Array<End_Of_Block_Range_Scanned_Data>;
-  /** fetch data from the table: "entity_history" */
-  entity_history: Array<Entity_History>;
-  /** fetch data from the table: "entity_history" using primary key columns */
-  entity_history_by_pk?: Maybe<Entity_History>;
-  /** fetch data from the table: "entity_history_filter" */
-  entity_history_filter: Array<Entity_History_Filter>;
-  /** fetch data from the table: "entity_history_filter" using primary key columns */
-  entity_history_filter_by_pk?: Maybe<Entity_History_Filter>;
-  /** fetch data from the table in a streaming manner: "entity_history_filter" */
-  entity_history_filter_stream: Array<Entity_History_Filter>;
-  /** fetch data from the table in a streaming manner: "entity_history" */
-  entity_history_stream: Array<Entity_History>;
   /** fetch data from the table: "event_sync_state" */
   event_sync_state: Array<Event_Sync_State>;
   /** fetch data from the table: "event_sync_state" using primary key columns */
   event_sync_state_by_pk?: Maybe<Event_Sync_State>;
   /** fetch data from the table in a streaming manner: "event_sync_state" */
   event_sync_state_stream: Array<Event_Sync_State>;
-  /** This function helps search for articles */
-  get_entity_history_filter: Array<Entity_History_Filter>;
   /** fetch data from the table: "persisted_state" */
   persisted_state: Array<Persisted_State>;
   /** fetch data from the table: "persisted_state" using primary key columns */
@@ -3198,6 +3042,27 @@ export type Subscription_Root = {
   raw_events_by_pk?: Maybe<Raw_Events>;
   /** fetch data from the table in a streaming manner: "raw_events" */
   raw_events_stream: Array<Raw_Events>;
+};
+
+
+export type Subscription_RootAskHausContestArgs = {
+  distinct_on?: InputMaybe<Array<AskHausContest_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<AskHausContest_Order_By>>;
+  where?: InputMaybe<AskHausContest_Bool_Exp>;
+};
+
+
+export type Subscription_RootAskHausContest_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootAskHausContest_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<AskHausContest_Stream_Cursor_Input>>;
+  where?: InputMaybe<AskHausContest_Bool_Exp>;
 };
 
 
@@ -3240,6 +3105,27 @@ export type Subscription_RootBasicChoice_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<BasicChoice_Stream_Cursor_Input>>;
   where?: InputMaybe<BasicChoice_Bool_Exp>;
+};
+
+
+export type Subscription_RootBasicChoicesArgs = {
+  distinct_on?: InputMaybe<Array<BasicChoices_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<BasicChoices_Order_By>>;
+  where?: InputMaybe<BasicChoices_Bool_Exp>;
+};
+
+
+export type Subscription_RootBasicChoices_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootBasicChoices_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<BasicChoices_Stream_Cursor_Input>>;
+  where?: InputMaybe<BasicChoices_Bool_Exp>;
 };
 
 
@@ -3547,8 +3433,7 @@ export type Subscription_RootDynamic_Contract_RegistryArgs = {
 
 
 export type Subscription_RootDynamic_Contract_Registry_By_PkArgs = {
-  chain_id: Scalars['Int']['input'];
-  contract_address: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 };
 
 
@@ -3581,59 +3466,6 @@ export type Subscription_RootEnd_Of_Block_Range_Scanned_Data_StreamArgs = {
 };
 
 
-export type Subscription_RootEntity_HistoryArgs = {
-  distinct_on?: InputMaybe<Array<Entity_History_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Order_By>>;
-  where?: InputMaybe<Entity_History_Bool_Exp>;
-};
-
-
-export type Subscription_RootEntity_History_By_PkArgs = {
-  block_number: Scalars['Int']['input'];
-  block_timestamp: Scalars['Int']['input'];
-  chain_id: Scalars['Int']['input'];
-  entity_id: Scalars['String']['input'];
-  entity_type: Scalars['entity_type']['input'];
-  log_index: Scalars['Int']['input'];
-};
-
-
-export type Subscription_RootEntity_History_FilterArgs = {
-  distinct_on?: InputMaybe<Array<Entity_History_Filter_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Filter_Order_By>>;
-  where?: InputMaybe<Entity_History_Filter_Bool_Exp>;
-};
-
-
-export type Subscription_RootEntity_History_Filter_By_PkArgs = {
-  block_number: Scalars['Int']['input'];
-  block_timestamp: Scalars['Int']['input'];
-  chain_id: Scalars['Int']['input'];
-  entity_id: Scalars['String']['input'];
-  entity_type: Scalars['entity_type']['input'];
-  log_index: Scalars['Int']['input'];
-  previous_log_index: Scalars['Int']['input'];
-};
-
-
-export type Subscription_RootEntity_History_Filter_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Entity_History_Filter_Stream_Cursor_Input>>;
-  where?: InputMaybe<Entity_History_Filter_Bool_Exp>;
-};
-
-
-export type Subscription_RootEntity_History_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Entity_History_Stream_Cursor_Input>>;
-  where?: InputMaybe<Entity_History_Bool_Exp>;
-};
-
-
 export type Subscription_RootEvent_Sync_StateArgs = {
   distinct_on?: InputMaybe<Array<Event_Sync_State_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3652,16 +3484,6 @@ export type Subscription_RootEvent_Sync_State_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Event_Sync_State_Stream_Cursor_Input>>;
   where?: InputMaybe<Event_Sync_State_Bool_Exp>;
-};
-
-
-export type Subscription_RootGet_Entity_History_FilterArgs = {
-  args: Get_Entity_History_Filter_Args;
-  distinct_on?: InputMaybe<Array<Entity_History_Filter_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Entity_History_Filter_Order_By>>;
-  where?: InputMaybe<Entity_History_Filter_Bool_Exp>;
 };
 
 
@@ -3696,8 +3518,7 @@ export type Subscription_RootRaw_EventsArgs = {
 
 
 export type Subscription_RootRaw_Events_By_PkArgs = {
-  chain_id: Scalars['Int']['input'];
-  event_id: Scalars['numeric']['input'];
+  serial: Scalars['Int']['input'];
 };
 
 
@@ -3733,46 +3554,57 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
 };
 
-export type BasicChoiceFragment = { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any };
+export type FullContestFragment = { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', id: string, checkpoint: any, holderType: any } | null, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', id: string, holderThreshold: any, startTime: any, endTime: any, holderType: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any, postedBy: string, postedAt: number }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null };
+
+export type GetContestQueryVariables = Exact<{
+  contestId: Scalars['String']['input'];
+}>;
+
+
+export type GetContestQuery = { __typename?: 'query_root', AskHausContest_by_pk?: { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', id: string, checkpoint: any, holderType: any } | null, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', id: string, holderThreshold: any, startTime: any, endTime: any, holderType: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any, postedBy: string, postedAt: number }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null } | null };
+
+export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+
+export type ContestCardFragment = { __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+
+export type BasicChoiceFragment = { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any, postedBy: string, postedAt: number };
 
 export type BasicVoteFragment = { __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null };
 
 export type BatchVoteFragment = { __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> };
 
-export type PollCardFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+export type FrontPageVotesQueryVariables = Exact<{
+  now: Scalars['numeric']['input'];
+  dao: Scalars['String']['input'];
+}>;
 
-export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
+
+export type FrontPageVotesQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, populatingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, votingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, upcomingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+
+export type PastRoundsQueryVariables = Exact<{
+  now: Scalars['numeric']['input'];
+  dao: Scalars['String']['input'];
+}>;
+
+
+export type PastRoundsQuery = { __typename?: 'query_root', pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+
+export type LiveRoundsQueryVariables = Exact<{
+  now: Scalars['numeric']['input'];
+  dao: Scalars['String']['input'];
+}>;
+
+
+export type LiveRoundsQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, populatingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, votingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, upcomingContests: Array<{ __typename?: 'AskHausContest', id: string, title: string, answerType: string, description?: string | null, link?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, choicesParams?: { __typename?: 'Params_BaalGate_v0_2_0', startTime: any, endTime: any } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+
+export type FullPollFragment = { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any, postedBy: string, postedAt: number }> } | null } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null };
 
 export type GetPollQueryVariables = Exact<{
   pollId: Scalars['String']['input'];
 }>;
 
 
-export type GetPollQuery = { __typename?: 'query_root', AskHausPoll_by_pk?: { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any }> } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null } | null };
-
-export type FrontPagePollsQueryVariables = Exact<{
-  now: Scalars['numeric']['input'];
-  dao: Scalars['String']['input'];
-}>;
-
-
-export type FrontPagePollsQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
-
-export type LivePollsQueryVariables = Exact<{
-  now: Scalars['numeric']['input'];
-  dao: Scalars['String']['input'];
-}>;
-
-
-export type LivePollsQuery = { __typename?: 'query_root', upcomingPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }>, activePolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
-
-export type PollHistoryQueryVariables = Exact<{
-  now: Scalars['numeric']['input'];
-  dao: Scalars['String']['input'];
-}>;
-
-
-export type PollHistoryQuery = { __typename?: 'query_root', pastPolls: Array<{ __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null }> };
+export type GetPollQuery = { __typename?: 'query_root', AskHausPoll_by_pk?: { __typename?: 'AskHausPoll', id: string, title: string, answerType: string, description?: string | null, pollLink?: string | null, requestComment?: boolean | null, postedBy: string, round_id: string, pointsAddress: string, choicesParams?: { __typename?: 'Params_PrePop_v0_2_0', basicChoices?: { __typename?: 'BasicChoices', choices: Array<{ __typename?: 'BasicChoice', id: string, choiceId: string, title: string, description?: string | null, color?: string | null, link?: string | null, amountVoted: any, postedBy: string, postedAt: number }> } | null } | null, round?: { __typename?: 'Round', id: string, totalVoted: any, batchVotes: Array<{ __typename?: 'BatchVote', id: string, voter: string, totalVoted: any, timestamp: number, votes: Array<{ __typename?: 'BasicVote', id: string, amount: any, choice?: { __typename?: 'BasicChoice', id: string, choiceId: string, title: string, color?: string | null } | null }> }> } | null, votesParams?: { __typename?: 'Params_TimedVotes_v0_2_0', id: string, endTime?: any | null, startTime?: any | null, duration?: any | null } | null, pointsParams?: { __typename?: 'Params_BaalPoints_v0_2_0', checkpoint: any, holderType: any } | null } | null };
 
 export type GetRecentTransactionQueryVariables = Exact<{
   txHash: Scalars['String']['input'];
@@ -3781,28 +3613,6 @@ export type GetRecentTransactionQueryVariables = Exact<{
 
 export type GetRecentTransactionQuery = { __typename?: 'query_root', TX_by_pk?: { __typename?: 'TX', id: string } | null };
 
-export const PollCardFragmentDoc = gql`
-    fragment PollCard on AskHausPoll {
-  id
-  title
-  answerType
-  description
-  pollLink
-  requestComment
-  postedBy
-  votesParams {
-    id
-    endTime
-    startTime
-    duration
-  }
-  pointsParams {
-    checkpoint
-    holderType
-  }
-  round_id
-}
-    `;
 export const BasicChoiceFragmentDoc = gql`
     fragment BasicChoice on BasicChoice {
   id
@@ -3812,6 +3622,8 @@ export const BasicChoiceFragmentDoc = gql`
   color
   link
   amountVoted
+  postedBy
+  postedAt
 }
     `;
 export const BasicVoteFragmentDoc = gql`
@@ -3837,13 +3649,106 @@ export const BatchVoteFragmentDoc = gql`
   }
 }
     ${BasicVoteFragmentDoc}`;
+export const FullContestFragmentDoc = gql`
+    fragment FullContest on AskHausContest {
+  id
+  title
+  answerType
+  description
+  link
+  requestComment
+  postedBy
+  round_id
+  pointsParams {
+    id
+    checkpoint
+    holderType
+  }
+  choicesParams {
+    id
+    holderThreshold
+    startTime
+    endTime
+    holderType
+  }
+  votesParams {
+    id
+    endTime
+    startTime
+    duration
+  }
+  basicChoices {
+    choices {
+      ...BasicChoice
+    }
+  }
+  round {
+    id
+    totalVoted
+    batchVotes {
+      ...BatchVote
+    }
+  }
+}
+    ${BasicChoiceFragmentDoc}
+${BatchVoteFragmentDoc}`;
+export const ContestCardFragmentDoc = gql`
+    fragment ContestCard on AskHausContest {
+  id
+  title
+  answerType
+  description
+  link
+  requestComment
+  postedBy
+  round_id
+  choicesParams {
+    startTime
+    endTime
+  }
+  votesParams {
+    id
+    endTime
+    startTime
+    duration
+  }
+  pointsParams {
+    checkpoint
+    holderType
+  }
+}
+    `;
+export const PollCardFragmentDoc = gql`
+    fragment PollCard on AskHausPoll {
+  id
+  title
+  answerType
+  description
+  pollLink
+  requestComment
+  postedBy
+  votesParams {
+    id
+    endTime
+    startTime
+    duration
+  }
+  pointsParams {
+    checkpoint
+    holderType
+  }
+  round_id
+}
+    `;
 export const FullPollFragmentDoc = gql`
     fragment FullPoll on AskHausPoll {
   ...PollCard
   pointsAddress: pointsParams_id
   choicesParams {
-    choices {
-      ...BasicChoice
+    basicChoices {
+      choices {
+        ...BasicChoice
+      }
     }
   }
   round {
@@ -3857,6 +3762,119 @@ export const FullPollFragmentDoc = gql`
     ${PollCardFragmentDoc}
 ${BasicChoiceFragmentDoc}
 ${BatchVoteFragmentDoc}`;
+export const GetContestDocument = gql`
+    query getContest($contestId: String!) {
+  AskHausContest_by_pk(id: $contestId) {
+    ...FullContest
+  }
+}
+    ${FullContestFragmentDoc}`;
+export const FrontPageVotesDocument = gql`
+    query frontPageVotes($now: numeric!, $dao: String!) {
+  upcomingPolls: AskHausPoll(
+    where: {votesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    limit: 5
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...PollCard
+  }
+  pastPolls: AskHausPoll(
+    where: {votesParams: {endTime: {_lt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    limit: 5
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...PollCard
+  }
+  activePolls: AskHausPoll(
+    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    limit: 5
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...PollCard
+  }
+  populatingContests: AskHausContest(
+    where: {choicesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    limit: 5
+    order_by: {choicesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
+  votingContests: AskHausContest(
+    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    limit: 5
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
+  upcomingContests: AskHausContest(
+    where: {choicesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {choicesParams: {startTime: desc}}
+    limit: 5
+  ) {
+    ...ContestCard
+  }
+  pastContests: AskHausContest(
+    where: {votesParams: {endTime: {_lt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {choicesParams: {startTime: desc}}
+    limit: 5
+  ) {
+    ...ContestCard
+  }
+}
+    ${PollCardFragmentDoc}
+${ContestCardFragmentDoc}`;
+export const PastRoundsDocument = gql`
+    query pastRounds($now: numeric!, $dao: String!) {
+  pastPolls: AskHausPoll(
+    where: {votesParams: {endTime: {_lt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...PollCard
+  }
+  pastContests: AskHausContest(
+    where: {votesParams: {endTime: {_lt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {choicesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
+}
+    ${PollCardFragmentDoc}
+${ContestCardFragmentDoc}`;
+export const LiveRoundsDocument = gql`
+    query liveRounds($now: numeric!, $dao: String!) {
+  upcomingPolls: AskHausPoll(
+    where: {votesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...PollCard
+  }
+  activePolls: AskHausPoll(
+    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...PollCard
+  }
+  populatingContests: AskHausContest(
+    where: {choicesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {choicesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
+  votingContests: AskHausContest(
+    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {votesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
+  upcomingContests: AskHausContest(
+    where: {choicesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
+    order_by: {choicesParams: {startTime: desc}}
+  ) {
+    ...ContestCard
+  }
+}
+    ${PollCardFragmentDoc}
+${ContestCardFragmentDoc}`;
 export const GetPollDocument = gql`
     query getPoll($pollId: String!) {
   AskHausPoll_by_pk(id: $pollId) {
@@ -3864,57 +3882,6 @@ export const GetPollDocument = gql`
   }
 }
     ${FullPollFragmentDoc}`;
-export const FrontPagePollsDocument = gql`
-    query frontPagePolls($now: numeric!, $dao: String!) {
-  upcomingPolls: AskHausPoll(
-    where: {votesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
-    limit: 5
-    order_by: {votesParams: {startTime: desc}}
-  ) {
-    ...PollCard
-  }
-  pastPolls: AskHausPoll(
-    where: {votesParams: {endTime: {_lt: $now}}, pointsParams: {dao: {_eq: $dao}}}
-    limit: 5
-    order_by: {votesParams: {startTime: desc}}
-  ) {
-    ...PollCard
-  }
-  activePolls: AskHausPoll(
-    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
-    limit: 5
-    order_by: {votesParams: {startTime: desc}}
-  ) {
-    ...PollCard
-  }
-}
-    ${PollCardFragmentDoc}`;
-export const LivePollsDocument = gql`
-    query livePolls($now: numeric!, $dao: String!) {
-  upcomingPolls: AskHausPoll(
-    where: {votesParams: {startTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
-    order_by: {votesParams: {startTime: desc}}
-  ) {
-    ...PollCard
-  }
-  activePolls: AskHausPoll(
-    where: {votesParams: {startTime: {_lt: $now}, endTime: {_gt: $now}}, pointsParams: {dao: {_eq: $dao}}}
-    order_by: {votesParams: {startTime: desc}}
-  ) {
-    ...PollCard
-  }
-}
-    ${PollCardFragmentDoc}`;
-export const PollHistoryDocument = gql`
-    query pollHistory($now: numeric!, $dao: String!) {
-  pastPolls: AskHausPoll(
-    where: {votesParams: {endTime: {_lt: $now}}, pointsParams: {dao: {_eq: $dao}}}
-    order_by: {votesParams: {startTime: desc}}
-  ) {
-    ...PollCard
-  }
-}
-    ${PollCardFragmentDoc}`;
 export const GetRecentTransactionDocument = gql`
     query getRecentTransaction($txHash: String!) {
   TX_by_pk(id: $txHash) {
@@ -3930,17 +3897,20 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    getContest(variables: GetContestQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetContestQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetContestQuery>(GetContestDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getContest', 'query', variables);
+    },
+    frontPageVotes(variables: FrontPageVotesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FrontPageVotesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FrontPageVotesQuery>(FrontPageVotesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'frontPageVotes', 'query', variables);
+    },
+    pastRounds(variables: PastRoundsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<PastRoundsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PastRoundsQuery>(PastRoundsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'pastRounds', 'query', variables);
+    },
+    liveRounds(variables: LiveRoundsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LiveRoundsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<LiveRoundsQuery>(LiveRoundsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'liveRounds', 'query', variables);
+    },
     getPoll(variables: GetPollQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetPollQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetPollQuery>(GetPollDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPoll', 'query', variables);
-    },
-    frontPagePolls(variables: FrontPagePollsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<FrontPagePollsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<FrontPagePollsQuery>(FrontPagePollsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'frontPagePolls', 'query', variables);
-    },
-    livePolls(variables: LivePollsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<LivePollsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<LivePollsQuery>(LivePollsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'livePolls', 'query', variables);
-    },
-    pollHistory(variables: PollHistoryQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<PollHistoryQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<PollHistoryQuery>(PollHistoryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'pollHistory', 'query', variables);
     },
     getRecentTransaction(variables: GetRecentTransactionQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetRecentTransactionQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetRecentTransactionQuery>(GetRecentTransactionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getRecentTransaction', 'query', variables);

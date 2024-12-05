@@ -1,0 +1,74 @@
+.root {
+  /* background-color: red; */
+}
+
+.content {
+  border: 1.5px solid var(--mantine-color-steel-2);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--mantine-color-steel-0);
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+  p {
+    font-size: 0.8rem;
+  }
+}
+
+.rootDisplay {
+  border: 0px;
+}
+
+.rootDisplay :global(.ProseMirror) {
+  padding: 0;
+}
+
+.contentDisplay {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--mantine-color-steel-0);
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  h5 {
+    font-size: 0.9rem;
+  }
+
+  h6 {
+    font-size: 0.8rem;
+  }
+  p {
+    font-size: 0.8rem;
+  }
+}

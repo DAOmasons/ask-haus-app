@@ -208,7 +208,9 @@ export const VotePanel = ({
       </Stack>
       {isActive && !hasVoted && (
         <TxButton
-          disabled={isLoading || totalAllocated !== 100}
+          disabled={
+            isLoading || totalAllocated !== 100 || pointsDisplay === '0'
+          }
           onClick={handleVote}
         />
       )}

@@ -45,7 +45,6 @@ export const CreatePoll1 = ({
             label="Token Type"
             required
             allowDeselect={false}
-            {...form.getInputProps('tokenType')}
             description={
               form.values.tokenType === 'Shares'
                 ? 'Voters can vote with DAO shares (voting token)'
@@ -53,6 +52,7 @@ export const CreatePoll1 = ({
                   ? 'Voters can vote with DAO loot (non-voting token)'
                   : 'Voters can vote with both DAO tokens'
             }
+            {...form.getInputProps('tokenType')}
           />
         </Paper>
         <Paper>
@@ -78,7 +78,6 @@ export const CreatePoll1 = ({
                 }}
                 {...form.getInputProps('customTimeStart')}
                 defaultValue={new Date()}
-                onDateChange={(e) => console.log(e.toUTCString())}
               />
             </Paper>
             <Paper>
@@ -90,7 +89,6 @@ export const CreatePoll1 = ({
                   fz: 14,
                 }}
                 {...form.getInputProps('customTimeEnd')}
-                onDateChange={(e) => console.log(e.toUTCString())}
               />
             </Paper>
           </>

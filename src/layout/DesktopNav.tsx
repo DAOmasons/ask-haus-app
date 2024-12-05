@@ -31,9 +31,9 @@ export const DesktopNav = () => {
         <AppLink c={theme.colors.steel[2]} url="/past">
           Past
         </AppLink>
-        <AppLink c={theme.colors.steel[2]} url="/dorks">
+        {/* <AppLink c={theme.colors.steel[2]} url="/dorks">
           Dorks
-        </AppLink>
+        </AppLink> */}
         <ConnectButton />
       </Group>
     </Group>

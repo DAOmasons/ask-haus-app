@@ -1,23 +1,14 @@
-import {
-  ActionIcon,
-  Box,
-  Flex,
-  Group,
-  HoverCard,
-  Paper,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
+import { Box, Flex, Group, Paper, Text, useMantineTheme } from '@mantine/core';
 import { useEffect, useMemo, useState } from 'react';
 import {
   futureRelativeTimeInSeconds,
   nowInSeconds,
   pastRelativeTimeInSeconds,
 } from '../../utils/time';
-import { IconChartBar, IconLink, IconMessage } from '@tabler/icons-react';
+import { IconChartBar, IconTrophy } from '@tabler/icons-react';
 import { AddressAvatar } from '../AddressAvatar';
 import { Address } from 'viem';
-import { VoteType } from '../../constants/enum';
+import { VoteStage, VoteType } from '../../constants/enum';
 import paperClasses from '../../styles/paper.module.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,12 +17,11 @@ export const VoteCard = ({
   startTime,
   endTime,
   duration,
-  pollLink,
   postedBy,
   to,
   voteType,
-  description,
   tick = true,
+  voteStage,
 }: {
   title: string;
   startTime: number;
@@ -39,9 +29,8 @@ export const VoteCard = ({
   to?: string;
   duration: number;
   postedBy: string;
-  pollLink?: string;
-  description?: string;
   voteType: VoteType;
+  voteStage?: VoteStage;
   tick?: boolean;
 }) => {
   const [tickTime, setTickTime] = useState(new Date());
@@ -75,7 +64,7 @@ export const VoteCard = ({
   const voteTypeDisplay = useMemo(() => {
     if (voteType === VoteType.Poll) {
       return (
-        <Group gap="xs">
+        <Group gap={6}>
           <IconChartBar size={14} color={colors.steel[4]} />
           <Text c={colors.steel[4]} fz="xs">
             Poll
@@ -83,7 +72,27 @@ export const VoteCard = ({
         </Group>
       );
     }
-  }, [voteType, colors.steel]);
+    if (voteType === VoteType.Contest) {
+      return (
+        <Group gap={6}>
+          <IconTrophy size={14} color={colors.steel[4]} />
+          <Text c={colors.steel[4]} fz="xs">
+            Contest
+          </Text>
+          {voteStage && (
+            <>
+              <Text c={colors.steel[4]} fz="xs">
+                ·
+              </Text>
+              <Text c={colors.steel[4]} fz="xs">
+                {voteStage}
+              </Text>
+            </>
+          )}
+        </Group>
+      );
+    }
+  }, [voteType, colors.steel, voteStage]);
 
   const handleCardNavigate = () => {
     if (to) {
@@ -101,37 +110,6 @@ export const VoteCard = ({
         <Text fw={500} c={colors.steel[0]} mb="sm" style={{ flex: 1 }}>
           {title}
         </Text>
-        <Group gap={4}>
-          {pollLink && (
-            <ActionIcon
-              radius={999}
-              component="a"
-              href={pollLink}
-              target="_blank"
-              rel="noreferrer"
-              variant="ghost-icon"
-            >
-              <IconLink size={16} color={colors.steel[4]} />
-            </ActionIcon>
-          )}
-          {description && (
-            <HoverCard openDelay={200} closeDelay={300}>
-              <HoverCard.Target>
-                <ActionIcon
-                  radius={999}
-                  onClick={() => {}}
-                  variant="ghost-icon"
-                  style={{ cursor: 'default' }}
-                >
-                  <IconMessage size={16} color={colors.steel[4]} />
-                </ActionIcon>
-              </HoverCard.Target>
-              <HoverCard.Dropdown>
-                <Text fz="sm">{description}</Text>
-              </HoverCard.Dropdown>
-            </HoverCard>
-          )}
-        </Group>
       </Flex>
       <Box mb="sm">{<AddressAvatar address={postedBy as Address} />}</Box>
       <Group justify="space-between">

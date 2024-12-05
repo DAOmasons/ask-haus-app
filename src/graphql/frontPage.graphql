@@ -1,0 +1,72 @@
+query frontPageVotes($now: numeric!, $dao: String!) {
+  upcomingPolls: AskHausPoll(
+    where: {
+      votesParams: { startTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    limit: 5
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...PollCard
+  }
+  pastPolls: AskHausPoll(
+    where: {
+      votesParams: { endTime: { _lt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    limit: 5
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...PollCard
+  }
+  activePolls: AskHausPoll(
+    where: {
+      votesParams: { startTime: { _lt: $now }, endTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    limit: 5
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...PollCard
+  }
+  populatingContests: AskHausContest(
+    where: {
+      choicesParams: { startTime: { _lt: $now }, endTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    limit: 5
+    order_by: { choicesParams: { startTime: desc } }
+  ) {
+    ...ContestCard
+  }
+  votingContests: AskHausContest(
+    where: {
+      votesParams: { startTime: { _lt: $now }, endTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    limit: 5
+    order_by: { votesParams: { startTime: desc } }
+  ) {
+    ...ContestCard
+  }
+  upcomingContests: AskHausContest(
+    where: {
+      choicesParams: { startTime: { _gt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    order_by: { choicesParams: { startTime: desc } }
+    limit: 5
+  ) {
+    ...ContestCard
+  }
+  pastContests: AskHausContest(
+    where: {
+      votesParams: { endTime: { _lt: $now } }
+      pointsParams: { dao: { _eq: $dao } }
+    }
+    order_by: { choicesParams: { startTime: desc } }
+    limit: 5
+  ) {
+    ...ContestCard
+  }
+}

@@ -7,6 +7,7 @@ import {
   isHex,
   pad,
   parseAbiParameters,
+  parseEther,
   stringToHex,
   zeroAddress,
 } from 'viem';
@@ -20,8 +21,13 @@ import { ADDR } from '../constants/address';
 import { CONTEST_V, ContestStatus, MODULES } from '../constants/chews';
 import { appNetwork } from './connect';
 import { FormChoice } from '../types/ui';
-import { basicChoiceSchema, pollMetadataSchema } from '../schema/form/create';
+import {
+  basicChoiceSchema,
+  contestMetadataSchema,
+  pollMetadataSchema,
+} from '../schema/form/create';
 import { isBytes32, randomCharacters } from './helpers';
+import { Content } from '@tiptap/react';
 
 const ONE_DAY = 60 * 60 * 24;
 
@@ -86,9 +92,11 @@ type TimedVoteArgs = {
   startTime: number;
 };
 
-export const encodeTimedVoteArgs = ({ duration, startTime }: TimedVoteArgs) => {
-  const autostart = startTime === 0 ? true : false;
-
+export const encodeTimedVoteArgs = ({
+  duration,
+  startTime,
+  autostart,
+}: TimedVoteArgs) => {
   const args = encodeAbiParameters(
     parseAbiParameters('uint256, bool, uint256'),
     [BigInt(duration), autostart, BigInt(startTime)]
@@ -170,6 +178,47 @@ export const encodePrepopChoicesArgs = ({
   return encoded;
 };
 
+type BaalChoiceArgs = {
+  daoAddress: Address;
+  startTime: number;
+  duration: number;
+  holderType: HolderType;
+  holderThreshold: number;
+};
+
+export const baalChoiceArgs = async (args: BaalChoiceArgs) => {
+  const publicClient = createPublicClient({
+    chain: appNetwork,
+    transport: http(import.meta.env.VITE_RPC_URL),
+  });
+  const block = await publicClient.getBlock();
+
+  const timestamp = BigInt(block.timestamp);
+
+  // (
+  //           address _daoAddress,
+  //           uint256 _startTime,
+  //           uint256 _duration,
+  //           HolderType _holderType,
+  //           uint256 _checkpoint,
+  //           uint256 _holderThreshold
+  //       )
+
+  const encoded = encodeAbiParameters(
+    parseAbiParameters('address, uint256, uint256, uint8, uint256, uint256'),
+    [
+      args.daoAddress,
+      BigInt(args.startTime),
+      BigInt(args.duration),
+      Number(args.holderType),
+      BigInt(timestamp),
+      parseEther(args.holderThreshold.toString()),
+    ]
+  );
+
+  return encoded;
+};
+
 export const emptyExecuteArgs = (): Hex => '0x0';
 
 type PollArgs = {
@@ -224,6 +273,68 @@ export const createPollArgs = async (args: PollArgs) => {
       initData,
       CONTEST_V,
       ContestStatus.Voting,
+      false,
+      filterTag,
+    ],
+    filterTag,
+  };
+};
+
+type ContestArgs = {
+  metadata: {
+    title: string;
+    description: Content;
+    link?: string;
+    answerType: string;
+    contentType: ContentType;
+    requestComment: boolean;
+  };
+  baalChoicesArgs: BaalChoiceArgs;
+  timedVoteArgs: TimedVoteArgs;
+  pointsArgs: PointsArgsType;
+};
+
+export const createContestArgs = async (args: ContestArgs) => {
+  const encodedVoteArgs = encodeTimedVoteArgs(args.timedVoteArgs);
+  const encodedPointsArgs = await encodePointsArgs(args.pointsArgs);
+  const encodedChoicesArgs = await baalChoiceArgs(args.baalChoicesArgs);
+  const encodedExecuteArgs = emptyExecuteArgs();
+
+  const initData = encodeAbiParameters(
+    parseAbiParameters('string[4], bytes[4]'),
+    [
+      [
+        MODULES.TIMED_VOTES,
+        MODULES.BAAL_POINTS,
+        MODULES.BAAL_GATE,
+        MODULES.EMPTY_EX,
+      ],
+      [
+        encodedVoteArgs,
+        encodedPointsArgs,
+        encodedChoicesArgs,
+        encodedExecuteArgs,
+      ],
+    ]
+  );
+
+  const validated = contestMetadataSchema.safeParse(args.metadata);
+
+  if (!validated.success) {
+    throw new Error('Invalid poll metadata');
+  }
+
+  const content = JSON.stringify(validated.data);
+  const protocol = contentProtocol[args.metadata.contentType];
+
+  const filterTag = `${IndexerKey.ContestV0}_${randomCharacters()}`;
+
+  return {
+    args: [
+      [protocol, content],
+      initData,
+      CONTEST_V,
+      ContestStatus.Continuous,
       false,
       filterTag,
     ],

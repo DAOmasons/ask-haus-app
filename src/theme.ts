@@ -2,8 +2,10 @@ import {
   ActionIcon,
   Button,
   createTheme,
+  InputError,
   InputLabel,
   Modal,
+  NumberInput,
   Paper,
   Popover,
   Radio,
@@ -92,6 +94,13 @@ export const theme = createTheme({
         inputWrapperOrder: ['label', 'error', 'input', 'description'],
       },
     }),
+    NumberInput: NumberInput.extend({
+      classNames: inputClasses,
+
+      defaultProps: {
+        inputWrapperOrder: ['label', 'error', 'input', 'description'],
+      },
+    }),
     Textarea: Textarea.extend({
       classNames: inputClasses,
       defaultProps: {
@@ -119,6 +128,12 @@ export const theme = createTheme({
     InputLabel: InputLabel.extend({
       defaultProps: {
         className: inputClasses.label,
+      },
+    }),
+    InputError: InputError.extend({
+      defaultProps: {
+        mt: 0,
+        mb: 8,
       },
     }),
     Radio: Radio.extend({

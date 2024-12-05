@@ -1,4 +1,4 @@
-import { CenterLayout, CenterPageTitle } from '../layout/Layout';
+import { CenterLayout } from '../layout/Layout';
 import { useForm, zodResolver } from '@mantine/form';
 import {
   CreatePoll1Values,
@@ -28,6 +28,7 @@ import factory from '../abi/FastFactory.json';
 import { Times } from '../utils/time';
 import { useEffect, useState } from 'react';
 import {
+  Box,
   Button,
   Group,
   Paper,
@@ -37,8 +38,9 @@ import {
 } from '@mantine/core';
 
 import globalClasses from '../styles/global.module.css';
-import { IconArrowRight, IconCopy } from '@tabler/icons-react';
+import { IconArrowLeft, IconArrowRight, IconCopy } from '@tabler/icons-react';
 import { useClipboard } from '@mantine/hooks';
+import { SubTitle } from '../components/Typography';
 
 export const CreatePoll = () => {
   const { tx } = useTx();
@@ -175,7 +177,17 @@ export const CreatePoll = () => {
 
   return (
     <CenterLayout>
-      <CenterPageTitle title="Create Poll" />
+      <Box w="100%" maw="500px" miw="350px" mb="lg">
+        <SubTitle mb="lg">Create Poll</SubTitle>
+        <Button
+          variant="secondary"
+          size="xs"
+          onClick={() => navigate(-1)}
+          leftSection={<IconArrowLeft size={16} />}
+        >
+          Back
+        </Button>
+      </Box>
       <Routes>
         <Route
           path="0"

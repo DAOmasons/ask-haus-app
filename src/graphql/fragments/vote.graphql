@@ -1,0 +1,20 @@
+fragment BasicVote on BasicVote {
+  id
+  amount
+  choice {
+    id
+    choiceId
+    title
+    color
+  }
+}
+
+fragment BatchVote on BatchVote {
+  id
+  voter
+  totalVoted
+  timestamp
+  votes {
+    ...BasicVote
+  }
+}
