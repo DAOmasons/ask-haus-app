@@ -2,8 +2,11 @@ import { Text, TextProps, Title, TitleProps } from '@mantine/core';
 import { ReactNode } from 'react';
 import globalClasses from '../styles/global.module.css';
 
-export const Bold = ({ children }: { children: ReactNode }) => (
-  <Text component="span" fw={900} fz="inherit">
+export const Bold = ({
+  children,
+  ...props
+}: { children: ReactNode } & TextProps) => (
+  <Text component="span" fw={900} fz="inherit" {...props}>
     {children}
   </Text>
 );

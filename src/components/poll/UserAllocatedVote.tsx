@@ -1,16 +1,15 @@
-import { Box, Group, Text, useMantineTheme } from '@mantine/core';
-import { BatchVoteFragment } from '../../generated/graphql';
+import { Address, formatEther } from 'viem';
 import { useEffect, useMemo, useState } from 'react';
+import { Group, Paper, Text, useMantineTheme } from '@mantine/core';
+
+import { BatchVoteFragment } from '../../generated/graphql';
 import { pastRelativeTimeInSeconds } from '../../utils/time';
 import { AddressAvatar } from '../AddressAvatar';
-import { Address, formatEther } from 'viem';
-import { VoteBar } from './VoteBar';
+import { VoteBarList } from '../VoteBarList';
 
 export const UserAllocatedVote = ({
-  totalVoted,
   userBatchVote,
 }: {
-  totalVoted: string;
   userBatchVote: BatchVoteFragment;
 }) => {
   const theme = useMantineTheme();
@@ -35,28 +34,19 @@ export const UserAllocatedVote = ({
   );
 
   return (
-    <Box>
-      <Group mb="xl" justify="space-between">
+    <Paper>
+      <Group mb="lg" justify="space-between">
         <AddressAvatar address={userBatchVote.voter as Address} canCopy />
         <Text fz="xs" c={theme.colors.steel[4]}>
           {formatEther(userBatchVote.totalVoted)} Points
         </Text>
       </Group>
-      <Box mb="md">
-        {userBatchVote?.votes.map((vote) => {
-          return (
-            <VoteBar
-              key={vote.id}
-              totalVoted={totalVoted}
-              amount={vote.amount}
-              color={vote?.choice?.color as string}
-            />
-          );
-        })}
-      </Box>
+      <Paper mb="lg" style={{ border: `1px dashed ${theme.colors.dark[4]}` }}>
+        <VoteBarList batchVote={userBatchVote} />
+      </Paper>
       <Text fz="xs" c={theme.colors.steel[4]}>
         {timeDisplay}
       </Text>
-    </Box>
+    </Paper>
   );
 };

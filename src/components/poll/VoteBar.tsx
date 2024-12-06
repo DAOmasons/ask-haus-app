@@ -1,4 +1,4 @@
-import { Box, ColorSwatch, Group, Text } from '@mantine/core';
+import { Box, Flex, Group } from '@mantine/core';
 import { stringInPercent } from '../../utils/units';
 
 export const VoteBar = ({
@@ -12,10 +12,9 @@ export const VoteBar = ({
 }) => {
   const percentage = stringInPercent(amount, totalVoted);
   return (
-    <Box mb="xs">
-      <Group mb="6" gap={8}>
-        <ColorSwatch color={color} size={12} />
-        <Group w="95%">
+    <Box w="100%">
+      <Flex w="100%">
+        <Group w="90%">
           <Box
             w={`${percentage}%`}
             h={8}
@@ -26,8 +25,7 @@ export const VoteBar = ({
             }}
           />
         </Group>
-      </Group>
-      <Text fz="xs">{percentage}%</Text>
+      </Flex>
     </Box>
   );
 };

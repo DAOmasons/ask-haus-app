@@ -16,6 +16,7 @@ import { IconExternalLink, IconSearch } from '@tabler/icons-react';
 import { ChoiceInputType } from '../../constants/enum';
 import { Display } from '../Display';
 import { TxButton } from '../TxButton';
+import { charLimit } from '../../utils/helpers';
 
 export const VotePanel = ({
   title,
@@ -135,7 +136,9 @@ export const VotePanel = ({
                         size={16}
                         style={{ transform: 'translateY(2.5px)' }}
                       />
-                      <Text fw={500}>{c.title}</Text>
+                      <Text fw={500} style={{ flex: 1 }}>
+                        {c.title}
+                      </Text>
                     </Group>
                     <Group gap={0}>
                       <Text w={'10%'} fz="sm">
@@ -143,7 +146,7 @@ export const VotePanel = ({
                       </Text>
                       <Box w="90%">
                         <Slider
-                          label={`${c.title} (${currentValue}%)`}
+                          label={`${charLimit(c.title)} (${currentValue}%)`}
                           max={100}
                           min={0}
                           disabled={!isActive}
