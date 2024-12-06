@@ -50,6 +50,8 @@ export const ResultsPanel = ({
     return batchVotes?.find((vote) => vote.voter === address);
   }, [batchVotes, address, hasVoted]);
 
+  console.log('userBatchVote', userBatchVote);
+
   const voteTypeName = useMemo(() => {
     return voteType === VoteType.Poll
       ? ['Poll', 'poll']
@@ -122,10 +124,7 @@ export const ResultsPanel = ({
           />
         )}
         {userBatchVote && topSection === 'Your Vote' && (
-          <YourVote
-            userBatchVote={userBatchVote}
-            totalVoted={totalVoted as string}
-          />
+          <YourVote userBatchVote={userBatchVote} />
         )}
 
         <Text fz="xs" mb="sm">
@@ -178,26 +177,19 @@ export const ResultsPanel = ({
       </Paper>
       <Box>
         <SectionText mb="lg">All Votes</SectionText>
-        {totalVoted &&
-          batchVotes &&
-          batchVotes?.length > 0 &&
-          batchVotes.map((bv) => (
-            <Paper>
-              <UserAllocatedVote totalVoted={totalVoted} userBatchVote={bv} />
-            </Paper>
-          ))}
+        {totalVoted && batchVotes && batchVotes?.length > 0 && (
+          <Stack gap={'lg'}>
+            {batchVotes.map((bv) => (
+              <UserAllocatedVote userBatchVote={bv} />
+            ))}
+          </Stack>
+        )}
       </Box>
     </Stack>
   );
 };
 
-const YourVote = ({
-  totalVoted,
-  userBatchVote,
-}: {
-  totalVoted: string;
-  userBatchVote: BatchVoteFragment;
-}) => {
+const YourVote = ({ userBatchVote }: { userBatchVote: BatchVoteFragment }) => {
   return (
     <Box mb="lg">
       <Box>
@@ -208,7 +200,7 @@ const YourVote = ({
           return (
             <VoteBar
               key={vote.id}
-              totalVoted={totalVoted}
+              totalVoted={userBatchVote.totalVoted}
               amount={vote.amount}
               color={vote?.choice?.color as string}
             />
