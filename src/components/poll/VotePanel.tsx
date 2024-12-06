@@ -135,7 +135,9 @@ export const VotePanel = ({
                         size={16}
                         style={{ transform: 'translateY(2.5px)' }}
                       />
-                      <Text fw={500}>{c.title}</Text>
+                      <Text fw={500} style={{ flex: 1 }}>
+                        {c.title}
+                      </Text>
                     </Group>
                     <Group gap={0}>
                       <Text w={'10%'} fz="sm">
