@@ -16,6 +16,7 @@ import { IconExternalLink, IconSearch } from '@tabler/icons-react';
 import { ChoiceInputType } from '../../constants/enum';
 import { Display } from '../Display';
 import { TxButton } from '../TxButton';
+import { charLimit } from '../../utils/helpers';
 
 export const VotePanel = ({
   title,
@@ -145,7 +146,7 @@ export const VotePanel = ({
                       </Text>
                       <Box w="90%">
                         <Slider
-                          label={`${c.title} (${currentValue}%)`}
+                          label={`${charLimit(c.title)} (${currentValue}%)`}
                           max={100}
                           min={0}
                           disabled={!isActive}
