@@ -3,6 +3,7 @@ import { BatchVoteFragment } from '../generated/graphql';
 import { VoteBar } from './poll/VoteBar';
 import { Bold } from './Typography';
 import { stringInPercent } from '../utils/units';
+import { useMemo } from 'react';
 
 export const VoteBarList = ({
   batchVote,
@@ -10,7 +11,12 @@ export const VoteBarList = ({
   batchVote: BatchVoteFragment;
 }) => {
   const theme = useMantineTheme();
-  return batchVote.votes.map((vote) => (
+
+  const sortedVotes = useMemo(() => {
+    return batchVote.votes.sort((a, b) => b.amount - a.amount);
+  }, [batchVote]);
+
+  return sortedVotes.map((vote) => (
     <Box mb="md" key={`${batchVote.id}`}>
       <Flex align={'center'} mb={4}>
         <ColorSwatch color={vote?.choice?.color as string} size={12} mr="8" />

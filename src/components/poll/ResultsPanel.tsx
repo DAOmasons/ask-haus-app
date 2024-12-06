@@ -108,7 +108,7 @@ export const ResultsPanel = ({
         />
 
         {topSection === 'Total' && batchVotes?.length > 0 && (
-          <Paper>
+          <Paper style={{ border: `1px dashed ${theme.colors.dark[4]}` }}>
             <Text c={theme.colors.steel[2]} mb="md" fw={600}>
               Total Vote Results
             </Text>
@@ -120,7 +120,7 @@ export const ResultsPanel = ({
           </Paper>
         )}
         {userBatchVote && topSection === 'Your Vote' && (
-          <Paper>
+          <Paper style={{ border: `1px dashed ${theme.colors.dark[4]}` }}>
             <Text c={theme.colors.steel[2]} mb="md" fw={600}>
               Your Vote
             </Text>

@@ -6,6 +6,7 @@ import {
 import { VoteBar } from './VoteBar';
 import { Bold } from '../Typography';
 import { stringInPercent } from '../../utils/units';
+import { useMemo } from 'react';
 
 export const TotalResults = ({
   choices,
@@ -17,9 +18,14 @@ export const TotalResults = ({
   batchVotes?: BatchVoteFragment[];
 }) => {
   const theme = useMantineTheme();
-  if (!choices || !batchVotes || !totalVoted) return null;
+  const sortedChoice = useMemo(() => {
+    if (!choices) return;
 
-  return choices.map((choice) => {
+    return choices?.sort((a, b) => b.amountVoted - a.amountVoted);
+  }, [choices]);
+  if (!choices || !batchVotes || !totalVoted || !sortedChoice) return null;
+
+  return sortedChoice.map((choice) => {
     return (
       <Box mb="md">
         <Flex align={'center'} mb={4}>

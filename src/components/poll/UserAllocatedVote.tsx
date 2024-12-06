@@ -41,9 +41,7 @@ export const UserAllocatedVote = ({
           {formatEther(userBatchVote.totalVoted)} Points
         </Text>
       </Group>
-      <Box mb="lg">
-        <VoteBarList batchVote={userBatchVote} />
-      </Box>
+      <VoteBarList batchVote={userBatchVote} />
       <Text fz="xs" c={theme.colors.steel[4]}>
         {timeDisplay}
       </Text>
