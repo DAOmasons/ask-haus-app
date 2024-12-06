@@ -1,20 +1,11 @@
-import {
-  Box,
-  ColorSwatch,
-  Flex,
-  Group,
-  Paper,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
-import { BatchVoteFragment } from '../../generated/graphql';
+import { Address, formatEther } from 'viem';
 import { useEffect, useMemo, useState } from 'react';
+import { Box, Group, Paper, Text, useMantineTheme } from '@mantine/core';
+
+import { BatchVoteFragment } from '../../generated/graphql';
 import { pastRelativeTimeInSeconds } from '../../utils/time';
 import { AddressAvatar } from '../AddressAvatar';
-import { Address, formatEther } from 'viem';
-import { VoteBar } from './VoteBar';
-import { Bold } from '../Typography';
-import { stringInPercent } from '../../utils/units';
+import { VoteBarList } from '../VoteBarList';
 
 export const UserAllocatedVote = ({
   userBatchVote,
@@ -42,10 +33,6 @@ export const UserAllocatedVote = ({
     [userBatchVote, tick]
   );
 
-  const totalVoted = useMemo(() => {
-    return userBatchVote?.totalVoted;
-  }, [userBatchVote]);
-
   return (
     <Paper>
       <Group mb="xl" justify="space-between">
@@ -54,35 +41,8 @@ export const UserAllocatedVote = ({
           {formatEther(userBatchVote.totalVoted)} Points
         </Text>
       </Group>
-      <Box mb="md">
-        {userBatchVote?.votes.map((vote) => {
-          return (
-            <Box mb="sm">
-              <Flex align={'center'} mb={4}>
-                <ColorSwatch
-                  color={vote?.choice?.color as string}
-                  size={12}
-                  mr="8"
-                />
-                <VoteBar
-                  key={vote.id}
-                  totalVoted={totalVoted}
-                  amount={vote.amount}
-                  color={vote?.choice?.color as string}
-                />
-              </Flex>
-              <Flex align={'center'} w="100%">
-                <Text fz="12px" c={theme.colors.steel[4]} lineClamp={1}>
-                  <Bold c={theme.colors.steel[2]}>
-                    {stringInPercent(vote.amount, totalVoted)}%
-                  </Bold>
-                  {' · '}
-                  {vote.choice?.title}
-                </Text>
-              </Flex>
-            </Box>
-          );
-        })}
+      <Box mb="lg">
+        <VoteBarList batchVote={userBatchVote} />
       </Box>
       <Text fz="xs" c={theme.colors.steel[4]}>
         {timeDisplay}
