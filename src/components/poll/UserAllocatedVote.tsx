@@ -35,13 +35,15 @@ export const UserAllocatedVote = ({
 
   return (
     <Paper>
-      <Group mb="xl" justify="space-between">
+      <Group mb="lg" justify="space-between">
         <AddressAvatar address={userBatchVote.voter as Address} canCopy />
         <Text fz="xs" c={theme.colors.steel[4]}>
           {formatEther(userBatchVote.totalVoted)} Points
         </Text>
       </Group>
-      <VoteBarList batchVote={userBatchVote} />
+      <Paper mb="lg" style={{ border: `1px dashed ${theme.colors.dark[4]}` }}>
+        <VoteBarList batchVote={userBatchVote} />
+      </Paper>
       <Text fz="xs" c={theme.colors.steel[4]}>
         {timeDisplay}
       </Text>
