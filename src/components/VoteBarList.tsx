@@ -16,8 +16,11 @@ export const VoteBarList = ({
     return batchVote.votes.sort((a, b) => b.amount - a.amount);
   }, [batchVote]);
 
-  return sortedVotes.map((vote) => (
-    <Box mb="md" key={`${batchVote.id}`}>
+  return sortedVotes.map((vote, index) => (
+    <Box
+      mb={index + 1 === sortedVotes?.length ? undefined : 'md'}
+      key={`${batchVote.id}`}
+    >
       <Flex align={'center'} mb={4}>
         <ColorSwatch color={vote?.choice?.color as string} size={12} mr="8" />
         <VoteBar

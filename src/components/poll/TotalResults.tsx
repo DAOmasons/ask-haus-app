@@ -25,9 +25,9 @@ export const TotalResults = ({
   }, [choices]);
   if (!choices || !batchVotes || !totalVoted || !sortedChoice) return null;
 
-  return sortedChoice.map((choice) => {
+  return sortedChoice.map((choice, index) => {
     return (
-      <Box mb="md">
+      <Box mb={index + 1 === sortedChoice?.length ? undefined : 'md'}>
         <Flex align={'center'} mb={4}>
           <ColorSwatch color={choice.color as string} size={12} mr="8" />
           <VoteBar

@@ -1,6 +1,6 @@
 import { Address, formatEther } from 'viem';
 import { useEffect, useMemo, useState } from 'react';
-import { Box, Group, Paper, Text, useMantineTheme } from '@mantine/core';
+import { Group, Paper, Text, useMantineTheme } from '@mantine/core';
 
 import { BatchVoteFragment } from '../../generated/graphql';
 import { pastRelativeTimeInSeconds } from '../../utils/time';
