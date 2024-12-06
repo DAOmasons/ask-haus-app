@@ -1,7 +1,5 @@
 import {
   Box,
-  ColorSwatch,
-  Group,
   Paper,
   Select,
   Stack,
@@ -16,10 +14,10 @@ import {
 import { useMemo, useState } from 'react';
 import { formatEther } from 'viem';
 import { SectionText } from '../Typography';
-import { VoteBar } from './VoteBar';
 import { TotalResults } from './TotalResults';
 import { UserAllocatedVote } from './UserAllocatedVote';
 import { VoteType } from '../../constants/enum';
+import { VoteBarList } from '../VoteBarList';
 
 export const ResultsPanel = ({
   isActive,
@@ -40,7 +38,7 @@ export const ResultsPanel = ({
   hasVoted?: boolean;
   voteType: VoteType;
 }) => {
-  const [topSection, setTopSection] = useState<string | null>('Results');
+  const [topSection, setTopSection] = useState<string | null>('Total');
 
   const { address } = useAccount();
   const theme = useMantineTheme();
@@ -49,8 +47,6 @@ export const ResultsPanel = ({
     if (!hasVoted || !address || !batchVotes) return null;
     return batchVotes?.find((vote) => vote.voter === address);
   }, [batchVotes, address, hasVoted]);
-
-  console.log('userBatchVote', userBatchVote);
 
   const voteTypeName = useMemo(() => {
     return voteType === VoteType.Poll
@@ -105,75 +101,37 @@ export const ResultsPanel = ({
       {topDisplay}
       <Paper>
         <Select
-          data={hasVoted ? ['Results', 'Your Vote'] : ['Results']}
+          data={hasVoted ? ['Total', 'Your Vote'] : ['Total']}
           value={topSection}
           onChange={(value) => setTopSection(value)}
-          mb="sm"
+          mb="lg"
         />
-        <Text c={theme.colors.steel[2]} mb="lg" fz="sm">
-          {topSection === 'Results'
+
+        {topSection === 'Total' && batchVotes?.length > 0 && (
+          <Paper>
+            <Text c={theme.colors.steel[2]} mb="md" fw={600}>
+              Total Vote Results
+            </Text>
+            <TotalResults
+              choices={choices}
+              totalVoted={totalVoted}
+              batchVotes={batchVotes}
+            />
+          </Paper>
+        )}
+        {userBatchVote && topSection === 'Your Vote' && (
+          <Paper>
+            <Text c={theme.colors.steel[2]} mb="md" fw={600}>
+              Your Vote
+            </Text>
+            <VoteBarList batchVote={userBatchVote} />
+          </Paper>
+        )}
+        <Text c={theme.colors.steel[2]} fz="sm" mt="lg">
+          {topSection === 'Total'
             ? `${batchVotes?.length} voter${batchVotes?.length > 1 ? 's' : ''}, ${totalVoted ? formatEther(BigInt(totalVoted || '0')) + ' points voted' : ''}`
             : `Your Distribution`}
         </Text>
-
-        {topSection === 'Results' && batchVotes?.length > 0 && (
-          <TotalResults
-            choices={choices}
-            totalVoted={totalVoted}
-            batchVotes={batchVotes}
-          />
-        )}
-        {userBatchVote && topSection === 'Your Vote' && (
-          <YourVote userBatchVote={userBatchVote} />
-        )}
-
-        <Text fz="xs" mb="sm">
-          Legend
-        </Text>
-        {choices && batchVotes?.length > 0 ? (
-          <Box>
-            {choices.map((choice) => {
-              return (
-                <Box key={choice.id} mb="sm">
-                  <Group mb={8} gap={'xs'}>
-                    <ColorSwatch color={choice.color as string} size={16} />
-                    <Text fw={500}>{choice.title}</Text>
-                  </Group>
-                  {/* {choice.description && (
-                    <Box mb={8}>
-                      <Text fz="xs" c={theme.colors.steel[4]}>
-                        Description
-                      </Text>
-                      <Text fz="sm" c={theme.colors.steel[2]}>
-                        {choice.description}
-                      </Text>
-                    </Box>
-                  )}
-                  {choice.link && (
-                    <Box mb={8}>
-                      <Text fz="xs" c={theme.colors.steel[4]}>
-                        Link
-                      </Text>
-                      <Text
-                        fz="sm"
-                        component="a"
-                        href={choice.link}
-                        c={theme.colors.steel[2]}
-                        lineClamp={1}
-                      >
-                        {choice.link}
-                      </Text>
-                    </Box>
-                  )} */}
-                </Box>
-              );
-            })}
-          </Box>
-        ) : (
-          <Text fz="sm" c={theme.colors.steel[4]}>
-            No votes yet
-          </Text>
-        )}
       </Paper>
       <Box>
         <SectionText mb="lg">All Votes</SectionText>
@@ -186,27 +144,5 @@ export const ResultsPanel = ({
         )}
       </Box>
     </Stack>
-  );
-};
-
-const YourVote = ({ userBatchVote }: { userBatchVote: BatchVoteFragment }) => {
-  return (
-    <Box mb="lg">
-      <Box>
-        <Text fz="xs" mb="sm">
-          Your Vote
-        </Text>
-        {userBatchVote?.votes.map((vote) => {
-          return (
-            <VoteBar
-              key={vote.id}
-              totalVoted={userBatchVote.totalVoted}
-              amount={vote.amount}
-              color={vote?.choice?.color as string}
-            />
-          );
-        })}
-      </Box>
-    </Box>
   );
 };
