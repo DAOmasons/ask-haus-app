@@ -2,7 +2,9 @@ import { getSdk } from '../generated/graphql';
 import { GraphQLClient } from 'graphql-request';
 
 export const sdk = getSdk(
-  new GraphQLClient('https://indexer.dev.hyperindex.xyz/ec9b3b7/v1/graphql')
+  new GraphQLClient(
+    'https://daomasons-e188121.dedicated.hyperindex.xyz/v1/graphql'
+  )
 );
 
 type PollEnvioParams = {
