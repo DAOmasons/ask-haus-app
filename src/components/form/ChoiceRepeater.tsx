@@ -60,6 +60,16 @@ export const ChoiceRepeater = ({
     setSelectedChoice(null);
     close();
   };
+
+  const handleAdd = () => {
+    setTargetChoice('');
+    onAdd({
+      id: generateRandomBytes32(),
+      title: targetChoice,
+      color: generateRandomHexColor(),
+    });
+  };
+
   return (
     <>
       <Text fw={600} mb={choices.length > 0 ? 'md' : 0}>
@@ -145,19 +155,17 @@ export const ChoiceRepeater = ({
           description="There must be at least two choices"
           value={targetChoice}
           onChange={setTargetChoice}
+          onKeyUp={(event) => {
+            if (event.key === 'Enter' && targetChoice !== '') {
+              handleAdd();
+            }
+          }}
         />
 
         <Group w={'100%'} justify="center">
           <ActionIcon
             radius={999}
-            onClick={() => {
-              setTargetChoice('');
-              onAdd({
-                id: generateRandomBytes32(),
-                title: targetChoice,
-                color: generateRandomHexColor(),
-              });
-            }}
+            onClick={handleAdd}
             disabled={targetChoice === ''}
           >
             <IconPlus size={18} />
