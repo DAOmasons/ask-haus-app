@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Display } from '../components/Display';
 import { CenterLayout } from '../layout/Layout';
+import layoutClasses from '../styles/Layout.module.css';
 import { Box, Stack } from '@mantine/core';
-import { SubTitle } from '../components/Typography';
+import { SubTitle, BigTitle } from '../components/Typography';
 import { VoteCard } from '../components/cards/VoteCard';
 import { getActiveRounds } from '../queries/lists';
 
@@ -26,6 +27,9 @@ export const Live = () => {
   return (
     <CenterLayout>
       <Box w="100%" maw={500} mb="lg">
+        <BigTitle className={layoutClasses.noDesktop} mb="xl">
+          ask.haus
+        </BigTitle>
         <SubTitle mb="lg">Live</SubTitle>
         <Stack>
           {data && data?.length > 0 ? (

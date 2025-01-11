@@ -18,6 +18,7 @@
   font-size: 14.5vw;
   text-shadow: 1vw -1vw #323232;
   line-height: 0.85;
+  margin-top: rem(48px);
 }
 
 .subTitle {
@@ -76,5 +77,18 @@
   }
   100% {
     background-color: var(--mantine-color-steel-2);
+  }
+}
+
+/* Media query for mobile devices (32em or smaller) */
+@media (max-width: 58em) {
+  .bigTitle {
+    color: var(--mantine-color-steel-0);
+    font-weight: 900;
+    letter-spacing: -1.2vw;
+    font-size: 14.5vw;
+    text-shadow: 1vw -1vw #323232;
+    line-height: 0.85;
+    margin-top: rem(16px);
   }
 }

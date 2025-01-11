@@ -9,7 +9,8 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { CenterLayout } from '../layout/Layout';
-import { Bold, SubTitle } from '../components/Typography';
+import layoutClasses from '../styles/Layout.module.css';
+import { Bold, SubTitle, BigTitle } from '../components/Typography';
 import {
   IconChartBar,
   IconQuestionMark,
@@ -24,6 +25,9 @@ export const Ask = () => {
   return (
     <CenterLayout>
       <Box w="100%" maw={500} mb="lg">
+        <BigTitle className={layoutClasses.noDesktop} mb="xl">
+          ask.haus
+        </BigTitle>
         <SubTitle mb="sm">Ask</SubTitle>
         <Text c={colors.steel[2]} fz="sm" mb="xl">
           Choose a vote format and ask your question

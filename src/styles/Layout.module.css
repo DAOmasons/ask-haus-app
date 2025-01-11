@@ -1,15 +1,15 @@
-.desktopFrame {
-  position: relative;
-  width: 65%;
-  min-height: 100vh;
-  padding: rem(32px) rem(64px) 0 rem(64px);
-}
-
 .desktopImg {
   position: fixed;
   right: 0;
   height: 100vh;
   width: 35%;
+}
+
+.appFrame {
+  position: relative;
+  width: 65%;
+  min-height: 100vh;
+  padding: rem(32px) rem(64px) 0 rem(64px);
 }
 
 .centerLayout {
@@ -18,4 +18,31 @@
   align-items: center;
   margin-top: rem(48px);
   margin-bottom: rem(32px);
+}
+
+.noDesktop {
+  display: none;
+}
+
+/* Media query for mobile devices (32em or smaller) */
+@media (max-width: 58em) {
+  .centerLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: rem(32px);
+    padding: 0 rem(16px) 0 rem(16px);
+    width: 100%;
+  }
+
+  .appFrame {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 0 0 0 0;
+  }
+
+  .noDesktop {
+    display: flex;
+  }
 }

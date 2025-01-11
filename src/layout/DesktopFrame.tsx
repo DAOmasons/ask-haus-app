@@ -31,8 +31,8 @@ const getRouteImage = (path: string) => {
 export const DesktopFrame = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   return (
-    <Flex className={layoutClasses.desktopContainer}>
-      <Box className={layoutClasses.desktopFrame}>
+    <Flex>
+      <Box className={layoutClasses.appFrame}>
         <DesktopNav />
         <LinesBg />
         {children}

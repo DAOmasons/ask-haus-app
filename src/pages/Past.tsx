@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { Display } from '../components/Display';
 import { CenterLayout } from '../layout/Layout';
+import layoutClasses from '../styles/Layout.module.css';
 import { Box, Stack } from '@mantine/core';
-import { SubTitle } from '../components/Typography';
+import { SubTitle, BigTitle } from '../components/Typography';
 import { VoteCard } from '../components/cards/VoteCard';
 import { getPastRounds } from '../queries/lists';
 
@@ -32,6 +33,9 @@ export const Past = () => {
   return (
     <CenterLayout>
       <Box w="100%" maw={500} mb="lg">
+        <BigTitle className={layoutClasses.noDesktop} mb="xl">
+          ask.haus
+        </BigTitle>{' '}
         <SubTitle mb="lg">Past</SubTitle>
         <Stack>
           {rounds?.length > 0 ? (
@@ -40,8 +44,8 @@ export const Past = () => {
             })
           ) : (
             <Display
-              title="No Past Rounds"
-              description="There are no past rounds"
+              title="No Past Votes"
+              description="There are no past votes"
             />
           )}
         </Stack>
