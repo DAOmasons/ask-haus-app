@@ -32,8 +32,8 @@ export const Past = () => {
 
   return (
     <CenterLayout>
-      <Box w="100%" maw={500} mb="lg">
-        <BigTitle className={layoutClasses.noDesktop} mb="xl">
+      <Box mb="lg" pl="25px" pr="25px">
+        <BigTitle className={layoutClasses.noDesktop} mb="lg">
           ask.haus
         </BigTitle>{' '}
         <SubTitle mb="lg">Past</SubTitle>

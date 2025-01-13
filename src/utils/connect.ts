@@ -10,6 +10,7 @@ import { createConfig } from 'wagmi';
 
 // derive from env later on
 export const appNetwork = arbitrum;
+console.log(appNetwork);
 
 export const config = getDefaultConfig({
   appName: 'AskHaus',
@@ -20,6 +21,7 @@ export const config = getDefaultConfig({
     [appNetwork.id]: http(import.meta.env.VITE_RPC_URL),
   },
 });
+console.log(config);
 
 export const publicClient = createPublicClient({
   chain: appNetwork,

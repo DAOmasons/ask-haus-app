@@ -24,11 +24,11 @@ export const Ask = () => {
   const navigate = useNavigate();
   return (
     <CenterLayout>
-      <Box w="100%" maw={500} mb="lg">
-        <BigTitle className={layoutClasses.noDesktop} mb="xl">
+      <Box w="100%" maw={500} mb="xl" pl="25px" pr="25px">
+        <BigTitle className={layoutClasses.noDesktop} mb="lg">
           ask.haus
         </BigTitle>
-        <SubTitle mb="sm">Ask</SubTitle>
+        <SubTitle mb="md">Ask</SubTitle>
         <Text c={colors.steel[2]} fz="sm" mb="xl">
           Choose a vote format and ask your question
         </Text>

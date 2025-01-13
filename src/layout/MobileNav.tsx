@@ -7,8 +7,11 @@ import {
   Modal,
   Stack,
   Button,
-  MenuItem,
+  Group,
 } from '@mantine/core';
+import { TextButton } from '../components/Typography';
+import { Notice } from '../components/Notice';
+import { AddressAvatar } from '../components/AddressAvatar';
 import { useClipboard, useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { useState } from 'react';
@@ -16,17 +19,12 @@ import { appNetwork } from '../utils/config';
 import { navItems } from '../constants/navItems';
 import { Link, useLocation } from 'react-router-dom';
 import { useAccount, useConnect, useDisconnect, useSwitchChain } from 'wagmi';
+import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import {
-  IconAward,
   IconChevronUp,
-  IconClock,
   IconCopy,
   IconExclamationCircle,
-  IconExternalLink,
   IconLogout,
-  IconPacman,
-  IconRocket,
-  IconShieldHalf,
   IconUserCircle,
 } from '@tabler/icons-react';
 
@@ -119,7 +117,7 @@ export const MobileNav = () => {
               </Menu.Dropdown>
             </Menu>
           ) : (
-            <Connect />
+            <ConnectButton />
           )}
         </Flex>
       </Box>
@@ -127,30 +125,36 @@ export const MobileNav = () => {
   );
 };
 
-const Connect = () => {
-  const [opened, { open, close }] = useDisclosure(false);
-  const { connectors, connect } = useConnect();
+const ConnectButton = () => {
+  const { address, isConnected } = useAccount();
+  const theme = useMantineTheme();
+  const { openConnectModal } = useConnectModal();
+  const { openAccountModal } = useAccountModal();
+
+  if (isConnected && address) {
+    return (
+      <AddressAvatar
+        address={address}
+        displayPfp={false}
+        onClick={openAccountModal}
+      />
+    );
+  }
+
   return (
-    <>
-      <Flex direction="column" align="center" w="fit-content" onClick={open}>
+    <Group gap={5} align="start">
+      <Flex
+        direction="column"
+        align="center"
+        w="fit-content"
+        onClick={() => {
+          openConnectModal?.();
+        }}
+      >
         <IconUserCircle size={24} />
         <Text size="xs">Connect</Text>
       </Flex>
-      <Modal opened={opened} onClose={close} centered title="Connect Wallet">
-        <Stack>
-          {[...connectors]?.reverse()?.map((connector) => (
-            <Button
-              key={connector.uid}
-              onClick={() => {
-                close();
-                connect({ connector });
-              }}
-            >
-              {connector.name}
-            </Button>
-          ))}
-        </Stack>
-      </Modal>
-    </>
+      <Notice blink content="Connect your wallet" onClick={openConnectModal} />
+    </Group>
   );
 };

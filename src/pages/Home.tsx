@@ -25,10 +25,8 @@ export const Home = () => {
 
   const content = (
     <Box mb="xl">
-      <BigTitle>ask.haus</BigTitle>
-      <SectionText mb="md" mt={65}>
-        Vote Types
-      </SectionText>
+      <BigTitle mb="lg">ask.haus</BigTitle>
+      <SectionText mb="md">Vote Types</SectionText>
       <Group mb="xl">
         <VoteTypeCard
           title="Poll"
