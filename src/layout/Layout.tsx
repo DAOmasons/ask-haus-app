@@ -1,11 +1,19 @@
 import { Box, Group, Text } from '@mantine/core';
 import { DesktopFrame } from './DesktopFrame';
+import { MobileFrame } from './MobileFrame';
 import layoutClasses from '../styles/Layout.module.css';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
+import { useMobile, useTablet } from '../hooks/useBreakpoint';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <DesktopFrame>{children}</DesktopFrame>;
+  const isTablet = useTablet();
+  const isMobile = useMobile() || isTablet;
+  return isMobile ? (
+    <MobileFrame>{children}</MobileFrame>
+  ) : (
+    <DesktopFrame>{children}</DesktopFrame>
+  );
 };
 
 export const CenterLayout = ({ children }: { children: React.ReactNode }) => (

@@ -10,21 +10,23 @@ import { useNavigate } from 'react-router-dom';
 import { getFrontPageVotes } from '../queries/frontPage';
 import { useQuery } from '@tanstack/react-query';
 import { VoteCard } from '../components/cards/VoteCard';
+import { useMobile, useTablet } from '../hooks/useBreakpoint';
+import { CenterLayout } from '../layout/Layout';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const isTablet = useTablet();
+  const isMobile = useMobile() || isTablet;
   const { data } = useQuery({
     queryKey: [`home`],
     queryFn: getFrontPageVotes,
     enabled: true,
   });
 
-  return (
-    <Box mb="xl" mt={48}>
-      <BigTitle>ask.haus</BigTitle>
-      <SectionText mb="md" mt={65}>
-        Vote Types
-      </SectionText>
+  const content = (
+    <Box mb="xl">
+      <BigTitle mb="lg">ask.haus</BigTitle>
+      <SectionText mb="md">Vote Types</SectionText>
       <Group mb="xl">
         <VoteTypeCard
           title="Poll"
@@ -37,15 +39,16 @@ export const Home = () => {
           onClick={() => navigate('/create-contest')}
           // underConstruction
         />
-        <VoteTypeCard
-          title="New Vote Type"
-          Icon={IconQuestionMark}
-          underConstruction
-        />
+        <VoteTypeCard title="TBA" Icon={IconQuestionMark} underConstruction />
       </Group>
-      <Flex align="start" justify="space-between" gap="md">
+      <Flex
+        align="start"
+        justify="space-between"
+        gap="md"
+        direction={isMobile ? 'column' : 'row'}
+      >
         {data?.active && data?.active.length > 0 && (
-          <Box w="50%">
+          <Box w={isMobile ? '100%' : '50%'}>
             <SectionText mb="md">Live Rounds</SectionText>
             <Stack gap="md" mb="xl">
               {data.active.map((vote) => (
@@ -65,8 +68,8 @@ export const Home = () => {
             )}
           </Box>
         )}
-        <Box w="50%">
-          <SectionText mb="md">Past Rounds</SectionText>
+        <Box w={isMobile ? '100%' : '50%'}>
+          <SectionText mb="md">Past Votes</SectionText>
           <Stack gap="md" mb="xl">
             {data?.past &&
               data.past.length > 0 &&
@@ -87,4 +90,6 @@ export const Home = () => {
       </Flex>
     </Box>
   );
+
+  return isMobile ? <CenterLayout>{content}</CenterLayout> : content;
 };
