@@ -1,4 +1,3 @@
-import { HolderType } from '../constants/enum';
 import { sdk } from '../utils/indexer';
 import { Content } from '@tiptap/core';
 
