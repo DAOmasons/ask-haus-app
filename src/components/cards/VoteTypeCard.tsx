@@ -1,6 +1,7 @@
 import { Flex, Paper, Text, Tooltip, useMantineTheme } from '@mantine/core';
 import { Icon } from '@tabler/icons-react';
 import paperClasses from '../../styles/paper.module.css';
+import { useMobile, useTablet } from '../../hooks/useBreakpoint';
 
 export const VoteTypeCard = ({
   Icon,
@@ -14,6 +15,8 @@ export const VoteTypeCard = ({
   underConstruction?: boolean;
 }) => {
   const { colors } = useMantineTheme();
+  const isTablet = useTablet();
+  const isMobile = useMobile() || isTablet;
 
   if (underConstruction) {
     return (
@@ -23,8 +26,10 @@ export const VoteTypeCard = ({
             align="center"
             direction="column"
             justify="center"
-            h={125}
-            w={200}
+            style={{
+              aspectRatio: isMobile ? '1 / 1' : '8 / 5',
+            }}
+            h={isMobile ? '65' : 125}
           >
             <Icon size={48} color={colors.steel[4]} />
             <Text c={colors.steel[4]} mt="xs" fz="sm">
@@ -38,7 +43,15 @@ export const VoteTypeCard = ({
 
   return (
     <Paper onClick={onClick} classNames={{ root: paperClasses.clickable }}>
-      <Flex align="center" direction="column" justify="center" h={125} w={200}>
+      <Flex
+        align="center"
+        direction="column"
+        justify="center"
+        style={{
+          aspectRatio: isMobile ? '1 / 1' : '8 / 5',
+        }}
+        h={isMobile ? 65 : 125}
+      >
         <Icon size={48} color={colors.steel[0]} />
         <Text c={colors.steel[0]} mt="xs" fz="sm">
           {title}
