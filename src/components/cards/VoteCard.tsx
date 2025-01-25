@@ -107,7 +107,13 @@ export const VoteCard = ({
       classNames={{ root: to ? paperClasses.clickable : undefined }}
     >
       <Flex align="start">
-        <Text fw={500} c={colors.steel[0]} mb="sm" style={{ flex: 1 }}>
+        <Text
+          fw={500}
+          lineClamp={2}
+          c={colors.steel[0]}
+          mb="sm"
+          style={{ flex: 1 }}
+        >
           {title}
         </Text>
       </Flex>
