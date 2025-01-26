@@ -13,7 +13,7 @@ export const CreatePoll1 = ({
 }) => {
   return (
     <>
-      <Stack w="100%" maw="500px" miw="350px" mb="xl" gap="lg">
+      <Stack w="80%" maw="500px" miw="350px" mb="xl" gap="lg" pb="xl">
         <Paper>
           <TextInput
             required
@@ -33,8 +33,8 @@ export const CreatePoll1 = ({
               form.values.answerType === 'Single Choice'
                 ? 'Voters allocate 100% of their token on one choice'
                 : form.values.answerType === 'Allocation (%)'
-                  ? 'Voters can choose how much to allocate to each choice'
-                  : 'Choose how voters respond to the poll'
+                ? 'Voters can choose how much to allocate to each choice'
+                : 'Choose how voters respond to the poll'
             }
             {...form.getInputProps('answerType')}
           />
@@ -49,8 +49,8 @@ export const CreatePoll1 = ({
               form.values.tokenType === 'Shares'
                 ? 'Voters can vote with DAO shares (voting token)'
                 : form.values.tokenType === 'Loot'
-                  ? 'Voters can vote with DAO loot (non-voting token)'
-                  : 'Voters can vote with both DAO tokens'
+                ? 'Voters can vote with DAO loot (non-voting token)'
+                : 'Voters can vote with both DAO tokens'
             }
             {...form.getInputProps('tokenType')}
           />
@@ -97,6 +97,7 @@ export const CreatePoll1 = ({
       <Button onClick={advanceForm} disabled={!form.isValid()}>
         Next
       </Button>
+      <div style={{ height: '64px' }}></div>
     </>
   );
 };

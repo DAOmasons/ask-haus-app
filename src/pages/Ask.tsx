@@ -18,13 +18,17 @@ import {
 } from '@tabler/icons-react';
 import paperClasses from '../styles/paper.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useMobile } from '../hooks/useBreakpoint';
 
 export const Ask = () => {
+  const isMobile = useMobile();
+  const iconSize = isMobile ? 100 : 125;
+
   const { colors } = useMantineTheme();
   const navigate = useNavigate();
   return (
     <CenterLayout>
-      <Box w="100%" maw={500} mb="xl" pl="25px" pr="25px">
+      <Box w="80%" maw={500} mb="lg" pl="25px" pr="25px">
         <BigTitle className={layoutClasses.noDesktop} mb="lg">
           ask.haus
         </BigTitle>
@@ -37,13 +41,17 @@ export const Ask = () => {
             classNames={{ root: paperClasses.clickable }}
             onClick={() => navigate('/create-poll')}
           >
-            <Group>
+            <Flex
+              direction={isMobile ? 'column' : 'row'}
+              align="center"
+              justify="space-between"
+            >
               <Flex
                 align="center"
                 direction="column"
                 justify="center"
-                h={125}
-                w={125}
+                h={iconSize}
+                w={iconSize}
               >
                 <IconChartBar size={48} color={colors.steel[2]} />
                 <Text c={colors.steel[2]} mt="xs" fz="sm">
@@ -56,47 +64,82 @@ export const Ask = () => {
                 out what the hell people actually want. Good for meetings,
                 temp-checks, etc.
               </Text>
-            </Group>
+            </Flex>
           </Paper>
 
           <Paper
             classNames={{ root: paperClasses.clickable }}
             onClick={() => navigate('/create-contest')}
           >
-            <Group>
-              <Text c={colors.steel[2]} fz="sm" style={{ flex: 1 }}>
-                The DAO <Bold>members submit their own options</Bold>. Then the
-                DAO votes to decide on the best option. Contests use collective
-                decision making to arrive at the best decision.
-              </Text>
+            {!isMobile && (
               <Flex
+                direction={isMobile ? 'column' : 'row'}
                 align="center"
-                direction="column"
-                justify="center"
-                h={125}
-                w={125}
+                justify="space-between"
               >
-                <IconTrophy size={48} color={colors.steel[2]} />
-                <Text c={colors.steel[2]} mt="xs" fz="sm">
-                  Contest
+                <Text c={colors.steel[2]} fz="sm" style={{ flex: 1 }}>
+                  The DAO <Bold>members submit their own options</Bold>. Then
+                  the DAO votes to decide on the best option. Contests use
+                  collective decision making to arrive at the best decision.
                 </Text>
-              </Flex>
-            </Group>
-          </Paper>
-
-          <Tooltip label="Under Construction">
-            <Paper>
-              <Group>
                 <Flex
                   align="center"
                   direction="column"
                   justify="center"
-                  h={125}
-                  w={125}
+                  h={iconSize}
+                  w={iconSize}
+                >
+                  <IconTrophy size={48} color={colors.steel[2]} />
+                  <Text c={colors.steel[2]} mt="xs" fz="sm">
+                    Contest
+                  </Text>
+                </Flex>
+              </Flex>
+            )}
+            {isMobile && (
+              <Flex
+                direction={isMobile ? 'column' : 'row'}
+                align="center"
+                justify="space-between"
+              >
+                <Flex
+                  align="center"
+                  direction="column"
+                  justify="center"
+                  h={iconSize}
+                  w={iconSize}
+                >
+                  <IconTrophy size={48} color={colors.steel[2]} />
+                  <Text c={colors.steel[2]} mt="xs" fz="sm">
+                    Contest
+                  </Text>
+                </Flex>
+                <Text c={colors.steel[2]} fz="sm" style={{ flex: 1 }}>
+                  The DAO <Bold>members submit their own options</Bold>. Then
+                  the DAO votes to decide on the best option. Contests use
+                  collective decision making to arrive at the best decision.
+                </Text>
+              </Flex>
+            )}
+          </Paper>
+
+          <Tooltip label="Under Construction">
+            <Paper>
+              <Flex
+                direction={isMobile ? 'column' : 'row'}
+                align="center"
+                justify="space-between"
+              >
+                <Flex
+                  align="center"
+                  direction="column"
+                  justify="center"
+                  h={iconSize}
+                  w={iconSize}
                 >
                   <IconQuestionMark size={48} color={colors.steel[4]} />
                   <Text c={colors.steel[4]} mt="xs" fz="sm">
-                    New Vote Type
+                    New Type
                   </Text>
                 </Flex>
                 <Text c={colors.steel[4]} fz="sm" style={{ flex: 1 }}>
@@ -105,7 +148,7 @@ export const Ask = () => {
                   The goal for the PublicHaus community is to use Contest and
                   Polls to decide on what we will build next.
                 </Text>
-              </Group>
+              </Flex>
             </Paper>
           </Tooltip>
         </Stack>

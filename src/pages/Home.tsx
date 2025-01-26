@@ -12,19 +12,22 @@ import { useQuery } from '@tanstack/react-query';
 import { VoteCard } from '../components/cards/VoteCard';
 import { useMobile, useTablet } from '../hooks/useBreakpoint';
 import { CenterLayout } from '../layout/Layout';
+import { FeedSkeletonCard } from '../layout/Skeletons';
 
 export const Home = () => {
   const navigate = useNavigate();
   const isTablet = useTablet();
   const isMobile = useMobile() || isTablet;
-  const { data } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: [`home`],
     queryFn: getFrontPageVotes,
     enabled: true,
   });
 
-  const content = (
-    <Box mb="xl">
+  const HomeWrapper: React.FC<{ children?: React.ReactNode }> = ({
+    children,
+  }) => (
+    <Box mb="xl" w="100%" pl="25px" pr="25px">
       <BigTitle mb="lg">ask.haus</BigTitle>
       <SectionText mb="md">Vote Types</SectionText>
       <Group mb="xl">
@@ -37,7 +40,6 @@ export const Home = () => {
           title="Contest"
           Icon={IconTrophy}
           onClick={() => navigate('/create-contest')}
-          // underConstruction
         />
         <VoteTypeCard title="TBA" Icon={IconQuestionMark} underConstruction />
       </Group>
@@ -47,8 +49,39 @@ export const Home = () => {
         gap="md"
         direction={isMobile ? 'column' : 'row'}
       >
+        {children}
+      </Flex>
+    </Box>
+  );
+
+  let content = <></>;
+
+  if (isLoading) {
+    content = (
+      <HomeWrapper>
+        <Box w={isMobile ? '100%' : '50%'} maw={500}>
+          <SectionText mb="md">Live Rounds</SectionText>
+          <Stack>
+            <FeedSkeletonCard />
+            <FeedSkeletonCard />
+            <FeedSkeletonCard />
+          </Stack>
+        </Box>
+        <Box w={isMobile ? '100%' : '50%'} maw={500}>
+          <SectionText mb="md">Past Votes</SectionText>
+          <Stack>
+            <FeedSkeletonCard />
+            <FeedSkeletonCard />
+            <FeedSkeletonCard />
+          </Stack>
+        </Box>
+      </HomeWrapper>
+    );
+  } else {
+    content = (
+      <HomeWrapper>
         {data?.active && data?.active.length > 0 && (
-          <Box w={isMobile ? '100%' : '50%'}>
+          <Box w={isMobile ? '100%' : '50%'} maw={500}>
             <SectionText mb="md">Live Rounds</SectionText>
             <Stack gap="md" mb="xl">
               {data.active.map((vote) => (
@@ -68,7 +101,7 @@ export const Home = () => {
             )}
           </Box>
         )}
-        <Box w={isMobile ? '100%' : '50%'}>
+        <Box w={isMobile ? '100%' : '50%'} maw={500}>
           <SectionText mb="md">Past Votes</SectionText>
           <Stack gap="md" mb="xl">
             {data?.past &&
@@ -87,9 +120,9 @@ export const Home = () => {
             </Group>
           )}
         </Box>
-      </Flex>
-    </Box>
-  );
+      </HomeWrapper>
+    );
+  }
 
   return isMobile ? <CenterLayout>{content}</CenterLayout> : content;
 };

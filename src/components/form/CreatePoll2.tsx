@@ -5,11 +5,11 @@ import {
   Textarea,
   TextInput,
   useMantineTheme,
-} from "@mantine/core";
-import { ChoiceRepeater } from "./ChoiceRepeater";
-import { CreatePoll2Values } from "../../schema/form/create";
-import { TxButton } from "../TxButton";
-import { FormChoice } from "../../types/ui";
+} from '@mantine/core';
+import { ChoiceRepeater } from './ChoiceRepeater';
+import { CreatePoll2Values } from '../../schema/form/create';
+import { TxButton } from '../TxButton';
+import { FormChoice } from '../../types/ui';
 
 export const CreatePoll2 = ({
   form,
@@ -24,19 +24,19 @@ export const CreatePoll2 = ({
   const theme = useMantineTheme();
 
   const handleAddChoice = (choice: FormChoice) => {
-    form.setFieldValue("choices", [...form.values.choices, choice]);
+    form.setFieldValue('choices', [...form.values.choices, choice]);
   };
 
   const handleDeleteChoice = (choice: FormChoice) => {
     form.setFieldValue(
-      "choices",
+      'choices',
       form.values.choices.filter((c) => c.id !== choice.id)
     );
   };
 
   const handleEditChoice = (choice: FormChoice) => {
     form.setFieldValue(
-      "choices",
+      'choices',
       form.values.choices.map((c) => {
         if (c.id === choice.id) {
           return choice;
@@ -48,7 +48,7 @@ export const CreatePoll2 = ({
 
   const handleColorChange = (choice: FormChoice) => {
     form.setFieldValue(
-      "choices",
+      'choices',
       form.values.choices.map((c) => {
         if (c.id === choice.id) {
           return choice;
@@ -76,7 +76,7 @@ export const CreatePoll2 = ({
             placeholder="Optional."
             maxRows={10}
             description="Optional. Provide additional context about the poll."
-            {...form.getInputProps("description")}
+            {...form.getInputProps('description')}
           />
         </Paper>
         <Paper>
@@ -84,7 +84,7 @@ export const CreatePoll2 = ({
             label="Poll Link"
             placeholder="https://optional.com"
             description="Optional. Share a link with voters."
-            {...form.getInputProps("pollLink")}
+            {...form.getInputProps('pollLink')}
           />
         </Paper>
         {lessThanTwoChoices === true && (
@@ -96,6 +96,7 @@ export const CreatePoll2 = ({
       <TxButton onClick={handleSubmit} disabled={lessThanTwoChoices === true}>
         Create Poll
       </TxButton>
+      <div style={{ height: '64px' }}></div>
     </>
   );
 };
