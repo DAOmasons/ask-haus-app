@@ -3,19 +3,12 @@ import { useState } from 'react';
 import { Display } from '../components/Display';
 import { CenterLayout } from '../layout/Layout';
 import layoutClasses from '../styles/Layout.module.css';
-import {
-  Box,
-  Chip,
-  Flex,
-  Stack,
-  Tooltip,
-  useMantineTheme,
-} from '@mantine/core';
+import { Box, Chip, Flex, Stack, useMantineTheme } from '@mantine/core';
 import { SubTitle, BigTitle } from '../components/Typography';
 import { IconChartBar, IconTrophy } from '@tabler/icons-react';
 import { VoteCard } from '../components/cards/VoteCard';
-import { getPastRounds } from '../queries/lists';
 import { FeedSkeletonCard } from '../layout/Skeletons';
+import { getPastRounds } from '../queries/lists';
 
 export const Past = () => {
   const [showPolls, setShowPolls] = useState(true);
@@ -36,31 +29,29 @@ export const Past = () => {
     children,
   }) => (
     <CenterLayout>
-      <Box w="80%" maw={500} mb="lg" pl="25px" pr="25px">
+      <Box w="100%" maw={500} mb="lg" pl="25px" pr="25px">
         <BigTitle className={layoutClasses.noDesktop} mb="lg">
           ask.haus
         </BigTitle>{' '}
-        <Flex justify="space-between" align="center" w="100%">
-          <SubTitle mb="lg">Past</SubTitle>
+        <Flex justify="space-between" align="flex-end" w="100%" mb="md">
+          <SubTitle>Past</SubTitle>
           <Flex gap="sm">
-            <Tooltip label="toggle show polls">
-              <Chip
-                variant="outline"
-                checked={showPolls}
-                onChange={() => setShowPolls((prev) => !prev)}
-              >
-                <IconChartBar size={14} color={colors.steel[4]} />
-              </Chip>
-            </Tooltip>
-            <Tooltip label="toggle show contest">
-              <Chip
-                variant="outline"
-                checked={showContests}
-                onChange={() => setShowContests((prev) => !prev)}
-              >
-                <IconTrophy size={14} color={colors.steel[4]} />
-              </Chip>
-            </Tooltip>
+            <Chip
+              variant="outline"
+              checked={showPolls}
+              color={colors.steel[3]}
+              onChange={() => setShowPolls((prev) => !prev)}
+            >
+              <IconChartBar size={14} color={colors.steel[4]} />
+            </Chip>
+            <Chip
+              variant="outline"
+              checked={showContests}
+              color={colors.steel[3]}
+              onChange={() => setShowContests((prev) => !prev)}
+            >
+              <IconTrophy size={14} color={colors.steel[4]} />
+            </Chip>
           </Flex>
         </Flex>
         {children}

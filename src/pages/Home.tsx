@@ -18,7 +18,7 @@ export const Home = () => {
   const navigate = useNavigate();
   const isTablet = useTablet();
   const isMobile = useMobile() || isTablet;
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: [`home`],
     queryFn: getFrontPageVotes,
     enabled: true,
@@ -40,7 +40,6 @@ export const Home = () => {
           title="Contest"
           Icon={IconTrophy}
           onClick={() => navigate('/create-contest')}
-          // underConstruction
         />
         <VoteTypeCard title="TBA" Icon={IconQuestionMark} underConstruction />
       </Group>

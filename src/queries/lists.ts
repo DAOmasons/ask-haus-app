@@ -52,69 +52,80 @@ export const getPastRounds = async ({
   }
 };
 
-export const getActiveRounds = async () => {
+export const getActiveRounds = async ({
+  showPolls,
+  showContests,
+}: {
+  showPolls: boolean;
+  showContests: boolean;
+}) => {
   try {
     const now = Math.floor(Date.now() / 1000);
     const data = await sdk.liveRounds({ now, dao: ADDR.DAO });
+    let livePolls: VoteCardType[] = [];
+    let liveContests: VoteCardType[] = [];
 
-    const liveContests = [
-      ...(data?.votingContests.map((contest) => ({
-        id: contest.id,
-        to: `/contest/${contest.id}`,
-        title: contest.title,
-        postedBy: contest.postedBy,
-        startTime: contest.votesParams?.startTime,
-        endTime: contest.votesParams?.endTime,
-        duration: contest.votesParams?.duration,
-        description: contest.description,
-        pollLink: contest.link,
-        voteType: VoteType.Contest,
-        voteStage: VoteStage.Voting,
-      })) || []),
-      ...(data?.populatingContests?.map((contest) => ({
-        id: contest.id,
-        to: `/contest/${contest.id}`,
-        title: contest.title,
-        postedBy: contest.postedBy,
-        startTime: contest.choicesParams?.startTime,
-        endTime: contest.choicesParams?.endTime,
-        duration: contest.votesParams?.duration,
-        description: contest.description,
-        pollLink: contest.link,
-        voteType: VoteType.Contest,
-        voteStage: VoteStage.Populating,
-      })) || []),
-      ...(data?.upcomingContests?.map((contest) => ({
-        id: contest.id,
-        to: `/contest/${contest.id}`,
-        title: contest.title,
-        postedBy: contest.postedBy,
-        startTime: contest.choicesParams?.startTime,
-        endTime: contest.choicesParams?.endTime,
-        duration: contest.votesParams?.duration,
-        description: contest.description,
-        pollLink: contest.link,
-        voteType: VoteType.Contest,
-        voteStage: VoteStage.Populating,
-      })) || []),
-    ] as VoteCardType[];
+    if (showContests) {
+      liveContests = [
+        ...(data?.votingContests.map((contest) => ({
+          id: contest.id,
+          to: `/contest/${contest.id}`,
+          title: contest.title,
+          postedBy: contest.postedBy,
+          startTime: contest.votesParams?.startTime,
+          endTime: contest.votesParams?.endTime,
+          duration: contest.votesParams?.duration,
+          description: contest.description,
+          pollLink: contest.link,
+          voteType: VoteType.Contest,
+          voteStage: VoteStage.Voting,
+        })) || []),
+        ...(data?.populatingContests?.map((contest) => ({
+          id: contest.id,
+          to: `/contest/${contest.id}`,
+          title: contest.title,
+          postedBy: contest.postedBy,
+          startTime: contest.choicesParams?.startTime,
+          endTime: contest.choicesParams?.endTime,
+          duration: contest.votesParams?.duration,
+          description: contest.description,
+          pollLink: contest.link,
+          voteType: VoteType.Contest,
+          voteStage: VoteStage.Populating,
+        })) || []),
+        ...(data?.upcomingContests?.map((contest) => ({
+          id: contest.id,
+          to: `/contest/${contest.id}`,
+          title: contest.title,
+          postedBy: contest.postedBy,
+          startTime: contest.choicesParams?.startTime,
+          endTime: contest.choicesParams?.endTime,
+          duration: contest.votesParams?.duration,
+          description: contest.description,
+          pollLink: contest.link,
+          voteType: VoteType.Contest,
+          voteStage: VoteStage.Populating,
+        })) || []),
+      ] as VoteCardType[];
+    }
 
-    const livePolls = [
-      ...(data?.activePolls || []),
-      ...(data?.upcomingPolls || []),
-    ].map((poll) => ({
-      id: poll.id,
-      to: `/poll/${poll.id}`,
-      title: poll.title,
-      postedBy: poll.postedBy,
-      startTime: poll.votesParams?.startTime,
-      endTime: poll.votesParams?.endTime,
-      duration: poll.votesParams?.duration,
-      description: poll.description || undefined,
-      pollLink: poll.pollLink || undefined,
-      voteType: VoteType.Poll,
-    }));
-
+    if (showPolls) {
+      livePolls = [
+        ...(data?.activePolls || []),
+        ...(data?.upcomingPolls || []),
+      ].map((poll) => ({
+        id: poll.id,
+        to: `/poll/${poll.id}`,
+        title: poll.title,
+        postedBy: poll.postedBy,
+        startTime: poll.votesParams?.startTime,
+        endTime: poll.votesParams?.endTime,
+        duration: poll.votesParams?.duration,
+        description: poll.description || undefined,
+        pollLink: poll.pollLink || undefined,
+        voteType: VoteType.Poll,
+      }));
+    }
     return [...liveContests, ...livePolls].sort(
       (a, b) => b.startTime - a.startTime
     );

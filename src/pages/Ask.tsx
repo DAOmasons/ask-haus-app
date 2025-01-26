@@ -28,7 +28,7 @@ export const Ask = () => {
   const navigate = useNavigate();
   return (
     <CenterLayout>
-      <Box w="80%" mb="lg" pl="25px" pr="25px">
+      <Box w="80%" maw={500} mb="lg" pl="25px" pr="25px">
         <BigTitle className={layoutClasses.noDesktop} mb="lg">
           ask.haus
         </BigTitle>
